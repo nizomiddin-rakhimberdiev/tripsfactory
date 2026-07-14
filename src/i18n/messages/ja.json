@@ -1,0 +1,105 @@
+{
+  "nav": {
+    "home": "ホーム",
+    "tours": "ツアー",
+    "destinations": "目的地",
+    "guide": "旅行ガイド",
+    "excursions": "エクスカーション",
+    "premium": "プレミアム",
+    "about": "会社概要",
+    "contact": "お問い合わせ"
+  },
+  "home": {
+    "heroTitle": "シルクロードの中心を発見する",
+    "heroSubtitle": "ウズベキスタンと中央アジアのグループツアー・プライベートツアー — 現地の専門家がご案内します。",
+    "heroCta": "ツアーを見る",
+    "featuredTours": "おすすめツアー",
+    "whyUs": "TripsFactoryが選ばれる理由",
+    "whyLocal": "現地の専門知識",
+    "whyLocalText": "ウズベキスタン生まれの私たちは、シルクロードの隅々まで知り尽くしています。",
+    "whyGuaranteed": "催行保証",
+    "whyGuaranteedText": "お客様お一人でもツアーは必ず催行されます。",
+    "whyTailored": "オーダーメイドの旅",
+    "whyTailoredText": "すべての旅程はご希望に合わせてカスタマイズ可能です。",
+    "exploreDestinations": "目的地を探す"
+  },
+  "tours": {
+    "title": "ツアー一覧",
+    "days": "{count}日間",
+    "from": "料金",
+    "perPerson": "お一人様",
+    "type_group": "グループツアー",
+    "type_private": "プライベートツアー",
+    "type_custom": "カスタムツアー",
+    "viewDetails": "詳細を見る",
+    "itinerary": "旅程",
+    "day": "{number}日目",
+    "included": "料金に含まれるもの",
+    "excluded": "含まれないもの",
+    "departures": "出発日と料金",
+    "date": "日付",
+    "price": "料金",
+    "status": "状況",
+    "available": "予約可能",
+    "guaranteed": "催行確定",
+    "soldout": "満席",
+    "singleSupplement": "一人部屋追加料金",
+    "bookNow": "予約リクエスト",
+    "approxPrice": "約",
+    "billedInUsd": "すべてのお支払いは米ドル建てです。",
+    "relatedTours": "おすすめの関連ツアー",
+    "cities": "都市"
+  },
+  "destinations": {
+    "title": "目的地",
+    "countries": "国",
+    "citiesTitle": "訪れるべき都市",
+    "recommendedStay": "おすすめ滞在日数",
+    "nights": "{count}泊",
+    "topAttractions": "主な見どころ",
+    "toursIn": "{country}のツアー"
+  },
+  "guide": { "title": "旅行ガイド" },
+  "premium": {
+    "navLabel": "プレミアム",
+    "heroTitle": "非日常の、その先へ",
+    "heroSubtitle": "中央アジアを巡るプライベートジャーニー。特別な旅を求める方のために。",
+    "cta": "旅を始める",
+    "onRequest": "料金はお問い合わせください",
+    "concierge": "パーソナルコンシェルジュ",
+    "conciergeText": "専属のトラベルキュレーターが24時間対応いたします。",
+    "access": "特別アクセス",
+    "accessText": "閉館後の遺跡見学、プライベート工房や邸宅への訪問。",
+    "stays": "極上の滞在",
+    "staysText": "ブティックレジデンスとシルクロード随一のホテル。",
+    "enquire": "プライベートなお問い合わせ"
+  },
+  "form": {
+    "title": "このツアーをリクエスト",
+    "name": "氏名",
+    "email": "メールアドレス",
+    "phone": "電話 / WhatsApp / Telegram",
+    "date": "ご希望の開始日",
+    "pax": "参加人数",
+    "message": "メッセージ",
+    "submit": "リクエストを送信",
+    "sending": "送信中…",
+    "success": "ありがとうございます。24時間以内にご連絡いたします。",
+    "error": "エラーが発生しました。再度お試しいただくか、直接メールでご連絡ください。"
+  },
+  "footer": {
+    "tagline": "シルクロードへの入り口。",
+    "destinations": "目的地",
+    "company": "会社情報",
+    "followUs": "フォローする",
+    "rights": "無断転載を禁じます。"
+  },
+  "about": {
+    "title": "TripsFactoryについて",
+    "text": "TripsFactoryはタシケントに拠点を置くツアーオペレーターで、ウズベキスタンおよび中央アジアのグループ旅行・個人旅行を専門としています。現地専門家チームが、シルクロードの象徴的な名所と、知られざる本物の体験を組み合わせた旅をデザインします。"
+  },
+  "contact": {
+    "title": "お問い合わせ",
+    "subtitle": "ご旅行についてお聞かせください。24時間以内に返信いたします。"
+  }
+}

@@ -1,0 +1,105 @@
+{
+  "nav": {
+    "home": "Home",
+    "tours": "Tours",
+    "destinations": "Destinations",
+    "guide": "Travel Guide",
+    "excursions": "Excursions",
+    "premium": "Premium",
+    "about": "About Us",
+    "contact": "Contact"
+  },
+  "home": {
+    "heroTitle": "Discover the Heart of the Silk Road",
+    "heroSubtitle": "Group and private tours across Uzbekistan and Central Asia — crafted by local experts.",
+    "heroCta": "Explore Tours",
+    "featuredTours": "Featured Tours",
+    "whyUs": "Why TripsFactory",
+    "whyLocal": "Local Expertise",
+    "whyLocalText": "Born in Uzbekistan, we know every corner of the Silk Road.",
+    "whyGuaranteed": "Guaranteed Departures",
+    "whyGuaranteedText": "Your tour runs even if you are the only traveler.",
+    "whyTailored": "Tailor-Made Trips",
+    "whyTailoredText": "Every itinerary can be customized to your wishes.",
+    "exploreDestinations": "Explore Destinations"
+  },
+  "tours": {
+    "title": "Our Tours",
+    "days": "{count} days",
+    "from": "from",
+    "perPerson": "per person",
+    "type_group": "Group Tour",
+    "type_private": "Private Tour",
+    "type_custom": "Custom Tour",
+    "viewDetails": "View Details",
+    "itinerary": "Itinerary",
+    "day": "Day {number}",
+    "included": "What's Included",
+    "excluded": "Not Included",
+    "departures": "Departure Dates & Prices",
+    "date": "Date",
+    "price": "Price",
+    "status": "Status",
+    "available": "Available",
+    "guaranteed": "Guaranteed",
+    "soldout": "Sold Out",
+    "singleSupplement": "Single supplement",
+    "bookNow": "Request Booking",
+    "approxPrice": "approx.",
+    "billedInUsd": "All payments are billed in US dollars.",
+    "relatedTours": "You May Also Like",
+    "cities": "Cities"
+  },
+  "destinations": {
+    "title": "Destinations",
+    "countries": "Countries",
+    "citiesTitle": "Cities to Explore",
+    "recommendedStay": "Recommended stay",
+    "nights": "{count} nights",
+    "topAttractions": "Top Attractions",
+    "toursIn": "Tours in {country}"
+  },
+  "guide": { "title": "Travel Guide" },
+  "premium": {
+    "navLabel": "Premium",
+    "heroTitle": "Beyond the Ordinary",
+    "heroSubtitle": "Private journeys through Central Asia, curated for those who travel differently.",
+    "cta": "Begin Your Journey",
+    "onRequest": "Price on request",
+    "concierge": "Personal Concierge",
+    "conciergeText": "A dedicated travel curator available around the clock.",
+    "access": "Private Access",
+    "accessText": "After-hours visits to monuments, private ateliers and residences.",
+    "stays": "Exceptional Stays",
+    "staysText": "Boutique residences and the finest hotels of the Silk Road.",
+    "enquire": "Enquire Privately"
+  },
+  "form": {
+    "title": "Request This Tour",
+    "name": "Full Name",
+    "email": "Email",
+    "phone": "Phone / WhatsApp / Telegram",
+    "date": "Preferred start date",
+    "pax": "Number of travelers",
+    "message": "Your message",
+    "submit": "Send Request",
+    "sending": "Sending…",
+    "success": "Thank you! We will contact you within 24 hours.",
+    "error": "Something went wrong. Please try again or email us directly."
+  },
+  "footer": {
+    "tagline": "Your gateway to the Silk Road.",
+    "destinations": "Destinations",
+    "company": "Company",
+    "followUs": "Follow Us",
+    "rights": "All rights reserved."
+  },
+  "about": {
+    "title": "About TripsFactory",
+    "text": "TripsFactory is a Tashkent-based tour operator specializing in group and private travel across Uzbekistan and Central Asia. Our team of local experts designs journeys that combine iconic Silk Road landmarks with authentic, off-the-beaten-path experiences."
+  },
+  "contact": {
+    "title": "Contact Us",
+    "subtitle": "Tell us about your trip — we reply within 24 hours."
+  }
+}

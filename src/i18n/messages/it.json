@@ -1,0 +1,105 @@
+{
+  "nav": {
+    "home": "Home",
+    "tours": "Tour",
+    "destinations": "Destinazioni",
+    "guide": "Guida di viaggio",
+    "excursions": "Escursioni",
+    "premium": "Premium",
+    "about": "Chi siamo",
+    "contact": "Contatti"
+  },
+  "home": {
+    "heroTitle": "Scoprite il cuore della Via della Seta",
+    "heroSubtitle": "Tour di gruppo e privati in Uzbekistan e Asia Centrale — creati da esperti locali.",
+    "heroCta": "Esplora i tour",
+    "featuredTours": "Tour in evidenza",
+    "whyUs": "Perché TripsFactory",
+    "whyLocal": "Competenza locale",
+    "whyLocalText": "Nati in Uzbekistan, conosciamo ogni angolo della Via della Seta.",
+    "whyGuaranteed": "Partenze garantite",
+    "whyGuaranteedText": "Il tour si svolge anche se siete l'unico viaggiatore.",
+    "whyTailored": "Viaggi su misura",
+    "whyTailoredText": "Ogni itinerario può essere personalizzato secondo i vostri desideri.",
+    "exploreDestinations": "Esplora le destinazioni"
+  },
+  "tours": {
+    "title": "I nostri tour",
+    "days": "{count} giorni",
+    "from": "da",
+    "perPerson": "a persona",
+    "type_group": "Tour di gruppo",
+    "type_private": "Tour privato",
+    "type_custom": "Tour su misura",
+    "viewDetails": "Dettagli",
+    "itinerary": "Itinerario",
+    "day": "Giorno {number}",
+    "included": "Incluso nel prezzo",
+    "excluded": "Non incluso",
+    "departures": "Date di partenza e prezzi",
+    "date": "Data",
+    "price": "Prezzo",
+    "status": "Stato",
+    "available": "Disponibile",
+    "guaranteed": "Garantita",
+    "soldout": "Esaurito",
+    "singleSupplement": "Supplemento singola",
+    "bookNow": "Richiedi prenotazione",
+    "approxPrice": "circa",
+    "billedInUsd": "Tutti i pagamenti sono fatturati in dollari USA.",
+    "relatedTours": "Potrebbe piacervi anche",
+    "cities": "Città"
+  },
+  "destinations": {
+    "title": "Destinazioni",
+    "countries": "Paesi",
+    "citiesTitle": "Città da esplorare",
+    "recommendedStay": "Soggiorno consigliato",
+    "nights": "{count} notti",
+    "topAttractions": "Attrazioni principali",
+    "toursIn": "Tour in {country}"
+  },
+  "guide": { "title": "Guida di viaggio" },
+  "premium": {
+    "navLabel": "Premium",
+    "heroTitle": "Oltre l'ordinario",
+    "heroSubtitle": "Viaggi privati in Asia Centrale, curati per chi viaggia in modo diverso.",
+    "cta": "Inizia il viaggio",
+    "onRequest": "Prezzo su richiesta",
+    "concierge": "Concierge personale",
+    "conciergeText": "Un curatore di viaggio dedicato, disponibile a ogni ora.",
+    "access": "Accesso privato",
+    "accessText": "Visite ai monumenti a porte chiuse, atelier privati e residenze.",
+    "stays": "Soggiorni eccezionali",
+    "staysText": "Residenze boutique e i migliori hotel della Via della Seta.",
+    "enquire": "Richiesta riservata"
+  },
+  "form": {
+    "title": "Richiedi questo tour",
+    "name": "Nome completo",
+    "email": "Email",
+    "phone": "Telefono / WhatsApp / Telegram",
+    "date": "Data di inizio preferita",
+    "pax": "Numero di viaggiatori",
+    "message": "Il vostro messaggio",
+    "submit": "Invia richiesta",
+    "sending": "Invio in corso…",
+    "success": "Grazie! Vi contatteremo entro 24 ore.",
+    "error": "Qualcosa è andato storto. Riprovate o scriveteci direttamente."
+  },
+  "footer": {
+    "tagline": "La vostra porta sulla Via della Seta.",
+    "destinations": "Destinazioni",
+    "company": "Azienda",
+    "followUs": "Seguiteci",
+    "rights": "Tutti i diritti riservati."
+  },
+  "about": {
+    "title": "Chi è TripsFactory",
+    "text": "TripsFactory è un tour operator con sede a Tashkent, specializzato in viaggi di gruppo e privati in Uzbekistan e Asia Centrale. Il nostro team di esperti locali progetta itinerari che uniscono i monumenti iconici della Via della Seta a esperienze autentiche lontano dai percorsi battuti."
+  },
+  "contact": {
+    "title": "Contattateci",
+    "subtitle": "Raccontateci il vostro viaggio — rispondiamo entro 24 ore."
+  }
+}

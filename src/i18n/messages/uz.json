@@ -1,0 +1,105 @@
+{
+  "nav": {
+    "home": "Bosh sahifa",
+    "tours": "Turlar",
+    "destinations": "Yo'nalishlar",
+    "guide": "Sayohat qo'llanmasi",
+    "excursions": "Ekskursiyalar",
+    "premium": "Premium",
+    "about": "Biz haqimizda",
+    "contact": "Aloqa"
+  },
+  "home": {
+    "heroTitle": "Buyuk Ipak yo'lining yuragini kashf eting",
+    "heroSubtitle": "O'zbekiston va Markaziy Osiyo bo'ylab guruh va individual turlar — mahalliy mutaxassislardan.",
+    "heroCta": "Turlarni ko'rish",
+    "featuredTours": "Tanlangan turlar",
+    "whyUs": "Nega TripsFactory",
+    "whyLocal": "Mahalliy tajriba",
+    "whyLocalText": "O'zbekistonda tug'ilganmiz — Ipak yo'lining har burchagini bilamiz.",
+    "whyGuaranteed": "Kafolatlangan jo'nashlar",
+    "whyGuaranteedText": "Yolg'iz sayohatchi bo'lsangiz ham tur amalga oshadi.",
+    "whyTailored": "Individual sayohatlar",
+    "whyTailoredText": "Har bir marshrut xohishingizga moslashtiriladi.",
+    "exploreDestinations": "Yo'nalishlarni ko'rish"
+  },
+  "tours": {
+    "title": "Bizning turlar",
+    "days": "{count} kun",
+    "from": "narxi",
+    "perPerson": "kishi boshiga",
+    "type_group": "Guruh turi",
+    "type_private": "Individual tur",
+    "type_custom": "Buyurtma tur",
+    "viewDetails": "Batafsil",
+    "itinerary": "Marshrut",
+    "day": "{number}-kun",
+    "included": "Narxga kiradi",
+    "excluded": "Narxga kirmaydi",
+    "departures": "Jo'nash sanalari va narxlar",
+    "date": "Sana",
+    "price": "Narx",
+    "status": "Holat",
+    "available": "Mavjud",
+    "guaranteed": "Kafolatlangan",
+    "soldout": "Sotilgan",
+    "singleSupplement": "Yakka joylashuv qo'shimchasi",
+    "bookNow": "Band qilish so'rovi",
+    "approxPrice": "taxminan",
+    "billedInUsd": "Barcha to'lovlar AQSH dollarida amalga oshiriladi.",
+    "relatedTours": "Sizga yoqishi mumkin",
+    "cities": "Shaharlar"
+  },
+  "destinations": {
+    "title": "Yo'nalishlar",
+    "countries": "Davlatlar",
+    "citiesTitle": "Shaharlar",
+    "recommendedStay": "Tavsiya etilgan muddat",
+    "nights": "{count} kecha",
+    "topAttractions": "Asosiy diqqatga sazovor joylar",
+    "toursIn": "{country} bo'yicha turlar"
+  },
+  "guide": { "title": "Sayohat qo'llanmasi" },
+  "premium": {
+    "navLabel": "Premium",
+    "heroTitle": "Oddiylikdan yuksakda",
+    "heroSubtitle": "Markaziy Osiyo bo'ylab shaxsiy sayohatlar — boshqacha sayohat qiladiganlar uchun.",
+    "cta": "Sayohatni boshlang",
+    "onRequest": "Narx so'rov bo'yicha",
+    "concierge": "Shaxsiy konsyerj",
+    "conciergeText": "Kunu tun xizmatingizda bo'lgan shaxsiy sayohat kuratori.",
+    "access": "Yopiq eshiklar ortida",
+    "accessText": "Yodgorliklarga ish vaqtidan tashqari tashriflar, shaxsiy ustaxonalar va qarorgohlar.",
+    "stays": "Alohida qarorgohlar",
+    "staysText": "Boutique-qarorgohlar va Ipak yo'lining eng yaxshi mehmonxonalari.",
+    "enquire": "Maxfiy so'rov yuborish"
+  },
+  "form": {
+    "title": "Ushbu turga so'rov",
+    "name": "To'liq ism",
+    "email": "Email",
+    "phone": "Telefon / WhatsApp / Telegram",
+    "date": "Boshlash sanasi",
+    "pax": "Sayohatchilar soni",
+    "message": "Xabaringiz",
+    "submit": "So'rov yuborish",
+    "sending": "Yuborilmoqda…",
+    "success": "Rahmat! 24 soat ichida siz bilan bog'lanamiz.",
+    "error": "Xatolik yuz berdi. Qayta urinib ko'ring yoki bizga to'g'ridan-to'g'ri yozing."
+  },
+  "footer": {
+    "tagline": "Ipak yo'liga ochilgan darvozangiz.",
+    "destinations": "Yo'nalishlar",
+    "company": "Kompaniya",
+    "followUs": "Bizni kuzating",
+    "rights": "Barcha huquqlar himoyalangan."
+  },
+  "about": {
+    "title": "TripsFactory haqida",
+    "text": "TripsFactory — Toshkentda joylashgan, O'zbekiston va Markaziy Osiyo bo'ylab guruh hamda individual sayohatlarga ixtisoslashgan tur operatori. Mahalliy mutaxassislar jamoamiz Ipak yo'lining mashhur yodgorliklarini haqiqiy, kam ma'lum tajribalar bilan uyg'unlashtirgan sayohatlarni loyihalaydi."
+  },
+  "contact": {
+    "title": "Biz bilan bog'laning",
+    "subtitle": "Sayohatingiz haqida yozing — 24 soat ichida javob beramiz."
+  }
+}

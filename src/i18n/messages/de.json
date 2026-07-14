@@ -1,0 +1,105 @@
+{
+  "nav": {
+    "home": "Startseite",
+    "tours": "Touren",
+    "destinations": "Reiseziele",
+    "guide": "Reiseführer",
+    "excursions": "Ausflüge",
+    "premium": "Premium",
+    "about": "Über uns",
+    "contact": "Kontakt"
+  },
+  "home": {
+    "heroTitle": "Entdecken Sie das Herz der Seidenstraße",
+    "heroSubtitle": "Gruppen- und Privatreisen durch Usbekistan und Zentralasien — gestaltet von lokalen Experten.",
+    "heroCta": "Touren entdecken",
+    "featuredTours": "Ausgewählte Touren",
+    "whyUs": "Warum TripsFactory",
+    "whyLocal": "Lokale Expertise",
+    "whyLocalText": "In Usbekistan geboren, kennen wir jeden Winkel der Seidenstraße.",
+    "whyGuaranteed": "Garantierte Abfahrten",
+    "whyGuaranteedText": "Ihre Tour findet statt — auch wenn Sie der einzige Reisende sind.",
+    "whyTailored": "Maßgeschneiderte Reisen",
+    "whyTailoredText": "Jede Route kann an Ihre Wünsche angepasst werden.",
+    "exploreDestinations": "Reiseziele entdecken"
+  },
+  "tours": {
+    "title": "Unsere Touren",
+    "days": "{count} Tage",
+    "from": "ab",
+    "perPerson": "pro Person",
+    "type_group": "Gruppenreise",
+    "type_private": "Privatreise",
+    "type_custom": "Individuelle Reise",
+    "viewDetails": "Details ansehen",
+    "itinerary": "Reiseverlauf",
+    "day": "Tag {number}",
+    "included": "Im Preis enthalten",
+    "excluded": "Nicht enthalten",
+    "departures": "Termine & Preise",
+    "date": "Datum",
+    "price": "Preis",
+    "status": "Status",
+    "available": "Verfügbar",
+    "guaranteed": "Garantiert",
+    "soldout": "Ausgebucht",
+    "singleSupplement": "Einzelzimmerzuschlag",
+    "bookNow": "Buchung anfragen",
+    "approxPrice": "ca.",
+    "billedInUsd": "Alle Zahlungen erfolgen in US-Dollar.",
+    "relatedTours": "Das könnte Ihnen auch gefallen",
+    "cities": "Städte"
+  },
+  "destinations": {
+    "title": "Reiseziele",
+    "countries": "Länder",
+    "citiesTitle": "Städte",
+    "recommendedStay": "Empfohlene Aufenthaltsdauer",
+    "nights": "{count} Nächte",
+    "topAttractions": "Top-Sehenswürdigkeiten",
+    "toursIn": "Touren in {country}"
+  },
+  "guide": { "title": "Reiseführer" },
+  "premium": {
+    "navLabel": "Premium",
+    "heroTitle": "Jenseits des Gewöhnlichen",
+    "heroSubtitle": "Private Reisen durch Zentralasien — kuratiert für alle, die anders reisen.",
+    "cta": "Ihre Reise beginnt",
+    "onRequest": "Preis auf Anfrage",
+    "concierge": "Persönlicher Concierge",
+    "conciergeText": "Ein persönlicher Reisekurator, rund um die Uhr erreichbar.",
+    "access": "Exklusiver Zugang",
+    "accessText": "Besuche von Monumenten nach Schließung, private Ateliers und Residenzen.",
+    "stays": "Außergewöhnliche Unterkünfte",
+    "staysText": "Boutique-Residenzen und die besten Hotels der Seidenstraße.",
+    "enquire": "Diskret anfragen"
+  },
+  "form": {
+    "title": "Diese Tour anfragen",
+    "name": "Vollständiger Name",
+    "email": "E-Mail",
+    "phone": "Telefon / WhatsApp / Telegram",
+    "date": "Gewünschtes Startdatum",
+    "pax": "Anzahl der Reisenden",
+    "message": "Ihre Nachricht",
+    "submit": "Anfrage senden",
+    "sending": "Wird gesendet…",
+    "success": "Vielen Dank! Wir melden uns innerhalb von 24 Stunden.",
+    "error": "Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut oder schreiben Sie uns direkt."
+  },
+  "footer": {
+    "tagline": "Ihr Tor zur Seidenstraße.",
+    "destinations": "Reiseziele",
+    "company": "Unternehmen",
+    "followUs": "Folgen Sie uns",
+    "rights": "Alle Rechte vorbehalten."
+  },
+  "about": {
+    "title": "Über TripsFactory",
+    "text": "TripsFactory ist ein Reiseveranstalter aus Taschkent, spezialisiert auf Gruppen- und Privatreisen durch Usbekistan und Zentralasien. Unser Team lokaler Experten gestaltet Reisen, die ikonische Stätten der Seidenstraße mit authentischen Erlebnissen abseits der ausgetretenen Pfade verbinden."
+  },
+  "contact": {
+    "title": "Kontaktieren Sie uns",
+    "subtitle": "Erzählen Sie uns von Ihrer Reise — wir antworten innerhalb von 24 Stunden."
+  }
+}

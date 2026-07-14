@@ -1,0 +1,105 @@
+{
+  "nav": {
+    "home": "Inicio",
+    "tours": "Tours",
+    "destinations": "Destinos",
+    "guide": "Guía de viaje",
+    "excursions": "Excursiones",
+    "premium": "Premium",
+    "about": "Sobre nosotros",
+    "contact": "Contacto"
+  },
+  "home": {
+    "heroTitle": "Descubra el corazón de la Ruta de la Seda",
+    "heroSubtitle": "Tours en grupo y privados por Uzbekistán y Asia Central — diseñados por expertos locales.",
+    "heroCta": "Ver tours",
+    "featuredTours": "Tours destacados",
+    "whyUs": "Por qué TripsFactory",
+    "whyLocal": "Experiencia local",
+    "whyLocalText": "Nacidos en Uzbekistán, conocemos cada rincón de la Ruta de la Seda.",
+    "whyGuaranteed": "Salidas garantizadas",
+    "whyGuaranteedText": "Su tour se realiza aunque sea el único viajero.",
+    "whyTailored": "Viajes a medida",
+    "whyTailoredText": "Cada itinerario puede personalizarse según sus deseos.",
+    "exploreDestinations": "Explorar destinos"
+  },
+  "tours": {
+    "title": "Nuestros tours",
+    "days": "{count} días",
+    "from": "desde",
+    "perPerson": "por persona",
+    "type_group": "Tour en grupo",
+    "type_private": "Tour privado",
+    "type_custom": "Tour a medida",
+    "viewDetails": "Ver detalles",
+    "itinerary": "Itinerario",
+    "day": "Día {number}",
+    "included": "Incluido en el precio",
+    "excluded": "No incluido",
+    "departures": "Fechas de salida y precios",
+    "date": "Fecha",
+    "price": "Precio",
+    "status": "Estado",
+    "available": "Disponible",
+    "guaranteed": "Garantizada",
+    "soldout": "Agotado",
+    "singleSupplement": "Suplemento individual",
+    "bookNow": "Solicitar reserva",
+    "approxPrice": "aprox.",
+    "billedInUsd": "Todos los pagos se facturan en dólares estadounidenses.",
+    "relatedTours": "También le puede interesar",
+    "cities": "Ciudades"
+  },
+  "destinations": {
+    "title": "Destinos",
+    "countries": "Países",
+    "citiesTitle": "Ciudades",
+    "recommendedStay": "Estancia recomendada",
+    "nights": "{count} noches",
+    "topAttractions": "Principales atracciones",
+    "toursIn": "Tours en {country}"
+  },
+  "guide": { "title": "Guía de viaje" },
+  "premium": {
+    "navLabel": "Premium",
+    "heroTitle": "Más allá de lo ordinario",
+    "heroSubtitle": "Viajes privados por Asia Central, creados para quienes viajan de otra manera.",
+    "cta": "Comience su viaje",
+    "onRequest": "Precio a consultar",
+    "concierge": "Conserje personal",
+    "conciergeText": "Un curador de viajes dedicado, disponible las 24 horas.",
+    "access": "Acceso privado",
+    "accessText": "Visitas a monumentos fuera de horario, talleres privados y residencias.",
+    "stays": "Alojamientos excepcionales",
+    "staysText": "Residencias boutique y los mejores hoteles de la Ruta de la Seda.",
+    "enquire": "Consulta privada"
+  },
+  "form": {
+    "title": "Solicitar este tour",
+    "name": "Nombre completo",
+    "email": "Correo electrónico",
+    "phone": "Teléfono / WhatsApp / Telegram",
+    "date": "Fecha de inicio preferida",
+    "pax": "Número de viajeros",
+    "message": "Su mensaje",
+    "submit": "Enviar solicitud",
+    "sending": "Enviando…",
+    "success": "¡Gracias! Le contactaremos en un plazo de 24 horas.",
+    "error": "Algo salió mal. Inténtelo de nuevo o escríbanos directamente."
+  },
+  "footer": {
+    "tagline": "Su puerta a la Ruta de la Seda.",
+    "destinations": "Destinos",
+    "company": "Empresa",
+    "followUs": "Síganos",
+    "rights": "Todos los derechos reservados."
+  },
+  "about": {
+    "title": "Sobre TripsFactory",
+    "text": "TripsFactory es un operador turístico con sede en Taskent, especializado en viajes en grupo y privados por Uzbekistán y Asia Central. Nuestro equipo de expertos locales diseña viajes que combinan los monumentos icónicos de la Ruta de la Seda con experiencias auténticas fuera de los circuitos habituales."
+  },
+  "contact": {
+    "title": "Contáctenos",
+    "subtitle": "Cuéntenos sobre su viaje — respondemos en 24 horas."
+  }
+}

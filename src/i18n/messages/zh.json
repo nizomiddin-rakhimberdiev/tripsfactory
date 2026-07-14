@@ -1,0 +1,105 @@
+{
+  "nav": {
+    "home": "首页",
+    "tours": "旅游线路",
+    "destinations": "目的地",
+    "guide": "旅行指南",
+    "excursions": "一日游",
+    "premium": "尊享",
+    "about": "关于我们",
+    "contact": "联系我们"
+  },
+  "home": {
+    "heroTitle": "探索丝绸之路的心脏",
+    "heroSubtitle": "乌兹别克斯坦及中亚的团队游与私人定制游 — 由当地专家精心打造。",
+    "heroCta": "浏览线路",
+    "featuredTours": "精选线路",
+    "whyUs": "为什么选择 TripsFactory",
+    "whyLocal": "本地专业团队",
+    "whyLocalText": "我们生于乌兹别克斯坦，熟知丝绸之路的每一个角落。",
+    "whyGuaranteed": "保证出团",
+    "whyGuaranteedText": "即使只有您一位旅客，行程也照常出发。",
+    "whyTailored": "量身定制",
+    "whyTailoredText": "每条线路都可以根据您的意愿定制。",
+    "exploreDestinations": "探索目的地"
+  },
+  "tours": {
+    "title": "旅游线路",
+    "days": "{count}天",
+    "from": "起价",
+    "perPerson": "每人",
+    "type_group": "团队游",
+    "type_private": "私人游",
+    "type_custom": "定制游",
+    "viewDetails": "查看详情",
+    "itinerary": "行程安排",
+    "day": "第{number}天",
+    "included": "费用包含",
+    "excluded": "费用不含",
+    "departures": "出发日期与价格",
+    "date": "日期",
+    "price": "价格",
+    "status": "状态",
+    "available": "可预订",
+    "guaranteed": "保证出团",
+    "soldout": "已售罄",
+    "singleSupplement": "单房差",
+    "bookNow": "预订咨询",
+    "approxPrice": "约",
+    "billedInUsd": "所有款项均以美元结算。",
+    "relatedTours": "您可能还喜欢",
+    "cities": "城市"
+  },
+  "destinations": {
+    "title": "目的地",
+    "countries": "国家",
+    "citiesTitle": "值得探索的城市",
+    "recommendedStay": "建议停留",
+    "nights": "{count}晚",
+    "topAttractions": "主要景点",
+    "toursIn": "{country}旅游线路"
+  },
+  "guide": { "title": "旅行指南" },
+  "premium": {
+    "navLabel": "尊享",
+    "heroTitle": "超越寻常",
+    "heroSubtitle": "穿越中亚的私人旅程，为与众不同的旅行者精心策划。",
+    "cta": "开启旅程",
+    "onRequest": "价格面议",
+    "concierge": "私人礼宾",
+    "conciergeText": "专属旅行策划师全天候为您服务。",
+    "access": "专属通道",
+    "accessText": "闭馆后的古迹参观、私人工坊与宅邸探访。",
+    "stays": "非凡住宿",
+    "staysText": "精品宅邸与丝绸之路最优质的酒店。",
+    "enquire": "私密咨询"
+  },
+  "form": {
+    "title": "咨询此线路",
+    "name": "姓名",
+    "email": "电子邮箱",
+    "phone": "电话 / WhatsApp / Telegram",
+    "date": "期望出发日期",
+    "pax": "出行人数",
+    "message": "留言",
+    "submit": "发送咨询",
+    "sending": "发送中…",
+    "success": "感谢您！我们将在24小时内与您联系。",
+    "error": "出错了，请重试或直接发邮件联系我们。"
+  },
+  "footer": {
+    "tagline": "您通往丝绸之路的大门。",
+    "destinations": "目的地",
+    "company": "公司",
+    "followUs": "关注我们",
+    "rights": "版权所有。"
+  },
+  "about": {
+    "title": "关于 TripsFactory",
+    "text": "TripsFactory 是一家总部位于塔什干的旅行社，专注于乌兹别克斯坦及中亚的团队游与私人定制游。我们的本地专家团队设计的行程，将丝绸之路的标志性名胜与原汁原味的深度体验相结合。"
+  },
+  "contact": {
+    "title": "联系我们",
+    "subtitle": "告诉我们您的旅行计划 — 我们将在24小时内回复。"
+  }
+}
