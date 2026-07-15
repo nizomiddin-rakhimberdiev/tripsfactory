@@ -15,7 +15,7 @@ export default async function GuideIndexPage({
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations("guide");
-  const guideList = await getGuides();
+  const guideList = await getGuides(undefined, locale);
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-12">

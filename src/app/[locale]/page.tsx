@@ -13,15 +13,15 @@ export default async function HomePage({
   setRequestLocale(locale);
   const t = await getTranslations("home");
   const [featured, countryList] = await Promise.all([
-    getTours({ featuredOnly: true }),
-    getPublishedCountries(),
+    getTours({ featuredOnly: true }, locale),
+    getPublishedCountries(locale),
   ]);
 
   return (
     <>
       <section className="relative flex min-h-[70vh] items-center justify-center overflow-hidden">
         <Image
-          src="https://images.unsplash.com/photo-1571417904596-3151d0a03c05?w=2000"
+          src="https://images.unsplash.com/photo-1596306499317-8490232098fa?w=2000"
           alt=""
           fill
           priority

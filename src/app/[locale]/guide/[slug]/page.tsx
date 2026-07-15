@@ -17,8 +17,8 @@ export async function generateMetadata({
 }: {
   params: Promise<Params>;
 }) {
-  const { slug } = await params;
-  const guide = await getGuide(slug);
+  const { locale, slug } = await params;
+  const guide = await getGuide(slug, locale);
   if (!guide) return {};
   return { title: guide.title, description: guide.sections[0]?.body };
 }
@@ -30,7 +30,7 @@ export default async function GuidePage({
 }) {
   const { locale, slug } = await params;
   setRequestLocale(locale);
-  const guide = await getGuide(slug);
+  const guide = await getGuide(slug, locale);
   if (!guide) notFound();
 
   return (

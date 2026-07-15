@@ -17,8 +17,8 @@ export default async function DestinationsPage({
   setRequestLocale(locale);
   const t = await getTranslations("destinations");
   const [regionList, countryList] = await Promise.all([
-    getRegions(),
-    getPublishedCountries(),
+    getRegions(locale),
+    getPublishedCountries(locale),
   ]);
 
   return (

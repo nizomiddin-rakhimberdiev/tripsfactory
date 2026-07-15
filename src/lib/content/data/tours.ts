@@ -88,7 +88,7 @@ export const tours: Tour[] = [
       "Personal expenses and tips",
     ],
     heroImage:
-      "https://images.unsplash.com/photo-1571417904596-3151d0a03c05?w=1600",
+      "https://images.unsplash.com/photo-1596306499317-8490232098fa?w=1600",
     gallery: [],
     featured: true,
     published: true,
@@ -150,7 +150,7 @@ export const tours: Tour[] = [
     ],
     excluded: ["International flights", "Insurance", "Meals not listed"],
     heroImage:
-      "https://images.unsplash.com/photo-1664120043264-5e73e2fb50a2?w=1600",
+      "https://images.unsplash.com/photo-1564507592333-c60657eea523?w=1600",
     gallery: [],
     featured: true,
     published: true,
@@ -218,7 +218,7 @@ export const tours: Tour[] = [
     ],
     excluded: ["International flights", "Insurance", "Most meals"],
     heroImage:
-      "https://images.unsplash.com/photo-1655310990002-11989bd7c917?w=1600",
+      "https://images.unsplash.com/photo-1590069261209-f8e9b8642343?w=1600",
     gallery: [],
     featured: false,
     published: true,

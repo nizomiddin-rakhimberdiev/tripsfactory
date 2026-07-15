@@ -15,7 +15,7 @@ export const countries: Country[] = [
     intro:
       "The heart of the Silk Road: turquoise domes of Samarkand, the living museum city of Khiva, holy Bukhara and the vibrant capital Tashkent. Uzbekistan combines two and a half millennia of history with legendary hospitality, delicious cuisine and remarkable affordability.",
     heroImage:
-      "https://images.unsplash.com/photo-1571417904596-3151d0a03c05?w=1600",
+      "https://images.unsplash.com/photo-1596306499317-8490232098fa?w=1600",
     published: true,
   },
   {
@@ -25,7 +25,7 @@ export const countries: Country[] = [
     intro:
       "Celestial mountains, nomad yurts and alpine lakes — Kyrgyzstan is Central Asia's wild, hospitable outdoors.",
     heroImage:
-      "https://images.unsplash.com/photo-1601379329542-31c59347e2f6?w=1600",
+      "https://images.unsplash.com/photo-1519677100203-a0e668c92439?w=1600",
     published: false,
   },
   {
@@ -101,7 +101,7 @@ export const cities: City[] = [
       "Bibi-Khanym Mosque",
       "Ulugbek Observatory",
     ],
-    image: "https://images.unsplash.com/photo-1571417904596-3151d0a03c05?w=1200",
+    image: "https://images.unsplash.com/photo-1596306499317-8490232098fa?w=1200",
   },
   {
     slug: "bukhara",
@@ -117,7 +117,7 @@ export const cities: City[] = [
       "Trading Domes",
       "Sitorai Mokhi-Khosa Palace",
     ],
-    image: "https://images.unsplash.com/photo-1664120043264-5e73e2fb50a2?w=1200",
+    image: "https://images.unsplash.com/photo-1564507592333-c60657eea523?w=1200",
   },
   {
     slug: "khiva",
@@ -133,7 +133,7 @@ export const cities: City[] = [
       "Islam Khodja Minaret",
       "Tash Hauli Palace",
     ],
-    image: "https://images.unsplash.com/photo-1655310990002-11989bd7c917?w=1200",
+    image: "https://images.unsplash.com/photo-1590069261209-f8e9b8642343?w=1200",
   },
   {
     slug: "shakhrisabz",

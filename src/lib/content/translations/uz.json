@@ -1,0 +1,189 @@
+{
+  "regions": {
+    "central-asia": { "name": "Markaziy Osiyo" },
+    "east-asia": { "name": "Sharqiy Osiyo" },
+    "middle-east": { "name": "Yaqin Sharq" },
+    "southeast-asia": { "name": "Janubi-Sharqiy Osiyo" }
+  },
+  "countries": {
+    "uzbekistan": {
+      "name": "O'zbekiston",
+      "intro": "Buyuk Ipak yo'lining yuragi: Samarqandning feruza gumbazlari, ochiq osmon ostidagi muzey shahri Xiva, muqaddas Buxoro va jo'shqin poytaxt Toshkent. O'zbekiston ikki yarim ming yillik tarixni afsonaviy mehmondo'stlik, mazali taomlar va hamyonbop narxlar bilan uyg'unlashtiradi."
+    }
+  },
+  "cities": {
+    "tashkent": {
+      "intro": "Markaziy Osiyoning eng yirik shahri sovet modernizmi, bezakli metro bekatlari, ko'kalamzor xiyobonlar va Chorsu bozori atrofidagi eski shaharni o'zida uyg'unlashtiradi.",
+      "attractions": [
+        "Hazrati Imom majmuasi va Usmon Qur'oni",
+        "Chorsu bozori",
+        "Toshkent metrosining bezakli bekatlari",
+        "Amir Temur maydoni",
+        "Amaliy san'at muzeyi"
+      ]
+    },
+    "samarkand": {
+      "intro": "Amir Temur poytaxti va Ipak yo'lining eng mashhur ramzi — Registonning uch madrasasi feruza va oltin ranglarda tovlanadi.",
+      "attractions": [
+        "Registon maydoni",
+        "Shohizinda maqbaralari",
+        "Go'ri Amir maqbarasi",
+        "Bibixonim masjidi",
+        "Ulug'bek rasadxonasi"
+      ]
+    },
+    "bukhara": {
+      "intro": "140 ta muhofaza etilgan yodgorlikka ega muqaddas shahar — savdo gumbazlari, madrasalar va karvonsaroylar 500 yil davomida deyarli o'zgarmagan ko'chalarni bezab turibdi.",
+      "attractions": [
+        "Poi Kalon majmuasi",
+        "Ark qal'asi",
+        "Labihovuz maydoni",
+        "Savdo gumbazlari",
+        "Sitorai Mohi Xosa saroyi"
+      ]
+    },
+    "khiva": {
+      "intro": "Ochiq osmon ostidagi muzey: devor bilan o'ralgan Ichan Qal'a minoralar, madrasalar va paxsa ko'chalardan iborat labirint bo'lib, uni quyosh botishida kezish ayniqsa maroqli.",
+      "attractions": [
+        "Ichan Qal'a devorlari",
+        "Kalta Minor minorasi",
+        "Ko'hna Ark qal'asi",
+        "Islomxo'ja minorasi",
+        "Toshhovli saroyi"
+      ]
+    },
+    "shakhrisabz": {
+      "intro": "Samarqanddan tog'lar osha joylashgan Amir Temurning ona shahri — bu yerda uning ulkan Oqsaroy saroyi xarobalari saqlanib qolgan.",
+      "attractions": ["Oqsaroy saroyi", "Dorut Tilovat", "Ko'k Gumbaz masjidi"]
+    },
+    "fergana-valley": {
+      "intro": "O'zbekiston hunarmandchiligining yuragi: Marg'ilonda ipak to'qish, Rishtonda kulolchilik va mamlakatning eng serhosil bog'lari.",
+      "attractions": [
+        "Yodgorlik ipak fabrikasi (Marg'ilon)",
+        "Rishton kulolchilik ustaxonalari",
+        "Qo'qon Xon saroyi"
+      ]
+    }
+  },
+  "tours": {
+    "classic-uzbekistan-group-tour": {
+      "title": "Klassik O'zbekiston guruh turi",
+      "summary": "Eng mashhur hamrohlik turimiz: qadimiy Xiva, Buxoro va Samarqand shaharlari hamda zamonaviy poytaxt Toshkent — kafolatlangan jo'nashlar bilan 8 kunlik uzluksiz sayohat.",
+      "itinerary": [
+        { "title": "Toshkentga kelish", "description": "Aeroportda kutib olish, mehmonxonaga joylashish va dam olish. Kechqurun ixtiyoriy ravishda Amir Temur maydoni bo'ylab sayr." },
+        { "title": "Toshkent bo'ylab sayohat", "description": "VII asrga oid Usmon Qur'oni saqlanadigan Hazrati Imom majmuasi, Chorsu bozori, Amaliy san'at muzeyi va mashhur bezakli metro bekatlari." },
+        { "title": "Urganchga parvoz — Xiva", "description": "Ertalabki parvoz va Ichan Qal'a bo'ylab to'liq kunlik piyoda sayohat: Kalta Minor, Ko'hna Ark, Toshhovli saroyi va shahar devorlaridan quyosh botishini tomosha qilish." },
+        { "title": "Xiva → Buxoro", "description": "Amudaryo bo'ylab Qizilqum cho'lini kesib o'tish. Kechqurun Buxoroga yetib kelish, sobiq madrasa hovlisida kechki ovqat." },
+        { "title": "Buxoro eski shahri", "description": "Poi Kalon majmuasi, Ark qal'asi, savdo gumbazlari va Labihovuz; yakunda Nodir Devonbegi madrasasida folklor tomoshasi." },
+        { "title": "Buxoro → Samarqand", "description": "Sitorai Mohi Xosa yozgi saroyiga to'xtab Samarqandga yo'l olamiz. Tushdan keyin Amir Temur maqbarasi — Go'ri Amirga tashrif." },
+        { "title": "Samarqand durdonalari", "description": "Registon maydoni, Bibixonim masjidi, Shohizinda maqbaralari va Siyob bozori; kechqurun Afrosiyob tezyurar poyezdida Toshkentga qaytish." },
+        { "title": "Jo'nab ketish", "description": "Toshkent aeroportiga transfer." }
+      ],
+      "included": [
+        "Ikki kishilik xonada nonushta bilan 7 kecha",
+        "Dastur bo'yicha barcha transferlar va transport",
+        "Toshkent–Urganch ichki parvozi",
+        "Samarqand–Toshkent Afrosiyob tezyurar poyezdi",
+        "Ingliz tilida so'zlashuvchi mahalliy gidlar",
+        "Ro'yxatdagi barcha obyektlarga kirish chiptalari",
+        "Viza uchun taklifnoma (zarur bo'lsa)"
+      ],
+      "excluded": [
+        "Xalqaro parvozlar",
+        "Sayohat sug'urtasi",
+        "Tushlik va kechki ovqatlar (ikki milliy taom bundan mustasno)",
+        "Shaxsiy xarajatlar va choychaqalar"
+      ]
+    },
+    "uzbekistan-highlights-private-tour": {
+      "title": "O'zbekiston durdonalari — individual tur",
+      "summary": "Samarqand, Buxoro va Toshkent — shaxsiy gid va haydovchi bilan o'z maromingizda; yilning istalgan kunida boshlash mumkin.",
+      "itinerary": [
+        { "title": "Toshkentga kelish", "description": "Aeroportda shaxsiy kutib olish, shahar bilan tanishuv sayri." },
+        { "title": "Toshkent → Samarqand", "description": "Ertalabki Afrosiyob poyezdi; tushdan keyin Registon va Go'ri Amir." },
+        { "title": "Samarqand chuqurroq", "description": "Shohizinda, Bibixonim, Ulug'bek rasadxonasi va Konigil qishlog'idagi qog'oz ustaxonasi." },
+        { "title": "Samarqand → Buxoro", "description": "Buxoroga poyezd; kechqurun gidingiz tavsiyalari bilan Labihovuz atrofida sayr." },
+        { "title": "Buxoro eski shahri", "description": "Ark, Poi Kalon va savdo gumbazlari bo'ylab to'liq kunlik sayohat, ipak va ziravorlar tatib ko'rish bilan." },
+        { "title": "Qaytish va jo'nash", "description": "Toshkentga poyezd va aeroportga transfer." }
+      ],
+      "included": [
+        "Nonushta bilan 5 kecha",
+        "Shaxsiy gid va haydovchi",
+        "Barcha poyezd chiptalari",
+        "Kirish chiptalari"
+      ],
+      "excluded": ["Xalqaro parvozlar", "Sug'urta", "Ro'yxatda yo'q ovqatlar"]
+    },
+    "uzbekistan-winter-group-tour": {
+      "title": "O'zbekiston qishki guruh turi",
+      "summary": "O'sha afsonaviy shaharlar — olomonsiz va mavsumiy narxlarda. Xiva, Buxoro va Samarqand tiniq moviy qish osmoni ostida.",
+      "itinerary": [
+        { "title": "Toshkentga kelish", "description": "Aeroportdan transfer va dam olish kuni." },
+        { "title": "Toshkent bo'ylab sayohat", "description": "Hazrati Imom, Chorsu bozori va metro sayri." },
+        { "title": "Xivaga parvoz", "description": "Ichan Qal'a bo'ylab piyoda kun." },
+        { "title": "Cho'l yo'li — Buxoroga", "description": "Choy tanaffuslari bilan Qizilqumni kesib o'tish." },
+        { "title": "Buxoro", "description": "Eski shahar yodgorliklari va kechqurun palov masterklassi." },
+        { "title": "Samarqandga", "description": "Sitorai Mohi Xosa saroyi orqali." },
+        { "title": "Samarqand", "description": "Registon, Shohizinda va Siyob bozori; poyezdda qaytish." },
+        { "title": "Jo'nab ketish", "description": "Aeroportga transfer." }
+      ],
+      "included": [
+        "Nonushta bilan 7 kecha",
+        "Dastur bo'yicha barcha transport",
+        "Gidlar va kirish chiptalari",
+        "Palov masterklassi"
+      ],
+      "excluded": ["Xalqaro parvozlar", "Sug'urta", "Ko'pchilik ovqatlar"]
+    },
+    "silk-road-residences": {
+      "title": "Ipak yo'li qarorgohlari",
+      "summary": "O'zbekiston bo'ylab o'n kun — boutique-qarorgohlar va qayta tiklangan savdogar uylarida, Registonga ish vaqtidan tashqari kirish, shaxsiy hunarmand ustaxonalari va butun safar davomida shaxsiy konsyerj bilan.",
+      "itinerary": [
+        { "title": "Kelish — Toshkent", "description": "Tezlashtirilgan kutib olish, shaxsiy transfer va taniqli o'zbek oshpazi tayyorlagan tomdagi tantanali kechki ovqat." },
+        { "title": "Toshkent — alohida tarzda", "description": "Amaliy san'at muzeyi kolleksiyalari faqat siz uchun ochiladi; kechqurun zamonaviy rassom ustaxonasida." },
+        { "title": "Afrosiyobda Samarqandga", "description": "Birinchi klass poyezd, Go'ri Amirga qaragan boutique-qarorgohga joylashish." },
+        { "title": "Registon — eshiklar yopilgach", "description": "San'at tarixchisi hamrohligida Registon maydoniga kechki shaxsiy tashrif, so'ng madrasa hovlisida kechki ovqat." },
+        { "title": "Vinochilar va rasadxonalar", "description": "Tarixchi bilan Ulug'bek rasadxonasi, Zarafshon tog' etaklaridagi oilaviy vinochilikda degustatsiya." },
+        { "title": "Buxoro", "description": "Shaxsiy poyezd transferi; kechqurun faqat siz uchun band qilingan hammom." },
+        { "title": "Buxoro ustalari", "description": "Zardo'zlik va miniatura ustaxonalariga yopiq eshiklar ortida tashrif; Poi Kalon uzra tomda kechki ovqat." },
+        { "title": "Xivaga parvoz", "description": "Charter imkoniyati mavjud. Shahar bosh konservatori bilan Ichan Qal'a devorlarida quyosh botishi sayri." },
+        { "title": "Cho'l va yulduzlar", "description": "Ayoz Qal'a qal'alariga shaxsiy 4x4 safari, hashamatli cho'l lagerida kechki ovqat va yulduzlar tomoshasi." },
+        { "title": "Jo'nab ketish", "description": "Siz istagan vaqtda shaxsiy transferlar." }
+      ],
+      "included": [
+        "Butun safar davomida boutique-qarorgohlar va eng yaxshi mehmonxonalar",
+        "Shaxsiy konsyerj, 24/7",
+        "Barcha shaxsiy gidlar, haydovchilar va birinchi klass poyezdlar",
+        "Ro'yxatdagi yopiq va ish vaqtidan tashqari tashriflar",
+        "Vino uyg'unligi bilan barcha ovqatlar"
+      ],
+      "excluded": ["Xalqaro parvozlar", "Charter parvoz uchun qo'shimcha to'lov"]
+    }
+  },
+  "guides": {
+    "uzbekistan-visa": {
+      "title": "O'zbekiston vizasi bo'yicha qo'llanma",
+      "sections": [
+        { "heading": "Vizasiz kirish", "body": "90 dan ortiq davlat fuqarolari — jumladan YeI, Buyuk Britaniya, Yaponiya, Janubiy Koreya, Kanada va Avstraliya — O'zbekistonga 30 kungacha vizasiz kirishlari mumkin. 55 yoshdan oshgan AQSH fuqarolari ham vizadan ozod." },
+        { "heading": "Elektron viza", "body": "Boshqa ko'pchilik davlatlar fuqarolari e-visa.gov.uz saytida onlayn ariza topshirishlari mumkin. E-viza 20 AQSH dollari turadi, 2–3 ish kunida beriladi va 30 kunlik turishga ruxsat beradi." },
+        { "heading": "Ro'yxatdan o'tish", "body": "Mehmonxonalar mehmonlarni avtomatik ro'yxatga oladi. Xususiy uy-joyda 3 kundan ortiq tursangiz, ro'yxatdan o'tish talab qilinadi — jamoamiz barcha tur mijozlari uchun buni o'zi hal qiladi." }
+      ]
+    },
+    "best-time-to-visit-uzbekistan": {
+      "title": "O'zbekistonga borish uchun eng yaxshi vaqt",
+      "sections": [
+        { "heading": "Bahor (aprel–may)", "body": "Eng yaxshi mavsum: 20–28°C, gullagan bog'lar va gavjum bozorlar. Oldindan band qiling — bu eng yuqori talab davri." },
+        { "heading": "Kuz (sentabr–oktabr)", "body": "Ikkinchi oltin davr: bozorlarda hosil mevalari, sayohat uchun qulay iliq va quruq kunlar." },
+        { "heading": "Yoz va qish", "body": "Iyul–avgustda harorat 40°C dan oshishi mumkin — erta boshlang va tushda dam oling. Qish esa sokin va o'ziga xos, narxlar eng past; kunlar salqin va ko'pincha quyoshli." }
+      ]
+    },
+    "uzbek-cuisine": {
+      "title": "O'zbek oshxonasi: nimalarni tatib ko'rish kerak",
+      "sections": [
+        { "heading": "Palov", "body": "Milliy taom — qo'y go'shti, sariq sabzi va zira bilan dimlangan guruch. Har viloyatning o'z uslubi bor; mahalliy aholi kabi tushlik payti oshxonada tatib ko'ring." },
+        { "heading": "Tandirdan", "body": "Somsa va obi non tandirdan issiq holda chiqadi. Samarqand noni o'zining zichligi va bezaklari bilan mashhur." },
+        { "heading": "Ugra va chuchvara", "body": "Qo'lda cho'zilgan lag'mon, bug'da pishirilgan manti va chuchvara sho'rva Ipak yo'lidagi xitoy va fors ta'sirlarining uyg'unligini namoyon etadi." }
+      ]
+    }
+  }
+}

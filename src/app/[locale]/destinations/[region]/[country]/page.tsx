@@ -28,8 +28,8 @@ export async function generateMetadata({
 }: {
   params: Promise<Params>;
 }) {
-  const { country } = await params;
-  const c = await getCountry(country);
+  const { locale, country } = await params;
+  const c = await getCountry(country, locale);
   if (!c) return {};
   return { title: c.name, description: c.intro };
 }
@@ -41,13 +41,13 @@ export default async function CountryPage({
 }) {
   const { locale, region, country } = await params;
   setRequestLocale(locale);
-  const c = await getCountry(country);
+  const c = await getCountry(country, locale);
   if (!c || c.regionSlug !== region) notFound();
 
   const t = await getTranslations("destinations");
   const [cityList, countryTours] = await Promise.all([
-    getCitiesByCountry(c.slug),
-    getTours({ countrySlug: c.slug }),
+    getCitiesByCountry(c.slug, locale),
+    getTours({ countrySlug: c.slug }, locale),
   ]);
 
   return (

@@ -1,10 +1,11 @@
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { getPublishedCountries } from "@/lib/content";
 
 export async function Footer() {
   const t = await getTranslations();
-  const countryList = await getPublishedCountries();
+  const locale = await getLocale();
+  const countryList = await getPublishedCountries(locale);
 
   return (
     <footer className="mt-16 border-t border-border bg-surface">

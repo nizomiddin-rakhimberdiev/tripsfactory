@@ -15,7 +15,7 @@ export default async function ToursPage({
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations("tours");
-  const allTours = await getTours();
+  const allTours = await getTours(undefined, locale);
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-12">

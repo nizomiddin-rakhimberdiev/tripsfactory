@@ -27,8 +27,8 @@ export async function generateMetadata({
 }: {
   params: Promise<Params>;
 }) {
-  const { country, slug } = await params;
-  const tour = await getTour(country, slug);
+  const { locale, country, slug } = await params;
+  const tour = await getTour(country, slug, locale);
   if (!tour) return {};
   return { title: tour.title, description: tour.summary };
 }
@@ -40,15 +40,17 @@ export default async function TourPage({
 }) {
   const { locale, country, slug } = await params;
   setRequestLocale(locale);
-  const tour = await getTour(country, slug);
+  const tour = await getTour(country, slug, locale);
   if (!tour) notFound();
 
   const t = await getTranslations("tours");
   const currentLocale = (await getLocale()) as Locale;
   const cityNames = (
-    await Promise.all(tour.citySlugs.map((s) => getCity(s)))
+    await Promise.all(tour.citySlugs.map((s) => getCity(s, locale)))
   ).flatMap((c) => (c ? [c.name] : []));
-  const related = (await getTours({ countrySlug: tour.countrySlug })).filter(
+  const related = (
+    await getTours({ countrySlug: tour.countrySlug }, locale)
+  ).filter(
     (r) => r.slug !== tour.slug && r.tier === tour.tier,
   );
 

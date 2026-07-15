@@ -16,7 +16,7 @@ export default async function PremiumPage({
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations("premium");
-  const premiumTours = await getTours({ tier: "premium" });
+  const premiumTours = await getTours({ tier: "premium" }, locale);
 
   return (
     <div className="bg-background text-foreground">
