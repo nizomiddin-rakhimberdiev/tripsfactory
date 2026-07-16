@@ -1,0 +1,335 @@
+{
+  "regions": {
+    "central-asia": {
+      "name": "Zentralasien"
+    },
+    "east-asia": {
+      "name": "Ostasien"
+    },
+    "middle-east": {
+      "name": "Naher Osten"
+    },
+    "southeast-asia": {
+      "name": "Südostasien"
+    }
+  },
+  "countries": {
+    "uzbekistan": {
+      "name": "Usbekistan",
+      "intro": "Das Herz der Seidenstraße: türkisfarbene Kuppeln von Samarkand, die lebendige Museumsstadt Chiwa, das heilige Buchara und die pulsierende Hauptstadt Taschkent. Usbekistan vereint zweieinhalb Jahrtausende Geschichte mit legendärer Gastfreundschaft, köstlicher Küche und bemerkenswerter Erschwinglichkeit."
+    }
+  },
+  "cities": {
+    "tashkent": {
+      "intro": "Die größte Stadt Zentralasiens vereint sowjetischen Modernismus, kunstvolle Metrostationen, grüne Alleen und die Altstadt rund um den Chorsu-Basar.",
+      "attractions": [
+        "Khast-Imam-Komplex & der Osmanische Koran",
+        "Chorsu-Basar",
+        "Kunstvolle Metrostationen von Taschkent",
+        "Amir-Timur-Platz",
+        "Museum für Angewandte Kunst"
+      ]
+    },
+    "samarkand": {
+      "intro": "Tamerlans Hauptstadt und das ikonischste Bild der Seidenstraße — die drei mit Majolika bedeckten Medresen des Registan leuchten in Türkis und Gold.",
+      "attractions": [
+        "Registan-Platz",
+        "Nekropole Shah-i-Zinda",
+        "Gur-e-Amir-Mausoleum",
+        "Bibi-Khanym-Moschee",
+        "Ulugbek-Observatorium"
+      ]
+    },
+    "bukhara": {
+      "intro": "Eine heilige Stadt mit 140 geschützten Monumenten, wo Handelskuppeln, Medresen und Karawansereien noch immer Gassen säumen, die sich in 500 Jahren kaum verändert haben.",
+      "attractions": [
+        "Poi-Kalyan Ensemble",
+        "Ark-Festung",
+        "Lyabi-Hauz-Platz",
+        "Handelskuppeln",
+        "Sitorai Mokhi-Khosa Palast"
+      ]
+    },
+    "khiva": {
+      "intro": "Ein Freilichtmuseum: die ummauerte Innenstadt von Itchan Kala ist ein Labyrinth aus Minaretten, Medresen und Gassen aus Lehmziegeln, das am besten bei Sonnenuntergang erkundet wird.",
+      "attractions": [
+        "Mauern von Itchan Kala",
+        "Kalta Minor Minarett",
+        "Kunya-Ark Zitadelle",
+        "Islam Khodja Minarett",
+        "Tash Hauli Palast"
+      ]
+    },
+    "shakhrisabz": {
+      "intro": "Tamerlans Geburtsort jenseits der Berge von Samarkand, Heimat der Ruinen seines kolossalen Ak-Saray-Palastes.",
+      "attractions": [
+        "Ak-Saray-Palast",
+        "Dorut Tilavat",
+        "Kok Gumbaz Moschee"
+      ]
+    },
+    "fergana-valley": {
+      "intro": "Usbekistans Handwerkszentrum: Seidenweberei in Margilan, Keramik in Rishtan und die fruchtbarsten Obstgärten des Landes.",
+      "attractions": [
+        "Seidenfabrik Yodgorlik (Margilan)",
+        "Keramikwerkstätten in Rishtan",
+        "Palast des Khans von Kokand"
+      ]
+    }
+  },
+  "tours": {
+    "classic-uzbekistan-group-tour": {
+      "title": "Klassische Usbekistan Gruppenreise",
+      "summary": "Unsere beliebteste geführte Tour: die antiken Städte Chiwa, Buchara und Samarkand sowie die moderne Hauptstadt Taschkent, in einer nahtlosen 8-tägigen Reise mit garantierten Abreisen.",
+      "itinerary": [
+        {
+          "title": "Ankunft in Taschkent",
+          "description": "Treffen am Flughafen, Transfer zu Ihrem Hotel und Erholung. Am Abend ein optionaler Begrüßungsspaziergang entlang des Amir-Timur-Platzes."
+        },
+        {
+          "title": "Stadtrundfahrt Taschkent",
+          "description": "Khast-Imam-Komplex mit dem osmanischen Koran aus dem 7. Jahrhundert, Chorsu-Bazar, dem Museum für Angewandte Kunst und den berühmt-verzierten Metrostationen."
+        },
+        {
+          "title": "Flug nach Urgentsch — Chiwa",
+          "description": "Morgenflug und ganztägige Stadtführung durch Itchan Kala: Kalta Minor, Kunya-Ark, Tash Hauli Palast und Sonnenuntergang von den Stadtmauern."
+        },
+        {
+          "title": "Chiwa → Buchara",
+          "description": "Durchqueren Sie die Wüste Kysylkum entlang des Flusses Amu Darja. Abends Ankunft in Buchara, Abendessen in einem ehemaligen Medresenhof."
+        },
+        {
+          "title": "Altstadt Buchara",
+          "description": "Poi-Kalyan-Ensemble, Ark-Festung, Handelskuppeln und Lyabi-Hauz, abschließend eine Folkloreshow in der Nodir-Devon-Begi-Medrese."
+        },
+        {
+          "title": "Buchara → Samarkand",
+          "description": "Fahrt nach Samarkand mit einem Halt am Sommerpalast Sitorai Mokhi-Khosa. Nachmittags Besuch von Gur-e-Amir, Tamerlans Mausoleum."
+        },
+        {
+          "title": "Höhepunkte Samarkands",
+          "description": "Registan-Platz, Bibi-Chanum-Moschee, die Shah-i-Zinda-Nekropole und der Siab-Basar; abends Hochgeschwindigkeitszug Afrosiyob nach Taschkent."
+        },
+        {
+          "title": "Abreise",
+          "description": "Transfer zum Flughafen Taschkent für Ihren Heimflug."
+        }
+      ],
+      "included": [
+        "7 Nächte im Doppelzimmer mit Frühstück",
+        "Alle Transfers und Transporte gemäß Reiseplan",
+        "Inlandsflug Taschkent–Urgentsch",
+        "Afrosiyob Hochgeschwindigkeitszug Samarkand–Taschkent",
+        "Englischsprachige lokale Reiseleiter",
+        "Eintrittsgelder für alle aufgeführten Sehenswürdigkeiten",
+        "Visum-Einladungsschreiben (falls erforderlich)"
+      ],
+      "excluded": [
+        "Internationale Flüge",
+        "Reiseversicherung",
+        "Mittag- und Abendessen (außer zwei kulturellen Mahlzeiten)",
+        "Persönliche Ausgaben und Trinkgelder"
+      ]
+    },
+    "uzbekistan-highlights-private-tour": {
+      "title": "Usbekistan Höhepunkte Privatreise",
+      "summary": "Samarkand, Buchara und Taschkent in Ihrem eigenen Tempo mit privatem Reiseleiter und Fahrer – Start an jedem beliebigen Tag des Jahres möglich.",
+      "itinerary": [
+        {
+          "title": "Ankunft in Taschkent",
+          "description": "Privater Empfang am Flughafen, Stadtrundgang zur Orientierung."
+        },
+        {
+          "title": "Taschkent → Samarkand",
+          "description": "Morgens Afrosiyob-Zug; nachmittags Besichtigung des Registan und Gur-e-Amir."
+        },
+        {
+          "title": "Samarkand intensiv erleben",
+          "description": "Shah-i-Zinda, Bibi-Khanym, Ulugbek-Observatorium und eine Papiermühlenwerkstatt im Dorf Konigil."
+        },
+        {
+          "title": "Samarkand → Buchara",
+          "description": "Zugfahrt nach Buchara; abendlicher Spaziergang um Lyabi-Hauz mit Dinner-Empfehlungen Ihres Reiseleiters."
+        },
+        {
+          "title": "Altstadt von Buchara",
+          "description": "Ganztägige Tour durch die Zitadelle Ark, Poi-Kalyan und die Handelskuppeln mit einer Seiden- und Gewürzprobe."
+        },
+        {
+          "title": "Rückreise & Abreise",
+          "description": "Zugfahrt zurück nach Taschkent und Flughafentransfer."
+        }
+      ],
+      "included": [
+        "5 Nächte mit Frühstück",
+        "Privater Reiseleiter und Fahrer",
+        "Alle Zugtickets",
+        "Eintrittsgelder"
+      ],
+      "excluded": [
+        "Internationale Flüge",
+        "Versicherung",
+        "Nicht aufgeführte Mahlzeiten"
+      ]
+    },
+    "uzbekistan-winter-group-tour": {
+      "title": "Usbekistan Winter Gruppenreise",
+      "summary": "Dieselben legendären Städte ohne Menschenmassen – und das zu Saisonpreisen. Chiwa, Buchara und Samarkand unter klarem, blauem Winterhimmel.",
+      "itinerary": [
+        {
+          "title": "Ankunft in Taschkent",
+          "description": "Flughafentransfer und Ruhetag."
+        },
+        {
+          "title": "Besichtigung Taschkent",
+          "description": "Khast-Imam, Chorsu-Basar und Metrotour."
+        },
+        {
+          "title": "Flug nach Chiwa",
+          "description": "Spaziergang durch Itchan Kala."
+        },
+        {
+          "title": "Wüstenstraße nach Buchara",
+          "description": "Durchquerung der Kyzylkum mit Teepausen."
+        },
+        {
+          "title": "Buchara",
+          "description": "Monumente der Altstadt und Plov-Meisterklasse am Abend."
+        },
+        {
+          "title": "Nach Samarkand",
+          "description": "Über den Palast Sitorai Mokhi-Khosa."
+        },
+        {
+          "title": "Samarkand",
+          "description": "Registan, Shah-i-Zinda und Siab-Basar; Rückfahrt mit dem Zug."
+        },
+        {
+          "title": "Abreise",
+          "description": "Flughafentransfer."
+        }
+      ],
+      "included": [
+        "7 Übernachtungen mit Frühstück",
+        "Alle Transporte gemäß Reiseverlauf",
+        "Reiseleiter und Eintrittsgelder",
+        "Plov-Meisterklasse"
+      ],
+      "excluded": [
+        "Internationale Flüge",
+        "Versicherung",
+        "Die meisten Mahlzeiten"
+      ]
+    },
+    "silk-road-residences": {
+      "title": "Seidenstraßen-Residenzen",
+      "summary": "Zehn Tage quer durch Usbekistan in Boutique-Residenzen und restaurierten Kaufmannshäusern, mit exklusivem Zugang zum Registan außerhalb der regulären Öffnungszeiten, privaten Künstlerateliers und einem engagierten Concierge während der gesamten Reise.",
+      "itinerary": [
+        {
+          "title": "Ankunft — Taschkent",
+          "description": "Beschleunigte Ankunft, privater Transfer und ein Begrüßungsdinner auf dem Dach, zusammengestellt von einem führenden usbekischen Koch."
+        },
+        {
+          "title": "Taschkent, privat",
+          "description": "Privater Zugang zu den Sammlungen des Staatlichen Museums für Angewandte Kunst; Abend in einem Atelier eines zeitgenössischen Künstlers."
+        },
+        {
+          "title": "Samarkand mit Afrosiyob",
+          "description": "Zugfahrt erster Klasse, Check-in in einer Boutique-Residenz mit Blick auf Gur-e-Amir."
+        },
+        {
+          "title": "Das Registan nach den Öffnungszeiten",
+          "description": "Privater abendlicher Zugang zum Registan-Platz mit einem Kunsthistoriker, gefolgt von einem Dinner in einem Madrasa-Hof."
+        },
+        {
+          "title": "Winzer & Observatorien",
+          "description": "Ulugbek-Observatorium mit einem Historiker, Verkostung in einem Familienweingut in den Ausläufern des Zarafshan-Gebirges."
+        },
+        {
+          "title": "Buchara",
+          "description": "Privater Zugtransfer; abendlicher Hammam, exklusiv für Sie reserviert."
+        },
+        {
+          "title": "Meister Bucharas",
+          "description": "Ateliers für Goldstickerei und Miniaturmalerei hinter verschlossenen Türen; abendliches Dinner auf dem Dach mit Blick auf Poi-Kalyan."
+        },
+        {
+          "title": "Flug nach Chiwa",
+          "description": "Charteroption verfügbar. Spaziergang bei Sonnenuntergang auf den Mauern der Itchan Kala mit dem Chefkonservator der Stadt."
+        },
+        {
+          "title": "Wüste & Sterne",
+          "description": "Privater 4x4 zu den Festungen von Ayaz-Kala, Dinner und Sternenbeobachtung in einem luxuriösen Wüstencamp."
+        },
+        {
+          "title": "Abreise",
+          "description": "Private Transfers nach Hause, zu Ihrer Wunschzeit."
+        }
+      ],
+      "included": [
+        "Boutique-Residenzen & feinste Hotels während der gesamten Reise",
+        "Engagierter Concierge, 24/7",
+        "Alle privaten Reiseführer, Fahrer und Zugfahrten erster Klasse",
+        "Zugang außerhalb der regulären Öffnungszeiten und hinter verschlossenen Türen wie aufgeführt",
+        "Alle Mahlzeiten mit Weinbegleitung"
+      ],
+      "excluded": [
+        "Internationale Flüge",
+        "Zuschlag für Charterflug"
+      ]
+    }
+  },
+  "guides": {
+    "uzbekistan-visa": {
+      "title": "Usbekistan Visumführer",
+      "sections": [
+        {
+          "heading": "Visumfreie Einreise",
+          "body": "Bürger aus über 90 Ländern — darunter die EU, das Vereinigte Königreich, Japan, Südkorea, Kanada und Australien — können Usbekistan für bis zu 30 Tage visumfrei besuchen. US-Bürger ab 55 Jahren sind ebenfalls von der Visumpflicht befreit."
+        },
+        {
+          "heading": "E-Visum",
+          "body": "Die meisten anderen Nationalitäten können sich online unter e-visa.gov.uz bewerben. Das E-Visum kostet 20 US-Dollar, wird innerhalb von 2–3 Werktagen ausgestellt und erlaubt einen Aufenthalt von 30 Tagen."
+        },
+        {
+          "heading": "Registrierung",
+          "body": "Hotels registrieren Gäste automatisch. Wenn Sie länger als 3 Tage in einer privaten Unterkunft bleiben, muss eine Registrierung veranlasst werden — unser Team übernimmt dies für alle unsere Tourkunden."
+        }
+      ]
+    },
+    "best-time-to-visit-uzbekistan": {
+      "title": "Beste Reisezeit für Usbekistan",
+      "sections": [
+        {
+          "heading": "Frühling (April–Mai)",
+          "body": "Die beste Jahreszeit: 20–28°C, blühende Gärten und lebhafte Basare. Buchen Sie frühzeitig – dies ist die Hochsaison."
+        },
+        {
+          "heading": "Herbst (September–Oktober)",
+          "body": "Das zweite goldene Zeitfenster, mit Erntefrüchten auf den Basaren und warmen, trockenen Tagen, die perfekt für Besichtigungen sind."
+        },
+        {
+          "heading": "Sommer & Winter",
+          "body": "Juli–August kann 40°C überschreiten – beginnen Sie früh und ruhen Sie sich mittags aus. Der Winter ist ruhig und stimmungsvoll mit den niedrigsten Preisen; die Tage sind klar und oft sonnig."
+        }
+      ]
+    },
+    "uzbek-cuisine": {
+      "title": "Usbekische Küche: Was man probieren sollte",
+      "sections": [
+        {
+          "heading": "Plov",
+          "body": "Das Nationalgericht — Reis, langsam gegart mit Lamm, gelben Karotten und Kreuzkümmel. Jede Region hat ihren eigenen Stil; probieren Sie es mittags in einem Plov-Zentrum, so wie es die Einheimischen tun."
+        },
+        {
+          "heading": "Aus dem Tandyr",
+          "body": "Samsa (Blätterteigtaschen mit Fleischfüllung) und Obi Non Brot kommen direkt aus Lehm-Tandyröfen. In Samarkand ist das Brot bekanntlich dicht und verziert."
+        },
+        {
+          "heading": "Nudeln & Teigtaschen",
+          "body": "Lagman handgezogene Nudeln, Manti gedämpfte Teigtaschen und Chuchvara Suppe zeigen die Mischung aus chinesischem und persischem Einfluss der Seidenstraße."
+        }
+      ]
+    }
+  }
+}

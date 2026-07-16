@@ -1,0 +1,335 @@
+{
+  "regions": {
+    "central-asia": {
+      "name": "Asia Central"
+    },
+    "east-asia": {
+      "name": "Asia Oriental"
+    },
+    "middle-east": {
+      "name": "Oriente Medio"
+    },
+    "southeast-asia": {
+      "name": "Sudeste Asiático"
+    }
+  },
+  "countries": {
+    "uzbekistan": {
+      "name": "Uzbekistán",
+      "intro": "El corazón de la Ruta de la Seda: las cúpulas turquesas de Samarcanda, la ciudad museo viviente de Khiva, la santa Bujará y la vibrante capital Tashkent. Uzbekistán combina dos milenios y medio de historia con una hospitalidad legendaria, una gastronomía deliciosa y una asequibilidad notable."
+    }
+  },
+  "cities": {
+    "tashkent": {
+      "intro": "La ciudad más grande de Asia Central combina modernismo soviético, ornamentadas estaciones de metro, frondosas avenidas y el casco antiguo alrededor del Bazar Chorsu.",
+      "attractions": [
+        "Complejo Khast-Imam y el Corán otomano",
+        "Bazar Chorsu",
+        "Estaciones de arte del Metro de Taskent",
+        "Plaza de Amir Timur",
+        "Museo de Artes Aplicadas"
+      ]
+    },
+    "samarkand": {
+      "intro": "La capital de Tamerlán y la imagen más icónica de la Ruta de la Seda — las tres madrasas cubiertas de mayólica del Registán brillan en turquesa y oro.",
+      "attractions": [
+        "Plaza de Registán",
+        "Necrópolis de Shah-i-Zinda",
+        "Mausoleo de Gur-e-Amir",
+        "Mezquita de Bibi-Khanym",
+        "Observatorio de Ulugbek"
+      ]
+    },
+    "bukhara": {
+      "intro": "Una ciudad santa con 140 monumentos protegidos donde cúpulas comerciales, madrazas y caravasares aún bordean calles poco cambiadas en 500 años.",
+      "attractions": [
+        "Conjunto Poi-Kalyan",
+        "Fortaleza Ark",
+        "Plaza Lyabi-Hauz",
+        "Cúpulas comerciales",
+        "Palacio Sitorai Mokhi-Khosa"
+      ]
+    },
+    "khiva": {
+      "intro": "Un museo al aire libre: la ciudad interior amurallada de Itchan Kala es un laberinto de minaretes, madrasas y callejones de adobe, mejor explorado al atardecer.",
+      "attractions": [
+        "Murallas de Itchan Kala",
+        "Minarete Kalta Minor",
+        "Ciudadela Kunya-Ark",
+        "Minarete Islam Khodja",
+        "Palacio Tash Hauli"
+      ]
+    },
+    "shakhrisabz": {
+      "intro": "El lugar de nacimiento de Tamerlán, al otro lado de las montañas desde Samarcanda, hogar de las ruinas de su colosal palacio Ak-Saray.",
+      "attractions": [
+        "Palacio Ak-Saray",
+        "Dorut Tilavat",
+        "Mezquita Kok Gumbaz"
+      ]
+    },
+    "fergana-valley": {
+      "intro": "La cuna artesanal de Uzbekistán: el tejido de seda en Margilan, la cerámica en Rishtan y los huertos más fértiles del país.",
+      "attractions": [
+        "Fábrica de Seda Yodgorlik (Margilan)",
+        "Talleres de cerámica de Rishtan",
+        "Palacio del Kan de Kokand"
+      ]
+    }
+  },
+  "tours": {
+    "classic-uzbekistan-group-tour": {
+      "title": "Tour Clásico en Grupo por Uzbekistán",
+      "summary": "Nuestro tour guiado más popular: las antiguas ciudades de Khiva, Bukhara y Samarkand, además de la moderna capital Tashkent, en un viaje sin interrupciones de 8 días con salidas garantizadas.",
+      "itinerary": [
+        {
+          "title": "Llegada a Tashkent",
+          "description": "Encuentro en el aeropuerto, traslado a su hotel y descanso. Por la noche, un paseo de bienvenida opcional por la Plaza Amir Timur."
+        },
+        {
+          "title": "Tour por la ciudad de Tashkent",
+          "description": "Complejo Khast-Imam con el Corán Otomano del siglo VII, Bazar Chorsu, el Museo de Artes Aplicadas y las famosas y ornamentadas estaciones de metro."
+        },
+        {
+          "title": "Vuelo a Urgench — Khiva",
+          "description": "Vuelo matutino y tour a pie de día completo por Itchan Kala: Kalta Minor, Kunya-Ark, Palacio Tash Hauli y atardecer desde las murallas de la ciudad."
+        },
+        {
+          "title": "Khiva → Bukhara",
+          "description": "Cruce el desierto de Kyzylkum a lo largo del río Amu Darya. Llegada nocturna a Bukhara, cena en el patio de una antigua madrasa."
+        },
+        {
+          "title": "Casco antiguo de Bukhara",
+          "description": "Conjunto Poi-Kalyan, Fortaleza Ark, cúpulas comerciales y Lyabi-Hauz, finalizando con un espectáculo folclórico en la madrasa Nodir Devon Begi."
+        },
+        {
+          "title": "Bukhara → Samarkand",
+          "description": "Viaje en coche a Samarkand con una parada en el palacio de verano Sitorai Mokhi-Khosa. Visita por la tarde a Gur-e-Amir, el mausoleo de Tamerlán."
+        },
+        {
+          "title": "Lo más destacado de Samarkand",
+          "description": "Plaza Registan, Mezquita Bibi-Khanym, la necrópolis Shah-i-Zinda y el Bazar Siab; tren de alta velocidad Afrosiyob por la tarde a Tashkent."
+        },
+        {
+          "title": "Salida",
+          "description": "Traslado al aeropuerto de Tashkent para su vuelo de regreso a casa."
+        }
+      ],
+      "included": [
+        "7 noches en habitación doble con desayuno",
+        "Todos los traslados y transporte según el itinerario",
+        "Vuelo doméstico Tashkent–Urgench",
+        "Tren de alta velocidad Afrosiyob Samarkand–Tashkent",
+        "Guías locales de habla inglesa",
+        "Entradas a todos los sitios mencionados",
+        "Carta de apoyo para el visado (si es necesaria)"
+      ],
+      "excluded": [
+        "Vuelos internacionales",
+        "Seguro de viaje",
+        "Almuerzos y cenas (excepto dos comidas culturales)",
+        "Gastos personales y propinas"
+      ]
+    },
+    "uzbekistan-highlights-private-tour": {
+      "title": "Tour Privado Lo más destacado de Uzbekistán",
+      "summary": "Samarcanda, Bujará y Taskent a su propio ritmo con un guía y conductor privados — comience cualquier día del año.",
+      "itinerary": [
+        {
+          "title": "Llegada a Taskent",
+          "description": "Recepción privada en el aeropuerto, paseo de orientación por la ciudad."
+        },
+        {
+          "title": "Taskent → Samarcanda",
+          "description": "Tren Afrosiyob por la mañana; tarde en el Registan y Gur-e-Amir."
+        },
+        {
+          "title": "Samarcanda en profundidad",
+          "description": "Shah-i-Zinda, Bibi-Khanym, Observatorio de Ulugbek y un taller de molino de papel en la aldea de Konigil."
+        },
+        {
+          "title": "Samarcanda → Bujará",
+          "description": "Tren a Bujará; paseo vespertino por Lyabi-Hauz con recomendaciones para la cena de su guía."
+        },
+        {
+          "title": "Casco antiguo de Bujará",
+          "description": "Tour de día completo por el Ark, Poi-Kalyan y las cúpulas comerciales con una degustación de seda y especias."
+        },
+        {
+          "title": "Regreso y partida",
+          "description": "Tren de regreso a Taskent y traslado al aeropuerto."
+        }
+      ],
+      "included": [
+        "5 noches con desayuno",
+        "Guía y conductor privados",
+        "Todos los billetes de tren",
+        "Entradas"
+      ],
+      "excluded": [
+        "Vuelos internacionales",
+        "Seguro",
+        "Comidas no especificadas"
+      ]
+    },
+    "uzbekistan-winter-group-tour": {
+      "title": "Tour Grupal de Invierno en Uzbekistán",
+      "summary": "Las mismas ciudades legendarias sin las multitudes, además de precios de temporada. Jiva, Bujará y Samarcanda bajo los nítidos cielos azules del invierno.",
+      "itinerary": [
+        {
+          "title": "Llegada a Taskent",
+          "description": "Traslado al aeropuerto y día de descanso."
+        },
+        {
+          "title": "Visita turística de Taskent",
+          "description": "Khast-Imam, Bazar Chorsu y recorrido en metro."
+        },
+        {
+          "title": "Vuelo a Jiva",
+          "description": "Día de paseo por Itchan Kala."
+        },
+        {
+          "title": "Carretera del desierto a Bujará",
+          "description": "Cruce de Kyzylkum con paradas para té."
+        },
+        {
+          "title": "Bujará",
+          "description": "Monumentos del casco antiguo y clase magistral de plov por la noche."
+        },
+        {
+          "title": "A Samarcanda",
+          "description": "Vía el palacio Sitorai Mokhi-Khosa."
+        },
+        {
+          "title": "Samarcanda",
+          "description": "Registán, Shah-i-Zinda y Bazar Siab; regreso en tren."
+        },
+        {
+          "title": "Salida",
+          "description": "Traslado al aeropuerto."
+        }
+      ],
+      "included": [
+        "7 noches con desayuno",
+        "Todos los transportes según el itinerario",
+        "Guías y entradas",
+        "Clase magistral de plov"
+      ],
+      "excluded": [
+        "Vuelos internacionales",
+        "Seguro",
+        "La mayoría de las comidas"
+      ]
+    },
+    "silk-road-residences": {
+      "title": "Residencias de la Ruta de la Seda",
+      "summary": "Diez días por Uzbekistán en residencias boutique y casas de mercaderes restauradas, con acceso fuera de horario al Registan, talleres de artesanos privados y un conserje dedicado durante todo el viaje.",
+      "itinerary": [
+        {
+          "title": "Llegada — Taskent",
+          "description": "Llegada exprés, traslado privado y una cena de bienvenida en la azotea, organizada por un reconocido chef uzbeko."
+        },
+        {
+          "title": "Taskent, en privado",
+          "description": "Colecciones abiertas en privado en el Museo Estatal de Artes Aplicadas; velada en el estudio de un artista contemporáneo."
+        },
+        {
+          "title": "Samarcanda en Afrosiyob",
+          "description": "Tren en primera clase, check-in en una residencia boutique con vistas a Gur-e-Amir."
+        },
+        {
+          "title": "El Registan fuera de horario",
+          "description": "Acceso privado al atardecer a la Plaza Registan con un historiador de arte, seguido de cena en el patio de una madrasa."
+        },
+        {
+          "title": "Bodegueros y observatorios",
+          "description": "Observatorio de Ulugbek con un historiador, cata en una bodega familiar en las faldas de Zarafshan."
+        },
+        {
+          "title": "Bujará",
+          "description": "Traslado privado en tren; hammam nocturno reservado exclusivamente para usted."
+        },
+        {
+          "title": "Maestros de Bujará",
+          "description": "Talleres de bordado en oro y pintura en miniatura a puerta cerrada; cena al anochecer en la azotea con vistas a Poi-Kalyan."
+        },
+        {
+          "title": "Vuelo a Jiva",
+          "description": "Opción de vuelo chárter disponible. Paseo al atardecer por las murallas de Itchan Kala con el conservador jefe de la ciudad."
+        },
+        {
+          "title": "Desierto y estrellas",
+          "description": "4x4 privado a las fortalezas de Ayaz-Kala, cena y observación de estrellas en un campamento de lujo en el desierto."
+        },
+        {
+          "title": "Salida",
+          "description": "Traslados privados a casa, a su conveniencia."
+        }
+      ],
+      "included": [
+        "Residencias boutique y los mejores hoteles durante todo el viaje",
+        "Conserje dedicado, 24/7",
+        "Todos los guías privados, conductores y tren en primera clase",
+        "Acceso fuera de horario y a puerta cerrada según lo indicado",
+        "Todas las comidas con maridaje de vinos"
+      ],
+      "excluded": [
+        "Vuelos internacionales",
+        "Suplemento por vuelo chárter"
+      ]
+    }
+  },
+  "guides": {
+    "uzbekistan-visa": {
+      "title": "Guía de Visados de Uzbekistán",
+      "sections": [
+        {
+          "heading": "Entrada sin visado",
+          "body": "Ciudadanos de más de 90 países — incluyendo la UE, el Reino Unido, Japón, Corea del Sur, Canadá y Australia — pueden visitar Uzbekistán sin visado por hasta 30 días. Los ciudadanos estadounidenses mayores de 55 años también están exentos de visado."
+        },
+        {
+          "heading": "Visado electrónico",
+          "body": "La mayoría de las otras nacionalidades pueden solicitarlo en línea en e-visa.gov.uz. El visado electrónico cuesta 20 USD, se expide en 2 o 3 días hábiles y permite una estancia de 30 días."
+        },
+        {
+          "heading": "Registro",
+          "body": "Los hoteles registran a los huéspedes automáticamente. Si se aloja en un alojamiento privado por más de 3 días, debe gestionarse el registro — nuestro equipo se encarga de esto para todos nuestros clientes de tours."
+        }
+      ]
+    },
+    "best-time-to-visit-uzbekistan": {
+      "title": "Mejor Época para Visitar Uzbekistán",
+      "sections": [
+        {
+          "heading": "Primavera (Abril–Mayo)",
+          "body": "La mejor estación: 20–28°C, jardines en flor y bulliciosos bazares. Reserve con antelación, esta es la temporada alta."
+        },
+        {
+          "heading": "Otoño (Septiembre–Octubre)",
+          "body": "La segunda ventana dorada, con frutas de la cosecha en los bazares y días cálidos y secos perfectos para hacer turismo."
+        },
+        {
+          "heading": "Verano e Invierno",
+          "body": "Julio–Agosto puede superar los 40°C: empiece temprano y descanse al mediodía. El invierno es tranquilo y atmosférico con los precios más bajos; los días son frescos y a menudo soleados."
+        }
+      ]
+    },
+    "uzbek-cuisine": {
+      "title": "Cocina uzbeka: ¿Qué probar?",
+      "sections": [
+        {
+          "heading": "Plov",
+          "body": "El plato nacional — arroz cocido a fuego lento con cordero, zanahorias amarillas y comino. Cada región tiene su propio estilo; pruébelo en un centro de plov a la hora del almuerzo, como hacen los lugareños."
+        },
+        {
+          "heading": "Del tandyr",
+          "body": "Samsa (pasteles hojaldrados de carne) y el pan obi non salen directamente de los hornos de barro tandyr. En Samarcanda, el pan es famoso por ser denso y decorado."
+        },
+        {
+          "heading": "Fideos y dumplings",
+          "body": "Los fideos Lagman estirados a mano, los dumplings manti al vapor y la sopa chuchvara muestran la mezcla de influencias china y persa de la Ruta de la Seda."
+        }
+      ]
+    }
+  }
+}
