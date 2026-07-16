@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
+import { createLead } from "@/lib/content";
 
 const leadSchema = z.object({
   name: z.string().min(1).max(100),
@@ -77,6 +78,21 @@ export async function POST(request: Request) {
     lead.message && `Message: ${lead.message}`,
   ].filter(Boolean);
 
+  // Persist to the CMS (admin sees leads under /admin) + notify Telegram
+  try {
+    await createLead({
+      name: lead.name,
+      email: lead.email,
+      phone: lead.phone || undefined,
+      tourSlug: lead.tourSlug,
+      date: lead.date || undefined,
+      pax: lead.pax,
+      message: lead.message || undefined,
+      locale: lead.locale,
+    });
+  } catch (err) {
+    console.error("Failed to store lead in CMS:", err);
+  }
   await notifyTelegram(lines.join("\n"));
 
   return NextResponse.json({ ok: true });

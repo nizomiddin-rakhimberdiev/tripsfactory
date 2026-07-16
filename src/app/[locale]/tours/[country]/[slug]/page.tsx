@@ -10,6 +10,9 @@ import { tourJsonLd } from "@/lib/seo";
 
 type Params = { locale: string; country: string; slug: string };
 
+// Content is editable in /admin — re-render periodically (ISR)
+export const revalidate = 300;
+
 export async function generateStaticParams() {
   const allTours = await getTours();
   const premiumTours = await getTours({ tier: "premium" });

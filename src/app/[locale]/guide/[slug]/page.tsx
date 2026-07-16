@@ -5,6 +5,9 @@ import { locales } from "@/i18n/routing";
 
 type Params = { locale: string; slug: string };
 
+// Content is editable in /admin — re-render periodically (ISR)
+export const revalidate = 300;
+
 export async function generateStaticParams() {
   const guideList = await getGuides();
   return locales.flatMap((locale) =>

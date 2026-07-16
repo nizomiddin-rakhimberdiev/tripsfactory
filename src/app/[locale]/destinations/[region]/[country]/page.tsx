@@ -12,6 +12,9 @@ import { TourCard } from "@/components/tours/TourCard";
 
 type Params = { locale: string; region: string; country: string };
 
+// Content is editable in /admin — re-render periodically (ISR)
+export const revalidate = 300;
+
 export async function generateStaticParams() {
   const countryList = await getPublishedCountries();
   return locales.flatMap((locale) =>

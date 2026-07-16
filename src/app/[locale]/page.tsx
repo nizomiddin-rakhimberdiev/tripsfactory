@@ -1,8 +1,15 @@
 import Image from "next/image";
 import { setRequestLocale, getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
-import { getPublishedCountries, getTours } from "@/lib/content";
+import {
+  getPublishedCountries,
+  getSiteContent,
+  getTours,
+} from "@/lib/content";
 import { TourCard } from "@/components/tours/TourCard";
+
+// Content is editable in /admin — re-render pages periodically
+export const revalidate = 300;
 
 export default async function HomePage({
   params,
@@ -12,16 +19,17 @@ export default async function HomePage({
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations("home");
-  const [featured, countryList] = await Promise.all([
+  const [featured, countryList, site] = await Promise.all([
     getTours({ featuredOnly: true }, locale),
     getPublishedCountries(locale),
+    getSiteContent(locale),
   ]);
 
   return (
     <>
       <section className="relative flex min-h-[70vh] items-center justify-center overflow-hidden">
         <Image
-          src="https://images.unsplash.com/photo-1596306499317-8490232098fa?w=2000"
+          src={site.hero.image}
           alt=""
           fill
           priority
@@ -31,9 +39,9 @@ export default async function HomePage({
         <div className="absolute inset-0 bg-black/40" />
         <div className="relative z-10 mx-auto max-w-3xl px-4 text-center text-white">
           <h1 className="text-4xl font-bold tracking-tight sm:text-6xl">
-            {t("heroTitle")}
+            {site.hero.title}
           </h1>
-          <p className="mt-4 text-lg text-white/90">{t("heroSubtitle")}</p>
+          <p className="mt-4 text-lg text-white/90">{site.hero.subtitle}</p>
           <Link
             href="/tours"
             className="mt-8 inline-block rounded-full bg-primary px-8 py-3 font-medium text-primary-foreground transition-colors hover:bg-primary-hover"

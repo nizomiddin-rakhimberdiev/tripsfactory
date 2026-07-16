@@ -3,6 +3,9 @@ import { setRequestLocale, getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { getPublishedCountries, getRegions } from "@/lib/content";
 
+// Content is editable in /admin — re-render periodically (ISR)
+export const revalidate = 300;
+
 export async function generateMetadata() {
   const t = await getTranslations("destinations");
   return { title: t("title") };

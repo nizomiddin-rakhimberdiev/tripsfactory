@@ -2,6 +2,9 @@ import { setRequestLocale, getTranslations } from "next-intl/server";
 import { getTours } from "@/lib/content";
 import { TourCard } from "@/components/tours/TourCard";
 
+// Content is editable in /admin — re-render periodically (ISR)
+export const revalidate = 300;
+
 export async function generateMetadata() {
   const t = await getTranslations("tours");
   return { title: t("title") };

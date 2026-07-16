@@ -1,5 +1,6 @@
 import type { NextConfig } from "next";
 import createNextIntlPlugin from "next-intl/plugin";
+import { withPayload } from "@payloadcms/next/withPayload";
 
 const withNextIntl = createNextIntlPlugin("./src/i18n/request.ts");
 
@@ -7,7 +8,10 @@ const nextConfig: NextConfig = {
   outputFileTracingRoot: __dirname,
   images: {
     formats: ["image/avif", "image/webp"],
-    remotePatterns: [{ protocol: "https", hostname: "images.unsplash.com" }],
+    remotePatterns: [
+      { protocol: "https", hostname: "images.unsplash.com" },
+      { protocol: "https", hostname: "*.public.blob.vercel-storage.com" },
+    ],
   },
   async headers() {
     return [
@@ -27,4 +31,4 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default withNextIntl(nextConfig);
+export default withPayload(withNextIntl(nextConfig));

@@ -17,3 +17,6 @@ Bitta Tour modeli, `tier: standard|premium`. Premium sahifalar tier bo'yicha fil
 
 ## ADR-006: To'lov MVP'da so'rov-modeli — 2026-07-14
 Stripe O'zbekistonda mavjud emas; lokal xalqaro ekvayring bank shartnomasini talab qiladi. MVP: lead → menejer invoice/link yuboradi. `PaymentProvider` abstraksiyasi kelajakdagi integratsiya uchun.
+
+## ADR-007: Payload CMS integratsiyasi (ADR-002 bajarildi) — 2026-07-16
+Kontent endi to'liq Payload 3'dan boshqariladi (/admin): turlar, shaharlar, davlatlar, qo'llanmalar, rasmlar (Media), hero matn/rasmlari (site-content global) va leadlar. Repository interfeysi o'zgarmadi — sahifalar kodi CMS almashinuvini sezmadi. DB: lokal sqlite (payload.db), prodda DATABASE_URL (Neon Postgres); media prodda Vercel Blob (BLOB_READ_WRITE_TOKEN). Sahifalar ISR (revalidate=300) — admin tahriri 5 daqiqada saytga chiqadi.

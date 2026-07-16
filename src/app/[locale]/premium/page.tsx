@@ -1,7 +1,9 @@
 import Image from "next/image";
 import { setRequestLocale, getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
-import { getTours } from "@/lib/content";
+import { getSiteContent, getTours } from "@/lib/content";
+
+export const revalidate = 300;
 
 export async function generateMetadata() {
   const t = await getTranslations("premium");
@@ -16,13 +18,16 @@ export default async function PremiumPage({
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations("premium");
-  const premiumTours = await getTours({ tier: "premium" }, locale);
+  const [premiumTours, site] = await Promise.all([
+    getTours({ tier: "premium" }, locale),
+    getSiteContent(locale),
+  ]);
 
   return (
     <div className="bg-background text-foreground">
       <section className="relative flex min-h-[85vh] items-center justify-center overflow-hidden">
         <Image
-          src="https://images.unsplash.com/photo-1528164344705-47542687000d?w=2000"
+          src={site.premiumHero.image}
           alt=""
           fill
           priority
@@ -34,9 +39,9 @@ export default async function PremiumPage({
             TripsFactory {t("navLabel")}
           </p>
           <h1 className="font-[family-name:var(--font-playfair)] text-5xl font-medium leading-tight sm:text-7xl">
-            {t("heroTitle")}
+            {site.premiumHero.title}
           </h1>
-          <p className="mt-6 text-lg text-muted">{t("heroSubtitle")}</p>
+          <p className="mt-6 text-lg text-muted">{site.premiumHero.subtitle}</p>
           <a
             href="#enquire"
             className="mt-10 inline-block border border-primary px-10 py-4 text-sm uppercase tracking-widest text-primary transition-colors hover:bg-primary hover:text-primary-foreground"
