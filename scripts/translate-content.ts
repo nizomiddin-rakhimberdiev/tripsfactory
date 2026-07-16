@@ -7,9 +7,10 @@
  * (reviewed) translation always survives re-runs. To force a re-translation,
  * delete the entry from the JSON file and re-run.
  *
- * Usage:
- *   ANTHROPIC_API_KEY=... npm run translate            # all locales
- *   ANTHROPIC_API_KEY=... npm run translate -- ja zh   # specific locales
+ * Usage (either provider works — Gemini wins if both keys are set):
+ *   GEMINI_API_KEY=...    npm run translate            # Google Gemini
+ *   ANTHROPIC_API_KEY=... npm run translate            # Claude
+ *   npm run translate -- ja zh                         # specific locales
  */
 import fs from "node:fs";
 import path from "node:path";
@@ -48,22 +49,74 @@ const TRANSLATIONS_DIR = path.join(
   "src/lib/content/translations",
 );
 
-const client = new Anthropic();
+const GEMINI_KEY = process.env.GEMINI_API_KEY;
+const GEMINI_MODEL = process.env.GEMINI_MODEL ?? "gemini-2.5-flash";
 
-async function translateJson<T>(
+function systemPrompt(language: string): string {
+  return `You are a professional travel-content translator. Translate the string values of the JSON the user provides from English into ${language}. Preserve the JSON structure and keys exactly. ${GLOSSARY}`;
+}
+
+function userPrompt<T>(payload: T, language: string, context: string): string {
+  return `Context: ${context}\n\nTranslate this JSON's values into ${language}. Respond with ONLY the translated JSON, no commentary:\n\n${JSON.stringify(payload, null, 2)}`;
+}
+
+function extractJson<T>(text: string): T {
+  return JSON.parse(
+    text.slice(text.indexOf("{"), text.lastIndexOf("}") + 1),
+  ) as T;
+}
+
+async function translateWithGemini<T>(
   payload: T,
   language: string,
   context: string,
 ): Promise<T> {
-  const stream = client.messages.stream({
+  const res = await fetch(
+    `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "x-goog-api-key": GEMINI_KEY!,
+      },
+      body: JSON.stringify({
+        system_instruction: { parts: [{ text: systemPrompt(language) }] },
+        contents: [
+          {
+            role: "user",
+            parts: [{ text: userPrompt(payload, language, context) }],
+          },
+        ],
+        generationConfig: { responseMimeType: "application/json" },
+      }),
+    },
+  );
+  if (!res.ok) {
+    throw new Error(`Gemini API ${res.status}: ${await res.text()}`);
+  }
+  const data = (await res.json()) as {
+    candidates?: { content?: { parts?: { text?: string }[] } }[];
+  };
+  const text = (data.candidates?.[0]?.content?.parts ?? [])
+    .map((p) => p.text ?? "")
+    .join("");
+  if (!text) throw new Error("Gemini returned an empty response");
+  return extractJson<T>(text);
+}
+
+const anthropicClient = GEMINI_KEY ? null : new Anthropic();
+
+async function translateWithClaude<T>(
+  payload: T,
+  language: string,
+  context: string,
+): Promise<T> {
+  const stream = anthropicClient!.messages.stream({
     model: "claude-opus-4-8",
     max_tokens: 32000,
-    system: `You are a professional travel-content translator. Translate the string values of the JSON the user provides from English into ${language}. Preserve the JSON structure and keys exactly. ${GLOSSARY}`,
+    system: systemPrompt(language),
     messages: [
-      {
-        role: "user",
-        content: `Context: ${context}\n\nTranslate this JSON's values into ${language}. Respond with ONLY the translated JSON, no commentary:\n\n${JSON.stringify(payload, null, 2)}`,
-      },
+      { role: "user", content: userPrompt(payload, language, context) },
     ],
   });
   const message = await stream.finalMessage();
@@ -74,9 +127,10 @@ async function translateJson<T>(
     .filter((b): b is Anthropic.TextBlock => b.type === "text")
     .map((b) => b.text)
     .join("");
-  const jsonText = text.slice(text.indexOf("{"), text.lastIndexOf("}") + 1);
-  return JSON.parse(jsonText) as T;
+  return extractJson<T>(text);
 }
+
+const translateJson = GEMINI_KEY ? translateWithGemini : translateWithClaude;
 
 function loadOverlay(locale: string): TranslationOverlay {
   const file = path.join(TRANSLATIONS_DIR, `${locale}.json`);
