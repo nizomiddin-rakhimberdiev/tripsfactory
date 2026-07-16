@@ -164,11 +164,16 @@ export interface User {
   collection: 'users';
 }
 /**
+ * Barcha rasmlar shu yerga yuklanadi. Yuklab bo'lgach, kerakli turga/shaharga/hero'ga ulaysiz. Rasm o'lchamlari uchun docs/IMAGES.md ga qarang.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "media".
  */
 export interface Media {
   id: number;
+  /**
+   * Rasmda nima borligini qisqa yozing (SEO va ko'rish qulayligi uchun). Masalan: Registon maydoni kunbotarda.
+   */
   alt: string;
   updatedAt: string;
   createdAt: string;
@@ -189,7 +194,7 @@ export interface Media {
 export interface Region {
   id: number;
   /**
-   * URL identifier — lowercase, hyphens only
+   * Sahifa manzilidagi qism — faqat kichik lotin harflar va defis (masalan: classic-uzbekistan-group-tour). O'zgartirmaslik tavsiya etiladi.
    */
   slug: string;
   name: string;
@@ -197,19 +202,27 @@ export interface Region {
   createdAt: string;
 }
 /**
+ * Davlat sahifalari. Yangi davlat qo'shish uchun shu yerga.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "countries".
  */
 export interface Country {
   id: number;
   /**
-   * URL identifier — lowercase, hyphens only
+   * Sahifa manzilidagi qism — faqat kichik lotin harflar va defis (masalan: classic-uzbekistan-group-tour). O'zgartirmaslik tavsiya etiladi.
    */
   slug: string;
   region: number | Region;
   name: string;
+  /**
+   * Davlat sahifasi tepasidagi kirish matni.
+   */
   intro: string;
   heroImage: number | Media;
+  /**
+   * Belgilanmasa, davlat saytda ko'rinmaydi (qoralama).
+   */
   published?: boolean | null;
   updatedAt: string;
   createdAt: string;
@@ -221,7 +234,7 @@ export interface Country {
 export interface City {
   id: number;
   /**
-   * URL identifier — lowercase, hyphens only
+   * Sahifa manzilidagi qism — faqat kichik lotin harflar va defis (masalan: classic-uzbekistan-group-tour). O'zgartirmaslik tavsiya etiladi.
    */
   slug: string;
   country: number | Country;
@@ -239,35 +252,41 @@ export interface City {
   createdAt: string;
 }
 /**
+ * Barcha turlar. Yangi tur qo'shish uchun 'Create New'. O'ng yuqoridagi 'Preview' tugmasi turni saytda ko'rsatadi.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "tours".
  */
 export interface Tour {
   id: number;
   /**
-   * URL identifier — lowercase, hyphens only
+   * Sahifa manzilidagi qism — faqat kichik lotin harflar va defis (masalan: classic-uzbekistan-group-tour). O'zgartirmaslik tavsiya etiladi.
    */
   slug: string;
   country: number | Country;
   title: string;
+  /**
+   * Katalog kartasi va tur sahifasi tepasida chiqadigan matn.
+   */
   summary: string;
   type: 'group' | 'private' | 'custom';
+  /**
+   * Premium turlar alohida Premium bo'limida chiqadi.
+   */
   tier: 'standard' | 'premium';
   durationDays: number;
-  cities?: (number | City)[] | null;
   /**
-   * Leave empty for premium 'price on request'
+   * Premium 'so'rov bo'yicha' bo'lsa — bo'sh qoldiring.
    */
   priceFromUsd?: number | null;
   singleSupplementUsd?: number | null;
-  departures?:
-    | {
-        date: string;
-        priceUsd: number;
-        status: 'available' | 'guaranteed' | 'soldout';
-        id?: string | null;
-      }[]
-    | null;
+  cities?: (number | City)[] | null;
+  heroImage: number | Media;
+  featured?: boolean | null;
+  /**
+   * Belgilanmasa, tur saytda ko'rinmaydi (qoralama).
+   */
+  published?: boolean | null;
   itinerary?:
     | {
         title: string;
@@ -287,20 +306,27 @@ export interface Tour {
         id?: string | null;
       }[]
     | null;
-  heroImage: number | Media;
-  featured?: boolean | null;
-  published?: boolean | null;
+  departures?:
+    | {
+        date: string;
+        priceUsd: number;
+        status: 'available' | 'guaranteed' | 'soldout';
+        id?: string | null;
+      }[]
+    | null;
   updatedAt: string;
   createdAt: string;
 }
 /**
+ * Viza, mavsum, taomlar kabi foydali maqolalar.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "guides".
  */
 export interface Guide {
   id: number;
   /**
-   * URL identifier — lowercase, hyphens only
+   * Sahifa manzilidagi qism — faqat kichik lotin harflar va defis (masalan: classic-uzbekistan-group-tour). O'zgartirmaslik tavsiya etiladi.
    */
   slug: string;
   country: number | Country;
@@ -316,6 +342,8 @@ export interface Guide {
   createdAt: string;
 }
 /**
+ * Saytdan kelgan mijoz so'rovlari.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "leads".
  */
@@ -527,17 +555,12 @@ export interface ToursSelect<T extends boolean = true> {
   type?: T;
   tier?: T;
   durationDays?: T;
-  cities?: T;
   priceFromUsd?: T;
   singleSupplementUsd?: T;
-  departures?:
-    | T
-    | {
-        date?: T;
-        priceUsd?: T;
-        status?: T;
-        id?: T;
-      };
+  cities?: T;
+  heroImage?: T;
+  featured?: T;
+  published?: T;
   itinerary?:
     | T
     | {
@@ -557,9 +580,14 @@ export interface ToursSelect<T extends boolean = true> {
         text?: T;
         id?: T;
       };
-  heroImage?: T;
-  featured?: T;
-  published?: T;
+  departures?:
+    | T
+    | {
+        date?: T;
+        priceUsd?: T;
+        status?: T;
+        id?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
 }
@@ -639,6 +667,8 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   createdAt?: T;
 }
 /**
+ * Bosh sahifa va Premium bo'lim uchun asosiy (hero) rasm va matnlar.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "site-content".
  */

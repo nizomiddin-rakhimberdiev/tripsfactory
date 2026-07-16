@@ -1,1 +1,129 @@
-/* Payload admin custom styles */
+/* ==========================================================================
+   TripsFactory admin theme — light, minimal, brand teal/amber.
+   Overrides Payload's default look to match the public site.
+   ========================================================================== */
+
+:root {
+  --tf-primary: #0e7490; /* teal — Silk Road tilework */
+  --tf-primary-hover: #155e75;
+  --tf-accent: #d97706; /* warm amber */
+  --tf-muted: #6b6560;
+  --tf-surface: #f7f6f3;
+  --tf-border: #e7e3dd;
+}
+
+/* Softer background + rounded, warmer surfaces */
+body {
+  --theme-bg: #ffffff;
+}
+
+/* ---- Primary buttons → teal ------------------------------------------- */
+.btn--style-primary:not(.btn--disabled) {
+  --color: #ffffff;
+  background-color: var(--tf-primary);
+  border-color: var(--tf-primary);
+
+  &:hover,
+  &:focus {
+    background-color: var(--tf-primary-hover);
+    border-color: var(--tf-primary-hover);
+  }
+
+  .btn__content,
+  .btn__label {
+    color: #ffffff;
+  }
+}
+
+/* ---- Active nav item → teal ------------------------------------------- */
+.nav__link.active,
+.nav__link:hover {
+  color: var(--tf-primary);
+}
+.nav .nav__link.active::before {
+  background-color: var(--tf-primary);
+}
+
+/* ---- Links & focus rings --------------------------------------------- */
+.doc-tab a:hover,
+a.btn--style-none:hover {
+  color: var(--tf-primary);
+}
+
+/* ---- Pill / label accents -------------------------------------------- */
+.pill--style-success {
+  background-color: var(--tf-primary);
+}
+
+/* ==========================================================================
+   Custom dashboard (beforeDashboard)
+   ========================================================================== */
+.tf-dashboard {
+  margin-bottom: 2.5rem;
+
+  &__head {
+    margin-bottom: 1.5rem;
+
+    h2 {
+      margin: 0 0 0.5rem;
+      font-size: 1.6rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+    p {
+      margin: 0;
+      max-width: 46rem;
+      color: var(--tf-muted);
+      line-height: 1.6;
+    }
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+    gap: 1rem;
+  }
+}
+
+.tf-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 1.25rem;
+  border: 1px solid var(--tf-border);
+  border-radius: 0.9rem;
+  background: #ffffff;
+  text-decoration: none;
+  color: inherit;
+  transition:
+    box-shadow 0.15s ease,
+    transform 0.15s ease,
+    border-color 0.15s ease;
+
+  &:hover {
+    border-color: var(--tf-primary);
+    box-shadow: 0 6px 24px rgba(14, 116, 144, 0.12);
+    transform: translateY(-2px);
+  }
+
+  &__emoji {
+    font-size: 1.75rem;
+    line-height: 1;
+  }
+  &__title {
+    font-size: 1.05rem;
+    font-weight: 700;
+  }
+  &__desc {
+    font-size: 0.85rem;
+    color: var(--tf-muted);
+    line-height: 1.5;
+  }
+}
+
+/* Dark theme is disabled in config (theme: 'light'), but keep cards legible
+   if a user forces dark via OS. */
+html[data-theme="dark"] .tf-card {
+  background: var(--theme-elevation-50);
+  border-color: var(--theme-elevation-150);
+}
