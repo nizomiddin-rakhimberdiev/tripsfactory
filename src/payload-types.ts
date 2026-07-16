@@ -184,8 +184,6 @@ export interface Media {
   filesize?: number | null;
   width?: number | null;
   height?: number | null;
-  focalX?: number | null;
-  focalY?: number | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -219,6 +217,9 @@ export interface Country {
    * Davlat sahifasi tepasidagi kirish matni.
    */
   intro: string;
+  /**
+   * Rasmni almashtirish: rasm yonidagi ✕ tugmasini bosing, so'ng «Create New» bilan yangi rasm yuklang (yoki faylni shu maydonga tortib tashlang). Eski rasm o'chmaydi — kutubxonada qoladi.
+   */
   heroImage: number | Media;
   /**
    * Belgilanmasa, davlat saytda ko'rinmaydi (qoralama).
@@ -247,6 +248,9 @@ export interface City {
         id?: string | null;
       }[]
     | null;
+  /**
+   * Rasmni almashtirish: rasm yonidagi ✕ tugmasini bosing, so'ng «Create New» bilan yangi rasm yuklang (yoki faylni shu maydonga tortib tashlang). Eski rasm o'chmaydi — kutubxonada qoladi.
+   */
   image: number | Media;
   updatedAt: string;
   createdAt: string;
@@ -281,6 +285,9 @@ export interface Tour {
   priceFromUsd?: number | null;
   singleSupplementUsd?: number | null;
   cities?: (number | City)[] | null;
+  /**
+   * Rasmni almashtirish: rasm yonidagi ✕ tugmasini bosing, so'ng «Create New» bilan yangi rasm yuklang (yoki faylni shu maydonga tortib tashlang). Eski rasm o'chmaydi — kutubxonada qoladi.
+   */
   heroImage: number | Media;
   featured?: boolean | null;
   /**
@@ -496,8 +503,6 @@ export interface MediaSelect<T extends boolean = true> {
   filesize?: T;
   width?: T;
   height?: T;
-  focalX?: T;
-  focalY?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -675,11 +680,17 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
 export interface SiteContent {
   id: number;
   hero: {
+    /**
+     * Rasmni almashtirish: rasm yonidagi ✕ tugmasini bosing, so'ng «Create New» bilan yangi rasm yuklang (yoki faylni shu maydonga tortib tashlang). Eski rasm o'chmaydi — kutubxonada qoladi.
+     */
     image: number | Media;
     title: string;
     subtitle: string;
   };
   premiumHero: {
+    /**
+     * Rasmni almashtirish: rasm yonidagi ✕ tugmasini bosing, so'ng «Create New» bilan yangi rasm yuklang (yoki faylni shu maydonga tortib tashlang). Eski rasm o'chmaydi — kutubxonada qoladi.
+     */
     image: number | Media;
     title: string;
     subtitle: string;

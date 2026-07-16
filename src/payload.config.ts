@@ -49,6 +49,19 @@ const locArea = (
   admin: opts.description ? { description: opts.description } : undefined,
 });
 
+/** Shown under every image field — the replace-by-upload instructions. */
+const REPLACE_HELP =
+  "Rasmni almashtirish: rasm yonidagi ✕ tugmasini bosing, so'ng «Create New» bilan yangi rasm yuklang (yoki faylni shu maydonga tortib tashlang). Eski rasm o'chmaydi — kutubxonada qoladi.";
+
+const imageField = (name: string, label: string): Field => ({
+  name,
+  type: "upload",
+  relationTo: "media",
+  label,
+  required: true,
+  admin: { description: REPLACE_HELP },
+});
+
 const slugField: Field = {
   name: "slug",
   type: "text",
@@ -102,6 +115,10 @@ const Media: CollectionConfig = {
   upload: {
     staticDir: path.resolve(dirname, "../media"),
     mimeTypes: ["image/*"],
+    // Crop/focal editing is unused by the site and only confused editors —
+    // removing it leaves the file card with a clear replace (✕ → upload) flow.
+    crop: false,
+    focalPoint: false,
   },
   access: {
     read: publicRead,
@@ -183,13 +200,7 @@ const Countries: CollectionConfig = {
     locArea("intro", "Tavsif", {
       description: "Davlat sahifasi tepasidagi kirish matni.",
     }),
-    {
-      name: "heroImage",
-      type: "upload",
-      relationTo: "media",
-      label: "Asosiy rasm",
-      required: true,
-    },
+    imageField("heroImage", "Asosiy rasm"),
     {
       name: "published",
       type: "checkbox",
@@ -247,13 +258,7 @@ const Cities: CollectionConfig = {
       labels: { singular: "Joy", plural: "Joylar" },
       fields: [{ name: "text", type: "text", label: "Nomi", required: true }],
     },
-    {
-      name: "image",
-      type: "upload",
-      relationTo: "media",
-      label: "Rasm",
-      required: true,
-    },
+    imageField("image", "Rasm"),
   ],
 };
 
@@ -367,13 +372,7 @@ const Tours: CollectionConfig = {
       label: "Shaharlar",
       hasMany: true,
     },
-    {
-      name: "heroImage",
-      type: "upload",
-      relationTo: "media",
-      label: "Asosiy rasm",
-      required: true,
-    },
+    imageField("heroImage", "Asosiy rasm"),
     {
       type: "row",
       fields: [
@@ -576,13 +575,7 @@ const heroGroup = (name: string, label: string): Field => ({
   type: "group",
   label,
   fields: [
-    {
-      name: "image",
-      type: "upload",
-      relationTo: "media",
-      label: "Rasm",
-      required: true,
-    },
+    imageField("image", "Rasm"),
     locText("title", "Sarlavha"),
     locArea("subtitle", "Tagsarlavha"),
   ],
