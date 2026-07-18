@@ -20,3 +20,6 @@ Stripe O'zbekistonda mavjud emas; lokal xalqaro ekvayring bank shartnomasini tal
 
 ## ADR-007: Payload CMS integratsiyasi (ADR-002 bajarildi) — 2026-07-16
 Kontent endi to'liq Payload 3'dan boshqariladi (/admin): turlar, shaharlar, davlatlar, qo'llanmalar, rasmlar (Media), hero matn/rasmlari (site-content global) va leadlar. Repository interfeysi o'zgarmadi — sahifalar kodi CMS almashinuvini sezmadi. DB: lokal sqlite (payload.db), prodda DATABASE_URL (Neon Postgres); media prodda Vercel Blob (BLOB_READ_WRITE_TOKEN). Sahifalar ISR (revalidate=300) — admin tahriri 5 daqiqada saytga chiqadi.
+
+## ADR-008: Bespoke Studio (/studio) — 2026-07-18
+Mijoz Payload adminka UI/UX'idan qoniqmadi ("detskiy", "o'lik"). Payload qobig'ining dizayn shifti bor. Yechim: Payload backend/API sifatida qoladi, ustiga /studio da o'zimizning premium adminka qurildi (Vercel/Stripe uslubi, yorug', real SVG ikonkalar, jonli mikro-animatsiyalar). Auth Payload sessiyasidan (cookie). Kunlik ishlar Studio'da: dashboard, turlar, shaharlar, qo'llanmalar, bosh sahifa (hero), rasmlar, so'rovlar — 8 til localized tahrirlash, rasm yuklash/almashtirish. Yozuvlar Payload REST orqali per-locale PATCH. Eski /admin fallback sifatida qoladi. MUHIM: /api/leads bizning maxsus POST route bilan band — Studio leadlarni server-side (local API) yuklaydi, GET /api/leads emas.
