@@ -96,9 +96,11 @@ export default async function TourPage({
         {t(`type_${tour.type}`)} · {t("days", { count: tour.durationDays })}
       </p>
       <h1 className="mt-1 text-4xl font-bold">{tour.title}</h1>
-      <p className="mt-2 text-sm text-muted">
-        {t("cities")}: {cityNames.join(" · ")}
-      </p>
+      {cityNames.length > 0 && (
+        <p className="mt-2 text-sm text-muted">
+          {t("cities")}: {cityNames.join(" · ")}
+        </p>
+      )}
       <p className="mt-4 text-lg text-muted">{tour.summary}</p>
 
       {tour.priceFromUsd !== null && (
