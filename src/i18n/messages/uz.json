@@ -51,7 +51,10 @@
     "cities": "Shaharlar",
     "groupIntro": "Belgilangan sanali kichik guruh jo'nashlari — kafolatlangan sanalarda boshqa sayohatchilar bilan birga sayohat.",
     "privateIntro": "Shaxsiy gid va haydovchi, o'z maromingizda — istalgan kun boshlang va har bir tafsilotni moslang.",
-    "empty": "Bu yerda hozircha turlar yo'q — tez orada qaytib keling."
+    "empty": "Bu yerda hozircha turlar yo'q — tez orada qaytib keling.",
+    "routeMap": "Marshrut xaritasi",
+    "start": "Boshlanish",
+    "end": "Tugash"
   },
   "destinations": {
     "title": "Yo'nalishlar",

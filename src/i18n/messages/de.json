@@ -51,7 +51,10 @@
     "cities": "Städte",
     "groupIntro": "Geplante Kleingruppen-Abfahrten mit garantierten Terminen — gemeinsam mit anderen Reisenden.",
     "privateIntro": "Eigener Guide und Fahrer, Ihr Tempo — an jedem Tag starten und jedes Detail anpassen.",
-    "empty": "Hier gibt es noch keine Touren — schauen Sie bald wieder vorbei."
+    "empty": "Hier gibt es noch keine Touren — schauen Sie bald wieder vorbei.",
+    "routeMap": "Reiseroute",
+    "start": "Start",
+    "end": "Ende"
   },
   "destinations": {
     "title": "Reiseziele",

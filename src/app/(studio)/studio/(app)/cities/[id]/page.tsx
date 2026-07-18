@@ -13,6 +13,8 @@ type RawCity = {
   id: number;
   country?: Ref | number | null;
   recommendedNights: number;
+  lat?: number | null;
+  lng?: number | null;
   image?: Ref | number | null;
   name?: Record<string, string>;
   intro?: Record<string, string>;
@@ -44,6 +46,8 @@ export default async function StudioCityEditPage({
     id: raw.id,
     country: country == null ? null : typeof country === "object" ? country.id : country,
     recommendedNights: raw.recommendedNights,
+    lat: raw.lat ?? null,
+    lng: raw.lng ?? null,
     image:
       image && typeof image === "object"
         ? ({ id: image.id, url: image.url, filename: image.filename } as MediaRef)

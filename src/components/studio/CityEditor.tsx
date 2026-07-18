@@ -17,6 +17,8 @@ export type CityInitial = {
   id: number;
   country: number | null;
   recommendedNights: number;
+  lat: number | null;
+  lng: number | null;
   image: MediaRef;
   name: LocaleMap;
   intro: LocaleMap;
@@ -40,6 +42,8 @@ export function CityEditor({
     const shared = {
       country: c.country,
       recommendedNights: c.recommendedNights,
+      lat: c.lat,
+      lng: c.lng,
       image: c.image?.id ?? null,
     };
     const bodies = Object.fromEntries(
@@ -74,6 +78,16 @@ export function CityEditor({
               <Field label="Tavsiya etilgan kechalar" required>
                 <input className="s-input" type="number" min={1} value={c.recommendedNights}
                   onChange={(e) => patch({ recommendedNights: Number(e.target.value) })} />
+              </Field>
+            </div>
+            <div className="s-row2">
+              <Field label="Kenglik (latitude)" help="Xarita uchun. Masalan Samarqand: 39.627">
+                <input className="s-input" type="number" step="any" value={c.lat ?? ""}
+                  onChange={(e) => patch({ lat: e.target.value === "" ? null : Number(e.target.value) })} />
+              </Field>
+              <Field label="Uzunlik (longitude)" help="Masalan Samarqand: 66.975">
+                <input className="s-input" type="number" step="any" value={c.lng ?? ""}
+                  onChange={(e) => patch({ lng: e.target.value === "" ? null : Number(e.target.value) })} />
               </Field>
             </div>
             <ImagePicker label="Rasm" value={c.image} onChange={(image) => patch({ image })} />

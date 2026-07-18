@@ -246,6 +246,14 @@ export interface City {
   name: string;
   intro: string;
   recommendedNights: number;
+  /**
+   * Xaritada joylashuv uchun. Google Maps'dan olishingiz mumkin (masalan Samarqand: 39.627).
+   */
+  lat?: number | null;
+  /**
+   * Masalan Samarqand: 66.975.
+   */
+  lng?: number | null;
   attractions?:
     | {
         text: string;
@@ -543,6 +551,8 @@ export interface CitiesSelect<T extends boolean = true> {
   name?: T;
   intro?: T;
   recommendedNights?: T;
+  lat?: T;
+  lng?: T;
   attractions?:
     | T
     | {

@@ -6,6 +6,8 @@ import { locales, type Locale } from "@/i18n/routing";
 import { approxLocalPrice, formatUsd } from "@/lib/currency";
 import { LeadForm } from "@/components/forms/LeadForm";
 import { TourCard } from "@/components/tours/TourCard";
+import { ItineraryAccordion } from "@/components/tours/ItineraryAccordion";
+import { TourMap } from "@/components/tours/TourMap";
 import { tourJsonLd } from "@/lib/seo";
 
 type Params = { locale: string; country: string; slug: string };
@@ -48,9 +50,13 @@ export default async function TourPage({
 
   const t = await getTranslations("tours");
   const currentLocale = (await getLocale()) as Locale;
-  const cityNames = (
+  const cityDocs = (
     await Promise.all(tour.citySlugs.map((s) => getCity(s, locale)))
-  ).flatMap((c) => (c ? [c.name] : []));
+  ).flatMap((c) => (c ? [c] : []));
+  const cityNames = cityDocs.map((c) => c.name);
+  const mapStops = cityDocs
+    .filter((c) => c.lat != null && c.lng != null)
+    .map((c) => ({ name: c.name, lat: c.lat as number, lng: c.lng as number }));
   const related = (
     await getTours({ countrySlug: tour.countrySlug }, locale)
   ).filter(
@@ -105,18 +111,20 @@ export default async function TourPage({
         </p>
       )}
 
+      {mapStops.length >= 2 && (
+        <section className="mt-10">
+          <h2 className="mb-4 text-2xl font-bold">{t("routeMap")}</h2>
+          <TourMap
+            stops={mapStops}
+            startLabel={t("start")}
+            endLabel={t("end")}
+          />
+        </section>
+      )}
+
       <section className="mt-10">
         <h2 className="mb-4 text-2xl font-bold">{t("itinerary")}</h2>
-        <ol className="space-y-4 border-l-2 border-border pl-6">
-          {tour.itinerary.map((d) => (
-            <li key={d.day}>
-              <h3 className="font-semibold">
-                {t("day", { number: d.day })}: {d.title}
-              </h3>
-              <p className="mt-1 text-sm text-muted">{d.description}</p>
-            </li>
-          ))}
-        </ol>
+        <ItineraryAccordion days={tour.itinerary} />
       </section>
 
       {tour.departures.length > 0 && (

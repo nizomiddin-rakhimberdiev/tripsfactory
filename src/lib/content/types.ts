@@ -33,6 +33,8 @@ export interface City {
   recommendedNights: number;
   attractions: string[];
   image: string;
+  lat?: number | null;
+  lng?: number | null;
 }
 
 export interface ItineraryDay {

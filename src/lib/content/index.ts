@@ -76,6 +76,8 @@ function mapCity(doc: CityDoc): City {
     recommendedNights: doc.recommendedNights,
     attractions: texts(doc.attractions),
     image: mediaUrl(doc.image),
+    lat: doc.lat ?? null,
+    lng: doc.lng ?? null,
   };
 }
 

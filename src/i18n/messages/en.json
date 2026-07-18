@@ -51,7 +51,10 @@
     "cities": "Cities",
     "groupIntro": "Scheduled small-group departures with guaranteed dates — join fellow travelers on a shared journey.",
     "privateIntro": "Your own guide and driver, your own pace — start any day and tailor every detail.",
-    "empty": "No tours here yet — check back soon."
+    "empty": "No tours here yet — check back soon.",
+    "routeMap": "Route Map",
+    "start": "Start",
+    "end": "End"
   },
   "destinations": {
     "title": "Destinations",

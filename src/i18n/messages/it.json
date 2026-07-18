@@ -51,7 +51,10 @@
     "cities": "Città",
     "groupIntro": "Partenze in piccoli gruppi con date garantite — in viaggio insieme ad altri viaggiatori.",
     "privateIntro": "Guida e autista privati, al vostro ritmo — partenza qualsiasi giorno e ogni dettaglio su misura.",
-    "empty": "Ancora nessun tour qui — torna presto."
+    "empty": "Ancora nessun tour qui — torna presto.",
+    "routeMap": "Mappa del percorso",
+    "start": "Inizio",
+    "end": "Fine"
   },
   "destinations": {
     "title": "Destinazioni",

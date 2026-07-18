@@ -262,6 +262,26 @@ const Cities: CollectionConfig = {
       min: 1,
     },
     {
+      type: "row",
+      fields: [
+        {
+          name: "lat",
+          type: "number",
+          label: "Kenglik (latitude)",
+          admin: {
+            description:
+              "Xaritada joylashuv uchun. Google Maps'dan olishingiz mumkin (masalan Samarqand: 39.627).",
+          },
+        },
+        {
+          name: "lng",
+          type: "number",
+          label: "Uzunlik (longitude)",
+          admin: { description: "Masalan Samarqand: 66.975." },
+        },
+      ],
+    },
+    {
       name: "attractions",
       type: "array",
       label: "Diqqatga sazovor joylar",
