@@ -7,7 +7,7 @@ import { approxLocalPrice, formatUsd } from "@/lib/currency";
 import { LeadForm } from "@/components/forms/LeadForm";
 import { TourCard } from "@/components/tours/TourCard";
 import { ItineraryAccordion } from "@/components/tours/ItineraryAccordion";
-import { TourMap } from "@/components/tours/TourMap";
+import { TourRouteMap } from "@/components/tours/TourRouteMap";
 import { tourJsonLd } from "@/lib/seo";
 
 type Params = { locale: string; country: string; slug: string };
@@ -54,9 +54,15 @@ export default async function TourPage({
     await Promise.all(tour.citySlugs.map((s) => getCity(s, locale)))
   ).flatMap((c) => (c ? [c] : []));
   const cityNames = cityDocs.map((c) => c.name);
-  const mapStops = cityDocs
-    .filter((c) => c.lat != null && c.lng != null)
-    .map((c) => ({ name: c.name, lat: c.lat as number, lng: c.lng as number }));
+  const routePoints = (tour.route ?? []).length
+    ? (tour.route ?? [])
+    : cityDocs
+        .filter((c) => c.lat != null && c.lng != null)
+        .map((c) => ({
+          name: c.name,
+          lat: c.lat as number,
+          lng: c.lng as number,
+        }));
   const related = (
     await getTours({ countrySlug: tour.countrySlug }, locale)
   ).filter(
@@ -111,14 +117,10 @@ export default async function TourPage({
         </p>
       )}
 
-      {mapStops.length >= 2 && (
+      {routePoints.length >= 1 && (
         <section className="mt-10">
           <h2 className="mb-4 text-2xl font-bold">{t("routeMap")}</h2>
-          <TourMap
-            stops={mapStops}
-            startLabel={t("start")}
-            endLabel={t("end")}
-          />
+          <TourRouteMap points={routePoints} />
         </section>
       )}
 

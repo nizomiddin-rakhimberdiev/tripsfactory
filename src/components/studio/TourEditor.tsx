@@ -13,6 +13,8 @@ import {
 import { sendPerLocale } from "@/lib/studio/save";
 import { LOCALE_CODES } from "@/lib/studio/locales";
 import { IconCheck, IconExternal, IconPlus, IconTrash } from "./icons";
+import { RoutePicker } from "./RoutePicker";
+import type { RoutePoint } from "@/lib/content/types";
 
 type Departure = { date: string; priceUsd: number; status: string };
 export type TourInitial = {
@@ -34,6 +36,7 @@ export type TourInitial = {
   included: Record<string, { text: string }[]>;
   excluded: Record<string, { text: string }[]>;
   departures: Departure[];
+  route: RoutePoint[];
 };
 type Option = { id: number; name: string };
 
@@ -82,6 +85,7 @@ export function TourEditor({
       cities: t.cities,
       heroImage: t.heroImage?.id ?? null,
       departures: t.departures,
+      route: t.route,
     };
     const bodies = Object.fromEntries(
       LOCALE_CODES.map((loc) => [
@@ -179,6 +183,15 @@ export function TourEditor({
                 </label>
               </div>
             </div>
+          </div>
+        </div>
+
+        <div className="s-card">
+          <div className="s-card__body">
+            <div className="s-section-title" style={{ margin: "0 0 14px" }}>
+              Xarita marshruti
+            </div>
+            <RoutePicker value={t.route} onChange={(route) => patch({ route })} />
           </div>
         </div>
 

@@ -107,6 +107,7 @@ function mapTour(doc: TourDoc): Tour {
     excluded: texts(doc.excluded),
     heroImage: mediaUrl(doc.heroImage),
     gallery: [],
+    route: Array.isArray(doc.route) ? (doc.route as Tour["route"]) : [],
     featured: Boolean(doc.featured),
     published: Boolean(doc.published),
   };

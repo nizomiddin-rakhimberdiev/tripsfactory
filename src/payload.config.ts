@@ -403,6 +403,15 @@ const Tours: CollectionConfig = {
       label: "Shaharlar",
       hasMany: true,
     },
+    {
+      name: "route",
+      type: "json",
+      label: "Xarita marshruti",
+      admin: {
+        description:
+          "Xaritada ko'rinadigan bekatlar (nom + koordinata). Studio'da xaritani bosib qo'shasiz.",
+      },
+    },
     imageField("heroImage", "Asosiy rasm"),
     {
       type: "row",

@@ -298,6 +298,18 @@ export interface Tour {
   singleSupplementUsd?: number | null;
   cities?: (number | City)[] | null;
   /**
+   * Xaritada ko'rinadigan bekatlar (nom + koordinata). Studio'da xaritani bosib qo'shasiz.
+   */
+  route?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  /**
    * Rasmni almashtirish: rasm yonidagi ✕ tugmasini bosing, so'ng «Create New» bilan yangi rasm yuklang (yoki faylni shu maydonga tortib tashlang). Eski rasm o'chmaydi — kutubxonada qoladi.
    */
   heroImage: number | Media;
@@ -578,6 +590,7 @@ export interface ToursSelect<T extends boolean = true> {
   priceFromUsd?: T;
   singleSupplementUsd?: T;
   cities?: T;
+  route?: T;
   heroImage?: T;
   featured?: T;
   published?: T;

@@ -49,6 +49,13 @@ export interface Departure {
   status: DepartureStatus;
 }
 
+export interface RoutePoint {
+  name: string;
+  lat: number;
+  lng: number;
+  note?: string;
+}
+
 export interface Tour {
   slug: string;
   countrySlug: string;
@@ -66,6 +73,7 @@ export interface Tour {
   excluded: string[];
   heroImage: string;
   gallery: string[];
+  route?: RoutePoint[];
   featured: boolean;
   published: boolean;
 }
