@@ -48,7 +48,10 @@
     "approxPrice": "ca.",
     "billedInUsd": "Alle Zahlungen erfolgen in US-Dollar.",
     "relatedTours": "Das könnte Ihnen auch gefallen",
-    "cities": "Städte"
+    "cities": "Städte",
+    "groupIntro": "Geplante Kleingruppen-Abfahrten mit garantierten Terminen — gemeinsam mit anderen Reisenden.",
+    "privateIntro": "Eigener Guide und Fahrer, Ihr Tempo — an jedem Tag starten und jedes Detail anpassen.",
+    "empty": "Hier gibt es noch keine Touren — schauen Sie bald wieder vorbei."
   },
   "destinations": {
     "title": "Reiseziele",
@@ -59,7 +62,9 @@
     "topAttractions": "Top-Sehenswürdigkeiten",
     "toursIn": "Touren in {country}"
   },
-  "guide": { "title": "Reiseführer" },
+  "guide": {
+    "title": "Reiseführer"
+  },
   "premium": {
     "navLabel": "Premium",
     "heroTitle": "Jenseits des Gewöhnlichen",

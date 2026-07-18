@@ -8,7 +8,15 @@
  */
 import { getPayload, type Payload, type Where } from "payload";
 import config from "@payload-config";
-import type { Country, City, GuidePage, Region, Tour, TourTier } from "./types";
+import type {
+  Country,
+  City,
+  GuidePage,
+  Region,
+  Tour,
+  TourTier,
+  TourType,
+} from "./types";
 import type {
   City as CityDoc,
   Country as CountryDoc,
@@ -192,6 +200,7 @@ export async function getTours(
   filter?: {
     countrySlug?: string;
     tier?: TourTier;
+    type?: TourType;
     featuredOnly?: boolean;
   },
   locale: string = EN,
@@ -203,6 +212,9 @@ export async function getTours(
   ];
   if (filter?.countrySlug) {
     conditions.push({ "country.slug": { equals: filter.countrySlug } });
+  }
+  if (filter?.type) {
+    conditions.push({ type: { equals: filter.type } });
   }
   if (filter?.featuredOnly) {
     conditions.push({ featured: { equals: true } });

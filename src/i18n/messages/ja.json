@@ -48,7 +48,10 @@
     "approxPrice": "約",
     "billedInUsd": "すべてのお支払いは米ドル建てです。",
     "relatedTours": "おすすめの関連ツアー",
-    "cities": "都市"
+    "cities": "都市",
+    "groupIntro": "確定日程の少人数グループツアー — 保証された出発日に、仲間と一緒に旅を。",
+    "privateIntro": "専属ガイドとドライバー、自分のペースで — どの日でも出発でき、細部までカスタマイズ可能。",
+    "empty": "まだツアーがありません — またご確認ください。"
   },
   "destinations": {
     "title": "目的地",
@@ -59,7 +62,9 @@
     "topAttractions": "主な見どころ",
     "toursIn": "{country}のツアー"
   },
-  "guide": { "title": "旅行ガイド" },
+  "guide": {
+    "title": "旅行ガイド"
+  },
   "premium": {
     "navLabel": "プレミアム",
     "heroTitle": "非日常の、その先へ",

@@ -48,7 +48,10 @@
     "approxPrice": "约",
     "billedInUsd": "所有款项均以美元结算。",
     "relatedTours": "您可能还喜欢",
-    "cities": "城市"
+    "cities": "城市",
+    "groupIntro": "按计划出发的小型团队游 — 保证成团日期，与其他旅客同行。",
+    "privateIntro": "专属向导和司机，按您的节奏 — 任意日期出发，细节全可定制。",
+    "empty": "这里暂时还没有线路 — 请稍后再来。"
   },
   "destinations": {
     "title": "目的地",
@@ -59,7 +62,9 @@
     "topAttractions": "主要景点",
     "toursIn": "{country}旅游线路"
   },
-  "guide": { "title": "旅行指南" },
+  "guide": {
+    "title": "旅行指南"
+  },
   "premium": {
     "navLabel": "尊享",
     "heroTitle": "超越寻常",

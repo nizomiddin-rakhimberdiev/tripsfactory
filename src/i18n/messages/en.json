@@ -48,7 +48,10 @@
     "approxPrice": "approx.",
     "billedInUsd": "All payments are billed in US dollars.",
     "relatedTours": "You May Also Like",
-    "cities": "Cities"
+    "cities": "Cities",
+    "groupIntro": "Scheduled small-group departures with guaranteed dates — join fellow travelers on a shared journey.",
+    "privateIntro": "Your own guide and driver, your own pace — start any day and tailor every detail.",
+    "empty": "No tours here yet — check back soon."
   },
   "destinations": {
     "title": "Destinations",
@@ -59,7 +62,9 @@
     "topAttractions": "Top Attractions",
     "toursIn": "Tours in {country}"
   },
-  "guide": { "title": "Travel Guide" },
+  "guide": {
+    "title": "Travel Guide"
+  },
   "premium": {
     "navLabel": "Premium",
     "heroTitle": "Beyond the Ordinary",

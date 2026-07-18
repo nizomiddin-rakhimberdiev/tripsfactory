@@ -48,7 +48,10 @@
     "approxPrice": "aprox.",
     "billedInUsd": "Todos los pagos se facturan en dólares estadounidenses.",
     "relatedTours": "También le puede interesar",
-    "cities": "Ciudades"
+    "cities": "Ciudades",
+    "groupIntro": "Salidas en grupos pequeños con fechas garantizadas — viaje junto a otros viajeros.",
+    "privateIntro": "Su propio guía y conductor, a su ritmo — comience cualquier día y personalice cada detalle.",
+    "empty": "Aún no hay tours aquí — vuelva pronto."
   },
   "destinations": {
     "title": "Destinos",
@@ -59,7 +62,9 @@
     "topAttractions": "Principales atracciones",
     "toursIn": "Tours en {country}"
   },
-  "guide": { "title": "Guía de viaje" },
+  "guide": {
+    "title": "Guía de viaje"
+  },
   "premium": {
     "navLabel": "Premium",
     "heroTitle": "Más allá de lo ordinario",

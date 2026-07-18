@@ -1,48 +1,52 @@
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { flags } from "@/lib/flags";
+import { getPublishedCountries, getRegions } from "@/lib/content";
 import { LocaleSwitcher } from "./LocaleSwitcher";
+import { MainNav, type NavRegion } from "./MainNav";
 
 export async function Header() {
-  const t = await getTranslations("nav");
+  const locale = await getLocale();
+  const [nav, toursT, regions, countries] = await Promise.all([
+    getTranslations("nav"),
+    getTranslations("tours"),
+    getRegions(locale),
+    getPublishedCountries(locale),
+  ]);
 
-  const links: { href: string; label: string }[] = [
-    { href: "/tours", label: t("tours") },
-    { href: "/destinations", label: t("destinations") },
-    { href: "/guide", label: t("guide") },
-    ...(flags.excursions
-      ? [{ href: "/excursions", label: t("excursions") }]
-      : []),
-    { href: "/about", label: t("about") },
-    { href: "/contact", label: t("contact") },
-  ];
+  const navRegions: NavRegion[] = regions.map((r) => ({
+    slug: r.slug,
+    name: r.name,
+    countries: countries
+      .filter((c) => c.regionSlug === r.slug)
+      .map((c) => ({ slug: c.slug, regionSlug: c.regionSlug, name: c.name })),
+  }));
+
+  const labels = {
+    tours: nav("tours"),
+    allTours: toursT("title"),
+    group: toursT("type_group"),
+    private: toursT("type_private"),
+    destinations: nav("destinations"),
+    guide: nav("guide"),
+    about: nav("about"),
+    contact: nav("contact"),
+    premium: nav("premium"),
+    menu: "Menu",
+  };
 
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-background/90 backdrop-blur">
-      <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3">
+      <div className="relative mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3">
         <Link href="/" className="text-lg font-bold tracking-tight">
           Trips<span className="text-primary">Factory</span>
         </Link>
-        <nav className="hidden items-center gap-6 text-sm md:flex">
-          {links.map((l) => (
-            <Link
-              key={l.href}
-              href={l.href}
-              className="text-muted transition-colors hover:text-foreground"
-            >
-              {l.label}
-            </Link>
-          ))}
-          {flags.premium && (
-            <Link
-              href="/premium"
-              className="rounded-full border border-accent px-3 py-1 font-medium text-accent transition-colors hover:bg-accent hover:text-accent-foreground"
-            >
-              {t("premium")}
-            </Link>
-          )}
-        </nav>
-        <LocaleSwitcher />
+        <MainNav
+          labels={labels}
+          regions={navRegions}
+          premium={flags.premium}
+          localeSwitcher={<LocaleSwitcher />}
+        />
       </div>
     </header>
   );

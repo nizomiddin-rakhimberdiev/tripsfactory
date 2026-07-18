@@ -9,6 +9,7 @@ import {
 } from "@/lib/content";
 import { locales } from "@/i18n/routing";
 import { TourCard } from "@/components/tours/TourCard";
+import { CountryBar } from "@/components/layout/CountryBar";
 
 type Params = { locale: string; region: string; country: string };
 
@@ -48,10 +49,15 @@ export default async function CountryPage({
   if (!c || c.regionSlug !== region) notFound();
 
   const t = await getTranslations("destinations");
-  const [cityList, countryTours] = await Promise.all([
+  const nav = await getTranslations("nav");
+  const [cityList, countryTours, allCountries] = await Promise.all([
     getCitiesByCountry(c.slug, locale),
     getTours({ countrySlug: c.slug }, locale),
+    getPublishedCountries(locale),
   ]);
+  const siblings = allCountries
+    .filter((s) => s.slug !== c.slug)
+    .map((s) => ({ slug: s.slug, regionSlug: s.regionSlug, name: s.name }));
 
   return (
     <div>
@@ -70,11 +76,19 @@ export default async function CountryPage({
         </h1>
       </section>
 
+      <CountryBar
+        countryName={c.name}
+        toursLabel={nav("tours")}
+        citiesLabel={t("citiesTitle")}
+        switchLabel={t("countries")}
+        siblings={siblings}
+      />
+
       <div className="mx-auto max-w-6xl px-4 py-12">
         <p className="max-w-3xl text-lg text-muted">{c.intro}</p>
 
         {countryTours.length > 0 && (
-          <section className="mt-12">
+          <section id="tours" className="mt-12 scroll-mt-28">
             <h2 className="mb-6 text-2xl font-bold">
               {t("toursIn", { country: c.name })}
             </h2>
@@ -87,7 +101,7 @@ export default async function CountryPage({
         )}
 
         {cityList.length > 0 && (
-          <section className="mt-12">
+          <section id="cities" className="mt-12 scroll-mt-28">
             <h2 className="mb-6 text-2xl font-bold">{t("citiesTitle")}</h2>
             <div className="grid gap-6 md:grid-cols-2">
               {cityList.map((city) => (
