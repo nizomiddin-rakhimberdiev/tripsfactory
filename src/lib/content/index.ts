@@ -61,6 +61,7 @@ function mapCountry(doc: CountryDoc): Country {
     regionSlug: relSlug(doc.region),
     name: doc.name,
     intro: doc.intro,
+    body: doc.body ?? null,
     heroImage: mediaUrl(doc.heroImage),
     published: Boolean(doc.published),
   };

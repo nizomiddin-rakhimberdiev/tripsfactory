@@ -10,6 +10,7 @@ import {
 import { locales } from "@/i18n/routing";
 import { TourCard } from "@/components/tours/TourCard";
 import { CountryBar } from "@/components/layout/CountryBar";
+import { Markdown } from "@/components/Markdown";
 
 type Params = { locale: string; region: string; country: string };
 
@@ -86,6 +87,12 @@ export default async function CountryPage({
 
       <div className="mx-auto max-w-6xl px-4 py-12">
         <p className="max-w-3xl text-lg text-muted">{c.intro}</p>
+
+        {c.body && (
+          <div className="mt-8">
+            <Markdown>{c.body}</Markdown>
+          </div>
+        )}
 
         {countryTours.length > 0 && (
           <section id="tours" className="mt-12 scroll-mt-28">

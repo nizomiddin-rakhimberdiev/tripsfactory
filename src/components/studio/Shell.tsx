@@ -23,6 +23,7 @@ const NAV: {
 }[] = [
   { href: "/studio", label: "Boshqaruv", Icon: IconGrid, group: "" },
   { href: "/studio/tours", label: "Turlar", Icon: IconCompass, group: "Kontent" },
+  { href: "/studio/countries", label: "Davlatlar", Icon: IconGlobe, group: "Kontent" },
   { href: "/studio/cities", label: "Shaharlar", Icon: IconPin, group: "Kontent" },
   { href: "/studio/guides", label: "Qo'llanmalar", Icon: IconBook, group: "Kontent" },
   { href: "/studio/content", label: "Bosh sahifa", Icon: IconHome, group: "Kontent" },
@@ -39,6 +40,7 @@ const NAV: {
 const TITLES: Record<string, string> = {
   "/studio": "Boshqaruv paneli",
   "/studio/tours": "Turlar",
+  "/studio/countries": "Davlatlar",
   "/studio/cities": "Shaharlar",
   "/studio/guides": "Qo'llanmalar",
   "/studio/content": "Bosh sahifa",

@@ -19,6 +19,8 @@ export interface Country {
   regionSlug: string;
   name: string;
   intro: string;
+  /** Optional long-form Markdown body rendered below the intro. */
+  body?: string | null;
   heroImage: string;
   published: boolean;
 }

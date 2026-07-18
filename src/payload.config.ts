@@ -198,8 +198,19 @@ const Countries: CollectionConfig = {
     },
     locText("name", "Nomi"),
     locArea("intro", "Tavsif", {
-      description: "Davlat sahifasi tepasidagi kirish matni.",
+      description: "Davlat sahifasi tepasidagi qisqa kirish matni.",
     }),
+    {
+      name: "body",
+      type: "textarea",
+      label: "To'liq ma'lumot (Markdown)",
+      localized: true,
+      required: false,
+      admin: {
+        description:
+          "Davlat haqida istalgancha to'liq ma'lumot. Markdown ishlatiladi: '# Sarlavha', '- ro'yxat', '**qalin**', '[havola](url)', '![rasm](url)'. Bo'sh qoldirsangiz faqat yuqoridagi qisqa tavsif chiqadi.",
+      },
+    },
     imageField("heroImage", "Asosiy rasm"),
     {
       name: "published",

@@ -214,9 +214,13 @@ export interface Country {
   region: number | Region;
   name: string;
   /**
-   * Davlat sahifasi tepasidagi kirish matni.
+   * Davlat sahifasi tepasidagi qisqa kirish matni.
    */
   intro: string;
+  /**
+   * Davlat haqida istalgancha to'liq ma'lumot. Markdown ishlatiladi: '# Sarlavha', '- ro'yxat', '**qalin**', '[havola](url)', '![rasm](url)'. Bo'sh qoldirsangiz faqat yuqoridagi qisqa tavsif chiqadi.
+   */
+  body?: string | null;
   /**
    * Rasmni almashtirish: rasm yonidagi ✕ tugmasini bosing, so'ng «Create New» bilan yangi rasm yuklang (yoki faylni shu maydonga tortib tashlang). Eski rasm o'chmaydi — kutubxonada qoladi.
    */
@@ -523,6 +527,7 @@ export interface CountriesSelect<T extends boolean = true> {
   region?: T;
   name?: T;
   intro?: T;
+  body?: T;
   heroImage?: T;
   published?: T;
   updatedAt?: T;

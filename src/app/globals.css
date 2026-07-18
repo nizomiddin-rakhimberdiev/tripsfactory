@@ -51,3 +51,75 @@ body {
   color: var(--foreground);
   font-family: var(--font-sans), system-ui, sans-serif;
 }
+
+/* Rich Markdown content (country/tour long-form descriptions) */
+.tf-prose {
+  color: var(--foreground);
+  line-height: 1.7;
+  max-width: 48rem;
+}
+.tf-prose > * + * {
+  margin-top: 1rem;
+}
+.tf-prose h1,
+.tf-prose h2,
+.tf-prose h3 {
+  font-weight: 700;
+  line-height: 1.25;
+  margin-top: 2rem;
+}
+.tf-prose h1 {
+  font-size: 1.875rem;
+}
+.tf-prose h2 {
+  font-size: 1.5rem;
+}
+.tf-prose h3 {
+  font-size: 1.25rem;
+}
+.tf-prose p,
+.tf-prose li {
+  color: var(--muted);
+}
+.tf-prose a {
+  color: var(--primary);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.tf-prose ul,
+.tf-prose ol {
+  padding-left: 1.5rem;
+}
+.tf-prose ul {
+  list-style: disc;
+}
+.tf-prose ol {
+  list-style: decimal;
+}
+.tf-prose img {
+  border-radius: var(--radius);
+  max-width: 100%;
+  height: auto;
+  margin: 1.5rem 0;
+}
+.tf-prose blockquote {
+  border-left: 3px solid var(--primary);
+  padding-left: 1rem;
+  color: var(--muted);
+  font-style: italic;
+}
+.tf-prose strong {
+  color: var(--foreground);
+  font-weight: 600;
+}
+.tf-prose table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.tf-prose th,
+.tf-prose td {
+  border: 1px solid var(--border);
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+}
+
