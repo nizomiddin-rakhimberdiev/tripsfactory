@@ -21,7 +21,19 @@
     "whyGuaranteedText": "Su tour se realiza aunque sea el único viajero.",
     "whyTailored": "Viajes a medida",
     "whyTailoredText": "Cada itinerario puede personalizarse según sus deseos.",
-    "exploreDestinations": "Explorar destinos"
+    "exploreDestinations": "Explorar destinos",
+    "heroEyebrow": "Expediciones por la Ruta de la Seda",
+    "heroCtaSecondary": "Habla con un experto",
+    "searchDestination": "Destino",
+    "searchDestinationAll": "Todos los destinos",
+    "searchTourType": "Tipo de tour",
+    "searchTypeAll": "Todos los tours",
+    "searchButton": "Buscar",
+    "featuredEyebrow": "Viajes excepcionales",
+    "viewAllTours": "Ver todos los tours",
+    "tailorTitle": "Comienza tu viaje a medida",
+    "tailorText": "Trabaja con nuestros planificadores expertos para crear un itinerario único para ti.",
+    "tailorCta": "Empezar a planificar"
   },
   "tours": {
     "title": "Nuestros tours",

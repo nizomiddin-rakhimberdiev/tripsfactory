@@ -21,7 +21,19 @@
     "whyGuaranteedText": "Il tour si svolge anche se siete l'unico viaggiatore.",
     "whyTailored": "Viaggi su misura",
     "whyTailoredText": "Ogni itinerario può essere personalizzato secondo i vostri desideri.",
-    "exploreDestinations": "Esplora le destinazioni"
+    "exploreDestinations": "Esplora le destinazioni",
+    "heroEyebrow": "Spedizioni lungo la Via della Seta",
+    "heroCtaSecondary": "Parla con un esperto",
+    "searchDestination": "Destinazione",
+    "searchDestinationAll": "Tutte le destinazioni",
+    "searchTourType": "Tipo di tour",
+    "searchTypeAll": "Tutti i tour",
+    "searchButton": "Cerca",
+    "featuredEyebrow": "Viaggi eccezionali",
+    "viewAllTours": "Vedi tutti i tour",
+    "tailorTitle": "Inizia il tuo viaggio su misura",
+    "tailorText": "Collabora con i nostri esperti per creare un itinerario unico, pensato per te.",
+    "tailorCta": "Inizia a pianificare"
   },
   "tours": {
     "title": "I nostri tour",

@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Travel Guide | TripsFactory</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&amp;family=Inter:wght@300;400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-nav {
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .editorial-shadow {
+            box-shadow: 0px 4px 20px rgba(0,0,0,0.04);
+        }
+        .editorial-shadow-hover:hover {
+            box-shadow: 0px 12px 32px rgba(0,0,0,0.08);
+            transform: translateY(-4px);
+            transition: all 0.3s ease;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #005a71;
+            border-radius: 10px;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "inverse-on-surface": "#eef1f3",
+                      "on-secondary": "#ffffff",
+                      "tertiary-fixed": "#ffe08e",
+                      "on-tertiary-fixed": "#241a00",
+                      "outline": "#6f787d",
+                      "on-primary-fixed-variant": "#004d62",
+                      "secondary-container": "#ffa26b",
+                      "primary-fixed-dim": "#81d1f0",
+                      "on-error": "#ffffff",
+                      "on-primary-fixed": "#001f29",
+                      "surface-bright": "#f7fafc",
+                      "error": "#ba1a1a",
+                      "surface-dim": "#d7dadd",
+                      "surface": "#f7fafc",
+                      "tertiary": "#755b00",
+                      "surface-tint": "#006781",
+                      "tertiary-fixed-dim": "#ecc246",
+                      "on-background": "#181c1e",
+                      "error-container": "#ffdad6",
+                      "surface-container-low": "#f1f4f6",
+                      "primary": "#005a71",
+                      "on-surface-variant": "#3f484c",
+                      "secondary-fixed-dim": "#ffb68d",
+                      "primary-fixed": "#b9eaff",
+                      "background": "#f7fafc",
+                      "on-error-container": "#93000a",
+                      "on-tertiary": "#ffffff",
+                      "on-primary-container": "#d3f1ff",
+                      "inverse-primary": "#81d1f0",
+                      "on-secondary-fixed-variant": "#753403",
+                      "on-tertiary-fixed-variant": "#584400",
+                      "surface-container-highest": "#e0e3e5",
+                      "inverse-surface": "#2d3133",
+                      "tertiary-container": "#cea62b",
+                      "on-secondary-container": "#783605",
+                      "surface-container": "#ebeef0",
+                      "surface-variant": "#e0e3e5",
+                      "on-primary": "#ffffff",
+                      "outline-variant": "#bec8cd",
+                      "on-tertiary-container": "#4f3d00",
+                      "secondary-fixed": "#ffdbc9",
+                      "surface-container-lowest": "#ffffff",
+                      "on-surface": "#181c1e",
+                      "primary-container": "#0e7490",
+                      "secondary": "#934b1b",
+                      "on-secondary-fixed": "#331200",
+                      "surface-container-high": "#e6e8eb"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "gutter": "24px",
+                      "section-padding": "80px",
+                      "margin-mobile": "16px",
+                      "container-max": "1280px",
+                      "base": "8px"
+              },
+              "fontFamily": {
+                      "headline-lg": ["Playfair Display"],
+                      "body-lg": ["Inter"],
+                      "display-lg-mobile": ["Playfair Display"],
+                      "body-md": ["Inter"],
+                      "headline-sm": ["Playfair Display"],
+                      "display-lg": ["Playfair Display"],
+                      "label-caps": ["Inter"],
+                      "price-display": ["Inter"]
+              },
+              "fontSize": {
+                      "headline-lg": ["32px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                      "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                      "display-lg-mobile": ["40px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                      "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                      "headline-sm": ["24px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                      "display-lg": ["64px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "label-caps": ["12px", {"lineHeight": "1.0", "letterSpacing": "0.1em", "fontWeight": "600"}],
+                      "price-display": ["20px", {"lineHeight": "1.2", "fontWeight": "600"}]
+              }
+            },
+          },
+        }
+    </script>
+</head>
+<body class="bg-background text-on-surface font-body-md selection:bg-primary-fixed selection:text-on-primary-fixed">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-surface/70 backdrop-blur-md shadow-sm">
+<div class="max-w-container-max mx-auto px-gutter flex justify-between items-center h-20">
+<div class="font-headline-lg text-headline-lg font-bold text-primary">TripsFactory</div>
+<div class="hidden md:flex items-center space-x-8">
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors" href="#">Tours</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors" href="#">Destinations</a>
+<a class="font-label-caps text-label-caps text-primary border-b-2 border-primary pb-1" href="#">Travel Guide</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors" href="#">About</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors" href="#">Contact</a>
+</div>
+<div class="flex items-center space-x-4">
+<button class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary">EN</button>
+<button class="bg-primary text-on-primary px-6 py-2 rounded-full font-label-caps text-label-caps hover:opacity-90 active:scale-95 transition-all">Premium</button>
+</div>
+</div>
+</nav>
+<!-- Main Content -->
+<main class="pt-32 pb-section-padding px-gutter max-w-container-max mx-auto">
+<!-- Header Section -->
+<header class="mb-20 text-center md:text-left">
+<span class="font-label-caps text-label-caps text-primary tracking-widest uppercase">Expert Insights</span>
+<h1 class="font-display-lg text-display-lg mt-4 mb-6">Central Asia Travel Guide</h1>
+<p class="text-body-lg font-body-lg text-on-surface-variant max-w-2xl">
+                Navigating the Silk Road requires preparation and cultural nuance. Our detailed guides offer essential knowledge for the modern nomad.
+            </p>
+</header>
+<!-- Index Grid Section -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-32">
+<!-- Article 1: Active Focus -->
+<article class="group cursor-pointer">
+<div class="relative overflow-hidden rounded-xl mb-6 aspect-[4/5] editorial-shadow editorial-shadow-hover">
+<img class="object-cover w-full h-full group-hover:scale-105 transition-transform duration-700" data-alt="A cinematic, high-key photograph of a blue-tiled dome in Samarkand, Uzbekistan, under a warm afternoon sun. The lighting is soft and golden, highlighting the intricate ceramic patterns. The overall aesthetic is one of quiet luxury and historical grandeur, using a palette of turquoise, deep blue, and warm sand. Soft shadows define the architectural depth of the Silk Road landmark." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD_q_t_wmCFSpeYhSSzm6UxvfoNQ3KKa5gdtn242D4TlgggU849hQFy2fVx9mHCJmRnBFJFe4uU4rIh51qGMbFQlrwnEqwnw8uA4sftLcAgjdMv5DsflzaxDb2_ySZCPKfTYBFziAWAy4QLhZjchbaXEzwyc1yNQMR4IOk8ASttyDF2ahxhKNtYkLuqOoK4OChBnyYIxxIjI3D8eAXXLtACMvq8oKy-ZmV2KUc3L0DxTZJ-3gEOwDQ"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-60"></div>
+<div class="absolute bottom-6 left-6 right-6 text-white">
+<span class="font-label-caps text-label-caps border border-white/40 px-2 py-1 rounded">ESSENTIAL</span>
+</div>
+</div>
+<h3 class="font-headline-sm text-headline-sm mb-3 group-hover:text-primary transition-colors">Uzbekistan Visa Guide</h3>
+<p class="text-on-surface-variant line-clamp-3 mb-4">Everything you need to know about E-Visas, registration requirements, and the latest border protocols for international travelers entering the heart of the Silk Road.</p>
+<a class="font-label-caps text-label-caps text-primary flex items-center gap-2 group-hover:translate-x-1 transition-transform" href="#article">
+                    READ ARTICLE <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</a>
+</article>
+<!-- Article 2 -->
+<article class="group cursor-pointer">
+<div class="relative overflow-hidden rounded-xl mb-6 aspect-[4/5] editorial-shadow editorial-shadow-hover">
+<img class="object-cover w-full h-full group-hover:scale-105 transition-transform duration-700" data-alt="A wide-angle, atmospheric landscape of the vast steppes in Kazakhstan during the golden hour. A single, high-end expedition vehicle is parked on a dusty trail, silhouetted against a brilliant orange and soft pink sky. The mood is serene, expansive, and adventurous. The lighting is low and dramatic, emphasizing the isolation and beauty of the Central Asian wilderness." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBMFBsd0fR1a3HofWewPMVs6ghyOpltTHYUDiuhspjCdEh4RVC81bbcLZ6Bdu5xgS60qsUC10XjpW2K21sAHq4GjNCcdy8GRW0q9fAXu0T7OoKndTFKIOFJGgiT7MuecCArRC_fSsN_Y5bZfBtUGLNs_YrkJT72l-6RDIDRBRmDTV7Hd_xIqMc_TgevZ3OcRo_0gTD4JrfMZbhYrASLs_B4HhwrOyp_VkOY0JKIEsZpIvmyR-SskKk"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-60"></div>
+<div class="absolute bottom-6 left-6 right-6 text-white">
+<span class="font-label-caps text-label-caps border border-white/40 px-2 py-1 rounded">PLANNING</span>
+</div>
+</div>
+<h3 class="font-headline-sm text-headline-sm mb-3 group-hover:text-primary transition-colors">Best Time to Visit the Silk Road</h3>
+<p class="text-on-surface-variant line-clamp-3 mb-4">A seasonal breakdown of climate and festivals across Uzbekistan, Kazakhstan, and Kyrgyzstan to help you plan the perfect high-end expedition.</p>
+<a class="font-label-caps text-label-caps text-primary flex items-center gap-2" href="#">
+                    READ ARTICLE <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</a>
+</article>
+<!-- Article 3 -->
+<article class="group cursor-pointer">
+<div class="relative overflow-hidden rounded-xl mb-6 aspect-[4/5] editorial-shadow editorial-shadow-hover">
+<img class="object-cover w-full h-full group-hover:scale-105 transition-transform duration-700" data-alt="A top-down editorial food photograph of a traditional Uzbek feast. A large, ornate ceramic platter holds golden Plov with chunks of succulent lamb and carrots. Surrounded by freshly baked flatbread, bowls of pomegranate seeds, and steaming green tea in gold-rimmed cups. The lighting is warm and domestic, suggesting a high-end restaurant or a welcoming local home. Saturated colors and organic textures dominate." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCpE_5VOBz5OKzQXHxsL8yuzFBwX-OZTLSnP50o3tt_u_SFjKDSihxjjGq4LsHHcuMFM_bmq6iD6RBfgeyqRxDcED1i8V9aonotBO7TozUOLeSf3t_0iPq4tZXLIsTi5gyoCE1_HgxyRAERLfyZHiOmetigJbnfRmMZ0kRntXc83KOe-9j-jU5aFl9WJSAanKqo_vZqY43PPFqJ4VqRk3nsvq7S40b-IRFqvbIB3d_PZVpvQu0NTsU"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-60"></div>
+<div class="absolute bottom-6 left-6 right-6 text-white">
+<span class="font-label-caps text-label-caps border border-white/40 px-2 py-1 rounded">CULTURE</span>
+</div>
+</div>
+<h3 class="font-headline-sm text-headline-sm mb-3 group-hover:text-primary transition-colors">A Guide to Uzbek Cuisine</h3>
+<p class="text-on-surface-variant line-clamp-3 mb-4">From the legendary Plov of Tashkent to the aromatic breads of Samarkand, discover the flavors that have sustained travelers for centuries.</p>
+<a class="font-label-caps text-label-caps text-primary flex items-center gap-2" href="#">
+                    READ ARTICLE <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</a>
+</article>
+</section>
+<!-- Main Article Layout (Hidden Context) -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-12 pt-20 border-t border-surface-container" id="article">
+<!-- Sticky TOC Sidebar -->
+<aside class="lg:col-span-3 hidden lg:block">
+<div class="sticky top-28">
+<h4 class="font-label-caps text-label-caps text-primary mb-6">TABLE OF CONTENTS</h4>
+<nav class="flex flex-col space-y-4">
+<a class="text-primary font-bold border-l-2 border-primary pl-4 py-1" href="#intro">Introduction</a>
+<a class="text-on-surface-variant hover:text-primary pl-4 py-1 transition-colors" href="#visa-types">Visa Types</a>
+<a class="text-on-surface-variant hover:text-primary pl-4 py-1 transition-colors" href="#e-visa">E-Visa Process</a>
+<a class="text-on-surface-variant hover:text-primary pl-4 py-1 transition-colors" href="#registration">Registration (OWOQ)</a>
+<a class="text-on-surface-variant hover:text-primary pl-4 py-1 transition-colors" href="#checklist">Document Checklist</a>
+<a class="text-on-surface-variant hover:text-primary pl-4 py-1 transition-colors" href="#customs">Customs &amp; Currency</a>
+</nav>
+<div class="mt-12 p-6 bg-surface-container rounded-xl">
+<h5 class="font-headline-sm text-headline-sm text-sm mb-2">Need help?</h5>
+<p class="text-sm text-on-surface-variant mb-4">Our premium members get direct assistance with visa logistics.</p>
+<button class="w-full py-3 border border-primary text-primary rounded-full font-label-caps text-label-caps hover:bg-primary hover:text-white transition-all">Go Premium</button>
+</div>
+</div>
+</aside>
+<!-- Article Content -->
+<article class="lg:col-span-6">
+<div class="mb-12" id="intro">
+<h2 class="font-display-lg text-[48px] leading-tight mb-8">Uzbekistan Visa Guide: Navigating the Modern Silk Road</h2>
+<p class="text-body-lg font-body-lg text-on-surface mb-6 leading-relaxed">
+                        Uzbekistan has revolutionized its entry requirements in recent years, opening its doors to the world with one of the most progressive visa regimes in Central Asia. For travelers seeking the "Quiet Luxury" of the Orient, understanding these logistics is the first step of the journey.
+                    </p>
+<p class="text-body-lg font-body-lg text-on-surface mb-8 leading-relaxed">
+                        This guide covers everything from the digital application process to the crucial nuances of local registration, ensuring your expedition begins with absolute clarity and peace of mind.
+                    </p>
+</div>
+<div class="mb-16" id="visa-types">
+<h3 class="font-headline-lg text-headline-lg mb-6">Understanding Visa Categories</h3>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+<div class="p-6 bg-surface-container-low rounded-xl border-l-4 border-primary">
+<span class="font-label-caps text-label-caps text-primary">VISA FREE</span>
+<p class="mt-2 text-sm">Citizens of 90+ countries can enter for up to 30 days without a visa. Perfect for spontaneous luxury escapes.</p>
+</div>
+<div class="p-6 bg-surface-container-low rounded-xl border-l-4 border-tertiary">
+<span class="font-label-caps text-label-caps text-tertiary">E-VISA</span>
+<p class="mt-2 text-sm">Standard 30-day entry for most nationalities not on the visa-free list. 3-day processing time.</p>
+</div>
+</div>
+</div>
+<div class="mb-16" id="e-visa">
+<h3 class="font-headline-lg text-headline-lg mb-6">The E-Visa Process</h3>
+<p class="mb-6">The official government portal is the primary route for most travelers. While the interface is minimalist, precision is required during data entry.</p>
+<div class="rounded-2xl overflow-hidden mb-8 border border-outline-variant">
+<img class="w-full aspect-video object-cover" data-alt="A clean, macro editorial photograph of a modern passport and a tablet screen showing a digital visa application form. Soft, natural light falls across the wooden desk surface. The aesthetic is organized and calm, suggesting a seamless travel planning experience. Warm tones and high-quality textures emphasize the luxury travel theme." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBFVEP7DvrDRJfsEVMxKVWTh89MhZWaedJl2itlRXCJ1xjEmeLnCi3GsY0lGUqShZXXJQASQYQpUereAWeFJxm3CkowX9BYQE5-K6dSMzeEzeOq87FQ7SJpiVSjinG_afgXzdPR1hPLCCZ_4tVb_q4xSaB0M34gfY73PJjBUTewlOr3LXU_de1iesTYHebmmu6w6dD5QD1fm0VkrF5A9y44fhxoTwMyRyD0iOa0ADFytN4KWZIw-n0"/>
+<div class="p-4 bg-surface-container-highest text-xs italic text-on-surface-variant">
+                            Official digital processing facilitates faster entry into the Tashkent International Airport.
+                        </div>
+</div>
+</div>
+<div class="mb-16" id="registration">
+<h3 class="font-headline-lg text-headline-lg mb-6">The Registration (OWOQ) System</h3>
+<p class="mb-4">One of the unique aspects of Uzbek travel is the mandatory registration. Every night spent in the country must be accounted for. High-end hotels handle this automatically via the E-Mehmon system.</p>
+<blockquote class="border-l-4 border-secondary-container pl-6 py-4 my-8 italic text-lg text-on-surface-variant">
+                        "Always collect your registration slips from boutique hotels and luxury guesthouses. While digital records exist, physical slips are often requested at land border crossings."
+                    </blockquote>
+</div>
+<div class="mb-16 p-8 bg-primary/5 rounded-3xl" id="checklist">
+<h3 class="font-headline-sm text-headline-sm mb-6">Document Checklist</h3>
+<ul class="space-y-4">
+<li class="flex items-start gap-4">
+<span class="material-symbols-outlined text-primary">check_circle</span>
+<span>Passport with at least 6 months validity from entry date.</span>
+</li>
+<li class="flex items-start gap-4">
+<span class="material-symbols-outlined text-primary">check_circle</span>
+<span>High-resolution digital passport photo (35x45mm).</span>
+</li>
+<li class="flex items-start gap-4">
+<span class="material-symbols-outlined text-primary">check_circle</span>
+<span>Valid credit card for the $20-50 processing fee.</span>
+</li>
+<li class="flex items-start gap-4">
+<span class="material-symbols-outlined text-primary">check_circle</span>
+<span>Proof of travel insurance for the duration of stay.</span>
+</li>
+</ul>
+</div>
+</article>
+<!-- Right Sidebar: Popular & Newsletter -->
+<aside class="lg:col-span-3">
+<div class="space-y-12 sticky top-28">
+<!-- Popular Guides -->
+<section>
+<h4 class="font-label-caps text-label-caps text-primary mb-6">MOST POPULAR</h4>
+<div class="space-y-6">
+<a class="group flex gap-4" href="#">
+<div class="w-16 h-16 rounded-lg overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform" data-alt="Close up of a turquoise mosaic tile from an ancient Silk Road mosque. Intricate geometric patterns in shades of blue and gold. High contrast and luxurious detail." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDw3HsSd6QKx4rp3M1k401O5sthlL_nHaq9e2ygtr6zxvD_Xz9rb8EofRmrfsbYY1QMHMX7qo_2o6sC7QdJRnU8_qBJE1X93yP60Sjkh8RkSUDaZOYyfSOjrWa7N18F8WtkyjcJ0JfUnOhKUsEvaio4VcjV5KmDHihXVlh2sr-PnXcGTckqt0ZS_LIeH1wtdFzdjSMAN8RKCWvp-3QTTlnOKDe4SKFdfcY1XxClMAIpV9ItqiZSqn0"/>
+</div>
+<div>
+<h5 class="text-sm font-bold leading-tight group-hover:text-primary transition-colors">7 Days in the Golden Triangle</h5>
+<span class="text-xs text-on-surface-variant">5 min read</span>
+</div>
+</a>
+<a class="group flex gap-4" href="#">
+<div class="w-16 h-16 rounded-lg overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform" data-alt="A luxury train interior with plush velvet seats and mahogany tables, looking out onto a desert sunset. Sophisticated and nostalgic atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDy4nw6rtm7EfdN7jWebp89UbTV7nTn_k-d0eYpFNG50TinOSHUZoqz6m4nRvauWe24alwOCR79PmRK3N3cipJ1Njo50zIsQWA5ggyNFoeiGa2xhyvrYB7EnbBe0sAnwL90NgLRXmM4LH7jluHHT4UQy4ImNKPOyzlz9D8M7vRWryzJknweqJO-8SIAIVFZl6QHnS790PkaTTPCHLCL2FVu3UKjNMD1RuHE-f5N7p002jHGhPwRmJI"/>
+</div>
+<div>
+<h5 class="text-sm font-bold leading-tight group-hover:text-primary transition-colors">The Orient Express: Silk Road Edition</h5>
+<span class="text-xs text-on-surface-variant">8 min read</span>
+</div>
+</a>
+<a class="group flex gap-4" href="#">
+<div class="w-16 h-16 rounded-lg overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform" data-alt="A traditional Central Asian tea set with a patterned teapot and small bowls on a colorful ikat textile. Warm morning light." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDFHUSnvcy8aV_h1kthl5-CY3b2Dl-99EXsDeyKvR7xcHwhCcm6t4DTbEH5TXzY_-SE8-tZK_89wC2reuNtj0vIWU3d_p8xOqkXrMg9ldgiNsXCVbD3edz3q_r_GSchBuHPYxpOlJo2XwpI1ZwvOWHcXcp3zqgQxxDOdtQbp7VFYHMbP_sZGP-wN1UysI-nRPPffACpV5RJNjwVCGJTQHebPgPOHwcE49TiZ3_fwVcnp7mwkBSCcmQ"/>
+</div>
+<div>
+<h5 class="text-sm font-bold leading-tight group-hover:text-primary transition-colors">Tea Culture: A Nomad's Etiquette</h5>
+<span class="text-xs text-on-surface-variant">4 min read</span>
+</div>
+</a>
+</div>
+</section>
+<!-- Newsletter Signup -->
+<section class="p-8 bg-inverse-surface text-inverse-on-surface rounded-3xl relative overflow-hidden">
+<div class="relative z-10">
+<span class="font-label-caps text-label-caps text-primary-fixed block mb-2">STAY UPDATED</span>
+<h4 class="font-headline-sm text-headline-sm mb-4">The Silk Road Dispatch</h4>
+<p class="text-sm opacity-80 mb-6">Receive monthly insights on luxury travel and cultural events in Central Asia.</p>
+<form class="space-y-3">
+<input class="w-full bg-white/10 border-none rounded-full px-4 py-3 text-sm focus:ring-1 focus:ring-primary-fixed placeholder:text-white/40" placeholder="Email address" type="email"/>
+<button class="w-full bg-primary-fixed text-on-primary-fixed py-3 rounded-full font-label-caps text-label-caps font-bold hover:bg-primary-fixed-dim transition-all">SUBSCRIBE</button>
+</form>
+</div>
+<!-- Subtle background decoration -->
+<div class="absolute -bottom-10 -right-10 w-32 h-32 bg-primary/20 rounded-full blur-2xl"></div>
+</section>
+</div>
+</aside>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-lowest py-section-padding border-t border-surface-container">
+<div class="max-w-container-max mx-auto px-gutter grid grid-cols-1 md:grid-cols-4 gap-12">
+<div class="md:col-span-1">
+<div class="font-headline-sm text-headline-sm font-bold text-primary mb-6">TripsFactory</div>
+<p class="text-sm text-on-surface-variant leading-relaxed">
+                    © 2024 TripsFactory. High-end Silk Road Expeditions. Crafting authentic journeys for the modern connoisseur.
+                </p>
+</div>
+<div>
+<h6 class="font-label-caps text-label-caps font-bold mb-6">DESTINATIONS</h6>
+<ul class="space-y-3">
+<li><a class="text-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Uzbekistan</a></li>
+<li><a class="text-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Kazakhstan</a></li>
+<li><a class="text-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Kyrgyzstan</a></li>
+<li><a class="text-sm text-on-surface-variant hover:text-primary transition-colors" href="#">China</a></li>
+</ul>
+</div>
+<div>
+<h6 class="font-label-caps text-label-caps font-bold mb-6">COMPANY</h6>
+<ul class="space-y-3">
+<li><a class="text-sm text-on-surface-variant hover:text-primary transition-colors" href="#">About Us</a></li>
+<li><a class="text-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Terms of Service</a></li>
+<li><a class="text-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Privacy Policy</a></li>
+<li><a class="text-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Contact Support</a></li>
+</ul>
+</div>
+<div>
+<h6 class="font-label-caps text-label-caps font-bold mb-6">FOLLOW US</h6>
+<div class="flex gap-4">
+<a class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center hover:bg-primary hover:text-white transition-all" href="#">
+<span class="material-symbols-outlined text-[20px]">public</span>
+</a>
+<a class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center hover:bg-primary hover:text-white transition-all" href="#">
+<span class="material-symbols-outlined text-[20px]">photo_camera</span>
+</a>
+<a class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center hover:bg-primary hover:text-white transition-all" href="#">
+<span class="material-symbols-outlined text-[20px]">chat</span>
+</a>
+</div>
+</div>
+</div>
+</footer>
+<!-- Micro-interactions Script -->
+<script>
+        // Smooth highlighting of active TOC link on scroll
+        window.addEventListener('scroll', () => {
+            const sections = ['intro', 'visa-types', 'e-visa', 'registration', 'checklist'];
+            let current = '';
+
+            sections.forEach(section => {
+                const element = document.getElementById(section);
+                if (element) {
+                    const rect = element.getBoundingClientRect();
+                    if (rect.top <= 150) {
+                        current = section;
+                    }
+                }
+            });
+
+            const navLinks = document.querySelectorAll('aside nav a');
+            navLinks.forEach(link => {
+                link.classList.remove('text-primary', 'font-bold', 'border-l-2', 'border-primary');
+                link.classList.add('text-on-surface-variant');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.remove('text-on-surface-variant');
+                    link.classList.add('text-primary', 'font-bold', 'border-l-2', 'border-primary');
+                }
+            });
+        });
+
+        // Simple newsletter submit feedback
+        document.querySelector('form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const btn = e.target.querySelector('button');
+            const originalText = btn.innerText;
+            btn.innerText = 'THANK YOU';
+            btn.disabled = true;
+            btn.classList.add('opacity-50');
+            setTimeout(() => {
+                btn.innerText = originalText;
+                btn.disabled = false;
+                btn.classList.remove('opacity-50');
+                e.target.reset();
+            }, 3000);
+        });
+    </script>
+</body></html>

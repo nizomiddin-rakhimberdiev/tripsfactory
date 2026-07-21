@@ -21,7 +21,19 @@
     "whyGuaranteedText": "Тур состоится, даже если вы единственный путешественник.",
     "whyTailored": "Индивидуальные маршруты",
     "whyTailoredText": "Каждый маршрут можно адаптировать под ваши пожелания.",
-    "exploreDestinations": "Все направления"
+    "exploreDestinations": "Все направления",
+    "heroEyebrow": "Путешествия по Шёлковому пути",
+    "heroCtaSecondary": "Связаться с экспертом",
+    "searchDestination": "Направление",
+    "searchDestinationAll": "Все направления",
+    "searchTourType": "Тип тура",
+    "searchTypeAll": "Все туры",
+    "searchButton": "Поиск",
+    "featuredEyebrow": "Незабываемые путешествия",
+    "viewAllTours": "Смотреть все туры",
+    "tailorTitle": "Начните индивидуальное путешествие",
+    "tailorText": "Вместе с нашими экспертами создайте маршрут, созданный именно для вас.",
+    "tailorCta": "Начать планирование"
   },
   "tours": {
     "title": "Наши туры",

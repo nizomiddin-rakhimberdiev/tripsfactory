@@ -21,7 +21,19 @@
     "whyGuaranteedText": "Your tour runs even if you are the only traveler.",
     "whyTailored": "Tailor-Made Trips",
     "whyTailoredText": "Every itinerary can be customized to your wishes.",
-    "exploreDestinations": "Explore Destinations"
+    "exploreDestinations": "Explore Destinations",
+    "heroEyebrow": "Silk Road Expeditions",
+    "heroCtaSecondary": "Talk to an expert",
+    "searchDestination": "Destination",
+    "searchDestinationAll": "All destinations",
+    "searchTourType": "Tour type",
+    "searchTypeAll": "All tours",
+    "searchButton": "Search",
+    "featuredEyebrow": "Exceptional journeys",
+    "viewAllTours": "View all tours",
+    "tailorTitle": "Begin your tailor-made journey",
+    "tailorText": "Work with our expert planners to craft an itinerary that is uniquely yours.",
+    "tailorCta": "Start planning"
   },
   "tours": {
     "title": "Our Tours",

@@ -36,9 +36,12 @@ export async function Header() {
   };
 
   return (
-    <header className="sticky top-0 z-50 border-b border-border bg-background/90 backdrop-blur">
-      <div className="relative mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3">
-        <Link href="/" className="text-lg font-bold tracking-tight">
+    <header className="sticky top-0 z-50 border-b border-border/70 tf-glass">
+      <div className="relative mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3.5 md:px-6">
+        <Link
+          href="/"
+          className="tf-display text-xl font-bold tracking-tight text-foreground"
+        >
           Trips<span className="text-primary">Factory</span>
         </Link>
         <MainNav

@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { Link, usePathname } from "@/i18n/navigation";
+import { useRef, useState } from "react";
+import { Link } from "@/i18n/navigation";
 
 export type NavCountry = { slug: string; regionSlug: string; name: string };
 export type NavRegion = { slug: string; name: string; countries: NavCountry[] };
@@ -19,9 +19,20 @@ type Labels = {
   menu: string;
 };
 
-function Caret() {
+/** Shared style for top-level desktop nav items — small, tracked, uppercase. */
+const NAV_LINK =
+  "tf-eyebrow text-xs text-muted transition-colors hover:text-foreground";
+
+function Caret({ open }: { open: boolean }) {
   return (
-    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden>
+    <svg
+      width="12"
+      height="12"
+      viewBox="0 0 24 24"
+      fill="none"
+      aria-hidden
+      className={`transition-transform ${open ? "rotate-180" : ""}`}
+    >
       <path
         d="m6 9 6 6 6-6"
         stroke="currentColor"
@@ -55,35 +66,24 @@ function Dropdown({
   };
 
   return (
-    <div
-      ref={ref}
-      className="relative"
-      onMouseEnter={show}
-      onMouseLeave={hide}
-    >
+    <div ref={ref} className="relative" onMouseEnter={show} onMouseLeave={hide}>
       <button
         type="button"
         onClick={() => setOpen((o) => !o)}
-        className={`flex items-center gap-1 text-muted transition-colors hover:text-foreground ${
-          open ? "text-foreground" : ""
-        }`}
+        className={`flex items-center gap-1 ${NAV_LINK} ${open ? "text-foreground" : ""}`}
       >
         {label}
-        <span
-          className={`transition-transform ${open ? "rotate-180" : ""}`}
-        >
-          <Caret />
-        </span>
+        <Caret open={open} />
       </button>
       <div
         className={`absolute left-1/2 top-full z-50 -translate-x-1/2 pt-3 transition-all ${
           open
-            ? "visible opacity-100 translate-y-0"
-            : "invisible opacity-0 translate-y-1"
+            ? "visible translate-y-0 opacity-100"
+            : "invisible translate-y-1 opacity-0"
         }`}
       >
         <div
-          className={`${width} overflow-hidden rounded-xl border border-border bg-background shadow-lg`}
+          className={`${width} overflow-hidden rounded-xl border border-border bg-surface shadow-[0_12px_32px_rgb(0_0_0/0.10)]`}
         >
           {children}
         </div>
@@ -104,11 +104,6 @@ export function MainNav({
   localeSwitcher: React.ReactNode;
 }) {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const pathname = usePathname();
-
-  useEffect(() => {
-    setMobileOpen(false);
-  }, [pathname]);
 
   const activeRegions = regions.filter((r) => r.countries.length > 0);
 
@@ -116,21 +111,21 @@ export function MainNav({
     <div className="p-2">
       <Link
         href="/tours"
-        className="block rounded-lg px-3 py-2 hover:bg-surface"
+        className="block rounded-lg px-3 py-2 font-medium hover:bg-surface-muted"
       >
-        <span className="font-medium">{labels.allTours}</span>
+        {labels.allTours}
       </Link>
       <Link
         href="/tours/group"
-        className="block rounded-lg px-3 py-2 hover:bg-surface"
+        className="block rounded-lg px-3 py-2 font-medium hover:bg-surface-muted"
       >
-        <span className="font-medium">{labels.group}</span>
+        {labels.group}
       </Link>
       <Link
         href="/tours/private"
-        className="block rounded-lg px-3 py-2 hover:bg-surface"
+        className="block rounded-lg px-3 py-2 font-medium hover:bg-surface-muted"
       >
-        <span className="font-medium">{labels.private}</span>
+        {labels.private}
       </Link>
     </div>
   );
@@ -139,15 +134,13 @@ export function MainNav({
     <div className="grid gap-4 p-4 sm:grid-cols-2">
       {activeRegions.map((r) => (
         <div key={r.slug}>
-          <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-muted">
-            {r.name}
-          </p>
+          <p className="tf-eyebrow mb-2 text-[11px] text-muted">{r.name}</p>
           <ul className="space-y-1">
             {r.countries.map((c) => (
               <li key={c.slug}>
                 <Link
                   href={`/destinations/${c.regionSlug}/${c.slug}`}
-                  className="block rounded-md px-2 py-1 text-sm hover:bg-surface hover:text-primary"
+                  className="block rounded-md px-2 py-1 text-sm hover:bg-surface-muted hover:text-primary"
                 >
                   {c.name}
                 </Link>
@@ -162,38 +155,31 @@ export function MainNav({
   return (
     <>
       {/* desktop */}
-      <nav className="hidden items-center gap-6 text-sm md:flex">
+      <nav className="hidden items-center gap-7 md:flex">
         <Dropdown label={labels.tours}>{toursMenu}</Dropdown>
         <Dropdown label={labels.destinations} width="min-w-[420px]">
           {destinationsMenu}
         </Dropdown>
-        <Link
-          href="/guide"
-          className="text-muted transition-colors hover:text-foreground"
-        >
+        <Link href="/guide" className={NAV_LINK}>
           {labels.guide}
         </Link>
-        <Link
-          href="/about"
-          className="text-muted transition-colors hover:text-foreground"
-        >
+        <Link href="/about" className={NAV_LINK}>
           {labels.about}
         </Link>
-        <Link
-          href="/contact"
-          className="text-muted transition-colors hover:text-foreground"
-        >
+        <Link href="/contact" className={NAV_LINK}>
           {labels.contact}
         </Link>
-        {premium && (
-          <Link
-            href="/premium"
-            className="rounded-full border border-accent px-3 py-1 font-medium text-accent transition-colors hover:bg-accent hover:text-accent-foreground"
-          >
-            {labels.premium}
-          </Link>
-        )}
-        {localeSwitcher}
+        <div className="ml-1 flex items-center gap-3">
+          {localeSwitcher}
+          {premium && (
+            <Link
+              href="/premium"
+              className="tf-eyebrow rounded-full bg-accent px-5 py-2 text-xs text-accent-foreground transition-all hover:opacity-90 active:scale-95"
+            >
+              {labels.premium}
+            </Link>
+          )}
+        </div>
       </nav>
 
       {/* mobile trigger */}
@@ -202,6 +188,7 @@ export function MainNav({
         <button
           type="button"
           aria-label={labels.menu}
+          aria-expanded={mobileOpen}
           onClick={() => setMobileOpen((o) => !o)}
           className="rounded-md border border-border p-2"
         >
@@ -216,24 +203,34 @@ export function MainNav({
         </button>
       </div>
 
-      {/* mobile panel */}
+      {/* mobile panel — tapping any link closes it (navigation is client-side) */}
       {mobileOpen && (
-        <div className="absolute inset-x-0 top-full max-h-[80vh] overflow-auto border-b border-border bg-background p-4 shadow-lg md:hidden">
-          <p className="mb-1 text-xs font-semibold uppercase tracking-wide text-muted">
-            {labels.tours}
-          </p>
+        <div
+          onClick={() => setMobileOpen(false)}
+          className="absolute inset-x-0 top-full max-h-[80vh] overflow-auto border-b border-border bg-surface p-4 shadow-lg md:hidden"
+        >
+          <p className="tf-eyebrow mb-1 text-[11px] text-muted">{labels.tours}</p>
           <div className="mb-4 flex flex-col gap-1">
-            <Link href="/tours" className="rounded-md px-2 py-1.5 hover:bg-surface">
+            <Link
+              href="/tours"
+              className="rounded-md px-2 py-1.5 hover:bg-surface-muted"
+            >
               {labels.allTours}
             </Link>
-            <Link href="/tours/group" className="rounded-md px-2 py-1.5 hover:bg-surface">
+            <Link
+              href="/tours/group"
+              className="rounded-md px-2 py-1.5 hover:bg-surface-muted"
+            >
               {labels.group}
             </Link>
-            <Link href="/tours/private" className="rounded-md px-2 py-1.5 hover:bg-surface">
+            <Link
+              href="/tours/private"
+              className="rounded-md px-2 py-1.5 hover:bg-surface-muted"
+            >
               {labels.private}
             </Link>
           </div>
-          <p className="mb-1 text-xs font-semibold uppercase tracking-wide text-muted">
+          <p className="tf-eyebrow mb-1 text-[11px] text-muted">
             {labels.destinations}
           </p>
           <div className="mb-4 flex flex-col gap-1">
@@ -242,7 +239,7 @@ export function MainNav({
                 <Link
                   key={c.slug}
                   href={`/destinations/${c.regionSlug}/${c.slug}`}
-                  className="rounded-md px-2 py-1.5 hover:bg-surface"
+                  className="rounded-md px-2 py-1.5 hover:bg-surface-muted"
                 >
                   {c.name}
                 </Link>
@@ -250,19 +247,28 @@ export function MainNav({
             )}
           </div>
           <div className="flex flex-col gap-1">
-            <Link href="/guide" className="rounded-md px-2 py-1.5 hover:bg-surface">
+            <Link
+              href="/guide"
+              className="rounded-md px-2 py-1.5 hover:bg-surface-muted"
+            >
               {labels.guide}
             </Link>
-            <Link href="/about" className="rounded-md px-2 py-1.5 hover:bg-surface">
+            <Link
+              href="/about"
+              className="rounded-md px-2 py-1.5 hover:bg-surface-muted"
+            >
               {labels.about}
             </Link>
-            <Link href="/contact" className="rounded-md px-2 py-1.5 hover:bg-surface">
+            <Link
+              href="/contact"
+              className="rounded-md px-2 py-1.5 hover:bg-surface-muted"
+            >
               {labels.contact}
             </Link>
             {premium && (
               <Link
                 href="/premium"
-                className="mt-1 rounded-full border border-accent px-3 py-1.5 text-center font-medium text-accent"
+                className="mt-1 rounded-full bg-accent px-3 py-2 text-center font-medium text-accent-foreground"
               >
                 {labels.premium}
               </Link>

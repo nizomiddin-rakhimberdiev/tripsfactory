@@ -21,7 +21,19 @@
     "whyGuaranteedText": "お客様お一人でもツアーは必ず催行されます。",
     "whyTailored": "オーダーメイドの旅",
     "whyTailoredText": "すべての旅程はご希望に合わせてカスタマイズ可能です。",
-    "exploreDestinations": "目的地を探す"
+    "exploreDestinations": "目的地を探す",
+    "heroEyebrow": "シルクロードの旅",
+    "heroCtaSecondary": "専門家に相談する",
+    "searchDestination": "目的地",
+    "searchDestinationAll": "すべての目的地",
+    "searchTourType": "ツアーの種類",
+    "searchTypeAll": "すべてのツアー",
+    "searchButton": "検索",
+    "featuredEyebrow": "特別な旅",
+    "viewAllTours": "すべてのツアーを見る",
+    "tailorTitle": "オーダーメイドの旅を始めましょう",
+    "tailorText": "専門プランナーと一緒に、あなただけの旅程を作り上げます。",
+    "tailorCta": "プランニングを始める"
   },
   "tours": {
     "title": "ツアー一覧",

@@ -21,7 +21,19 @@
     "whyGuaranteedText": "Ihre Tour findet statt — auch wenn Sie der einzige Reisende sind.",
     "whyTailored": "Maßgeschneiderte Reisen",
     "whyTailoredText": "Jede Route kann an Ihre Wünsche angepasst werden.",
-    "exploreDestinations": "Reiseziele entdecken"
+    "exploreDestinations": "Reiseziele entdecken",
+    "heroEyebrow": "Reisen entlang der Seidenstraße",
+    "heroCtaSecondary": "Mit einem Experten sprechen",
+    "searchDestination": "Reiseziel",
+    "searchDestinationAll": "Alle Reiseziele",
+    "searchTourType": "Tour-Art",
+    "searchTypeAll": "Alle Touren",
+    "searchButton": "Suchen",
+    "featuredEyebrow": "Außergewöhnliche Reisen",
+    "viewAllTours": "Alle Touren ansehen",
+    "tailorTitle": "Beginnen Sie Ihre maßgeschneiderte Reise",
+    "tailorText": "Gestalten Sie gemeinsam mit unseren Experten eine Reiseroute, die einzigartig ist.",
+    "tailorCta": "Planung beginnen"
   },
   "tours": {
     "title": "Unsere Touren",

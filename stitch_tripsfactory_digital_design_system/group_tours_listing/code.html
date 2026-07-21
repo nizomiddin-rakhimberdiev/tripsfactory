@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Group Tours | TripsFactory Silk Road Expeditions</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&amp;family=Inter:wght@400;600&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "inverse-on-surface": "#eef1f3",
+                    "on-secondary": "#ffffff",
+                    "tertiary-fixed": "#ffe08e",
+                    "on-tertiary-fixed": "#241a00",
+                    "outline": "#6f787d",
+                    "on-primary-fixed-variant": "#004d62",
+                    "secondary-container": "#ffa26b",
+                    "primary-fixed-dim": "#81d1f0",
+                    "on-error": "#ffffff",
+                    "on-primary-fixed": "#001f29",
+                    "surface-bright": "#f7fafc",
+                    "error": "#ba1a1a",
+                    "surface-dim": "#d7dadd",
+                    "surface": "#f7fafc",
+                    "tertiary": "#755b00",
+                    "surface-tint": "#006781",
+                    "tertiary-fixed-dim": "#ecc246",
+                    "on-background": "#181c1e",
+                    "error-container": "#ffdad6",
+                    "surface-container-low": "#f1f4f6",
+                    "primary": "#005a71",
+                    "on-surface-variant": "#3f484c",
+                    "secondary-fixed-dim": "#ffb68d",
+                    "primary-fixed": "#b9eaff",
+                    "background": "#f7fafc",
+                    "on-error-container": "#93000a",
+                    "on-tertiary": "#ffffff",
+                    "on-primary-container": "#d3f1ff",
+                    "inverse-primary": "#81d1f0",
+                    "on-secondary-fixed-variant": "#753403",
+                    "on-tertiary-fixed-variant": "#584400",
+                    "surface-container-highest": "#e0e3e5",
+                    "inverse-surface": "#2d3133",
+                    "tertiary-container": "#cea62b",
+                    "on-secondary-container": "#783605",
+                    "surface-container": "#ebeef0",
+                    "surface-variant": "#e0e3e5",
+                    "on-primary": "#ffffff",
+                    "outline-variant": "#bec8cd",
+                    "on-tertiary-container": "#4f3d00",
+                    "secondary-fixed": "#ffdbc9",
+                    "surface-container-lowest": "#ffffff",
+                    "on-surface": "#181c1e",
+                    "primary-container": "#0e7490",
+                    "secondary": "#934b1b",
+                    "on-secondary-fixed": "#331200",
+                    "surface-container-high": "#e6e8eb"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "gutter": "24px",
+                    "section-padding": "80px",
+                    "margin-mobile": "16px",
+                    "container-max": "1280px",
+                    "base": "8px"
+            },
+            "fontFamily": {
+                    "headline-lg": ["Playfair Display"],
+                    "body-lg": ["Inter"],
+                    "display-lg-mobile": ["Playfair Display"],
+                    "body-md": ["Inter"],
+                    "headline-sm": ["Playfair Display"],
+                    "display-lg": ["Playfair Display"],
+                    "label-caps": ["Inter"],
+                    "price-display": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-lg": ["32px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "display-lg-mobile": ["40px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                    "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                    "headline-sm": ["24px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                    "display-lg": ["64px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-caps": ["12px", {"lineHeight": "1.0", "letterSpacing": "0.1em", "fontWeight": "600"}],
+                    "price-display": ["20px", {"lineHeight": "1.2", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .tour-card-shadow {
+            box-shadow: 0px 4px 20px rgba(0,0,0,0.04);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .tour-card-shadow:hover {
+            box-shadow: 0px 12px 32px rgba(0,0,0,0.08);
+            transform: translateY(-4px) scale(1.01);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md overflow-x-hidden">
+<!-- Top Navigation Bar -->
+<nav class="fixed top-0 w-full z-50 bg-surface/70 backdrop-blur-md shadow-sm">
+<div class="max-w-container-max mx-auto px-gutter flex justify-between items-center h-20">
+<div class="flex items-center gap-12">
+<a class="font-headline-lg text-headline-lg font-bold text-primary" href="#">TripsFactory</a>
+<div class="hidden md:flex items-center gap-8">
+<a class="text-primary border-b-2 border-primary pb-1 font-label-caps text-label-caps" href="#">Tours</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-label-caps text-label-caps" href="#">Destinations</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-label-caps text-label-caps" href="#">Travel Guide</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-label-caps text-label-caps" href="#">About</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-label-caps text-label-caps" href="#">Contact</a>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<button class="text-on-surface-variant hover:text-primary font-label-caps text-label-caps">EN</button>
+<button class="bg-primary text-on-primary px-6 py-2.5 rounded-full font-label-caps text-label-caps hover:opacity-90 active:scale-95 transition-all">Premium</button>
+</div>
+</div>
+</nav>
+<!-- Header Section -->
+<header class="pt-40 pb-20 max-w-container-max mx-auto px-gutter">
+<div class="flex items-start gap-6 border-l-4 border-primary pl-8">
+<div>
+<h1 class="font-headline-lg text-display-lg-mobile md:text-display-lg text-on-surface mb-4">Group Tours</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl leading-relaxed">
+                    Discover the Silk Road in the company of like-minded travelers. Our expertly curated group expeditions offer intimate access to ancient heritage and modern wonders.
+                </p>
+</div>
+</div>
+</header>
+<!-- Filter Row -->
+<section class="sticky top-20 z-40 bg-surface/95 backdrop-blur-sm border-y border-outline-variant/30">
+<div class="max-w-container-max mx-auto px-gutter py-4">
+<div class="flex flex-wrap items-center gap-x-8 gap-y-4">
+<div class="flex items-center gap-2">
+<span class="text-label-caps font-label-caps text-on-surface-variant uppercase">Destination</span>
+<select class="bg-transparent border-none focus:ring-0 font-body-md text-primary cursor-pointer">
+<option>All Destinations</option>
+<option>Uzbekistan</option>
+<option>Kazakhstan</option>
+<option>Kyrgyzstan</option>
+<option>China</option>
+</select>
+</div>
+<div class="h-4 w-px bg-outline-variant hidden md:block"></div>
+<div class="flex items-center gap-2">
+<span class="text-label-caps font-label-caps text-on-surface-variant uppercase">Tour Type</span>
+<select class="bg-transparent border-none focus:ring-0 font-body-md text-primary cursor-pointer">
+<option>Group</option>
+<option>Private</option>
+<option>Photography</option>
+</select>
+</div>
+<div class="h-4 w-px bg-outline-variant hidden md:block"></div>
+<div class="flex items-center gap-2">
+<span class="text-label-caps font-label-caps text-on-surface-variant uppercase">Duration</span>
+<select class="bg-transparent border-none focus:ring-0 font-body-md text-primary cursor-pointer">
+<option>Any</option>
+<option>1-7 Days</option>
+<option>8-14 Days</option>
+<option>15+ Days</option>
+</select>
+</div>
+<div class="h-4 w-px bg-outline-variant hidden md:block"></div>
+<div class="flex items-center gap-2">
+<span class="text-label-caps font-label-caps text-on-surface-variant uppercase">Month</span>
+<select class="bg-transparent border-none focus:ring-0 font-body-md text-primary cursor-pointer">
+<option>Any</option>
+<option>September</option>
+<option>October</option>
+<option>November</option>
+</select>
+</div>
+<div class="ml-auto">
+<button class="flex items-center gap-2 text-primary font-label-caps text-label-caps hover:underline transition-all">
+<span class="material-symbols-outlined text-[18px]">tune</span>
+                        More Filters
+                    </button>
+</div>
+</div>
+</div>
+</section>
+<!-- Tour Grid -->
+<main class="max-w-container-max mx-auto px-gutter py-section-padding">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+<!-- Tour Card 1 -->
+<article class="flex flex-col bg-surface-container-lowest rounded-xl overflow-hidden tour-card-shadow">
+<div class="relative aspect-[4/5] overflow-hidden group">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110" data-alt="A breathtaking sunset over the turquoise domes of Registan Square in Samarkand, Uzbekistan. The golden hour light catches the intricate mosaic tilework, creating a warm and inviting atmosphere. In the foreground, a group of travelers in refined, breathable travel wear are listening to a local guide, capturing the essence of a premium shared journey." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCaeuA56K4spc4zgg3AMRZeUKIMB_1k557a7YkUblJFtMScK7aHVYOrLNSU649AHBAW6TkmDEFVIZrzTBArt_6-Miwi2jlQSkOQntaI2c9OQh75QfMr_HvvUqsehRYW3vCVbNLizc3iOdHMiM47A_e_ZlehPZjKzFNY6EzqqTewDBFjXrbvS7Gwp-PK3zg0C05ROiLB0S_RC1VDzIiGwRUkUuVcMFVMXABjPVM6rjhSsuha_-tAAQY')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+<div class="absolute top-4 left-4">
+<span class="bg-tertiary-container text-on-tertiary-container font-label-caps text-[10px] px-3 py-1 rounded-full uppercase tracking-widest">Cultural Heritage</span>
+</div>
+<div class="absolute bottom-4 left-4 right-4 text-white">
+<p class="font-label-caps text-label-caps opacity-90 mb-1">Uzbekistan</p>
+<h3 class="font-headline-sm text-headline-sm">Golden Road to Samarkand</h3>
+</div>
+</div>
+<div class="p-6 flex flex-col gap-4">
+<div class="flex justify-between items-start">
+<div class="flex flex-col gap-1">
+<span class="text-on-surface-variant text-label-caps font-label-caps">Cities: Tashkent, Bukhara, Samarkand</span>
+<div class="flex items-center gap-2 text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">schedule</span>
+<span class="text-body-md font-body-md">10 Days / 9 Nights</span>
+</div>
+</div>
+<div class="bg-error-container text-on-error-container px-3 py-1 rounded-lg text-[11px] font-bold">
+                            3 spots left
+                        </div>
+</div>
+<div class="pt-4 border-t border-outline-variant flex justify-between items-center">
+<div class="flex flex-col">
+<span class="text-label-caps font-label-caps text-on-surface-variant uppercase">From</span>
+<p class="font-price-display text-price-display text-primary">$2,450 <span class="text-body-md font-normal text-on-surface-variant">≈ 31M UZS</span></p>
+</div>
+<button class="bg-primary/5 hover:bg-primary/10 text-primary px-4 py-2 rounded-lg font-label-caps text-label-caps transition-colors">View Details</button>
+</div>
+</div>
+</article>
+<!-- Tour Card 2 -->
+<article class="flex flex-col bg-surface-container-lowest rounded-xl overflow-hidden tour-card-shadow">
+<div class="relative aspect-[4/5] overflow-hidden group">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110" data-alt="Panoramic aerial view of the Tian Shan mountains in Kyrgyzstan. High-altitude alpine lakes with crystal clear turquoise water reflecting the snow-capped peaks. A small, luxury campsite with yurt-inspired structures is visible in a lush green valley. The mood is serene, expansive, and high-end cinematic style." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDmaaNklgh798tfvLtzZz2fFwan3RHzb2PfVa_Xf9_E7qx6u11yUZgySXiwXZTMeRscvOoIl7B1UBWb5iCW2QbG7TDksEJdxUorbmkepkSFO7o3fEAQKotMUDjydi_Q6dsBnBZAObC4dXT2DgMl_ZiwhBNemFzGvoB3GOgXbjv8uHqXGAjI5CClQ2HRXagtpVGlE50-CknATxjbpIrKVWEAOx7nAJYzUQ5_1FzVm0cQUR7uUrsWf98')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+<div class="absolute top-4 left-4">
+<span class="bg-primary-container text-on-primary-container font-label-caps text-[10px] px-3 py-1 rounded-full uppercase tracking-widest">Adventure</span>
+</div>
+<div class="absolute bottom-4 left-4 right-4 text-white">
+<p class="font-label-caps text-label-caps opacity-90 mb-1">Kyrgyzstan</p>
+<h3 class="font-headline-sm text-headline-sm">High Peaks &amp; Nomad Trails</h3>
+</div>
+</div>
+<div class="p-6 flex flex-col gap-4">
+<div class="flex justify-between items-start">
+<div class="flex flex-col gap-1">
+<span class="text-on-surface-variant text-label-caps font-label-caps">Cities: Bishkek, Karakol, Son-Kul</span>
+<div class="flex items-center gap-2 text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">schedule</span>
+<span class="text-body-md font-body-md">12 Days / 11 Nights</span>
+</div>
+</div>
+<div class="bg-surface-container text-on-surface-variant px-3 py-1 rounded-lg text-[11px] font-bold">
+                            Guaranteed Departure
+                        </div>
+</div>
+<div class="pt-4 border-t border-outline-variant flex justify-between items-center">
+<div class="flex flex-col">
+<span class="text-label-caps font-label-caps text-on-surface-variant uppercase">From</span>
+<p class="font-price-display text-price-display text-primary">$3,120 <span class="text-body-md font-normal text-on-surface-variant">≈ 39M UZS</span></p>
+</div>
+<button class="bg-primary/5 hover:bg-primary/10 text-primary px-4 py-2 rounded-lg font-label-caps text-label-caps transition-colors">View Details</button>
+</div>
+</div>
+</article>
+<!-- Tour Card 3 -->
+<article class="flex flex-col bg-surface-container-lowest rounded-xl overflow-hidden tour-card-shadow">
+<div class="relative aspect-[4/5] overflow-hidden group">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110" data-alt="A lush scene from the ancient Silk Road route in China, featuring a section of the Great Wall snaking through verdant autumn-colored mountains. Soft fog clings to the valleys, and the lighting is muted and moody, suggesting an early morning journey. The visual style is documentary-fine-art, capturing texture and history." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCs9P07vv77ONSb-pgb4-A48xUzxwcL5VJ_uEk_b9d9N8qgUBrn-C7OxBSEFf3oqCvpZz8Cs915787gkUApS1wZfcWzHfrB3RZyFZmlUUQdSem_Aalw4m6bedw_CV2uOsHEZOlOHhLaHsBdB2tmqx82NxUCmAqIyux7qGQrk7Atper47aqMloiMng9-40S8XuNh7ikSRb2XE6S-0rdxzhvm5fQTqOIDCjZJRxNaJkVto__u2XDLco8')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+<div class="absolute top-4 left-4">
+<span class="bg-secondary-container text-on-secondary-container font-label-caps text-[10px] px-3 py-1 rounded-full uppercase tracking-widest">Silk Road Classic</span>
+</div>
+<div class="absolute bottom-4 left-4 right-4 text-white">
+<p class="font-label-caps text-label-caps opacity-90 mb-1">China</p>
+<h3 class="font-headline-sm text-headline-sm">The Western Frontier</h3>
+</div>
+</div>
+<div class="p-6 flex flex-col gap-4">
+<div class="flex justify-between items-start">
+<div class="flex flex-col gap-1">
+<span class="text-on-surface-variant text-label-caps font-label-caps">Cities: Xi'an, Dunhuang, Kashgar</span>
+<div class="flex items-center gap-2 text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">schedule</span>
+<span class="text-body-md font-body-md">14 Days / 13 Nights</span>
+</div>
+</div>
+<div class="bg-error-container text-on-error-container px-3 py-1 rounded-lg text-[11px] font-bold">
+                            5 spots left
+                        </div>
+</div>
+<div class="pt-4 border-t border-outline-variant flex justify-between items-center">
+<div class="flex flex-col">
+<span class="text-label-caps font-label-caps text-on-surface-variant uppercase">From</span>
+<p class="font-price-display text-price-display text-primary">$4,500 <span class="text-body-md font-normal text-on-surface-variant">≈ 57M UZS</span></p>
+</div>
+<button class="bg-primary/5 hover:bg-primary/10 text-primary px-4 py-2 rounded-lg font-label-caps text-label-caps transition-colors">View Details</button>
+</div>
+</div>
+</article>
+<!-- Tour Card 4 -->
+<article class="flex flex-col bg-surface-container-lowest rounded-xl overflow-hidden tour-card-shadow">
+<div class="relative aspect-[4/5] overflow-hidden group">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110" data-alt="A modern architectural marvel in Astana (Nur-Sultan), Kazakhstan, featuring the Bayterek Tower at night. The structure is glowing with warm amber lights against a deep indigo sky. The urban landscape is clean and sophisticated, reflecting a 'new Silk Road' aesthetic that blends futuristic design with cultural motifs." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCqZl72uVIP36mo4rw_s4ZtkCPwaOgtWrNLKpwYoI7ZbZy4FBxvNNkPswg1hOEGwF0FK3x-mWgJ07RKjTBvKhLihgEiUb0dIzQCJftV92QPCC476kxIe7dbJoUhSk0i_eqtjl-cTkowCDK9lWOYdDkQGczR4N8N1LhzOPGgc3QsWENwxWvosMJ_PciAjWRDzXvppC0YK3xurjWyNrazy0aHMyTU6NcV2UExrE2ouke7WWXs93M4oKg')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+<div class="absolute top-4 left-4">
+<span class="bg-tertiary-container text-on-tertiary-container font-label-caps text-[10px] px-3 py-1 rounded-full uppercase tracking-widest">Urban Expedition</span>
+</div>
+<div class="absolute bottom-4 left-4 right-4 text-white">
+<p class="font-label-caps text-label-caps opacity-90 mb-1">Kazakhstan</p>
+<h3 class="font-headline-sm text-headline-sm">Steppe &amp; Skyscrapers</h3>
+</div>
+</div>
+<div class="p-6 flex flex-col gap-4">
+<div class="flex justify-between items-start">
+<div class="flex flex-col gap-1">
+<span class="text-on-surface-variant text-label-caps font-label-caps">Cities: Almaty, Nur-Sultan, Turkistan</span>
+<div class="flex items-center gap-2 text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">schedule</span>
+<span class="text-body-md font-body-md">8 Days / 7 Nights</span>
+</div>
+</div>
+<div class="bg-surface-container text-on-surface-variant px-3 py-1 rounded-lg text-[11px] font-bold">
+                            Booking Open
+                        </div>
+</div>
+<div class="pt-4 border-t border-outline-variant flex justify-between items-center">
+<div class="flex flex-col">
+<span class="text-label-caps font-label-caps text-on-surface-variant uppercase">From</span>
+<p class="font-price-display text-price-display text-primary">$1,980 <span class="text-body-md font-normal text-on-surface-variant">≈ 25M UZS</span></p>
+</div>
+<button class="bg-primary/5 hover:bg-primary/10 text-primary px-4 py-2 rounded-lg font-label-caps text-label-caps transition-colors">View Details</button>
+</div>
+</div>
+</article>
+<!-- Tour Card 5 -->
+<article class="flex flex-col bg-surface-container-lowest rounded-xl overflow-hidden tour-card-shadow">
+<div class="relative aspect-[4/5] overflow-hidden group">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110" data-alt="Intricate patterns of a traditional silk weaving workshop in the Fergana Valley. Sunlight streams through a window, illuminating floating dust motes and the vibrant, organic colors of naturally dyed silk threads. A master artisan is captured in a blurred, candid motion, emphasizing the living tradition of the craft." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuC1Y2y3aOqvqJ_HFwWV2bjMhLxIeS29Vn1hYVAZuOlvXTWCDTj7wSSrF4OxFUAUYMB9jYX7RhfHQO7-nCf2Z2CZi57dklnWstIJzlbJtPzrxFV_gaoCInKQQFgZCljHmiRzNAuM4eig_t8QOxt2mMAeq4YWfwfXMUj59UpEFfZzibioqwk5VM4Usa4mSl-Hx74BD_e3_Y4HESsFSOBRJcbNbCnJSpCpWmkbM77gJHOjyBMwRQLPYC0')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+<div class="absolute top-4 left-4">
+<span class="bg-secondary-container text-on-secondary-container font-label-caps text-[10px] px-3 py-1 rounded-full uppercase tracking-widest">Artisan Immersion</span>
+</div>
+<div class="absolute bottom-4 left-4 right-4 text-white">
+<p class="font-label-caps text-label-caps opacity-90 mb-1">Central Asia</p>
+<h3 class="font-headline-sm text-headline-sm">The Craftsmans Journey</h3>
+</div>
+</div>
+<div class="p-6 flex flex-col gap-4">
+<div class="flex justify-between items-start">
+<div class="flex flex-col gap-1">
+<span class="text-on-surface-variant text-label-caps font-label-caps">Cities: Margilan, Rishtan, Kokand</span>
+<div class="flex items-center gap-2 text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">schedule</span>
+<span class="text-body-md font-body-md">7 Days / 6 Nights</span>
+</div>
+</div>
+<div class="bg-error-container text-on-error-container px-3 py-1 rounded-lg text-[11px] font-bold">
+                            2 spots left
+                        </div>
+</div>
+<div class="pt-4 border-t border-outline-variant flex justify-between items-center">
+<div class="flex flex-col">
+<span class="text-label-caps font-label-caps text-on-surface-variant uppercase">From</span>
+<p class="font-price-display text-price-display text-primary">$1,750 <span class="text-body-md font-normal text-on-surface-variant">≈ 22M UZS</span></p>
+</div>
+<button class="bg-primary/5 hover:bg-primary/10 text-primary px-4 py-2 rounded-lg font-label-caps text-label-caps transition-colors">View Details</button>
+</div>
+</div>
+</article>
+<!-- Tour Card 6 -->
+<article class="flex flex-col bg-surface-container-lowest rounded-xl overflow-hidden tour-card-shadow">
+<div class="relative aspect-[4/5] overflow-hidden group">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110" data-alt="A tranquil scene at Issyk-Kul lake in Kyrgyzstan during winter. The lake water is a deep sapphire blue, surrounded by stark white snow-covered beaches and distant jagged peaks. A small group of travelers is visible in the distance, enjoying a peaceful walk. High-contrast, minimalist editorial photography style." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCISgncfmkRGqj_75LlGjjRmlQw4E_6mSsNa-ZnT-sbGvonaPVHVXWFWPTxXDQr6keDmWrjQ45IeXZ0OZsmVsDAyCZlYAu9sJjgXpKQfonj_wnGj1u4sNTcDg3CQ6oHgU1WlrU0xLMtaVGB-yKx_eyzWkA88cTnT76dOOiIB4Guh6CjBev-PS6AVIW9WoVQcj0SBHby2qN1l1Q5XKFO7M1d5liCyUaMUfyNRRDPesXr8zo_UKUvpCg')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+<div class="absolute top-4 left-4">
+<span class="bg-primary-container text-on-primary-container font-label-caps text-[10px] px-3 py-1 rounded-full uppercase tracking-widest">Seasonal</span>
+</div>
+<div class="absolute bottom-4 left-4 right-4 text-white">
+<p class="font-label-caps text-label-caps opacity-90 mb-1">Kyrgyzstan</p>
+<h3 class="font-headline-sm text-headline-sm">Winter Whispers of the Lake</h3>
+</div>
+</div>
+<div class="p-6 flex flex-col gap-4">
+<div class="flex justify-between items-start">
+<div class="flex flex-col gap-1">
+<span class="text-on-surface-variant text-label-caps font-label-caps">Cities: Bishkek, Cholpon-Ata, Karakol</span>
+<div class="flex items-center gap-2 text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">schedule</span>
+<span class="text-body-md font-body-md">9 Days / 8 Nights</span>
+</div>
+</div>
+<div class="bg-surface-container text-on-surface-variant px-3 py-1 rounded-lg text-[11px] font-bold">
+                            Registration Open
+                        </div>
+</div>
+<div class="pt-4 border-t border-outline-variant flex justify-between items-center">
+<div class="flex flex-col">
+<span class="text-label-caps font-label-caps text-on-surface-variant uppercase">From</span>
+<p class="font-price-display text-price-display text-primary">$2,200 <span class="text-body-md font-normal text-on-surface-variant">≈ 28M UZS</span></p>
+</div>
+<button class="bg-primary/5 hover:bg-primary/10 text-primary px-4 py-2 rounded-lg font-label-caps text-label-caps transition-colors">View Details</button>
+</div>
+</div>
+</article>
+</div>
+<!-- Pagination -->
+<div class="mt-20 flex justify-center items-center gap-4">
+<button class="w-12 h-12 flex items-center justify-center rounded-full border border-outline-variant text-on-surface-variant hover:border-primary hover:text-primary transition-all">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<span class="font-label-caps text-label-caps text-primary border-b-2 border-primary pb-1">01</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary cursor-pointer transition-all">02</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary cursor-pointer transition-all">03</span>
+<button class="w-12 h-12 flex items-center justify-center rounded-full border border-outline-variant text-on-surface-variant hover:border-primary hover:text-primary transition-all">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</main>
+<!-- Shared Footer -->
+<footer class="bg-surface-container-lowest py-section-padding">
+<div class="max-w-container-max mx-auto px-gutter grid grid-cols-1 md:grid-cols-4 gap-8">
+<div class="flex flex-col gap-6">
+<h2 class="font-headline-sm text-headline-sm font-bold text-primary">TripsFactory</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">
+                    High-end Silk Road Expeditions. Authenticity, heritage, and luxury combined for the modern explorer.
+                </p>
+<div class="flex gap-4">
+<a class="text-on-surface-variant hover:text-primary transition-all" href="#"><span class="material-symbols-outlined">public</span></a>
+<a class="text-on-surface-variant hover:text-primary transition-all" href="#"><span class="material-symbols-outlined">camera</span></a>
+<a class="text-on-surface-variant hover:text-primary transition-all" href="#"><span class="material-symbols-outlined">chat</span></a>
+</div>
+</div>
+<div class="flex flex-col gap-4">
+<h4 class="font-label-caps text-label-caps text-on-surface font-bold uppercase tracking-widest mb-2">Destinations</h4>
+<ul class="flex flex-col gap-2">
+<li><a class="text-on-surface-variant hover:text-primary font-body-md" href="#">Uzbekistan</a></li>
+<li><a class="text-on-surface-variant hover:text-primary font-body-md" href="#">Kazakhstan</a></li>
+<li><a class="text-on-surface-variant hover:text-primary font-body-md" href="#">Kyrgyzstan</a></li>
+<li><a class="text-on-surface-variant hover:text-primary font-body-md" href="#">China</a></li>
+</ul>
+</div>
+<div class="flex flex-col gap-4">
+<h4 class="font-label-caps text-label-caps text-on-surface font-bold uppercase tracking-widest mb-2">Company</h4>
+<ul class="flex flex-col gap-2">
+<li><a class="text-on-surface-variant hover:text-primary font-body-md" href="#">About Us</a></li>
+<li><a class="text-on-surface-variant hover:text-primary font-body-md" href="#">Terms of Service</a></li>
+<li><a class="text-on-surface-variant hover:text-primary font-body-md" href="#">Privacy Policy</a></li>
+<li><a class="text-on-surface-variant hover:text-primary font-body-md" href="#">Contact Support</a></li>
+</ul>
+</div>
+<div class="flex flex-col gap-6">
+<h4 class="font-label-caps text-label-caps text-on-surface font-bold uppercase tracking-widest mb-2">Newsletter</h4>
+<p class="text-body-md text-on-surface-variant">Join our curated list for exclusive itinerary launches.</p>
+<div class="relative">
+<input class="w-full bg-surface-container border-none focus:ring-1 focus:ring-primary rounded-lg px-4 py-3 text-body-md" placeholder="Email Address" type="email"/>
+<button class="absolute right-2 top-2 bottom-2 bg-primary text-on-primary px-4 rounded-md font-label-caps text-[10px] uppercase">Subscribe</button>
+</div>
+</div>
+</div>
+<div class="max-w-container-max mx-auto px-gutter mt-16 pt-8 border-t border-outline-variant/30 flex flex-col md:flex-row justify-between items-center gap-4">
+<p class="text-label-caps font-label-caps text-on-surface-variant">© 2024 TripsFactory. High-end Silk Road Expeditions.</p>
+<div class="flex gap-6">
+<span class="text-label-caps font-label-caps text-on-surface-variant">ISO 9001 CERTIFIED</span>
+<span class="text-label-caps font-label-caps text-on-surface-variant">LOCAL SUSTAINABILITY PARTNER</span>
+</div>
+</div>
+</footer>
+<script>
+        // Micro-interactions for header parallax or scroll effects
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('py-2');
+                nav.classList.remove('h-20');
+                nav.classList.add('h-16');
+            } else {
+                nav.classList.remove('py-2');
+                nav.classList.remove('h-16');
+                nav.classList.add('h-20');
+            }
+        });
+    </script>
+</body></html>

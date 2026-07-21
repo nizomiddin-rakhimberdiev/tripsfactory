@@ -2,18 +2,23 @@
 
 /*
  * Design tokens — the ONLY place raw color values live.
- * Two worlds: default (light, airy) and [data-theme="premium"] (dark, gold).
+ * "Heritage & Horizon": a warm Silk-Road canvas with tilework teal, terracotta
+ * and muted gold. Two worlds: default (light, ivory) and
+ * [data-theme="premium"] (dark, gold).
  */
 :root {
-  --background: #ffffff;
-  --surface: #f7f6f3;
-  --foreground: #1c1917;
-  --muted: #6b6560;
-  --border: #e7e3dd;
-  --primary: #0e7490; /* teal — Silk Road tilework */
-  --primary-hover: #155e75;
+  --background: #faf7f1; /* Silk Road Sand — the page canvas */
+  --surface: #ffffff; /* raised cards & panels */
+  --surface-muted: #f1ece3; /* subtle warm fill: hovers, tracks, chips */
+  --foreground: #1c1917; /* near-black ink */
+  --muted: #6f6a63; /* secondary text */
+  --border: #e8e2d6; /* hairline on ivory */
+  --primary: #0e7490; /* tilework teal */
+  --primary-hover: #0a5b72;
   --primary-foreground: #ffffff;
-  --accent: #d97706; /* warm amber — desert & spice */
+  --secondary: #9a4b1e; /* terracotta — desert & spice */
+  --secondary-foreground: #ffffff;
+  --accent: #a87413; /* muted gold — heritage & ceremony */
   --accent-foreground: #ffffff;
   --radius: 0.75rem;
 }
@@ -21,12 +26,15 @@
 [data-theme="premium"] {
   --background: #0c0a09;
   --surface: #1c1917;
+  --surface-muted: #262220;
   --foreground: #f5f0e8;
   --muted: #a8a29e;
   --border: #292524;
   --primary: #c9a227; /* muted gold */
   --primary-hover: #e0b83d;
   --primary-foreground: #0c0a09;
+  --secondary: #b06a3a;
+  --secondary-foreground: #0c0a09;
   --accent: #c9a227;
   --accent-foreground: #0c0a09;
 }
@@ -34,15 +42,18 @@
 @theme inline {
   --color-background: var(--background);
   --color-surface: var(--surface);
+  --color-surface-muted: var(--surface-muted);
   --color-foreground: var(--foreground);
   --color-muted: var(--muted);
   --color-border: var(--border);
   --color-primary: var(--primary);
   --color-primary-hover: var(--primary-hover);
   --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
-  --font-sans: var(--font-geist-sans);
+  --font-sans: var(--font-inter);
   --font-display: var(--font-playfair);
 }
 
@@ -50,6 +61,65 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans), system-ui, sans-serif;
+}
+
+/* ---------------------------------------------------------------------------
+ * Marketing UI primitives (Heritage & Horizon)
+ * Small, composable building blocks kept here so markup stays declarative.
+ * ------------------------------------------------------------------------- */
+
+/* Uppercase, wide-tracked label — section eyebrows and category tags. */
+.tf-eyebrow {
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+/* Serif display type for hero and section headlines. */
+.tf-display {
+  font-family: var(--font-display), Georgia, serif;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.08;
+}
+.tf-headline {
+  font-family: var(--font-display), Georgia, serif;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+/* Raised card with the signature soft ambient shadow. */
+.tf-card {
+  background: var(--surface);
+  border-radius: var(--radius);
+  box-shadow: 0 4px 20px rgb(0 0 0 / 0.04);
+}
+/* Lift + deepen shadow on hover. Pair with .tf-card. */
+.tf-card-interactive {
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+.tf-card-interactive:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 32px rgb(0 0 0 / 0.1);
+}
+
+/* Frosted translucent panel — nav bar and search field. */
+.tf-glass {
+  background: color-mix(in srgb, var(--surface) 82%, transparent);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* Cinematic top-to-bottom scrim over hero imagery for legible white text. */
+.tf-hero-scrim {
+  background: linear-gradient(
+    180deg,
+    rgb(24 28 30 / 0.5) 0%,
+    rgb(24 28 30 / 0.15) 40%,
+    rgb(24 28 30 / 0.7) 100%
+  );
 }
 
 /* Rich Markdown content (country/tour long-form descriptions) */
@@ -64,6 +134,7 @@ body {
 .tf-prose h1,
 .tf-prose h2,
 .tf-prose h3 {
+  font-family: var(--font-display), Georgia, serif;
   font-weight: 700;
   line-height: 1.25;
   margin-top: 2rem;
@@ -122,4 +193,3 @@ body {
   padding: 0.5rem 0.75rem;
   text-align: left;
 }
-

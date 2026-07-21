@@ -20,7 +20,7 @@ export function CountryBar({
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="sticky top-[57px] z-40 border-b border-border bg-surface/95 backdrop-blur">
+    <div className="sticky top-[60px] z-40 border-b border-border tf-glass">
       <div className="mx-auto flex max-w-6xl items-center gap-5 overflow-x-auto px-4 py-2.5 text-sm">
         <span className="flex items-center gap-2 font-semibold">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden>
@@ -63,12 +63,12 @@ export function CountryBar({
               </svg>
             </button>
             {open && (
-              <div className="absolute right-0 top-full z-50 min-w-[180px] overflow-hidden rounded-xl border border-border bg-background py-1 shadow-lg">
+              <div className="absolute right-0 top-full z-50 min-w-[180px] overflow-hidden rounded-xl border border-border bg-surface py-1 shadow-lg">
                 {siblings.map((c) => (
                   <Link
                     key={c.slug}
                     href={`/destinations/${c.regionSlug}/${c.slug}`}
-                    className="block px-4 py-2 hover:bg-surface hover:text-primary"
+                    className="block px-4 py-2 hover:bg-surface-muted hover:text-primary"
                   >
                     {c.name}
                   </Link>

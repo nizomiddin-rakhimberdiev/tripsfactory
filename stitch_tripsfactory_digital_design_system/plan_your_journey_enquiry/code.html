@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Enquiry | TripsFactory Silk Road Expeditions</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=Playfair+Display:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-effect {
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .fade-in {
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .success-hidden {
+            display: none;
+        }
+    </style>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "inverse-on-surface": "#eef1f3",
+                    "on-secondary": "#ffffff",
+                    "tertiary-fixed": "#ffe08e",
+                    "on-tertiary-fixed": "#241a00",
+                    "outline": "#6f787d",
+                    "on-primary-fixed-variant": "#004d62",
+                    "secondary-container": "#ffa26b",
+                    "primary-fixed-dim": "#81d1f0",
+                    "on-error": "#ffffff",
+                    "on-primary-fixed": "#001f29",
+                    "surface-bright": "#f7fafc",
+                    "error": "#ba1a1a",
+                    "surface-dim": "#d7dadd",
+                    "surface": "#f7fafc",
+                    "tertiary": "#755b00",
+                    "surface-tint": "#006781",
+                    "tertiary-fixed-dim": "#ecc246",
+                    "on-background": "#181c1e",
+                    "error-container": "#ffdad6",
+                    "surface-container-low": "#f1f4f6",
+                    "primary": "#005a71",
+                    "on-surface-variant": "#3f484c",
+                    "secondary-fixed-dim": "#ffb68d",
+                    "primary-fixed": "#b9eaff",
+                    "background": "#f7fafc",
+                    "on-error-container": "#93000a",
+                    "on-tertiary": "#ffffff",
+                    "on-primary-container": "#d3f1ff",
+                    "inverse-primary": "#81d1f0",
+                    "on-secondary-fixed-variant": "#753403",
+                    "on-tertiary-fixed-variant": "#584400",
+                    "surface-container-highest": "#e0e3e5",
+                    "inverse-surface": "#2d3133",
+                    "tertiary-container": "#cea62b",
+                    "on-secondary-container": "#783605",
+                    "surface-container": "#ebeef0",
+                    "surface-variant": "#e0e3e5",
+                    "on-primary": "#ffffff",
+                    "outline-variant": "#bec8cd",
+                    "on-tertiary-container": "#4f3d00",
+                    "secondary-fixed": "#ffdbc9",
+                    "surface-container-lowest": "#ffffff",
+                    "on-surface": "#181c1e",
+                    "primary-container": "#0e7490",
+                    "secondary": "#934b1b",
+                    "on-secondary-fixed": "#331200",
+                    "surface-container-high": "#e6e8eb"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "gutter": "24px",
+                    "section-padding": "80px",
+                    "margin-mobile": "16px",
+                    "container-max": "1280px",
+                    "base": "8px"
+            },
+            "fontFamily": {
+                    "headline-lg": ["Playfair Display"],
+                    "body-lg": ["Inter"],
+                    "display-lg-mobile": ["Playfair Display"],
+                    "body-md": ["Inter"],
+                    "headline-sm": ["Playfair Display"],
+                    "display-lg": ["Playfair Display"],
+                    "label-caps": ["Inter"],
+                    "price-display": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-lg": ["32px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "display-lg-mobile": ["40px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                    "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                    "headline-sm": ["24px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                    "display-lg": ["64px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-caps": ["12px", {"lineHeight": "1.0", "letterSpacing": "0.1em", "fontWeight": "600"}],
+                    "price-display": ["20px", {"lineHeight": "1.2", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+</head>
+<body class="bg-background text-on-surface font-body-md selection:bg-primary-fixed selection:text-on-primary-fixed">
+<!-- Top Navigation (Shell suppressed on transactional page per rules, but included as per predicted component if required - however, the prompt implies a focused journey. I will keep it minimal as a fixed header) -->
+<nav class="fixed top-0 w-full z-50 bg-surface/70 backdrop-blur-md shadow-sm h-20">
+<div class="max-w-container-max mx-auto px-gutter flex justify-between items-center h-full">
+<span class="font-headline-lg text-headline-lg font-bold text-primary">TripsFactory</span>
+<div class="hidden md:flex gap-8 items-center">
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors" href="#">Tours</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors" href="#">Destinations</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors" href="#">Travel Guide</a>
+<a class="bg-primary px-6 py-2 rounded-full text-on-primary font-label-caps text-label-caps hover:opacity-90 transition-all" href="#">Premium</a>
+</div>
+<button class="md:hidden text-primary">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="pt-32 pb-section-padding min-h-screen flex items-center justify-center relative overflow-hidden">
+<!-- Subtle Ambient Background Decor -->
+<div class="absolute top-0 left-0 w-full h-full -z-10 pointer-events-none">
+<div class="absolute top-[-10%] right-[-10%] w-[500px] h-[500px] bg-primary-fixed/20 rounded-full blur-[100px]"></div>
+<div class="absolute bottom-[-10%] left-[-10%] w-[400px] h-[400px] bg-secondary-fixed/20 rounded-full blur-[100px]"></div>
+</div>
+<div class="max-w-xl w-full px-gutter">
+<!-- Enquiry Form Section -->
+<section class="fade-in bg-surface-container-lowest rounded-xl shadow-xl p-8 md:p-12 border border-outline-variant/30 relative" id="enquiry-section">
+<div class="mb-10 text-center">
+<span class="font-label-caps text-label-caps text-primary tracking-widest block mb-2">TAILORED EXPEDITIONS</span>
+<h1 class="font-headline-lg text-headline-lg text-on-surface mb-4">Start Your Journey</h1>
+<p class="text-on-surface-variant font-body-md max-w-sm mx-auto">Share your travel vision with us. Our destination experts will craft a bespoke Silk Road itinerary just for you.</p>
+</div>
+<form class="space-y-6" id="enquiry-form">
+<!-- Full Name -->
+<div class="group">
+<label class="block font-label-caps text-label-caps mb-2 text-on-surface-variant group-focus-within:text-primary transition-colors" for="full-name">Full Name</label>
+<input class="w-full bg-surface-container-low border-none rounded-lg p-4 font-body-md focus:ring-1 focus:ring-primary outline-none transition-all placeholder:text-outline-variant" id="full-name" name="full_name" placeholder="Alexander Great" required="" type="text"/>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<!-- Email -->
+<div class="group">
+<label class="block font-label-caps text-label-caps mb-2 text-on-surface-variant group-focus-within:text-primary transition-colors" for="email">Email Address</label>
+<input class="w-full bg-surface-container-low border-none rounded-lg p-4 font-body-md focus:ring-1 focus:ring-primary outline-none transition-all placeholder:text-outline-variant" id="email" name="email" placeholder="alex@voyage.com" required="" type="email"/>
+</div>
+<!-- Phone -->
+<div class="group">
+<label class="block font-label-caps text-label-caps mb-2 text-on-surface-variant group-focus-within:text-primary transition-colors" for="phone">Phone / WhatsApp</label>
+<input class="w-full bg-surface-container-low border-none rounded-lg p-4 font-body-md focus:ring-1 focus:ring-primary outline-none transition-all placeholder:text-outline-variant" id="phone" name="phone" placeholder="+1 (555) 000-0000" required="" type="tel"/>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<!-- Preferred Start Date -->
+<div class="group">
+<label class="block font-label-caps text-label-caps mb-2 text-on-surface-variant group-focus-within:text-primary transition-colors" for="start-date">Preferred Start Date</label>
+<input class="w-full bg-surface-container-low border-none rounded-lg p-4 font-body-md focus:ring-1 focus:ring-primary outline-none transition-all" id="start-date" name="start_date" required="" type="date"/>
+</div>
+<!-- Number of Travelers -->
+<div class="group">
+<label class="block font-label-caps text-label-caps mb-2 text-on-surface-variant group-focus-within:text-primary transition-colors" for="travelers">Number of Travelers</label>
+<select class="w-full bg-surface-container-low border-none rounded-lg p-4 font-body-md focus:ring-1 focus:ring-primary outline-none transition-all appearance-none" id="travelers" name="travelers" required="">
+<option disabled="" selected="" value="">Select size</option>
+<option value="1">Solo Traveler</option>
+<option value="2">2 People</option>
+<option value="3-5">Small Group (3-5)</option>
+<option value="6+">Private Group (6+)</option>
+</select>
+</div>
+</div>
+<!-- Message -->
+<div class="group">
+<label class="block font-label-caps text-label-caps mb-2 text-on-surface-variant group-focus-within:text-primary transition-colors" for="message">Your Message</label>
+<textarea class="w-full bg-surface-container-low border-none rounded-lg p-4 font-body-md focus:ring-1 focus:ring-primary outline-none transition-all placeholder:text-outline-variant resize-none" id="message" name="message" placeholder="Tell us about the destinations you're dreaming of..." rows="4"></textarea>
+</div>
+<button class="w-full bg-primary text-on-primary font-headline-sm text-headline-sm py-5 rounded-full hover:opacity-90 active:scale-[0.98] transition-all flex items-center justify-center gap-3 group shadow-lg shadow-primary/20" type="submit">
+                        Request Itinerary
+                        <span class="material-symbols-outlined transition-transform group-hover:translate-x-1">arrow_forward</span>
+</button>
+</form>
+</section>
+<!-- Success State Section -->
+<section class="success-hidden fade-in bg-surface-container-lowest rounded-xl shadow-xl p-8 md:p-12 border border-outline-variant/30 text-center" id="success-section">
+<div class="w-24 h-24 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-8">
+<span class="material-symbols-outlined text-primary text-[48px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-4">Thank You!</h2>
+<p class="text-on-surface-variant font-body-lg mb-10 max-w-md mx-auto">
+                    Your enquiry has been received. Our Silk Road experts will review your request and contact you within <span class="text-primary font-bold">24 hours</span> to discuss your bespoke itinerary.
+                </p>
+<div class="space-y-4">
+<a class="block w-full bg-primary text-on-primary font-label-caps text-label-caps py-4 rounded-full hover:opacity-90 transition-all" href="#">Browse more tours</a>
+<a class="block w-full border border-primary text-primary font-label-caps text-label-caps py-4 rounded-full hover:bg-primary/5 transition-all" href="#">Visit our Travel Guide</a>
+</div>
+<div class="mt-12 pt-12 border-t border-outline-variant/20">
+<div class="w-full h-40 bg-cover bg-center rounded-lg grayscale opacity-50 hover:grayscale-0 transition-all duration-700" data-alt="A luxurious, high-end travel photo of a traditional Samarkand tiled dome at sunset. The lighting is golden and warm, casting long shadows across the intricate blue and turquoise geometric mosaics. The style is professional editorial photography, emphasizing textures and cultural heritage." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAStLHxsAOHqazfrp61xYdtMW0LEO3C4Goz-b9dELOmLKgv9dD3vIAQjuGnsgfTanaovAwVPR_WVfjGGtuD3BnBvnCo95ilwQTkZKMGpLm8yorqsLkttnFwWb6b-Qir9pqsLPA2_HmGwzwCTLkKXiwzfgSm9iZSr_r3a7maCIyhowbrPc3DH_AcJbfgrV8sh2FwPXIpCC3qN3iI6w5wL2Pq7oDH9FvMkVXafoudEkD2s13DZK-olms')"></div>
+</div>
+</section>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-lowest py-section-padding">
+<div class="max-w-container-max mx-auto px-gutter grid grid-cols-1 md:grid-cols-4 gap-8">
+<div class="col-span-1 md:col-span-1">
+<span class="font-headline-sm text-headline-sm font-bold text-primary block mb-4">TripsFactory</span>
+<p class="text-on-surface-variant font-body-md">High-end Silk Road Expeditions curated for the curious soul.</p>
+</div>
+<div>
+<h4 class="font-label-caps text-label-caps mb-6 text-on-surface">Destinations</h4>
+<ul class="space-y-3">
+<li><a class="text-on-surface-variant hover:text-primary transition-colors" href="#">Uzbekistan</a></li>
+<li><a class="text-on-surface-variant hover:text-primary transition-colors" href="#">Kazakhstan</a></li>
+<li><a class="text-on-surface-variant hover:text-primary transition-colors" href="#">Kyrgyzstan</a></li>
+<li><a class="text-on-surface-variant hover:text-primary transition-colors" href="#">China</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-label-caps text-label-caps mb-6 text-on-surface">Company</h4>
+<ul class="space-y-3">
+<li><a class="text-on-surface-variant hover:text-primary transition-colors" href="#">About Us</a></li>
+<li><a class="text-on-surface-variant hover:text-primary transition-colors" href="#">Terms of Service</a></li>
+<li><a class="text-on-surface-variant hover:text-primary transition-colors" href="#">Privacy Policy</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-label-caps text-label-caps mb-6 text-on-surface">Support</h4>
+<p class="text-on-surface-variant mb-4">Questions about a tour?</p>
+<a class="inline-block border-b border-primary text-primary font-label-caps text-label-caps pb-1" href="#">Contact Support</a>
+</div>
+</div>
+<div class="max-w-container-max mx-auto px-gutter mt-20 pt-8 border-t border-outline-variant/20">
+<p class="text-on-surface-variant font-label-caps text-[10px]">© 2024 TripsFactory. All rights reserved.</p>
+</div>
+</footer>
+<script>
+        document.getElementById('enquiry-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Add loading state to button
+            const btn = this.querySelector('button');
+            const originalContent = btn.innerHTML;
+            btn.disabled = true;
+            btn.innerHTML = `<span class="material-symbols-outlined animate-spin">progress_activity</span> Processing...`;
+
+            // Artificial delay to simulate submission
+            setTimeout(() => {
+                document.getElementById('enquiry-section').classList.add('success-hidden');
+                document.getElementById('success-section').classList.remove('success-hidden');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }, 1200);
+        });
+
+        // Interactive inputs: subtle ripple or focus effect enhancement
+        const inputs = document.querySelectorAll('input, select, textarea');
+        inputs.forEach(input => {
+            input.addEventListener('focus', () => {
+                input.parentElement.querySelector('label')?.classList.add('translate-y-[-2px]');
+            });
+            input.addEventListener('blur', () => {
+                input.parentElement.querySelector('label')?.classList.remove('translate-y-[-2px]');
+            });
+        });
+    </script>
+</body></html>

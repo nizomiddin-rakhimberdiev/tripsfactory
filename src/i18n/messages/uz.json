@@ -21,7 +21,19 @@
     "whyGuaranteedText": "Yolg'iz sayohatchi bo'lsangiz ham tur amalga oshadi.",
     "whyTailored": "Individual sayohatlar",
     "whyTailoredText": "Har bir marshrut xohishingizga moslashtiriladi.",
-    "exploreDestinations": "Yo'nalishlarni ko'rish"
+    "exploreDestinations": "Yo'nalishlarni ko'rish",
+    "heroEyebrow": "Buyuk Ipak yo'li sayohatlari",
+    "heroCtaSecondary": "Mutaxassis bilan bog'laning",
+    "searchDestination": "Yo'nalish",
+    "searchDestinationAll": "Barcha yo'nalishlar",
+    "searchTourType": "Tur turi",
+    "searchTypeAll": "Barcha turlar",
+    "searchButton": "Qidirish",
+    "featuredEyebrow": "Ajoyib sayohatlar",
+    "viewAllTours": "Barcha turlarni ko'rish",
+    "tailorTitle": "O'zingizga xos sayohatni boshlang",
+    "tailorText": "Mutaxassis rejalashtiruvchilarimiz bilan birga faqat sizga mos marshrut yarating.",
+    "tailorCta": "Rejalashtirishni boshlash"
   },
   "tours": {
     "title": "Bizning turlar",

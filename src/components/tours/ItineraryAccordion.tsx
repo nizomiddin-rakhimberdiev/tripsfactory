@@ -17,7 +17,7 @@ export function ItineraryAccordion({ days }: { days: Day[] }) {
               type="button"
               onClick={() => setOpen(isOpen ? null : i)}
               aria-expanded={isOpen}
-              className="flex w-full items-center gap-3 px-4 py-3.5 text-left transition-colors hover:bg-surface"
+              className="flex w-full items-center gap-3 px-4 py-3.5 text-left transition-colors hover:bg-surface-muted"
             >
               <span className="grid h-8 w-8 flex-shrink-0 place-items-center rounded-full bg-primary text-sm font-bold text-primary-foreground">
                 {d.day}
