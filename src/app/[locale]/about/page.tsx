@@ -1,4 +1,5 @@
 import { setRequestLocale, getTranslations } from "next-intl/server";
+import { PageHeader } from "@/components/PageHeader";
 
 export async function generateMetadata() {
   const t = await getTranslations("about");
@@ -15,9 +16,9 @@ export default async function AboutPage({
   const t = await getTranslations("about");
 
   return (
-    <div className="mx-auto max-w-3xl px-4 py-12">
-      <h1 className="mb-6 text-4xl font-bold">{t("title")}</h1>
-      <p className="text-lg leading-relaxed text-muted">{t("text")}</p>
+    <div className="mx-auto max-w-3xl px-4 py-16 md:px-6">
+      <PageHeader eyebrow={t("eyebrow")} title={t("title")} />
+      <p className="mt-8 text-lg leading-relaxed text-muted">{t("text")}</p>
     </div>
   );
 }

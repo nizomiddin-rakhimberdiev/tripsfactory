@@ -66,7 +66,16 @@
     "empty": "Bu yerda hozircha turlar yo'q — tez orada qaytib keling.",
     "routeMap": "Marshrut xaritasi",
     "start": "Boshlanish",
-    "end": "Tugash"
+    "end": "Tugash",
+    "typeLabel": "Turi",
+    "durationLabel": "Davomiyligi",
+    "startingFrom": "Boshlang'ich narx",
+    "bookingNote": "Hozir to'lov yo'q — barcha tafsilotlarni email orqali tasdiqlaymiz.",
+    "assuranceTitle": "TripsFactory kafolati",
+    "assuranceText": "Mahalliy mutaxassislar rejalashtiradi: kafolatlangan jo'nashlar va shaxsiy qo'llab-quvvatlash.",
+    "viewAll": "Barcha turlarni ko'rish",
+    "listEyebrow": "Saralangan sayohatlar",
+    "listIntro": "Ipak yo'li bo'ylab qo'lda tayyorlangan guruh va individual sayohatlar."
   },
   "destinations": {
     "title": "Yo'nalishlar",
@@ -75,7 +84,10 @@
     "recommendedStay": "Tavsiya etilgan muddat",
     "nights": "{count} kecha",
     "topAttractions": "Asosiy diqqatga sazovor joylar",
-    "toursIn": "{country} bo'yicha turlar"
+    "toursIn": "{country} bo'yicha turlar",
+    "overview": "Umumiy ma'lumot",
+    "curated": "Saralangan sayohatlar",
+    "indexIntro": "Davlatni tanlang va Ipak yo'li sayohatingizni boshlang."
   },
   "guide": {
     "title": "Sayohat qo'llanmasi"
@@ -92,7 +104,11 @@
     "accessText": "Yodgorliklarga ish vaqtidan tashqari tashriflar, shaxsiy ustaxonalar va qarorgohlar.",
     "stays": "Alohida qarorgohlar",
     "staysText": "Boutique-qarorgohlar va Ipak yo'lining eng yaxshi mehmonxonalari.",
-    "enquire": "Maxfiy so'rov yuborish"
+    "enquire": "Maxfiy so'rov yuborish",
+    "invitation": "Ipak yo'liga taklif",
+    "journeysEyebrow": "Mavsumiy marshrutlar",
+    "journeys": "G'ayrioddiy ekspeditsiyalar",
+    "closingTitle": "Dunyoning eng eksklyuziv sayohatlari sizni kutmoqda."
   },
   "form": {
     "title": "Ushbu turga so'rov",
@@ -116,7 +132,8 @@
   },
   "about": {
     "title": "TripsFactory haqida",
-    "text": "TripsFactory — Toshkentda joylashgan, O'zbekiston va Markaziy Osiyo bo'ylab guruh hamda individual sayohatlarga ixtisoslashgan tur operatori. Mahalliy mutaxassislar jamoamiz Ipak yo'lining mashhur yodgorliklarini haqiqiy, kam ma'lum tajribalar bilan uyg'unlashtirgan sayohatlarni loyihalaydi."
+    "text": "TripsFactory — Toshkentda joylashgan, O'zbekiston va Markaziy Osiyo bo'ylab guruh hamda individual sayohatlarga ixtisoslashgan tur operatori. Mahalliy mutaxassislar jamoamiz Ipak yo'lining mashhur yodgorliklarini haqiqiy, kam ma'lum tajribalar bilan uyg'unlashtirgan sayohatlarni loyihalaydi.",
+    "eyebrow": "Bizning tariximiz"
   },
   "contact": {
     "title": "Biz bilan bog'laning",

@@ -31,18 +31,18 @@ export function LeadForm({ tourSlug }: { tourSlug?: string }) {
 
   if (status === "success") {
     return (
-      <p className="rounded-xl border border-primary bg-surface p-6 text-center font-medium">
+      <p className="rounded-xl border border-primary/30 bg-primary/5 p-6 text-center font-medium">
         {t("success")}
       </p>
     );
   }
 
   const inputClass =
-    "w-full rounded-md border border-border bg-background px-3 py-2 text-sm focus:border-primary focus:outline-none";
+    "w-full rounded-xl border border-transparent bg-surface-muted px-4 py-3 text-sm transition-colors focus:border-primary focus:bg-surface focus:outline-none";
 
   return (
     <form onSubmit={onSubmit} className="space-y-4">
-      <h2 className="text-2xl font-bold">{t("title")}</h2>
+      <h2 className="tf-headline text-2xl">{t("title")}</h2>
       {/* Honeypot: bots fill it, humans never see it */}
       <input
         type="text"

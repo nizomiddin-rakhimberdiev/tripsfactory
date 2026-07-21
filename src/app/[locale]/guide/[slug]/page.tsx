@@ -37,11 +37,11 @@ export default async function GuidePage({
   if (!guide) notFound();
 
   return (
-    <article className="mx-auto max-w-3xl px-4 py-12">
-      <h1 className="mb-8 text-4xl font-bold">{guide.title}</h1>
+    <article className="mx-auto max-w-3xl px-4 py-16 md:px-6">
+      <h1 className="tf-display mb-10 text-4xl sm:text-5xl">{guide.title}</h1>
       {guide.sections.map((s) => (
-        <section key={s.heading} className="mb-8">
-          <h2 className="mb-2 text-2xl font-semibold">{s.heading}</h2>
+        <section key={s.heading} className="mb-10">
+          <h2 className="tf-headline mb-3 text-2xl">{s.heading}</h2>
           <p className="leading-relaxed text-muted">{s.body}</p>
         </section>
       ))}

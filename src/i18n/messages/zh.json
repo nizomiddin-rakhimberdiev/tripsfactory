@@ -66,7 +66,16 @@
     "empty": "这里暂时还没有线路 — 请稍后再来。",
     "routeMap": "路线图",
     "start": "起点",
-    "end": "终点"
+    "end": "终点",
+    "typeLabel": "类型",
+    "durationLabel": "行程天数",
+    "startingFrom": "起价",
+    "bookingNote": "现在无需付款——我们将通过电子邮件与您确认所有细节。",
+    "assuranceTitle": "TripsFactory 保障",
+    "assuranceText": "由当地专家规划，保证成团并提供专属支持。",
+    "viewAll": "查看所有行程",
+    "listEyebrow": "臻选旅程",
+    "listIntro": "精心打造的丝绸之路团队与私人旅程。"
   },
   "destinations": {
     "title": "目的地",
@@ -75,7 +84,10 @@
     "recommendedStay": "建议停留",
     "nights": "{count}晚",
     "topAttractions": "主要景点",
-    "toursIn": "{country}旅游线路"
+    "toursIn": "{country}旅游线路",
+    "overview": "概览",
+    "curated": "臻选旅程",
+    "indexIntro": "选择一个国家，开启您的丝绸之路之旅。"
   },
   "guide": {
     "title": "旅行指南"
@@ -92,7 +104,11 @@
     "accessText": "闭馆后的古迹参观、私人工坊与宅邸探访。",
     "stays": "非凡住宿",
     "staysText": "精品宅邸与丝绸之路最优质的酒店。",
-    "enquire": "私密咨询"
+    "enquire": "私密咨询",
+    "invitation": "丝绸之路的邀约",
+    "journeysEyebrow": "季节性行程",
+    "journeys": "非凡探险之旅",
+    "closingTitle": "世界上最独特的旅程，正等待您的莅临。"
   },
   "form": {
     "title": "咨询此线路",
@@ -116,7 +132,8 @@
   },
   "about": {
     "title": "关于 TripsFactory",
-    "text": "TripsFactory 是一家总部位于塔什干的旅行社，专注于乌兹别克斯坦及中亚的团队游与私人定制游。我们的本地专家团队设计的行程，将丝绸之路的标志性名胜与原汁原味的深度体验相结合。"
+    "text": "TripsFactory 是一家总部位于塔什干的旅行社，专注于乌兹别克斯坦及中亚的团队游与私人定制游。我们的本地专家团队设计的行程，将丝绸之路的标志性名胜与原汁原味的深度体验相结合。",
+    "eyebrow": "我们的故事"
   },
   "contact": {
     "title": "联系我们",

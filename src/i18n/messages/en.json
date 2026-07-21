@@ -66,7 +66,16 @@
     "empty": "No tours here yet — check back soon.",
     "routeMap": "Route Map",
     "start": "Start",
-    "end": "End"
+    "end": "End",
+    "typeLabel": "Type",
+    "durationLabel": "Duration",
+    "startingFrom": "Starting from",
+    "bookingNote": "No payment now — we confirm every detail with you by email.",
+    "assuranceTitle": "TripsFactory Assurance",
+    "assuranceText": "Planned by local experts, with guaranteed departures and personal support.",
+    "viewAll": "View all tours",
+    "listEyebrow": "Curated Journeys",
+    "listIntro": "Hand-crafted group and private journeys across the Silk Road."
   },
   "destinations": {
     "title": "Destinations",
@@ -75,7 +84,10 @@
     "recommendedStay": "Recommended stay",
     "nights": "{count} nights",
     "topAttractions": "Top Attractions",
-    "toursIn": "Tours in {country}"
+    "toursIn": "Tours in {country}",
+    "overview": "Overview",
+    "curated": "Curated Journeys",
+    "indexIntro": "Choose a country and begin your Silk Road journey."
   },
   "guide": {
     "title": "Travel Guide"
@@ -92,7 +104,11 @@
     "accessText": "After-hours visits to monuments, private ateliers and residences.",
     "stays": "Exceptional Stays",
     "staysText": "Boutique residences and the finest hotels of the Silk Road.",
-    "enquire": "Enquire Privately"
+    "enquire": "Enquire Privately",
+    "invitation": "An Invitation to the Silk Road",
+    "journeysEyebrow": "Seasonal Itineraries",
+    "journeys": "Extraordinary Expeditions",
+    "closingTitle": "The world's most exclusive journeys await your presence."
   },
   "form": {
     "title": "Request This Tour",
@@ -116,7 +132,8 @@
   },
   "about": {
     "title": "About TripsFactory",
-    "text": "TripsFactory is a Tashkent-based tour operator specializing in group and private travel across Uzbekistan and Central Asia. Our team of local experts designs journeys that combine iconic Silk Road landmarks with authentic, off-the-beaten-path experiences."
+    "text": "TripsFactory is a Tashkent-based tour operator specializing in group and private travel across Uzbekistan and Central Asia. Our team of local experts designs journeys that combine iconic Silk Road landmarks with authentic, off-the-beaten-path experiences.",
+    "eyebrow": "Our Story"
   },
   "contact": {
     "title": "Contact Us",

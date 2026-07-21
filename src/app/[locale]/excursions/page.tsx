@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { setRequestLocale, getTranslations } from "next-intl/server";
 import { flags } from "@/lib/flags";
+import { PageHeader } from "@/components/PageHeader";
 
 /**
  * Excursions catalog — fully routed but gated behind flags.excursions.
@@ -17,8 +18,8 @@ export default async function ExcursionsPage({
   const t = await getTranslations("nav");
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-12">
-      <h1 className="text-4xl font-bold">{t("excursions")}</h1>
+    <div className="mx-auto max-w-6xl px-4 py-16 md:px-6">
+      <PageHeader title={t("excursions")} />
       {/* Day-trip catalog renders here once the excursions content collection lands */}
     </div>
   );

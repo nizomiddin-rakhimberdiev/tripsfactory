@@ -66,7 +66,16 @@
     "empty": "まだツアーがありません — またご確認ください。",
     "routeMap": "ルートマップ",
     "start": "出発",
-    "end": "到着"
+    "end": "到着",
+    "typeLabel": "タイプ",
+    "durationLabel": "期間",
+    "startingFrom": "料金（〜から）",
+    "bookingNote": "今すぐのお支払いは不要です。詳細はメールで確認いたします。",
+    "assuranceTitle": "TripsFactory の保証",
+    "assuranceText": "地元の専門家が企画。催行保証と専任サポート付き。",
+    "viewAll": "すべてのツアーを見る",
+    "listEyebrow": "厳選された旅",
+    "listIntro": "シルクロードを巡る、丁寧に作り上げたグループ＆プライベートの旅。"
   },
   "destinations": {
     "title": "目的地",
@@ -75,7 +84,10 @@
     "recommendedStay": "おすすめ滞在日数",
     "nights": "{count}泊",
     "topAttractions": "主な見どころ",
-    "toursIn": "{country}のツアー"
+    "toursIn": "{country}のツアー",
+    "overview": "概要",
+    "curated": "厳選された旅",
+    "indexIntro": "国を選んで、シルクロードの旅を始めましょう。"
   },
   "guide": {
     "title": "旅行ガイド"
@@ -92,7 +104,11 @@
     "accessText": "閉館後の遺跡見学、プライベート工房や邸宅への訪問。",
     "stays": "極上の滞在",
     "staysText": "ブティックレジデンスとシルクロード随一のホテル。",
-    "enquire": "プライベートなお問い合わせ"
+    "enquire": "プライベートなお問い合わせ",
+    "invitation": "シルクロードへの招待",
+    "journeysEyebrow": "シーズナルな旅程",
+    "journeys": "特別なエクスペディション",
+    "closingTitle": "世界で最も特別な旅が、あなたを待っています。"
   },
   "form": {
     "title": "このツアーをリクエスト",
@@ -116,7 +132,8 @@
   },
   "about": {
     "title": "TripsFactoryについて",
-    "text": "TripsFactoryはタシケントに拠点を置くツアーオペレーターで、ウズベキスタンおよび中央アジアのグループ旅行・個人旅行を専門としています。現地専門家チームが、シルクロードの象徴的な名所と、知られざる本物の体験を組み合わせた旅をデザインします。"
+    "text": "TripsFactoryはタシケントに拠点を置くツアーオペレーターで、ウズベキスタンおよび中央アジアのグループ旅行・個人旅行を専門としています。現地専門家チームが、シルクロードの象徴的な名所と、知られざる本物の体験を組み合わせた旅をデザインします。",
+    "eyebrow": "私たちの物語"
   },
   "contact": {
     "title": "お問い合わせ",

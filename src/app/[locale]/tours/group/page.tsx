@@ -1,6 +1,7 @@
 import { setRequestLocale, getTranslations } from "next-intl/server";
 import { getTours } from "@/lib/content";
 import { TourCard } from "@/components/tours/TourCard";
+import { PageHeader } from "@/components/PageHeader";
 
 export const revalidate = 300;
 
@@ -20,17 +21,16 @@ export default async function GroupToursPage({
   const tours = await getTours({ type: "group" }, locale);
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-12">
-      <div className="mb-8 border-l-4 border-primary pl-4">
-        <h1 className="text-4xl font-bold">{t("type_group")}</h1>
-        <p className="mt-2 max-w-2xl text-muted">
-          {t("groupIntro")}
-        </p>
-      </div>
+    <div className="mx-auto max-w-6xl px-4 py-16 md:px-6">
+      <PageHeader
+        eyebrow={t("listEyebrow")}
+        title={t("type_group")}
+        subtitle={t("groupIntro")}
+      />
       {tours.length === 0 ? (
-        <p className="text-muted">{t("empty")}</p>
+        <p className="mt-14 text-muted">{t("empty")}</p>
       ) : (
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-14 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {tours.map((tour) => (
             <TourCard key={tour.slug} tour={tour} />
           ))}

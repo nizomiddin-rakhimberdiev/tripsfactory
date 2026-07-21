@@ -66,7 +66,16 @@
     "empty": "Ancora nessun tour qui — torna presto.",
     "routeMap": "Mappa del percorso",
     "start": "Inizio",
-    "end": "Fine"
+    "end": "Fine",
+    "typeLabel": "Tipo",
+    "durationLabel": "Durata",
+    "startingFrom": "A partire da",
+    "bookingNote": "Nessun pagamento ora: confermiamo ogni dettaglio via email.",
+    "assuranceTitle": "Garanzia TripsFactory",
+    "assuranceText": "Pianificato da esperti locali, con partenze garantite e assistenza personale.",
+    "viewAll": "Vedi tutti i tour",
+    "listEyebrow": "Viaggi selezionati",
+    "listIntro": "Viaggi privati e di gruppo lungo la Via della Seta, creati su misura."
   },
   "destinations": {
     "title": "Destinazioni",
@@ -75,7 +84,10 @@
     "recommendedStay": "Soggiorno consigliato",
     "nights": "{count} notti",
     "topAttractions": "Attrazioni principali",
-    "toursIn": "Tour in {country}"
+    "toursIn": "Tour in {country}",
+    "overview": "Panoramica",
+    "curated": "Viaggi selezionati",
+    "indexIntro": "Scegli un paese e inizia il tuo viaggio lungo la Via della Seta."
   },
   "guide": {
     "title": "Guida di viaggio"
@@ -92,7 +104,11 @@
     "accessText": "Visite ai monumenti a porte chiuse, atelier privati e residenze.",
     "stays": "Soggiorni eccezionali",
     "staysText": "Residenze boutique e i migliori hotel della Via della Seta.",
-    "enquire": "Richiesta riservata"
+    "enquire": "Richiesta riservata",
+    "invitation": "Un invito alla Via della Seta",
+    "journeysEyebrow": "Itinerari stagionali",
+    "journeys": "Spedizioni straordinarie",
+    "closingTitle": "I viaggi più esclusivi del mondo attendono la tua presenza."
   },
   "form": {
     "title": "Richiedi questo tour",
@@ -116,7 +132,8 @@
   },
   "about": {
     "title": "Chi è TripsFactory",
-    "text": "TripsFactory è un tour operator con sede a Tashkent, specializzato in viaggi di gruppo e privati in Uzbekistan e Asia Centrale. Il nostro team di esperti locali progetta itinerari che uniscono i monumenti iconici della Via della Seta a esperienze autentiche lontano dai percorsi battuti."
+    "text": "TripsFactory è un tour operator con sede a Tashkent, specializzato in viaggi di gruppo e privati in Uzbekistan e Asia Centrale. Il nostro team di esperti locali progetta itinerari che uniscono i monumenti iconici della Via della Seta a esperienze autentiche lontano dai percorsi battuti.",
+    "eyebrow": "La nostra storia"
   },
   "contact": {
     "title": "Contattateci",

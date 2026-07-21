@@ -66,7 +66,16 @@
     "empty": "Aún no hay tours aquí — vuelva pronto.",
     "routeMap": "Mapa de ruta",
     "start": "Inicio",
-    "end": "Fin"
+    "end": "Fin",
+    "typeLabel": "Tipo",
+    "durationLabel": "Duración",
+    "startingFrom": "Desde",
+    "bookingNote": "Sin pago ahora: confirmamos cada detalle contigo por correo electrónico.",
+    "assuranceTitle": "Garantía TripsFactory",
+    "assuranceText": "Planificado por expertos locales, con salidas garantizadas y atención personal.",
+    "viewAll": "Ver todos los tours",
+    "listEyebrow": "Viajes seleccionados",
+    "listIntro": "Viajes privados y en grupo por la Ruta de la Seda, hechos a mano."
   },
   "destinations": {
     "title": "Destinos",
@@ -75,7 +84,10 @@
     "recommendedStay": "Estancia recomendada",
     "nights": "{count} noches",
     "topAttractions": "Principales atracciones",
-    "toursIn": "Tours en {country}"
+    "toursIn": "Tours en {country}",
+    "overview": "Descripción general",
+    "curated": "Viajes seleccionados",
+    "indexIntro": "Elige un país y comienza tu viaje por la Ruta de la Seda."
   },
   "guide": {
     "title": "Guía de viaje"
@@ -92,7 +104,11 @@
     "accessText": "Visitas a monumentos fuera de horario, talleres privados y residencias.",
     "stays": "Alojamientos excepcionales",
     "staysText": "Residencias boutique y los mejores hoteles de la Ruta de la Seda.",
-    "enquire": "Consulta privada"
+    "enquire": "Consulta privada",
+    "invitation": "Una invitación a la Ruta de la Seda",
+    "journeysEyebrow": "Itinerarios de temporada",
+    "journeys": "Expediciones extraordinarias",
+    "closingTitle": "Los viajes más exclusivos del mundo esperan tu presencia."
   },
   "form": {
     "title": "Solicitar este tour",
@@ -116,7 +132,8 @@
   },
   "about": {
     "title": "Sobre TripsFactory",
-    "text": "TripsFactory es un operador turístico con sede en Taskent, especializado en viajes en grupo y privados por Uzbekistán y Asia Central. Nuestro equipo de expertos locales diseña viajes que combinan los monumentos icónicos de la Ruta de la Seda con experiencias auténticas fuera de los circuitos habituales."
+    "text": "TripsFactory es un operador turístico con sede en Taskent, especializado en viajes en grupo y privados por Uzbekistán y Asia Central. Nuestro equipo de expertos locales diseña viajes que combinan los monumentos icónicos de la Ruta de la Seda con experiencias auténticas fuera de los circuitos habituales.",
+    "eyebrow": "Nuestra historia"
   },
   "contact": {
     "title": "Contáctenos",

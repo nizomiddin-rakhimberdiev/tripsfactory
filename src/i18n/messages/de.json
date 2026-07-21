@@ -66,7 +66,16 @@
     "empty": "Hier gibt es noch keine Touren — schauen Sie bald wieder vorbei.",
     "routeMap": "Reiseroute",
     "start": "Start",
-    "end": "Ende"
+    "end": "Ende",
+    "typeLabel": "Art",
+    "durationLabel": "Dauer",
+    "startingFrom": "Ab",
+    "bookingNote": "Keine Zahlung jetzt — wir bestätigen jedes Detail per E-Mail mit Ihnen.",
+    "assuranceTitle": "TripsFactory Garantie",
+    "assuranceText": "Von lokalen Experten geplant, mit garantierten Abreisen und persönlicher Betreuung.",
+    "viewAll": "Alle Touren ansehen",
+    "listEyebrow": "Ausgewählte Reisen",
+    "listIntro": "Handverlesene Gruppen- und Privatreisen entlang der Seidenstraße."
   },
   "destinations": {
     "title": "Reiseziele",
@@ -75,7 +84,10 @@
     "recommendedStay": "Empfohlene Aufenthaltsdauer",
     "nights": "{count} Nächte",
     "topAttractions": "Top-Sehenswürdigkeiten",
-    "toursIn": "Touren in {country}"
+    "toursIn": "Touren in {country}",
+    "overview": "Überblick",
+    "curated": "Ausgewählte Reisen",
+    "indexIntro": "Wählen Sie ein Land und beginnen Sie Ihre Reise entlang der Seidenstraße."
   },
   "guide": {
     "title": "Reiseführer"
@@ -92,7 +104,11 @@
     "accessText": "Besuche von Monumenten nach Schließung, private Ateliers und Residenzen.",
     "stays": "Außergewöhnliche Unterkünfte",
     "staysText": "Boutique-Residenzen und die besten Hotels der Seidenstraße.",
-    "enquire": "Diskret anfragen"
+    "enquire": "Diskret anfragen",
+    "invitation": "Eine Einladung auf die Seidenstraße",
+    "journeysEyebrow": "Saisonale Reiserouten",
+    "journeys": "Außergewöhnliche Expeditionen",
+    "closingTitle": "Die exklusivsten Reisen der Welt erwarten Sie."
   },
   "form": {
     "title": "Diese Tour anfragen",
@@ -116,7 +132,8 @@
   },
   "about": {
     "title": "Über TripsFactory",
-    "text": "TripsFactory ist ein Reiseveranstalter aus Taschkent, spezialisiert auf Gruppen- und Privatreisen durch Usbekistan und Zentralasien. Unser Team lokaler Experten gestaltet Reisen, die ikonische Stätten der Seidenstraße mit authentischen Erlebnissen abseits der ausgetretenen Pfade verbinden."
+    "text": "TripsFactory ist ein Reiseveranstalter aus Taschkent, spezialisiert auf Gruppen- und Privatreisen durch Usbekistan und Zentralasien. Unser Team lokaler Experten gestaltet Reisen, die ikonische Stätten der Seidenstraße mit authentischen Erlebnissen abseits der ausgetretenen Pfade verbinden.",
+    "eyebrow": "Unsere Geschichte"
   },
   "contact": {
     "title": "Kontaktieren Sie uns",
