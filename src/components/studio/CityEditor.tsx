@@ -12,6 +12,7 @@ import {
 import { sendPerLocale } from "@/lib/studio/save";
 import { LOCALE_CODES } from "@/lib/studio/locales";
 import { IconCheck } from "./icons";
+import { GalleryPicker, type GalleryItem } from "./GalleryPicker";
 
 export type CityInitial = {
   id: number;
@@ -20,6 +21,7 @@ export type CityInitial = {
   lat: number | null;
   lng: number | null;
   image: MediaRef;
+  gallery: GalleryItem[];
   name: LocaleMap;
   intro: LocaleMap;
   attractions: Record<string, { text: string }[]>;
@@ -45,6 +47,7 @@ export function CityEditor({
       lat: c.lat,
       lng: c.lng,
       image: c.image?.id ?? null,
+      gallery: c.gallery,
     };
     const bodies = Object.fromEntries(
       LOCALE_CODES.map((loc) => [
@@ -91,6 +94,7 @@ export function CityEditor({
               </Field>
             </div>
             <ImagePicker label="Rasm" value={c.image} onChange={(image) => patch({ image })} />
+            <GalleryPicker value={c.gallery} onChange={(gallery) => patch({ gallery })} />
             <LocalizedList label="Diqqatga sazovor joylar" value={c.attractions} onChange={(attractions) => patch({ attractions })} />
           </div>
         </div>

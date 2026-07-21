@@ -32,6 +32,7 @@ type RawTour = {
   excluded?: Record<string, { text: string }[]>;
   departures?: { date: string; priceUsd: number; status: string }[] | null;
   route?: { name: string; lat: number; lng: number; note?: string }[] | null;
+  gallery?: { id: number; url: string }[] | null;
 };
 
 function refId(r: Ref | number | null | undefined): number | null {
@@ -86,6 +87,7 @@ export default async function StudioTourEditPage({
       status: d.status,
     })),
     route: Array.isArray(raw.route) ? raw.route : [],
+    gallery: Array.isArray(raw.gallery) ? raw.gallery : [],
   };
 
   const countrySlug =

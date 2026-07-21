@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { notFound } from "next/navigation";
 import { setRequestLocale, getTranslations, getLocale } from "next-intl/server";
 import { getTour, getTours, getCity } from "@/lib/content";
@@ -8,6 +7,7 @@ import { LeadForm } from "@/components/forms/LeadForm";
 import { TourCard } from "@/components/tours/TourCard";
 import { ItineraryAccordion } from "@/components/tours/ItineraryAccordion";
 import { TourRouteMap } from "@/components/tours/TourRouteMap";
+import { Carousel } from "@/components/Carousel";
 import { tourJsonLd } from "@/lib/seo";
 
 type Params = { locale: string; country: string; slug: string };
@@ -81,14 +81,12 @@ export default async function TourPage({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(tourJsonLd(tour)) }}
       />
-      <div className="relative mb-8 aspect-[5/2] overflow-hidden rounded-2xl">
-        <Image
-          src={tour.heroImage}
+      <div className="mb-8">
+        <Carousel
+          images={[...new Set([tour.heroImage, ...(tour.gallery ?? [])])].filter(
+            Boolean,
+          )}
           alt={tour.title}
-          fill
-          priority
-          sizes="(max-width: 896px) 100vw, 896px"
-          className="object-cover"
         />
       </div>
 

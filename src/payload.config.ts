@@ -22,6 +22,37 @@ const SITE_URL =
 const publicRead: Access = () => true;
 const adminOnly: Access = ({ req }) => Boolean(req.user);
 
+/**
+ * On any content change, tell Next.js to rebuild the affected pages immediately
+ * (on-demand revalidation) so admin edits appear on the site right away instead
+ * of waiting for the 5-minute ISR window. No-op outside a Next request (scripts).
+ */
+async function revalidateSite(): Promise<void> {
+  try {
+    const { revalidatePath } = await import("next/cache");
+    const pages = [
+      "/[locale]",
+      "/[locale]/tours",
+      "/[locale]/tours/group",
+      "/[locale]/tours/private",
+      "/[locale]/tours/[country]/[slug]",
+      "/[locale]/destinations",
+      "/[locale]/destinations/[region]/[country]",
+      "/[locale]/guide",
+      "/[locale]/guide/[slug]",
+      "/[locale]/premium",
+    ];
+    for (const p of pages) revalidatePath(p, "page");
+  } catch {
+    /* not in a Next request context (e.g. seed scripts) — ignore */
+  }
+}
+
+const revalidateHooks = {
+  afterChange: [() => revalidateSite()],
+  afterDelete: [() => revalidateSite()],
+};
+
 /** Localized text field with an Uzbek admin label + optional help text. */
 const locText = (
   name: string,
@@ -61,6 +92,16 @@ const imageField = (name: string, label: string): Field => ({
   required: true,
   admin: { description: REPLACE_HELP },
 });
+
+const galleryField: Field = {
+  name: "gallery",
+  type: "json",
+  label: "Rasmlar galereyasi (karusel)",
+  admin: {
+    description:
+      "Bir nechta rasm qo'shing — sahifada karuselda ko'rinadi. «Rasm qo'shish» tugmasi orqali tanlaysiz.",
+  },
+};
 
 const slugField: Field = {
   name: "slug",
@@ -107,6 +148,7 @@ const Users: CollectionConfig = {
 const Media: CollectionConfig = {
   slug: "media",
   labels: { singular: "Rasm", plural: "Rasmlar" },
+  hooks: revalidateHooks,
   admin: {
     group: "Media",
     description:
@@ -143,6 +185,7 @@ const Media: CollectionConfig = {
 const Regions: CollectionConfig = {
   slug: "regions",
   labels: { singular: "Mintaqa", plural: "Mintaqalar" },
+  hooks: revalidateHooks,
   admin: { useAsTitle: "name", group: "Kontent" },
   access: {
     read: publicRead,
@@ -169,6 +212,7 @@ const previewCountry: GeneratePreviewURL = async (doc, { req, locale }) => {
 const Countries: CollectionConfig = {
   slug: "countries",
   labels: { singular: "Davlat", plural: "Davlatlar" },
+  hooks: revalidateHooks,
   admin: {
     useAsTitle: "name",
     group: "Kontent",
@@ -212,6 +256,7 @@ const Countries: CollectionConfig = {
       },
     },
     imageField("heroImage", "Asosiy rasm"),
+    galleryField,
     {
       name: "published",
       type: "checkbox",
@@ -227,6 +272,7 @@ const Countries: CollectionConfig = {
 const Cities: CollectionConfig = {
   slug: "cities",
   labels: { singular: "Shahar", plural: "Shaharlar" },
+  hooks: revalidateHooks,
   admin: {
     useAsTitle: "name",
     group: "Kontent",
@@ -290,6 +336,7 @@ const Cities: CollectionConfig = {
       fields: [{ name: "text", type: "text", label: "Nomi", required: true }],
     },
     imageField("image", "Rasm"),
+    galleryField,
   ],
 };
 
@@ -309,6 +356,7 @@ const previewTour: GeneratePreviewURL = async (doc, { req, locale }) => {
 const Tours: CollectionConfig = {
   slug: "tours",
   labels: { singular: "Tur", plural: "Turlar" },
+  hooks: revalidateHooks,
   admin: {
     useAsTitle: "title",
     group: "Kontent",
@@ -413,6 +461,7 @@ const Tours: CollectionConfig = {
       },
     },
     imageField("heroImage", "Asosiy rasm"),
+    galleryField,
     {
       type: "row",
       fields: [
@@ -530,6 +579,7 @@ const previewGuide: GeneratePreviewURL = (doc, { locale }) => {
 const Guides: CollectionConfig = {
   slug: "guides",
   labels: { singular: "Qo'llanma", plural: "Qo'llanmalar" },
+  hooks: revalidateHooks,
   admin: {
     useAsTitle: "title",
     group: "Kontent",
@@ -659,6 +709,7 @@ export default buildConfig({
     {
       slug: "site-content",
       label: "Bosh sahifa",
+      hooks: { afterChange: [() => revalidateSite()] },
       admin: {
         group: "Kontent",
         description:

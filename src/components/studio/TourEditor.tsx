@@ -14,6 +14,7 @@ import { sendPerLocale } from "@/lib/studio/save";
 import { LOCALE_CODES } from "@/lib/studio/locales";
 import { IconCheck, IconExternal, IconPlus, IconTrash } from "./icons";
 import { RoutePicker } from "./RoutePicker";
+import { GalleryPicker, type GalleryItem } from "./GalleryPicker";
 import type { RoutePoint } from "@/lib/content/types";
 
 type Departure = { date: string; priceUsd: number; status: string };
@@ -37,6 +38,7 @@ export type TourInitial = {
   excluded: Record<string, { text: string }[]>;
   departures: Departure[];
   route: RoutePoint[];
+  gallery: GalleryItem[];
 };
 type Option = { id: number; name: string };
 
@@ -86,6 +88,7 @@ export function TourEditor({
       heroImage: t.heroImage?.id ?? null,
       departures: t.departures,
       route: t.route,
+      gallery: t.gallery,
     };
     const bodies = Object.fromEntries(
       LOCALE_CODES.map((loc) => [
@@ -121,6 +124,7 @@ export function TourEditor({
               <LocalizedText label="Tur nomi" required value={t.title} onChange={(title) => patch({ title })} />
               <LocalizedText label="Qisqa tavsif" textarea value={t.summary} onChange={(summary) => patch({ summary })} />
               <ImagePicker label="Asosiy rasm" value={t.heroImage} onChange={(heroImage) => patch({ heroImage })} />
+              <GalleryPicker value={t.gallery} onChange={(gallery) => patch({ gallery })} />
             </div>
           </div>
         </div>

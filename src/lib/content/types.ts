@@ -22,6 +22,7 @@ export interface Country {
   /** Optional long-form Markdown body rendered below the intro. */
   body?: string | null;
   heroImage: string;
+  gallery?: string[];
   published: boolean;
 }
 
@@ -33,6 +34,7 @@ export interface City {
   recommendedNights: number;
   attractions: string[];
   image: string;
+  gallery?: string[];
   lat?: number | null;
   lng?: number | null;
 }

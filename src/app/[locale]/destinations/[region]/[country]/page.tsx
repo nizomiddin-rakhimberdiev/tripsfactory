@@ -11,6 +11,7 @@ import { locales } from "@/i18n/routing";
 import { TourCard } from "@/components/tours/TourCard";
 import { CountryBar } from "@/components/layout/CountryBar";
 import { Markdown } from "@/components/Markdown";
+import { Carousel } from "@/components/Carousel";
 
 type Params = { locale: string; region: string; country: string };
 
@@ -91,6 +92,12 @@ export default async function CountryPage({
         {c.body && (
           <div className="mt-8">
             <Markdown>{c.body}</Markdown>
+          </div>
+        )}
+
+        {c.gallery && c.gallery.length > 0 && (
+          <div className="mt-10">
+            <Carousel images={c.gallery} alt={c.name} aspect="aspect-[16/7]" />
           </div>
         )}
 

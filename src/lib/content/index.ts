@@ -51,6 +51,14 @@ function texts(rows: { text: string }[] | null | undefined): string[] {
   return (rows ?? []).map((r) => r.text);
 }
 
+function galleryUrls(g: unknown): string[] {
+  return Array.isArray(g)
+    ? (g as { url?: string }[])
+        .map((x) => x?.url)
+        .filter((u): u is string => Boolean(u))
+    : [];
+}
+
 function mapRegion(doc: RegionDoc): Region {
   return { slug: doc.slug, name: doc.name };
 }
@@ -63,6 +71,7 @@ function mapCountry(doc: CountryDoc): Country {
     intro: doc.intro,
     body: doc.body ?? null,
     heroImage: mediaUrl(doc.heroImage),
+    gallery: galleryUrls(doc.gallery),
     published: Boolean(doc.published),
   };
 }
@@ -76,6 +85,7 @@ function mapCity(doc: CityDoc): City {
     recommendedNights: doc.recommendedNights,
     attractions: texts(doc.attractions),
     image: mediaUrl(doc.image),
+    gallery: galleryUrls(doc.gallery),
     lat: doc.lat ?? null,
     lng: doc.lng ?? null,
   };
@@ -106,7 +116,7 @@ function mapTour(doc: TourDoc): Tour {
     included: texts(doc.included),
     excluded: texts(doc.excluded),
     heroImage: mediaUrl(doc.heroImage),
-    gallery: [],
+    gallery: galleryUrls(doc.gallery),
     route: Array.isArray(doc.route) ? (doc.route as Tour["route"]) : [],
     featured: Boolean(doc.featured),
     published: Boolean(doc.published),

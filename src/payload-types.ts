@@ -226,6 +226,18 @@ export interface Country {
    */
   heroImage: number | Media;
   /**
+   * Bir nechta rasm qo'shing — sahifada karuselda ko'rinadi. «Rasm qo'shish» tugmasi orqali tanlaysiz.
+   */
+  gallery?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  /**
    * Belgilanmasa, davlat saytda ko'rinmaydi (qoralama).
    */
   published?: boolean | null;
@@ -264,6 +276,18 @@ export interface City {
    * Rasmni almashtirish: rasm yonidagi ✕ tugmasini bosing, so'ng «Create New» bilan yangi rasm yuklang (yoki faylni shu maydonga tortib tashlang). Eski rasm o'chmaydi — kutubxonada qoladi.
    */
   image: number | Media;
+  /**
+   * Bir nechta rasm qo'shing — sahifada karuselda ko'rinadi. «Rasm qo'shish» tugmasi orqali tanlaysiz.
+   */
+  gallery?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -313,6 +337,18 @@ export interface Tour {
    * Rasmni almashtirish: rasm yonidagi ✕ tugmasini bosing, so'ng «Create New» bilan yangi rasm yuklang (yoki faylni shu maydonga tortib tashlang). Eski rasm o'chmaydi — kutubxonada qoladi.
    */
   heroImage: number | Media;
+  /**
+   * Bir nechta rasm qo'shing — sahifada karuselda ko'rinadi. «Rasm qo'shish» tugmasi orqali tanlaysiz.
+   */
+  gallery?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   featured?: boolean | null;
   /**
    * Belgilanmasa, tur saytda ko'rinmaydi (qoralama).
@@ -549,6 +585,7 @@ export interface CountriesSelect<T extends boolean = true> {
   intro?: T;
   body?: T;
   heroImage?: T;
+  gallery?: T;
   published?: T;
   updatedAt?: T;
   createdAt?: T;
@@ -572,6 +609,7 @@ export interface CitiesSelect<T extends boolean = true> {
         id?: T;
       };
   image?: T;
+  gallery?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -592,6 +630,7 @@ export interface ToursSelect<T extends boolean = true> {
   cities?: T;
   route?: T;
   heroImage?: T;
+  gallery?: T;
   featured?: T;
   published?: T;
   itinerary?:

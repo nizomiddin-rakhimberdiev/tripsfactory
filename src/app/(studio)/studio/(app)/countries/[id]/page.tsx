@@ -14,6 +14,7 @@ type RawCountry = {
   region?: Ref | number | null;
   published?: boolean | null;
   heroImage?: Ref | number | null;
+  gallery?: { id: number; url: string }[] | null;
   name?: Record<string, string>;
   intro?: Record<string, string>;
   body?: Record<string, string>;
@@ -48,6 +49,7 @@ export default async function StudioCountryEditPage({
       image && typeof image === "object"
         ? ({ id: image.id, url: image.url, filename: image.filename } as MediaRef)
         : null,
+    gallery: Array.isArray(raw.gallery) ? raw.gallery : [],
     name: raw.name ?? {},
     intro: raw.intro ?? {},
     body: raw.body ?? {},

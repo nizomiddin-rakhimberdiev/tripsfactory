@@ -11,12 +11,14 @@ import {
 import { sendPerLocale } from "@/lib/studio/save";
 import { LOCALE_CODES } from "@/lib/studio/locales";
 import { IconCheck } from "./icons";
+import { GalleryPicker, type GalleryItem } from "./GalleryPicker";
 
 export type CountryInitial = {
   id: number;
   region: number | null;
   published: boolean;
   heroImage: MediaRef;
+  gallery: GalleryItem[];
   name: LocaleMap;
   intro: LocaleMap;
   body: LocaleMap;
@@ -40,6 +42,7 @@ export function CountryEditor({
       region: c.region,
       published: c.published,
       heroImage: c.heroImage?.id ?? null,
+      gallery: c.gallery,
     };
     const bodies = Object.fromEntries(
       LOCALE_CODES.map((loc) => [
@@ -103,6 +106,7 @@ export function CountryEditor({
               </Field>
             </div>
             <ImagePicker label="Asosiy rasm" value={c.heroImage} onChange={(heroImage) => patch({ heroImage })} />
+            <GalleryPicker value={c.gallery} onChange={(gallery) => patch({ gallery })} />
           </div>
         </div>
       </div>
