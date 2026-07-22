@@ -204,24 +204,30 @@ textarea:focus-visible {
  * Surfaces
  * ------------------------------------------------------------------------- */
 
-/* White-glass card. Sits beautifully on both ivory and sand. */
+/* Translucent white card — the warm ground tints through, which is what makes
+   it feel like glass. Deliberately NO backdrop-filter: cards sit on flat ivory
+   or sand, so a blur has nothing to sample and only costs GPU time on every
+   card in a scrolling grid. Blur is reserved for surfaces that content
+   actually passes beneath (.tf-glass). */
 .tf-card {
   background: var(--card);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
   border-radius: var(--radius-2xl);
   box-shadow: var(--shadow-soft);
 }
 
-/* Gentle lift — a slow rise, never a pop. */
+/* Gentle lift — a slow rise, never a pop. Guarded to pointer devices: on iOS
+   a tap leaves :hover stuck, so a touch user would be left with a card frozen
+   mid-lift. */
 .tf-card-interactive {
   transition:
     transform 0.5s var(--ease-luxe),
     box-shadow 0.5s var(--ease-luxe);
 }
-.tf-card-interactive:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-lift);
+@media (hover: hover) {
+  .tf-card-interactive:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lift);
+  }
 }
 
 /* Frosted chrome — reserved for navigation, search and the booking card. */
@@ -267,8 +273,10 @@ textarea:focus-visible {
     box-shadow 0.45s var(--ease-luxe),
     transform 0.45s var(--ease-luxe);
 }
-.tf-btn:hover {
-  transform: translateY(-2px);
+@media (hover: hover) {
+  .tf-btn:hover {
+    transform: translateY(-2px);
+  }
 }
 
 .tf-btn-primary {
@@ -279,6 +287,10 @@ textarea:focus-visible {
 .tf-btn-primary:hover {
   background: var(--primary-hover);
   box-shadow: 0 10px 28px color-mix(in srgb, var(--primary) 28%, transparent);
+}
+/* Touch feedback, since these devices get no hover state at all. */
+.tf-btn-primary:active {
+  background: var(--primary-hover);
 }
 
 /* Quiet button for secondary actions on light ground. */
