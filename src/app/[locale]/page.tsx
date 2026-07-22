@@ -3,21 +3,11 @@ import { setRequestLocale, getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { getPublishedCountries, getSiteContent, getTours } from "@/lib/content";
 import { TourCard } from "@/components/tours/TourCard";
-import { HeroSearch } from "@/components/home/HeroSearch";
-import {
-  IconLandmark,
-  IconShieldCheck,
-  IconSparkles,
-} from "@/components/icons";
 
 // Content is editable in /admin — re-render pages periodically (ISR)
 export const revalidate = 300;
 
-const WHY = [
-  { key: "whyLocal", Icon: IconLandmark },
-  { key: "whyGuaranteed", Icon: IconShieldCheck },
-  { key: "whyTailored", Icon: IconSparkles },
-] as const;
+const WHY = ["whyLocal", "whyGuaranteed", "whyTailored"] as const;
 
 /**
  * Destination tiles alternate wide/narrow (2:1, then 1:2) so the grid reads as
@@ -47,25 +37,12 @@ export default async function HomePage({
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
-  const [t, tt] = await Promise.all([
-    getTranslations("home"),
-    getTranslations("tours"),
-  ]);
+  const t = await getTranslations("home");
   const [featured, countryList, site] = await Promise.all([
     getTours({ featuredOnly: true }, locale),
     getPublishedCountries(locale),
     getSiteContent(locale),
   ]);
-
-  const searchLabels = {
-    destination: t("searchDestination"),
-    allDestinations: t("searchDestinationAll"),
-    tourType: t("searchTourType"),
-    allTours: t("searchTypeAll"),
-    group: tt("type_group"),
-    private: tt("type_private"),
-    search: t("searchButton"),
-  };
 
   const ctaImage = site.premiumHero.image || site.hero.image;
 
@@ -90,40 +67,33 @@ export default async function HomePage({
           <p className="mx-auto mt-7 max-w-xl text-lg leading-relaxed text-white/90">
             {site.hero.subtitle}
           </p>
-          <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
-            <Link href="/tours" className="tf-btn tf-btn-primary">
+          {/*
+            One photograph, one line, one quiet action. A search field here
+            would say "we are an inventory you query" — the promise of an OTA,
+            not of an operator. Searching belongs on the index page, and that
+            is where it now lives.
+          */}
+          <div className="mt-10">
+            <Link href="/tours" className="tf-btn tf-btn-onimage">
               {t("heroCta")}
             </Link>
-            <Link href="/contact" className="tf-btn tf-btn-onimage">
-              {t("heroCtaSecondary")}
-            </Link>
-          </div>
-          <div className="mt-10">
-            <HeroSearch
-              countries={countryList.map((c) => ({
-                slug: c.slug,
-                regionSlug: c.regionSlug,
-                name: c.name,
-              }))}
-              labels={searchLabels}
-            />
           </div>
         </div>
       </section>
 
-      {/* Why TripsFactory */}
+      {/*
+        Previously a row of icons in circles — the feature grid every SaaS
+        landing page ships. The three ideas are worth keeping; the furniture
+        was not. Set as three editorial columns under hairline rules.
+      */}
       <section className="tf-section bg-surface">
-        <div className="mx-auto max-w-6xl px-4 md:px-6">
-          <div className="grid gap-14 text-center md:grid-cols-3">
-            {WHY.map(({ key, Icon }) => (
-              <div key={key} className="flex flex-col items-center">
-                <div className="mb-6 grid h-16 w-16 place-items-center rounded-full bg-primary/10 text-primary">
-                  <Icon className="text-3xl" />
-                </div>
+        <div className="mx-auto max-w-5xl px-4 md:px-6">
+          <div className="grid gap-14 md:grid-cols-3">
+            {WHY.map((key) => (
+              <div key={key}>
+                <div className="tf-rule mb-6" />
                 <h3 className="tf-headline mb-3 text-2xl">{t(key)}</h3>
-                <p className="max-w-xs leading-relaxed text-muted">
-                  {t(`${key}Text`)}
-                </p>
+                <p className="leading-relaxed text-muted">{t(`${key}Text`)}</p>
               </div>
             ))}
           </div>

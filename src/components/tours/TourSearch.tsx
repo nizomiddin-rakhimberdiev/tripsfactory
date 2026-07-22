@@ -4,13 +4,13 @@ import { useState } from "react";
 import { useRouter } from "@/i18n/navigation";
 import { IconMapPin, IconCompass, IconSearch } from "@/components/icons";
 
-export type HeroSearchCountry = {
+export type TourSearchCountry = {
   slug: string;
   regionSlug: string;
   name: string;
 };
 
-export type HeroSearchLabels = {
+export type TourSearchLabels = {
   destination: string;
   allDestinations: string;
   tourType: string;
@@ -21,16 +21,16 @@ export type HeroSearchLabels = {
 };
 
 /**
- * Hero search — a real navigator, not decoration. Destination routes to a
+ * Tour search — a real navigator, not decoration. Destination routes to a
  * country page; tour type routes to the matching listing. Destination wins
  * when both are set. Every control leads somewhere that exists.
  */
-export function HeroSearch({
+export function TourSearch({
   countries,
   labels,
 }: {
-  countries: HeroSearchCountry[];
-  labels: HeroSearchLabels;
+  countries: TourSearchCountry[];
+  labels: TourSearchLabels;
 }) {
   const router = useRouter();
   const [destination, setDestination] = useState("");
@@ -53,7 +53,7 @@ export function HeroSearch({
   return (
     <form
       onSubmit={submit}
-      className="tf-glass mx-auto flex max-w-2xl flex-col items-stretch gap-2 rounded-3xl p-2 shadow-xl md:flex-row md:items-center md:gap-0 md:rounded-full"
+      className="mx-auto flex max-w-2xl flex-col items-stretch gap-2 rounded-3xl border border-border bg-card p-2 md:flex-row md:items-center md:gap-0 md:rounded-full"
     >
       <label className={`${fieldClass} md:border-r md:border-border`}>
         <IconMapPin className="shrink-0 text-lg text-primary" />
