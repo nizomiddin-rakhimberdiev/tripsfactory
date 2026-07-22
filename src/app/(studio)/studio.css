@@ -986,3 +986,145 @@
   font-size: 13px;
   margin-bottom: 14px;
 }
+
+/* --------------------------------------------------------------------------
+   Dashboard overview
+   -------------------------------------------------------------------------- */
+.s-stat {
+  transition:
+    box-shadow 0.2s var(--s-ease),
+    transform 0.2s var(--s-ease),
+    border-color 0.2s var(--s-ease);
+}
+.s-stat--link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+.s-stat--link:hover {
+  border-color: var(--s-border-strong);
+  box-shadow: var(--s-shadow-sm);
+  transform: translateY(-1px);
+}
+.s-stat__value--accent {
+  color: var(--s-accent);
+}
+.s-stat__value--gold {
+  color: var(--s-gold);
+}
+
+/* Two-column lower half; collapses on narrow screens. */
+.s-cols {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
+  align-items: start;
+}
+@media (min-width: 1040px) {
+  .s-cols {
+    grid-template-columns: 1.35fr 1fr;
+  }
+}
+
+/* Module panel — a titled block with its own header row. */
+.s-module {
+  background: var(--s-panel);
+  border: 1px solid var(--s-border);
+  border-radius: var(--s-radius-lg);
+  box-shadow: var(--s-shadow-xs);
+  overflow: hidden;
+}
+.s-module__head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 16px;
+  border-bottom: 1px solid var(--s-border);
+}
+.s-module__title {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+.s-module__link {
+  margin-left: auto;
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--s-accent);
+  text-decoration: none;
+}
+.s-module__link:hover {
+  text-decoration: underline;
+}
+
+/* Scannable row list — recent leads, recent edits. */
+.s-list {
+  display: flex;
+  flex-direction: column;
+}
+.s-list__item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 16px;
+  border-bottom: 1px solid var(--s-border);
+  text-decoration: none;
+  color: inherit;
+  transition: background 0.15s var(--s-ease);
+}
+.s-list__item:last-child {
+  border-bottom: 0;
+}
+.s-list__item:hover {
+  background: var(--s-bg-inset);
+}
+.s-list__icon {
+  width: 30px;
+  height: 30px;
+  border-radius: var(--s-radius);
+  background: var(--s-bg-inset);
+  display: grid;
+  place-items: center;
+  color: var(--s-fg-muted);
+  flex-shrink: 0;
+}
+.s-list__icon svg {
+  width: 15px;
+  height: 15px;
+}
+.s-list__body {
+  min-width: 0;
+  flex: 1;
+}
+.s-list__t {
+  display: block;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.s-list__d {
+  display: block;
+  font-size: 12px;
+  color: var(--s-fg-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.s-list__meta {
+  margin-left: auto;
+  font-size: 12px;
+  color: var(--s-fg-muted);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* Brand-named badge aliases (the old --teal name predates the rebrand). */
+.s-badge--accent {
+  background: var(--s-accent-soft);
+  color: var(--s-accent);
+}
+.s-badge--gold {
+  background: var(--s-gold-soft);
+  color: var(--s-gold);
+}

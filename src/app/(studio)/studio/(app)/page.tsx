@@ -9,11 +9,12 @@ import {
   IconHome,
   IconPin,
   IconBook,
+  IconGlobe,
 } from "@/components/studio/icons";
 
 export const dynamic = "force-dynamic";
 
-function fmtDate(d: string) {
+function fmtDateTime(d: string) {
   return new Intl.DateTimeFormat("uz-UZ", {
     day: "2-digit",
     month: "short",
@@ -22,9 +23,22 @@ function fmtDate(d: string) {
   }).format(new Date(d));
 }
 
+/** "3 daqiqa oldin" style — faster to scan than a timestamp. */
+function timeAgo(iso: string) {
+  const diff = Date.now() - new Date(iso).getTime();
+  const min = Math.round(diff / 60000);
+  if (min < 1) return "hozir";
+  if (min < 60) return `${min} daq oldin`;
+  const hrs = Math.round(min / 60);
+  if (hrs < 24) return `${hrs} soat oldin`;
+  const days = Math.round(hrs / 24);
+  if (days < 30) return `${days} kun oldin`;
+  return fmtDateTime(iso);
+}
+
 const leadBadge: Record<string, string> = {
-  new: "s-badge--teal",
-  contacted: "s-badge--amber",
+  new: "s-badge--accent",
+  contacted: "s-badge--gold",
   closed: "s-badge--gray",
 };
 const leadLabel: Record<string, string> = {
@@ -35,34 +49,148 @@ const leadLabel: Record<string, string> = {
 
 export default async function StudioDashboard() {
   const payload = await getPayloadClient();
-  const [tours, published, newLeads, media, recent] = await Promise.all([
-    payload.count({ collection: "tours" }),
-    payload.count({ collection: "tours", where: { published: { equals: true } } }),
-    payload.count({ collection: "leads", where: { status: { equals: "new" } } }),
-    payload.count({ collection: "media" }),
-    payload.find({
+
+  const startOfToday = new Date();
+  startOfToday.setHours(0, 0, 0, 0);
+
+  const [
+    todayLeads,
+    newLeads,
+    published,
+    drafts,
+    countries,
+    cities,
+    media,
+    recentLeads,
+    recentTours,
+    recentCountries,
+    recentCities,
+  ] = await Promise.all([
+    payload.count({
       collection: "leads",
-      limit: 6,
-      sort: "-createdAt",
+      where: { createdAt: { greater_than_equal: startOfToday.toISOString() } },
+    }),
+    payload.count({ collection: "leads", where: { status: { equals: "new" } } }),
+    payload.count({
+      collection: "tours",
+      where: { published: { equals: true } },
+    }),
+    payload.count({
+      collection: "tours",
+      where: { published: { not_equals: true } },
+    }),
+    payload.count({ collection: "countries" }),
+    payload.count({ collection: "cities" }),
+    payload.count({ collection: "media" }),
+    payload.find({ collection: "leads", limit: 6, sort: "-createdAt", depth: 0 }),
+    payload.find({
+      collection: "tours",
+      limit: 5,
+      sort: "-updatedAt",
       depth: 0,
+      locale: "en",
+    }),
+    payload.find({
+      collection: "countries",
+      limit: 5,
+      sort: "-updatedAt",
+      depth: 0,
+      locale: "en",
+    }),
+    payload.find({
+      collection: "cities",
+      limit: 5,
+      sort: "-updatedAt",
+      depth: 0,
+      locale: "en",
     }),
   ]);
 
   const stats = [
-    { label: "Turlar", value: tours.totalDocs, sub: `${published.totalDocs} ta saytda`, Icon: IconCompass },
-    { label: "Yangi so'rovlar", value: newLeads.totalDocs, sub: "javob kutmoqda", Icon: IconInbox },
-    { label: "Rasmlar", value: media.totalDocs, sub: "kutubxonada", Icon: IconImage },
-    { label: "Saytda", value: published.totalDocs, sub: "e'lon qilingan tur", Icon: IconCheck },
+    {
+      href: "/studio/leads",
+      label: "Bugungi so'rovlar",
+      value: todayLeads.totalDocs,
+      sub: `${newLeads.totalDocs} ta javob kutmoqda`,
+      Icon: IconInbox,
+      tone: "s-stat__value--accent",
+    },
+    {
+      href: "/studio/tours",
+      label: "Saytdagi turlar",
+      value: published.totalDocs,
+      sub: "e'lon qilingan",
+      Icon: IconCheck,
+    },
+    {
+      href: "/studio/tours",
+      label: "Qoralama turlar",
+      value: drafts.totalDocs,
+      sub: "hali chiqmagan",
+      Icon: IconCompass,
+      tone: "s-stat__value--gold",
+    },
+    {
+      href: "/studio/countries",
+      label: "Davlatlar",
+      value: countries.totalDocs,
+      sub: "yo'nalishlar",
+      Icon: IconGlobe,
+    },
+    {
+      href: "/studio/cities",
+      label: "Shaharlar",
+      value: cities.totalDocs,
+      sub: "joylar",
+      Icon: IconPin,
+    },
+    {
+      href: "/studio/media",
+      label: "Rasmlar",
+      value: media.totalDocs,
+      sub: "kutubxonada",
+      Icon: IconImage,
+    },
   ];
 
   const quick = [
     { href: "/studio/tours", t: "Turlarni tahrirlash", d: "Narx, sana, marshrut", Icon: IconCompass },
     { href: "/studio/content", t: "Bosh sahifa", d: "Hero rasm va matn", Icon: IconHome },
     { href: "/studio/media", t: "Rasm yuklash", d: "Media kutubxonasi", Icon: IconImage },
-    { href: "/studio/cities", t: "Shaharlar", d: "Qo'llanma va joylar", Icon: IconPin },
     { href: "/studio/guides", t: "Qo'llanmalar", d: "Viza, mavsum, taomlar", Icon: IconBook },
-    { href: "/studio/leads", t: "So'rovlar", d: "Mijoz murojaatlari", Icon: IconInbox },
   ];
+
+  // Cross-collection "recently edited" feed, built from updatedAt on records
+  // that already exist — no activity log, nothing invented.
+  const activity = [
+    ...recentTours.docs.map((d) => ({
+      id: `tour-${d.id}`,
+      href: `/studio/tours/${d.id}`,
+      title: String(d.title ?? "Tur"),
+      kind: "Tur",
+      at: d.updatedAt as string,
+      Icon: IconCompass,
+    })),
+    ...recentCountries.docs.map((d) => ({
+      id: `country-${d.id}`,
+      href: `/studio/countries/${d.id}`,
+      title: String(d.name ?? "Davlat"),
+      kind: "Davlat",
+      at: d.updatedAt as string,
+      Icon: IconGlobe,
+    })),
+    ...recentCities.docs.map((d) => ({
+      id: `city-${d.id}`,
+      href: `/studio/cities/${d.id}`,
+      title: String(d.name ?? "Shahar"),
+      kind: "Shahar",
+      at: d.updatedAt as string,
+      Icon: IconPin,
+    })),
+  ]
+    .filter((a) => a.at)
+    .sort((a, b) => new Date(b.at).getTime() - new Date(a.at).getTime())
+    .slice(0, 7);
 
   return (
     <>
@@ -75,16 +203,16 @@ export default async function StudioDashboard() {
 
       <div className="s-stats">
         {stats.map((s) => (
-          <div key={s.label} className="s-stat">
+          <Link key={s.label} href={s.href} className="s-stat s-stat--link">
             <div className="s-stat__top">
               <span className="s-stat__icon">
                 <s.Icon />
               </span>
               {s.label}
             </div>
-            <div className="s-stat__value">{s.value}</div>
+            <div className={`s-stat__value ${s.tone ?? ""}`}>{s.value}</div>
             <div className="s-stat__sub">{s.sub}</div>
-          </div>
+          </Link>
         ))}
       </div>
 
@@ -104,47 +232,69 @@ export default async function StudioDashboard() {
         ))}
       </div>
 
-      <div className="s-section-title">Oxirgi so'rovlar</div>
-      {recent.docs.length === 0 ? (
-        <div className="s-card">
-          <div className="s-empty">Hozircha so'rovlar yo'q.</div>
-        </div>
-      ) : (
-        <div className="s-table-wrap">
-          <table className="s-table">
-            <thead>
-              <tr>
-                <th>Ism</th>
-                <th>Aloqa</th>
-                <th>Tur</th>
-                <th>Holat</th>
-                <th>Sana</th>
-              </tr>
-            </thead>
-            <tbody>
-              {recent.docs.map((l) => (
-                <tr key={l.id}>
-                  <td>
-                    <Link href="/studio/leads" className="s-rowlink">
-                      {l.name}
-                    </Link>
-                  </td>
-                  <td>{l.email}</td>
-                  <td>{l.tourSlug ?? "—"}</td>
-                  <td>
-                    <span className={`s-badge ${leadBadge[l.status ?? "new"]}`}>
-                      {leadLabel[l.status ?? "new"]}
+      <div className="s-section-title">Sohaviy ko&apos;rinish</div>
+      <div className="s-cols">
+        <div className="s-module">
+          <div className="s-module__head">
+            <span className="s-module__title">Oxirgi so&apos;rovlar</span>
+            <Link href="/studio/leads" className="s-module__link">
+              Barchasi
+            </Link>
+          </div>
+          {recentLeads.docs.length === 0 ? (
+            <div className="s-empty">Hozircha so&apos;rovlar yo&apos;q.</div>
+          ) : (
+            <div className="s-list">
+              {recentLeads.docs.map((l) => (
+                <Link key={l.id} href="/studio/leads" className="s-list__item">
+                  <span className="s-list__icon">
+                    <IconInbox />
+                  </span>
+                  <span className="s-list__body">
+                    <span className="s-list__t">{l.name}</span>
+                    <span className="s-list__d">
+                      {l.email}
+                      {l.tourSlug ? ` · ${l.tourSlug}` : ""}
                     </span>
-                  </td>
-                  <td style={{ color: "var(--s-fg-muted)" }}>
-                    {l.createdAt ? fmtDate(l.createdAt) : "—"}
-                  </td>
-                </tr>
+                  </span>
+                  <span
+                    className={`s-badge ${leadBadge[l.status ?? "new"] ?? "s-badge--gray"}`}
+                  >
+                    {leadLabel[l.status ?? "new"] ?? l.status}
+                  </span>
+                  <span className="s-list__meta">
+                    {l.createdAt ? timeAgo(l.createdAt) : "—"}
+                  </span>
+                </Link>
               ))}
-            </tbody>
-          </table>
+            </div>
+          )}
         </div>
-      )}
+
+        <div className="s-module">
+          <div className="s-module__head">
+            <span className="s-module__title">Oxirgi tahrirlar</span>
+          </div>
+          {activity.length === 0 ? (
+            <div className="s-empty">Hozircha tahrirlar yo&apos;q.</div>
+          ) : (
+            <div className="s-list">
+              {activity.map((a) => (
+                <Link key={a.id} href={a.href} className="s-list__item">
+                  <span className="s-list__icon">
+                    <a.Icon />
+                  </span>
+                  <span className="s-list__body">
+                    <span className="s-list__t">{a.title}</span>
+                    <span className="s-list__d">{a.kind}</span>
+                  </span>
+                  <span className="s-list__meta">{timeAgo(a.at)}</span>
+                </Link>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
     </>
   );
 }
