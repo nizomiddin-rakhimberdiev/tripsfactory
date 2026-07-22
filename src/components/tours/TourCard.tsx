@@ -6,12 +6,14 @@ import { approxLocalPrice, formatUsd } from "@/lib/currency";
 import type { Locale } from "@/i18n/routing";
 import { IconClock, IconArrowRight } from "@/components/icons";
 
-/** Category tag color — premium tier reads as gold, otherwise by tour type. */
-function tagClass(tour: Tour): string {
-  if (tour.tier === "premium") return "bg-accent";
-  if (tour.type === "private") return "bg-secondary";
-  if (tour.type === "custom") return "bg-accent";
-  return "bg-primary";
+/**
+ * One restrained tag treatment: a white-glass pill that lets the photograph
+ * lead. Colour is reserved for the one distinction that is real — premium is a
+ * different product, so it speaks in gold. Tour *type* is already stated in the
+ * label; colour-coding it only fragments the palette.
+ */
+function tagToneClass(tour: Tour): string {
+  return tour.tier === "premium" ? "text-accent" : "text-foreground";
 }
 
 export async function TourCard({ tour }: { tour: Tour }) {
@@ -36,16 +38,16 @@ export async function TourCard({ tour }: { tour: Tour }) {
           alt={tour.title}
           fill
           sizes="(max-width: 768px) 100vw, 33vw"
-          className="object-cover transition-transform duration-700 group-hover:scale-110"
+          className="object-cover transition-transform duration-[1200ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.06]"
         />
         <span
-          className={`tf-eyebrow absolute left-4 top-4 rounded-full px-3 py-1 text-[10px] text-white ${tagClass(tour)}`}
+          className={`tf-eyebrow absolute left-4 top-4 rounded-full bg-white/85 px-3 py-1.5 text-[10px] backdrop-blur-sm ${tagToneClass(tour)}`}
         >
           {t(`type_${tour.type}`)}
         </span>
       </div>
 
-      <div className="flex flex-1 flex-col p-6">
+      <div className="flex flex-1 flex-col p-7">
         <div className="mb-2 flex items-center gap-1.5 text-muted">
           <IconClock className="text-sm" />
           <span className="tf-eyebrow text-[10px]">
@@ -73,7 +75,7 @@ export async function TourCard({ tour }: { tour: Tour }) {
             )}
           </div>
           <span
-            className="grid h-10 w-10 flex-shrink-0 place-items-center rounded-full border border-primary text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground"
+            className="grid h-10 w-10 flex-shrink-0 place-items-center rounded-full border border-primary/40 text-primary transition-colors duration-300 group-hover:border-primary group-hover:bg-primary group-hover:text-primary-foreground"
             aria-hidden
           >
             <IconArrowRight className="text-base" />

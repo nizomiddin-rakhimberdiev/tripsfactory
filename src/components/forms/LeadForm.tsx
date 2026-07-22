@@ -31,18 +31,19 @@ export function LeadForm({ tourSlug }: { tourSlug?: string }) {
 
   if (status === "success") {
     return (
-      <p className="rounded-xl border border-primary/30 bg-primary/5 p-6 text-center font-medium">
+      <p className="tf-headline rounded-2xl border border-primary/25 bg-primary/5 p-10 text-center text-xl text-primary">
         {t("success")}
       </p>
     );
   }
 
   const inputClass =
-    "w-full rounded-xl border border-transparent bg-surface-muted px-4 py-3 text-sm transition-colors focus:border-primary focus:bg-surface focus:outline-none";
+    "w-full rounded-xl border border-transparent bg-surface-muted px-4 py-3.5 text-sm transition-colors duration-300 focus:border-primary focus:bg-background";
+  const labelClass = "mb-1.5 block text-sm text-muted";
 
   return (
-    <form onSubmit={onSubmit} className="space-y-4">
-      <h2 className="tf-headline text-2xl">{t("title")}</h2>
+    <form onSubmit={onSubmit} className="space-y-6">
+      <h2 className="tf-headline text-2xl sm:text-3xl">{t("title")}</h2>
       {/* Honeypot: bots fill it, humans never see it */}
       <input
         type="text"
@@ -52,13 +53,13 @@ export function LeadForm({ tourSlug }: { tourSlug?: string }) {
         className="hidden"
         aria-hidden="true"
       />
-      <div className="grid gap-4 sm:grid-cols-2">
-        <label className="block text-sm">
-          <span className="mb-1 block text-muted">{t("name")}</span>
+      <div className="grid gap-5 sm:grid-cols-2">
+        <label className="block">
+          <span className={labelClass}>{t("name")}</span>
           <input name="name" required maxLength={100} className={inputClass} />
         </label>
-        <label className="block text-sm">
-          <span className="mb-1 block text-muted">{t("email")}</span>
+        <label className="block">
+          <span className={labelClass}>{t("email")}</span>
           <input
             name="email"
             type="email"
@@ -67,16 +68,16 @@ export function LeadForm({ tourSlug }: { tourSlug?: string }) {
             className={inputClass}
           />
         </label>
-        <label className="block text-sm">
-          <span className="mb-1 block text-muted">{t("phone")}</span>
+        <label className="block">
+          <span className={labelClass}>{t("phone")}</span>
           <input name="phone" maxLength={50} className={inputClass} />
         </label>
-        <label className="block text-sm">
-          <span className="mb-1 block text-muted">{t("date")}</span>
+        <label className="block">
+          <span className={labelClass}>{t("date")}</span>
           <input name="date" type="date" className={inputClass} />
         </label>
-        <label className="block text-sm">
-          <span className="mb-1 block text-muted">{t("pax")}</span>
+        <label className="block">
+          <span className={labelClass}>{t("pax")}</span>
           <input
             name="pax"
             type="number"
@@ -87,8 +88,8 @@ export function LeadForm({ tourSlug }: { tourSlug?: string }) {
           />
         </label>
       </div>
-      <label className="block text-sm">
-        <span className="mb-1 block text-muted">{t("message")}</span>
+      <label className="block">
+        <span className={labelClass}>{t("message")}</span>
         <textarea
           name="message"
           rows={4}
@@ -99,12 +100,12 @@ export function LeadForm({ tourSlug }: { tourSlug?: string }) {
       <button
         type="submit"
         disabled={status === "sending"}
-        className="rounded-full bg-primary px-8 py-3 font-medium text-primary-foreground transition-colors hover:bg-primary-hover disabled:opacity-60"
+        className="tf-btn tf-btn-primary w-full disabled:opacity-60 sm:w-auto"
       >
         {status === "sending" ? t("sending") : t("submit")}
       </button>
       {status === "error" && (
-        <p className="text-sm text-red-600">{t("error")}</p>
+        <p className="text-sm text-danger">{t("error")}</p>
       )}
     </form>
   );

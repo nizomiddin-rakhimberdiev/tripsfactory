@@ -23,6 +23,18 @@ const WHY = [
   { key: "whyTailored", Icon: IconSparkles },
 ] as const;
 
+/**
+ * Destination tiles alternate wide/narrow (2:1, then 1:2) so the grid reads as
+ * an edited spread rather than a uniform template. Rows always fill: an odd
+ * final tile runs full width instead of leaving a hole.
+ */
+function tileSpan(index: number, total: number): string {
+  if (index === total - 1 && total % 2 === 1) return "lg:col-span-3";
+  const isFirstOfPair = index % 2 === 0;
+  const pairLeadsWide = Math.floor(index / 2) % 2 === 0;
+  return isFirstOfPair === pairLeadsWide ? "lg:col-span-2" : "lg:col-span-1";
+}
+
 export default async function HomePage({
   params,
 }: {
@@ -50,8 +62,6 @@ export default async function HomePage({
     search: t("searchButton"),
   };
 
-  const destGridCols =
-    countryList.length <= 2 ? "lg:grid-cols-2" : "lg:grid-cols-3";
   const ctaImage = site.premiumHero.image || site.hero.image;
 
   return (
@@ -67,25 +77,21 @@ export default async function HomePage({
           className="object-cover"
         />
         <div className="absolute inset-0 tf-hero-scrim" />
-        <div className="relative z-10 mx-auto w-full max-w-3xl px-4 text-center text-white">
-          <p className="tf-eyebrow mb-5 text-xs text-white/85">
+        <div className="relative z-10 mx-auto w-full max-w-4xl px-4 text-center text-white">
+          <p className="tf-eyebrow mb-6 text-xs text-white/85">
             {t("heroEyebrow")}
           </p>
-          <h1 className="tf-display text-4xl sm:text-6xl">{site.hero.title}</h1>
-          <p className="mx-auto mt-6 max-w-2xl text-lg text-white/90">
+          <h1 className="tf-display text-5xl sm:text-7xl lg:text-[5.5rem]">
+            {site.hero.title}
+          </h1>
+          <p className="mx-auto mt-7 max-w-xl text-lg leading-relaxed text-white/90">
             {site.hero.subtitle}
           </p>
-          <div className="mt-9 flex flex-col items-center justify-center gap-4 sm:flex-row">
-            <Link
-              href="/tours"
-              className="rounded-full bg-primary px-8 py-3.5 font-medium text-primary-foreground transition-all hover:bg-primary-hover active:scale-95"
-            >
+          <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
+            <Link href="/tours" className="tf-btn tf-btn-primary">
               {t("heroCta")}
             </Link>
-            <Link
-              href="/contact"
-              className="rounded-full border border-white/80 px-8 py-3.5 font-medium text-white transition-all hover:bg-white/10 active:scale-95"
-            >
+            <Link href="/contact" className="tf-btn tf-btn-onimage">
               {t("heroCtaSecondary")}
             </Link>
           </div>
@@ -103,16 +109,18 @@ export default async function HomePage({
       </section>
 
       {/* Why TripsFactory */}
-      <section className="bg-surface py-20">
-        <div className="mx-auto max-w-6xl px-4">
-          <div className="grid gap-12 text-center md:grid-cols-3">
+      <section className="tf-section bg-surface">
+        <div className="mx-auto max-w-6xl px-4 md:px-6">
+          <div className="grid gap-14 text-center md:grid-cols-3">
             {WHY.map(({ key, Icon }) => (
               <div key={key} className="flex flex-col items-center">
-                <div className="mb-5 grid h-16 w-16 place-items-center rounded-full bg-primary/10 text-primary">
+                <div className="mb-6 grid h-16 w-16 place-items-center rounded-full bg-primary/8 text-primary">
                   <Icon className="text-3xl" />
                 </div>
-                <h3 className="tf-headline mb-2 text-xl">{t(key)}</h3>
-                <p className="max-w-xs text-muted">{t(`${key}Text`)}</p>
+                <h3 className="tf-headline mb-3 text-2xl">{t(key)}</h3>
+                <p className="max-w-xs leading-relaxed text-muted">
+                  {t(`${key}Text`)}
+                </p>
               </div>
             ))}
           </div>
@@ -121,20 +129,17 @@ export default async function HomePage({
 
       {/* Featured Tours */}
       {featured.length > 0 && (
-        <section className="mx-auto max-w-6xl px-4 py-20">
-          <div className="mb-10 flex items-end justify-between gap-4">
+        <section className="tf-section mx-auto max-w-6xl px-4 md:px-6">
+          <div className="mb-12 flex items-end justify-between gap-6">
             <div>
-              <p className="tf-eyebrow mb-2 text-xs text-primary">
+              <p className="tf-eyebrow mb-3 text-xs text-primary">
                 {t("featuredEyebrow")}
               </p>
-              <h2 className="tf-display text-3xl sm:text-4xl">
+              <h2 className="tf-display text-4xl sm:text-5xl">
                 {t("featuredTours")}
               </h2>
             </div>
-            <Link
-              href="/tours"
-              className="tf-eyebrow hidden shrink-0 border-b border-primary pb-0.5 text-xs text-primary transition-opacity hover:opacity-70 sm:block"
-            >
+            <Link href="/tours" className="tf-link hidden shrink-0 text-sm sm:block">
               {t("viewAllTours")}
             </Link>
           </div>
@@ -146,31 +151,32 @@ export default async function HomePage({
         </section>
       )}
 
-      {/* Explore Destinations */}
+      {/* Explore Destinations — asymmetric editorial composition */}
       {countryList.length > 0 && (
-        <section className="bg-surface py-20">
-          <div className="mx-auto max-w-6xl px-4">
-            <h2 className="tf-display mb-12 text-center text-3xl sm:text-4xl">
+        <section className="tf-section bg-surface">
+          <div className="mx-auto max-w-6xl px-4 md:px-6">
+            <p className="tf-eyebrow mb-3 text-xs text-primary">
+              {t("featuredEyebrow")}
+            </p>
+            <h2 className="tf-display mb-12 text-4xl sm:text-5xl">
               {t("exploreDestinations")}
             </h2>
-            <div
-              className={`grid grid-cols-1 gap-4 sm:grid-cols-2 ${destGridCols}`}
-            >
-              {countryList.map((c) => (
+            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 lg:auto-rows-[26rem]">
+              {countryList.map((c, i) => (
                 <Link
                   key={c.slug}
                   href={`/destinations/${c.regionSlug}/${c.slug}`}
-                  className="group relative aspect-[4/5] overflow-hidden rounded-xl"
+                  className={`group relative h-72 overflow-hidden rounded-2xl sm:h-96 lg:h-full ${tileSpan(i, countryList.length)}`}
                 >
                   <Image
                     src={c.heroImage}
                     alt={c.name}
                     fill
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                    className="object-cover transition-transform duration-700 group-hover:scale-105"
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 66vw"
+                    className="object-cover transition-transform duration-[1200ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.05]"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
-                  <h3 className="tf-headline absolute inset-x-5 bottom-5 text-2xl text-white">
+                  <h3 className="tf-headline absolute inset-x-7 bottom-6 text-3xl text-white">
                     {c.name}
                   </h3>
                 </Link>
@@ -181,8 +187,8 @@ export default async function HomePage({
       )}
 
       {/* Closing CTA — tailor-made */}
-      <section className="mx-auto max-w-6xl px-4 py-20">
-        <div className="relative flex min-h-[380px] items-center justify-center overflow-hidden rounded-3xl px-6 py-16 text-center">
+      <section className="tf-section mx-auto max-w-6xl px-4 md:px-6">
+        <div className="relative flex min-h-[440px] items-center justify-center overflow-hidden rounded-3xl px-6 py-20 text-center">
           <Image
             src={ctaImage}
             alt=""
@@ -190,17 +196,17 @@ export default async function HomePage({
             sizes="(max-width: 1152px) 100vw, 1152px"
             className="object-cover"
           />
-          <div className="absolute inset-0 bg-primary/55" />
+          <div className="absolute inset-0 bg-primary/60" />
           <div className="relative z-10 max-w-2xl">
-            <h2 className="tf-display text-3xl text-white sm:text-4xl">
+            <h2 className="tf-display text-4xl text-white sm:text-5xl">
               {t("tailorTitle")}
             </h2>
-            <p className="mx-auto mt-4 max-w-xl text-lg text-white/90">
+            <p className="mx-auto mt-5 max-w-xl text-lg leading-relaxed text-white/90">
               {t("tailorText")}
             </p>
             <Link
               href="/contact"
-              className="mt-8 inline-block rounded-full bg-accent px-9 py-3.5 font-medium text-accent-foreground transition-all hover:opacity-90 active:scale-95"
+              className="tf-btn mt-8 bg-background text-primary hover:bg-white"
             >
               {t("tailorCta")}
             </Link>

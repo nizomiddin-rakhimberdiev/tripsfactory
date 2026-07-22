@@ -16,7 +16,7 @@ export default async function AboutPage({
   const t = await getTranslations("about");
 
   return (
-    <div className="mx-auto max-w-3xl px-4 py-16 md:px-6">
+    <div className="tf-section mx-auto max-w-3xl px-4 md:px-6">
       <PageHeader eyebrow={t("eyebrow")} title={t("title")} />
       <p className="mt-8 text-lg leading-relaxed text-muted">{t("text")}</p>
     </div>

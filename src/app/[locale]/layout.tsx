@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Playfair_Display } from "next/font/google";
+import { Inter, Cormorant_Garamond } from "next/font/google";
 import { notFound } from "next/navigation";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
@@ -14,9 +14,13 @@ const inter = Inter({
   subsets: ["latin", "latin-ext", "cyrillic"],
 });
 
-const playfair = Playfair_Display({
-  variable: "--font-playfair",
-  subsets: ["latin"],
+// Editorial display face. Chosen over Playfair for two reasons: it carries
+// Cyrillic (so ru/uz headings keep the brand voice instead of falling back to
+// Inter), and it reads as couture rather than as a default web serif.
+const cormorant = Cormorant_Garamond({
+  variable: "--font-cormorant",
+  subsets: ["latin", "latin-ext", "cyrillic"],
+  weight: ["500", "600"],
   style: ["normal", "italic"],
 });
 
@@ -47,7 +51,7 @@ export default async function LocaleLayout({
   return (
     <html
       lang={locale}
-      className={`${inter.variable} ${playfair.variable} h-full scroll-smooth antialiased`}
+      className={`${inter.variable} ${cormorant.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
         <NextIntlClientProvider>

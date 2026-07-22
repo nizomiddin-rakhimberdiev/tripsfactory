@@ -17,7 +17,7 @@ export default async function ContactPage({
   const t = await getTranslations("contact");
 
   return (
-    <div className="mx-auto max-w-3xl px-4 py-16 md:px-6">
+    <div className="tf-section mx-auto max-w-3xl px-4 md:px-6">
       <PageHeader title={t("title")} subtitle={t("subtitle")} />
       <div className="tf-card mt-10 p-6 sm:p-9">
         <LeadForm />

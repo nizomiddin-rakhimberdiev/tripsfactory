@@ -19,9 +19,13 @@ type Labels = {
   menu: string;
 };
 
-/** Shared style for top-level desktop nav items — small, tracked, uppercase. */
+/**
+ * Top-level desktop nav. Deliberately sentence case: uppercase is a Latin-only
+ * device — it does nothing in ja/zh and reads as shouting in Cyrillic — and at
+ * this size it costs legibility for no elegance.
+ */
 const NAV_LINK =
-  "tf-eyebrow text-xs text-muted transition-colors hover:text-foreground";
+  "text-sm text-muted transition-colors duration-300 hover:text-foreground";
 
 function Caret({ open }: { open: boolean }) {
   return (
@@ -174,7 +178,7 @@ export function MainNav({
           {premium && (
             <Link
               href="/premium"
-              className="tf-eyebrow rounded-full bg-accent px-5 py-2 text-xs text-accent-foreground transition-all hover:opacity-90 active:scale-95"
+              className="rounded-full border border-accent/45 px-5 py-2 text-sm text-accent transition-colors duration-300 hover:border-accent hover:bg-accent/10"
             >
               {labels.premium}
             </Link>
@@ -268,7 +272,7 @@ export function MainNav({
             {premium && (
               <Link
                 href="/premium"
-                className="mt-1 rounded-full bg-accent px-3 py-2 text-center font-medium text-accent-foreground"
+                className="mt-2 rounded-full border border-accent/45 px-3 py-2 text-center text-accent"
               >
                 {labels.premium}
               </Link>

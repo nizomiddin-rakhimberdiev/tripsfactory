@@ -8,13 +8,17 @@ export async function Footer() {
   const countryList = await getPublishedCountries(locale);
 
   return (
-    <footer className="mt-20 border-t border-border bg-surface">
-      <div className="mx-auto grid max-w-6xl gap-10 px-4 py-14 sm:grid-cols-2 md:grid-cols-4 md:px-6">
+    <footer className="mt-24 border-t border-border bg-surface">
+      <div className="mx-auto grid max-w-6xl gap-12 px-4 py-20 sm:grid-cols-2 md:grid-cols-4 md:px-6">
         <div>
-          <p className="tf-display text-xl font-bold">
-            Trips<span className="text-primary">Factory</span>
+          <p className="leading-none">
+            <span className="tf-display block text-2xl">Trips</span>
+            <span className="tf-eyebrow block text-[10px] text-primary">
+              Factory
+            </span>
           </p>
-          <p className="mt-3 max-w-xs text-sm text-muted">
+          <div className="tf-rule mt-6" />
+          <p className="mt-6 max-w-xs text-sm leading-relaxed text-muted">
             {t("footer.tagline")}
           </p>
         </div>

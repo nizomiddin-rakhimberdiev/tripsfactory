@@ -131,27 +131,28 @@ export default async function TourPage({
         </ol>
       </nav>
 
-      {/* Cinematic hero gallery */}
-      <section className="mx-auto max-w-6xl px-4 pt-4 md:px-6">
-        <div className="relative overflow-hidden rounded-2xl">
-          <Carousel
-            images={heroImages}
-            alt={tour.title}
-            aspect="aspect-[4/3] sm:aspect-[16/9] lg:aspect-[16/7]"
-          />
-          <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/25 to-transparent p-6 pt-24 sm:p-10">
-            <p className="tf-eyebrow mb-3 text-xs text-white/85">
-              {t(`type_${tour.type}`)} · {t("days", { count: tour.durationDays })}
-            </p>
-            <h1 className="tf-display max-w-3xl text-3xl text-white sm:text-5xl">
-              {tour.title}
-            </h1>
-          </div>
-        </div>
+      {/* Full-bleed hero — the photograph carries the page, uninterrupted */}
+      <section className="mt-4">
+        <Carousel
+          images={heroImages}
+          alt={tour.title}
+          aspect="aspect-[4/3] sm:aspect-[16/9] lg:aspect-[21/9]"
+          rounded={false}
+        />
       </section>
 
+      {/* Feature-opener headline, set on the content grid */}
+      <header className="mx-auto max-w-6xl px-4 pt-14 md:px-6">
+        <p className="tf-eyebrow mb-4 text-xs text-primary">
+          {t(`type_${tour.type}`)} · {t("days", { count: tour.durationDays })}
+        </p>
+        <h1 className="tf-display max-w-4xl text-4xl sm:text-6xl">
+          {tour.title}
+        </h1>
+      </header>
+
       {/* Content + sticky booking */}
-      <section className="mx-auto grid max-w-6xl gap-10 px-4 py-12 md:px-6 lg:grid-cols-12 lg:gap-12">
+      <section className="mx-auto grid max-w-6xl gap-10 px-4 pb-24 pt-12 md:px-6 lg:grid-cols-12 lg:gap-14">
         <div className="lg:col-span-8">
           {/* Meta row */}
           <div className="flex flex-wrap gap-x-10 gap-y-6 border-b border-border pb-8">
@@ -176,7 +177,7 @@ export default async function TourPage({
 
           {/* Editorial summary */}
           {tour.summary && (
-            <p className="my-10 font-[family-name:var(--font-playfair)] text-2xl italic leading-relaxed text-muted">
+            <p className="tf-headline my-12 border-l-2 border-accent-soft pl-6 text-2xl font-medium italic leading-relaxed text-foreground sm:pl-8 sm:text-[1.75rem]">
               {tour.summary}
             </p>
           )}
@@ -304,13 +305,13 @@ export default async function TourPage({
                   )}
                 </div>
               ) : (
-                <p className="mb-6 font-[family-name:var(--font-playfair)] text-3xl font-bold text-accent">
+                <p className="tf-display mb-6 text-3xl text-accent">
                   {tp("onRequest")}
                 </p>
               )}
               <a
                 href="#enquiry"
-                className="block w-full rounded-full bg-primary py-4 text-center font-semibold text-primary-foreground transition-all hover:bg-primary-hover active:scale-[0.98]"
+                className="tf-btn tf-btn-primary w-full py-4 text-base"
               >
                 {t("bookNow")}
               </a>
@@ -332,7 +333,7 @@ export default async function TourPage({
       </section>
 
       {/* Enquiry form */}
-      <section id="enquiry" className="scroll-mt-24 bg-surface py-16">
+      <section id="enquiry" className="tf-section scroll-mt-24 bg-surface">
         <div className="mx-auto max-w-3xl px-4 md:px-6">
           <div className="tf-card p-6 sm:p-9">
             <LeadForm tourSlug={tour.slug} />
@@ -342,15 +343,12 @@ export default async function TourPage({
 
       {/* Related */}
       {related.length > 0 && (
-        <section className="mx-auto max-w-6xl px-4 py-16 md:px-6">
-          <div className="mb-10 flex items-end justify-between gap-4">
-            <h2 className="tf-display text-3xl sm:text-4xl">
+        <section className="tf-section mx-auto max-w-6xl px-4 md:px-6">
+          <div className="mb-12 flex items-end justify-between gap-6">
+            <h2 className="tf-display text-4xl sm:text-5xl">
               {t("relatedTours")}
             </h2>
-            <Link
-              href="/tours"
-              className="tf-eyebrow hidden shrink-0 border-b border-primary pb-0.5 text-xs text-primary transition-opacity hover:opacity-70 sm:block"
-            >
+            <Link href="/tours" className="tf-link hidden shrink-0 text-sm sm:block">
               {t("viewAll")}
             </Link>
           </div>
@@ -388,7 +386,7 @@ function MetaItem({
 const STATUS_PILL: Record<DepartureStatus, string> = {
   guaranteed: "bg-primary/10 text-primary",
   available: "bg-surface-muted text-muted",
-  soldout: "bg-red-100 text-red-700",
+  soldout: "bg-danger/10 text-danger",
 };
 
 function StatusPill({

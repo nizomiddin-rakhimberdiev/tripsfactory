@@ -18,7 +18,7 @@ export default async function ExcursionsPage({
   const t = await getTranslations("nav");
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-16 md:px-6">
+    <div className="tf-section mx-auto max-w-6xl px-4 md:px-6">
       <PageHeader title={t("excursions")} />
       {/* Day-trip catalog renders here once the excursions content collection lands */}
     </div>

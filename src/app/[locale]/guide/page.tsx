@@ -23,14 +23,14 @@ export default async function GuideIndexPage({
   const guideList = await getGuides(undefined, locale);
 
   return (
-    <div className="mx-auto max-w-4xl px-4 py-16 md:px-6">
+    <div className="tf-section mx-auto max-w-4xl px-4 md:px-6">
       <PageHeader title={t("title")} />
       <ul className="mt-12 space-y-4">
         {guideList.map((g) => (
           <li key={g.slug}>
             <Link
               href={`/guide/${g.slug}`}
-              className="tf-card group flex items-center gap-5 p-6 transition-shadow hover:shadow-[0_12px_32px_rgb(0_0_0/0.08)]"
+              className="tf-card tf-card-interactive group flex items-center gap-5 p-7"
             >
               <div className="flex-1">
                 <h2 className="tf-headline text-xl">{g.title}</h2>

@@ -43,7 +43,7 @@ export default async function PremiumPage({
           <p className="tf-eyebrow mb-6 text-xs tracking-[0.3em] text-primary">
             {t("invitation")}
           </p>
-          <h1 className="font-[family-name:var(--font-playfair)] text-5xl font-medium leading-tight sm:text-7xl">
+          <h1 className="tf-display text-5xl sm:text-7xl">
             {site.premiumHero.title}
           </h1>
           <p className="mx-auto mt-6 max-w-xl text-lg text-muted">
@@ -63,7 +63,7 @@ export default async function PremiumPage({
         <div className="grid gap-12 md:grid-cols-3">
           {PILLARS.map((key, i) => (
             <div key={key} className="border-t border-primary/25 pt-6">
-              <span className="font-[family-name:var(--font-playfair)] text-2xl text-primary/60">
+              <span className="tf-display text-2xl text-primary/60">
                 0{i + 1}
               </span>
               <h3 className="tf-headline mt-4 text-2xl">{t(key)}</h3>
@@ -138,7 +138,7 @@ export default async function PremiumPage({
           </h2>
           <a
             href="mailto:premium@tripsfactory.uz"
-            className="tf-eyebrow mt-10 inline-block bg-primary px-12 py-5 text-xs tracking-[0.2em] text-primary-foreground transition-all duration-300 hover:opacity-90 active:scale-95"
+            className="tf-eyebrow mt-10 inline-block bg-primary px-12 py-5 text-xs tracking-[0.2em] text-primary-foreground transition-colors duration-500 hover:opacity-90"
           >
             {t("enquire")}
           </a>

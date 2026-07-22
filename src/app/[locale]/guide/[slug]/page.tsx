@@ -37,7 +37,7 @@ export default async function GuidePage({
   if (!guide) notFound();
 
   return (
-    <article className="mx-auto max-w-3xl px-4 py-16 md:px-6">
+    <article className="tf-section mx-auto max-w-3xl px-4 md:px-6">
       <h1 className="tf-display mb-10 text-4xl sm:text-5xl">{guide.title}</h1>
       {guide.sections.map((s) => (
         <section key={s.heading} className="mb-10">

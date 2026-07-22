@@ -20,7 +20,7 @@ export function CountryBar({
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="sticky top-[60px] z-40 border-b border-border tf-glass">
+    <div className="sticky top-[60px] z-40 border-b border-border bg-background/92 backdrop-blur-sm">
       <div className="mx-auto flex max-w-6xl items-center gap-5 overflow-x-auto px-4 py-2.5 text-sm">
         <span className="flex items-center gap-2 font-semibold">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden>

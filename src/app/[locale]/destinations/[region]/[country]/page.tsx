@@ -79,13 +79,13 @@ export default async function CountryPage({
           className="object-cover"
         />
         <div className="absolute inset-0 tf-hero-scrim" />
-        <div className="relative z-10 mb-16 px-4 text-center text-white">
+        <div className="relative z-10 mb-20 px-4 text-center text-white">
           {regionName && (
-            <p className="tf-eyebrow mb-4 text-xs tracking-[0.3em] text-white/85">
+            <p className="tf-eyebrow mb-5 text-xs tracking-[0.3em] text-white/85">
               {regionName}
             </p>
           )}
-          <h1 className="tf-display text-6xl sm:text-7xl md:text-8xl">
+          <h1 className="tf-display text-6xl sm:text-8xl lg:text-[7rem]">
             {c.name}
           </h1>
         </div>
@@ -100,40 +100,41 @@ export default async function CountryPage({
       />
 
       {/* Editorial overview */}
-      <article
-        id="overview"
-        className="mx-auto max-w-[760px] scroll-mt-28 px-4 py-16 md:py-24"
-      >
-        <header className="mb-12 text-center">
-          <p className="tf-eyebrow mb-4 text-xs text-primary">
-            {t("overview")}
-          </p>
-          <div className="mx-auto h-1 w-16 rounded-full bg-accent" />
+      <article id="overview" className="tf-section scroll-mt-28 px-4 md:px-6">
+        <header className="mx-auto mb-14 flex max-w-2xl flex-col items-center text-center">
+          <p className="tf-eyebrow mb-5 text-xs text-primary">{t("overview")}</p>
+          <div className="tf-rule" />
         </header>
-        <p className="text-lg leading-relaxed text-muted first-letter:float-left first-letter:mr-3 first-letter:font-[family-name:var(--font-playfair)] first-letter:text-6xl first-letter:font-bold first-letter:leading-none first-letter:text-primary">
-          {c.intro}
-        </p>
-        {c.body && (
-          <div className="tf-prose mt-8 max-w-none">
-            <Markdown>{c.body}</Markdown>
-          </div>
-        )}
+        <div className="tf-measure mx-auto">
+          <p className="tf-lead first-letter:float-left first-letter:mr-3 first-letter:mt-1 first-letter:font-[family-name:var(--font-cormorant)] first-letter:text-7xl first-letter:font-semibold first-letter:leading-[0.8] first-letter:text-primary">
+            {c.intro}
+          </p>
+          {c.body && (
+            <div className="tf-prose mt-10">
+              <Markdown>{c.body}</Markdown>
+            </div>
+          )}
+        </div>
       </article>
 
+      {/* Full-bleed gallery — photography gets the whole width */}
       {c.gallery && c.gallery.length > 0 && (
-        <div className="mx-auto max-w-6xl px-4 pb-4">
-          <Carousel images={c.gallery} alt={c.name} aspect="aspect-[16/7]" />
-        </div>
+        <Carousel
+          images={c.gallery}
+          alt={c.name}
+          aspect="aspect-[4/3] sm:aspect-[16/9] lg:aspect-[21/9]"
+          rounded={false}
+        />
       )}
 
       {/* Tours */}
       {countryTours.length > 0 && (
-        <section id="tours" className="scroll-mt-28 bg-surface py-16 md:py-20">
-          <div className="mx-auto max-w-6xl px-4">
-            <p className="tf-eyebrow mb-2 text-xs text-primary">
+        <section id="tours" className="tf-section scroll-mt-28 bg-surface">
+          <div className="mx-auto max-w-6xl px-4 md:px-6">
+            <p className="tf-eyebrow mb-3 text-xs text-primary">
               {t("curated")}
             </p>
-            <h2 className="tf-display mb-10 text-3xl sm:text-4xl">
+            <h2 className="tf-display mb-12 text-4xl sm:text-5xl">
               {t("toursIn", { country: c.name })}
             </h2>
             <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
@@ -149,24 +150,24 @@ export default async function CountryPage({
       {cityList.length > 0 && (
         <section
           id="cities"
-          className="mx-auto max-w-6xl scroll-mt-28 px-4 py-16 md:py-20"
+          className="tf-section mx-auto max-w-6xl scroll-mt-28 px-4 md:px-6"
         >
-          <h2 className="tf-display mb-10 text-3xl sm:text-4xl">
+          <h2 className="tf-display mb-12 text-4xl sm:text-5xl">
             {t("citiesTitle")}
           </h2>
           <div className="grid gap-8 md:grid-cols-2">
             {cityList.map((city) => (
-              <div key={city.slug} className="tf-card overflow-hidden">
-                <div className="relative aspect-[2/1]">
+              <div key={city.slug} className="tf-card group overflow-hidden">
+                <div className="relative aspect-[16/10] overflow-hidden">
                   <Image
                     src={city.image}
                     alt={city.name}
                     fill
                     sizes="(max-width: 768px) 100vw, 50vw"
-                    className="object-cover"
+                    className="object-cover transition-transform duration-[1200ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04]"
                   />
                 </div>
-                <div className="p-6">
+                <div className="p-7">
                   <div className="flex items-baseline justify-between gap-3">
                     <h3 className="tf-headline text-xl">{city.name}</h3>
                     <span className="tf-eyebrow shrink-0 rounded-full bg-surface-muted px-3 py-1 text-[10px] text-muted">

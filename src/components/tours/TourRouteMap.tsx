@@ -4,8 +4,16 @@ import { useEffect, useRef } from "react";
 import type { Map as LeafletMap } from "leaflet";
 import type { RoutePoint } from "@/lib/content/types";
 
+/**
+ * Brand colours, kept in sync with the tokens in globals.css. Leaflet renders
+ * outside React and cannot read CSS custom properties, so they are literal.
+ * The route runs in maroon and lands on gold — start and finish read at a glance.
+ */
+const BRAND_MAROON = "#6e1218";
+const BRAND_GOLD = "#a9762f";
+
 function markerHtml(n: number, color: string) {
-  return `<div style="width:32px;height:32px;border-radius:50%;background:${color};border:3px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,.3);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:14px;font-family:system-ui,sans-serif">${n}</div>`;
+  return `<div style="width:32px;height:32px;border-radius:50%;background:${color};border:3px solid #fff9f0;box-shadow:0 2px 8px rgba(74,52,38,.35);display:flex;align-items:center;justify-content:center;color:#fff9f0;font-weight:600;font-size:14px;font-family:system-ui,sans-serif">${n}</div>`;
 }
 
 export function TourRouteMap({ points }: { points: RoutePoint[] }) {
@@ -41,7 +49,7 @@ export function TourRouteMap({ points }: { points: RoutePoint[] }) {
 
       if (latlngs.length > 1) {
         L.polyline(latlngs, {
-          color: "#0e7490",
+          color: BRAND_MAROON,
           weight: 4,
           opacity: 0.85,
         }).addTo(map);
@@ -49,7 +57,7 @@ export function TourRouteMap({ points }: { points: RoutePoint[] }) {
 
       points.forEach((p, i) => {
         const isLast = i === points.length - 1;
-        const color = isLast ? "#d97706" : "#0e7490";
+        const color = isLast ? BRAND_GOLD : BRAND_MAROON;
         const icon = L.divIcon({
           className: "tf-marker",
           html: markerHtml(i + 1, color),
@@ -62,7 +70,7 @@ export function TourRouteMap({ points }: { points: RoutePoint[] }) {
           .bindPopup(
             `<div style="font-family:system-ui,sans-serif"><strong style="font-size:14px">${p.name}</strong>${
               p.note
-                ? `<div style="color:#666;font-size:12px;margin-top:2px">${p.note}</div>`
+                ? `<div style="color:#6f6459;font-size:12px;margin-top:2px">${p.note}</div>`
                 : ""
             }</div>`,
           );

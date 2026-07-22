@@ -7,10 +7,13 @@ export function Carousel({
   images,
   alt,
   aspect = "aspect-[5/2]",
+  rounded = true,
 }: {
   images: string[];
   alt: string;
   aspect?: string;
+  /** Set false for full-bleed placements where the image runs edge to edge. */
+  rounded?: boolean;
 }) {
   const [i, setI] = useState(0);
   if (images.length === 0) return null;
@@ -19,7 +22,9 @@ export function Carousel({
     setI((prev) => (prev + d + images.length) % images.length);
 
   return (
-    <div className={`relative ${aspect} overflow-hidden rounded-2xl bg-surface`}>
+    <div
+      className={`relative ${aspect} overflow-hidden bg-surface ${rounded ? "rounded-2xl" : ""}`}
+    >
       {images.map((src, idx) => (
         <Image
           key={src + idx}
@@ -27,8 +32,8 @@ export function Carousel({
           alt={alt}
           fill
           priority={idx === 0}
-          sizes="(max-width: 896px) 100vw, 896px"
-          className={`object-cover transition-opacity duration-500 ${
+          sizes={rounded ? "(max-width: 896px) 100vw, 896px" : "100vw"}
+          className={`object-cover transition-opacity duration-700 ${
             idx === i ? "opacity-100" : "opacity-0"
           }`}
         />

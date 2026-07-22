@@ -38,11 +38,14 @@ export async function Header() {
   return (
     <header className="sticky top-0 z-50 border-b border-border/70 tf-glass">
       <div className="relative mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3.5 md:px-6">
-        <Link
-          href="/"
-          className="tf-display text-xl font-bold tracking-tight text-foreground"
-        >
-          Trips<span className="text-primary">Factory</span>
+        {/* Wordmark echoes the logo lockup: monumental "Trips" over tracked "Factory" */}
+        <Link href="/" className="shrink-0 leading-none">
+          <span className="tf-display block text-2xl text-foreground">
+            Trips
+          </span>
+          <span className="tf-eyebrow block text-[10px] text-primary">
+            Factory
+          </span>
         </Link>
         <MainNav
           labels={labels}

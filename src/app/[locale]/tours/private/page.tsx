@@ -21,7 +21,7 @@ export default async function PrivateToursPage({
   const tours = await getTours({ type: "private" }, locale);
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-16 md:px-6">
+    <div className="tf-section mx-auto max-w-6xl px-4 md:px-6">
       <PageHeader
         eyebrow={t("listEyebrow")}
         title={t("type_private")}
