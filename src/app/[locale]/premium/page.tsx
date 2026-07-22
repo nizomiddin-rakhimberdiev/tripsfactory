@@ -43,9 +43,7 @@ export default async function PremiumPage({
           <p className="tf-eyebrow mb-6 text-xs tracking-[0.3em] text-primary">
             {t("invitation")}
           </p>
-          <h1 className="tf-display tf-display-1">
-            {site.premiumHero.title}
-          </h1>
+          <h1 className="tf-display tf-display-1">{site.premiumHero.title}</h1>
           <p className="mx-auto mt-6 max-w-xl text-lg text-muted">
             {site.premiumHero.subtitle}
           </p>
@@ -62,7 +60,8 @@ export default async function PremiumPage({
       <section className="tf-section mx-auto max-w-6xl px-4 md:px-6">
         <div className="grid gap-12 md:grid-cols-3">
           {PILLARS.map((key, i) => (
-            <div key={key} className="border-t border-primary/25 pt-6">
+            <div key={key}>
+              <div className="tf-rule mb-6" />
               <span className="tf-display text-2xl text-primary/60">
                 0{i + 1}
               </span>
@@ -83,9 +82,7 @@ export default async function PremiumPage({
               <p className="tf-eyebrow mb-3 text-xs text-primary">
                 {t("journeysEyebrow")}
               </p>
-              <h2 className="tf-display tf-display-2">
-                {t("journeys")}
-              </h2>
+              <h2 className="tf-display tf-display-2">{t("journeys")}</h2>
             </div>
             <div className="grid gap-12 md:grid-cols-2">
               {premiumTours.map((tour) => (
@@ -94,7 +91,7 @@ export default async function PremiumPage({
                   href={`/tours/${tour.countrySlug}/${tour.slug}`}
                   className="group"
                 >
-                  <div className="relative aspect-[4/3] overflow-hidden rounded-xl">
+                  <div className="relative aspect-[4/3] overflow-hidden rounded-2xl">
                     <Image
                       src={tour.heroImage}
                       alt={tour.title}

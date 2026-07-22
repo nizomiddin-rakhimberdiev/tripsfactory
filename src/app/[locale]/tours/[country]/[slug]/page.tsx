@@ -184,7 +184,7 @@ export default async function TourPage({
 
           {/* Editorial summary */}
           {tour.summary && (
-            <p className="tf-headline my-12 border-l-2 border-accent-soft pl-6 text-2xl font-medium italic leading-relaxed text-foreground sm:pl-8 sm:text-[1.75rem]">
+            <p className="tf-headline my-12 border-l-2 border-accent-soft pl-6 text-2xl font-medium italic leading-relaxed text-foreground sm:pl-8 sm:text-3xl">
               {tour.summary}
             </p>
           )}
