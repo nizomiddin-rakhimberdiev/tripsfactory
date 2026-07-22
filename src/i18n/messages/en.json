@@ -12,8 +12,8 @@
   "home": {
     "heroTitle": "Discover the Heart of the Silk Road",
     "heroSubtitle": "Group and private tours across Uzbekistan and Central Asia — crafted by local experts.",
-    "heroCta": "Explore Tours",
-    "featuredTours": "Featured Tours",
+    "heroCta": "See the journeys",
+    "featuredTours": "The Journeys",
     "whyUs": "Why TripsFactory",
     "whyLocal": "Local Expertise",
     "whyLocalText": "Born in Uzbekistan, we know every corner of the Silk Road.",
@@ -21,7 +21,7 @@
     "whyGuaranteedText": "Your tour runs even if you are the only traveler.",
     "whyTailored": "Tailor-Made Trips",
     "whyTailoredText": "Every itinerary can be customized to your wishes.",
-    "exploreDestinations": "Explore Destinations",
+    "exploreDestinations": "The Places",
     "heroEyebrow": "Silk Road Expeditions",
     "heroCtaSecondary": "Talk to an expert",
     "searchDestination": "Destination",
@@ -29,15 +29,15 @@
     "searchTourType": "Tour type",
     "searchTypeAll": "All tours",
     "searchButton": "Search",
-    "featuredEyebrow": "Exceptional journeys",
+    "featuredEyebrow": "This season",
     "viewAllTours": "View all tours",
-    "tailorTitle": "Begin your tailor-made journey",
-    "tailorText": "Work with our expert planners to craft an itinerary that is uniquely yours.",
-    "tailorCta": "Start planning",
-    "destinationsEyebrow": "Where we travel"
+    "tailorTitle": "Tell us how you like to travel",
+    "tailorText": "We will shape the route around your pace, your interests, and the hours you like to be awake.",
+    "tailorCta": "Start the conversation",
+    "destinationsEyebrow": "Where we go"
   },
   "tours": {
-    "title": "Our Tours",
+    "title": "The Journeys",
     "days": "{count} days",
     "from": "from",
     "perPerson": "per person",
@@ -75,8 +75,8 @@
     "assuranceTitle": "TripsFactory Assurance",
     "assuranceText": "Planned by local experts, with guaranteed departures and personal support.",
     "viewAll": "View all tours",
-    "listEyebrow": "Curated Journeys",
-    "listIntro": "Hand-crafted group and private journeys across the Silk Road."
+    "listEyebrow": "Every departure",
+    "listIntro": "Group and private routes across the Silk Road and Central Asia."
   },
   "destinations": {
     "title": "Destinations",

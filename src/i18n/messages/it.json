@@ -12,8 +12,8 @@
   "home": {
     "heroTitle": "Scoprite il cuore della Via della Seta",
     "heroSubtitle": "Tour di gruppo e privati in Uzbekistan e Asia Centrale — creati da esperti locali.",
-    "heroCta": "Esplora i tour",
-    "featuredTours": "Tour in evidenza",
+    "heroCta": "Vedi i viaggi",
+    "featuredTours": "I viaggi",
     "whyUs": "Perché TripsFactory",
     "whyLocal": "Competenza locale",
     "whyLocalText": "Nati in Uzbekistan, conosciamo ogni angolo della Via della Seta.",
@@ -21,7 +21,7 @@
     "whyGuaranteedText": "Il tour si svolge anche se siete l'unico viaggiatore.",
     "whyTailored": "Viaggi su misura",
     "whyTailoredText": "Ogni itinerario può essere personalizzato secondo i vostri desideri.",
-    "exploreDestinations": "Esplora le destinazioni",
+    "exploreDestinations": "I luoghi",
     "heroEyebrow": "Spedizioni lungo la Via della Seta",
     "heroCtaSecondary": "Parla con un esperto",
     "searchDestination": "Destinazione",
@@ -29,15 +29,15 @@
     "searchTourType": "Tipo di tour",
     "searchTypeAll": "Tutti i tour",
     "searchButton": "Cerca",
-    "featuredEyebrow": "Viaggi eccezionali",
+    "featuredEyebrow": "Questa stagione",
     "viewAllTours": "Vedi tutti i tour",
-    "tailorTitle": "Inizia il tuo viaggio su misura",
-    "tailorText": "Collabora con i nostri esperti per creare un itinerario unico, pensato per te.",
-    "tailorCta": "Inizia a pianificare",
-    "destinationsEyebrow": "Dove viaggiamo"
+    "tailorTitle": "Ci racconti come le piace viaggiare",
+    "tailorText": "Costruiremo il percorso sul suo ritmo, sui suoi interessi e sull'ora in cui le piace svegliarsi.",
+    "tailorCta": "Iniziamo a parlarne",
+    "destinationsEyebrow": "Dove andiamo"
   },
   "tours": {
-    "title": "I nostri tour",
+    "title": "I viaggi",
     "days": "{count} giorni",
     "from": "da",
     "perPerson": "a persona",
@@ -75,8 +75,8 @@
     "assuranceTitle": "Garanzia TripsFactory",
     "assuranceText": "Pianificato da esperti locali, con partenze garantite e assistenza personale.",
     "viewAll": "Vedi tutti i tour",
-    "listEyebrow": "Viaggi selezionati",
-    "listIntro": "Viaggi privati e di gruppo lungo la Via della Seta, creati su misura."
+    "listEyebrow": "Tutte le partenze",
+    "listIntro": "Percorsi privati e di gruppo lungo la Via della Seta e l'Asia centrale."
   },
   "destinations": {
     "title": "Destinazioni",

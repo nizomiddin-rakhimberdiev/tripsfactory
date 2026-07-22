@@ -12,8 +12,8 @@
   "home": {
     "heroTitle": "Entdecken Sie das Herz der Seidenstraße",
     "heroSubtitle": "Gruppen- und Privatreisen durch Usbekistan und Zentralasien — gestaltet von lokalen Experten.",
-    "heroCta": "Touren entdecken",
-    "featuredTours": "Ausgewählte Touren",
+    "heroCta": "Die Reisen ansehen",
+    "featuredTours": "Die Reisen",
     "whyUs": "Warum TripsFactory",
     "whyLocal": "Lokale Expertise",
     "whyLocalText": "In Usbekistan geboren, kennen wir jeden Winkel der Seidenstraße.",
@@ -21,7 +21,7 @@
     "whyGuaranteedText": "Ihre Tour findet statt — auch wenn Sie der einzige Reisende sind.",
     "whyTailored": "Maßgeschneiderte Reisen",
     "whyTailoredText": "Jede Route kann an Ihre Wünsche angepasst werden.",
-    "exploreDestinations": "Reiseziele entdecken",
+    "exploreDestinations": "Die Orte",
     "heroEyebrow": "Reisen entlang der Seidenstraße",
     "heroCtaSecondary": "Mit einem Experten sprechen",
     "searchDestination": "Reiseziel",
@@ -29,15 +29,15 @@
     "searchTourType": "Tour-Art",
     "searchTypeAll": "Alle Touren",
     "searchButton": "Suchen",
-    "featuredEyebrow": "Außergewöhnliche Reisen",
+    "featuredEyebrow": "Diese Saison",
     "viewAllTours": "Alle Touren ansehen",
-    "tailorTitle": "Beginnen Sie Ihre maßgeschneiderte Reise",
-    "tailorText": "Gestalten Sie gemeinsam mit unseren Experten eine Reiseroute, die einzigartig ist.",
-    "tailorCta": "Planung beginnen",
-    "destinationsEyebrow": "Wohin wir reisen"
+    "tailorTitle": "Erzählen Sie uns, wie Sie reisen möchten",
+    "tailorText": "Wir legen die Route nach Ihrem Tempo an, nach Ihren Interessen und nach der Stunde, zu der Sie gern aufwachen.",
+    "tailorCta": "Das Gespräch beginnen",
+    "destinationsEyebrow": "Wohin wir gehen"
   },
   "tours": {
-    "title": "Unsere Touren",
+    "title": "Die Reisen",
     "days": "{count} Tage",
     "from": "ab",
     "perPerson": "pro Person",
@@ -75,8 +75,8 @@
     "assuranceTitle": "TripsFactory Garantie",
     "assuranceText": "Von lokalen Experten geplant, mit garantierten Abreisen und persönlicher Betreuung.",
     "viewAll": "Alle Touren ansehen",
-    "listEyebrow": "Ausgewählte Reisen",
-    "listIntro": "Handverlesene Gruppen- und Privatreisen entlang der Seidenstraße."
+    "listEyebrow": "Alle Termine",
+    "listIntro": "Gruppen- und Privatrouten entlang der Seidenstraße und durch Zentralasien."
   },
   "destinations": {
     "title": "Reiseziele",

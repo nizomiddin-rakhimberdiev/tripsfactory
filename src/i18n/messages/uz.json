@@ -12,8 +12,8 @@
   "home": {
     "heroTitle": "Buyuk Ipak yo'lining yuragini kashf eting",
     "heroSubtitle": "O'zbekiston va Markaziy Osiyo bo'ylab guruh va individual turlar — mahalliy mutaxassislardan.",
-    "heroCta": "Turlarni ko'rish",
-    "featuredTours": "Tanlangan turlar",
+    "heroCta": "Sayohatlarni ko'rish",
+    "featuredTours": "Sayohatlar",
     "whyUs": "Nega TripsFactory",
     "whyLocal": "Mahalliy tajriba",
     "whyLocalText": "O'zbekistonda tug'ilganmiz — Ipak yo'lining har burchagini bilamiz.",
@@ -21,7 +21,7 @@
     "whyGuaranteedText": "Yolg'iz sayohatchi bo'lsangiz ham tur amalga oshadi.",
     "whyTailored": "Individual sayohatlar",
     "whyTailoredText": "Har bir marshrut xohishingizga moslashtiriladi.",
-    "exploreDestinations": "Yo'nalishlarni ko'rish",
+    "exploreDestinations": "Manzillar",
     "heroEyebrow": "Buyuk Ipak yo'li sayohatlari",
     "heroCtaSecondary": "Mutaxassis bilan bog'laning",
     "searchDestination": "Yo'nalish",
@@ -29,15 +29,15 @@
     "searchTourType": "Tur turi",
     "searchTypeAll": "Barcha turlar",
     "searchButton": "Qidirish",
-    "featuredEyebrow": "Ajoyib sayohatlar",
+    "featuredEyebrow": "Bu mavsum",
     "viewAllTours": "Barcha turlarni ko'rish",
-    "tailorTitle": "O'zingizga xos sayohatni boshlang",
-    "tailorText": "Mutaxassis rejalashtiruvchilarimiz bilan birga faqat sizga mos marshrut yarating.",
-    "tailorCta": "Rejalashtirishni boshlash",
-    "destinationsEyebrow": "Biz sayohat qiladigan yo'nalishlar"
+    "tailorTitle": "Qanday sayohat qilishni xohlaysiz?",
+    "tailorText": "Marshrutni sizning sur'atingiz, qiziqishlaringiz va uyg'onishni yoqtirgan vaqtingizga moslab tuzamiz.",
+    "tailorCta": "Suhbatni boshlash",
+    "destinationsEyebrow": "Biz boradigan joylar"
   },
   "tours": {
-    "title": "Bizning turlar",
+    "title": "Sayohatlar",
     "days": "{count} kun",
     "from": "narxi",
     "perPerson": "kishi boshiga",
@@ -75,8 +75,8 @@
     "assuranceTitle": "TripsFactory kafolati",
     "assuranceText": "Mahalliy mutaxassislar rejalashtiradi: kafolatlangan jo'nashlar va shaxsiy qo'llab-quvvatlash.",
     "viewAll": "Barcha turlarni ko'rish",
-    "listEyebrow": "Saralangan sayohatlar",
-    "listIntro": "Ipak yo'li bo'ylab qo'lda tayyorlangan guruh va individual sayohatlar."
+    "listEyebrow": "Barcha jo'nashlar",
+    "listIntro": "Ipak yo'li va Markaziy Osiyo bo'ylab guruh va individual marshrutlar."
   },
   "destinations": {
     "title": "Yo'nalishlar",

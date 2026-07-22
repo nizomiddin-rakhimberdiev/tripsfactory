@@ -12,8 +12,8 @@
   "home": {
     "heroTitle": "探索丝绸之路的心脏",
     "heroSubtitle": "乌兹别克斯坦及中亚的团队游与私人定制游 — 由当地专家精心打造。",
-    "heroCta": "浏览线路",
-    "featuredTours": "精选线路",
+    "heroCta": "查看旅程",
+    "featuredTours": "旅程",
     "whyUs": "为什么选择 TripsFactory",
     "whyLocal": "本地专业团队",
     "whyLocalText": "我们生于乌兹别克斯坦，熟知丝绸之路的每一个角落。",
@@ -21,7 +21,7 @@
     "whyGuaranteedText": "即使只有您一位旅客，行程也照常出发。",
     "whyTailored": "量身定制",
     "whyTailoredText": "每条线路都可以根据您的意愿定制。",
-    "exploreDestinations": "探索目的地",
+    "exploreDestinations": "行经之地",
     "heroEyebrow": "丝绸之路探索之旅",
     "heroCtaSecondary": "咨询旅行专家",
     "searchDestination": "目的地",
@@ -29,15 +29,15 @@
     "searchTourType": "行程类型",
     "searchTypeAll": "所有行程",
     "searchButton": "搜索",
-    "featuredEyebrow": "非凡旅程",
+    "featuredEyebrow": "本季",
     "viewAllTours": "查看所有行程",
-    "tailorTitle": "开启您的专属定制之旅",
-    "tailorText": "与我们的专业策划师一起，打造独一无二的专属行程。",
-    "tailorCta": "开始规划",
-    "destinationsEyebrow": "我们的目的地"
+    "tailorTitle": "告诉我们您喜欢怎样旅行",
+    "tailorText": "我们会依照您的节奏、您的兴趣，以及您习惯醒来的时间来安排路线。",
+    "tailorCta": "开始交流",
+    "destinationsEyebrow": "我们的足迹"
   },
   "tours": {
-    "title": "旅游线路",
+    "title": "旅程",
     "days": "{count}天",
     "from": "起价",
     "perPerson": "每人",
@@ -75,8 +75,8 @@
     "assuranceTitle": "TripsFactory 保障",
     "assuranceText": "由当地专家规划，保证成团并提供专属支持。",
     "viewAll": "查看所有行程",
-    "listEyebrow": "臻选旅程",
-    "listIntro": "精心打造的丝绸之路团队与私人旅程。"
+    "listEyebrow": "所有出发日期",
+    "listIntro": "穿行丝绸之路与中亚的团队与私人路线。"
   },
   "destinations": {
     "title": "目的地",

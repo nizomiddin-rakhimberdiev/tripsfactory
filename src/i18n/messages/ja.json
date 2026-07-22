@@ -12,8 +12,8 @@
   "home": {
     "heroTitle": "シルクロードの中心を発見する",
     "heroSubtitle": "ウズベキスタンと中央アジアのグループツアー・プライベートツアー — 現地の専門家がご案内します。",
-    "heroCta": "ツアーを見る",
-    "featuredTours": "おすすめツアー",
+    "heroCta": "旅を見る",
+    "featuredTours": "旅の数々",
     "whyUs": "TripsFactoryが選ばれる理由",
     "whyLocal": "現地の専門知識",
     "whyLocalText": "ウズベキスタン生まれの私たちは、シルクロードの隅々まで知り尽くしています。",
@@ -21,7 +21,7 @@
     "whyGuaranteedText": "お客様お一人でもツアーは必ず催行されます。",
     "whyTailored": "オーダーメイドの旅",
     "whyTailoredText": "すべての旅程はご希望に合わせてカスタマイズ可能です。",
-    "exploreDestinations": "目的地を探す",
+    "exploreDestinations": "土地",
     "heroEyebrow": "シルクロードの旅",
     "heroCtaSecondary": "専門家に相談する",
     "searchDestination": "目的地",
@@ -29,15 +29,15 @@
     "searchTourType": "ツアーの種類",
     "searchTypeAll": "すべてのツアー",
     "searchButton": "検索",
-    "featuredEyebrow": "特別な旅",
+    "featuredEyebrow": "今季の旅",
     "viewAllTours": "すべてのツアーを見る",
-    "tailorTitle": "オーダーメイドの旅を始めましょう",
-    "tailorText": "専門プランナーと一緒に、あなただけの旅程を作り上げます。",
-    "tailorCta": "プランニングを始める",
-    "destinationsEyebrow": "旅する場所"
+    "tailorTitle": "どのように旅したいか、お聞かせください",
+    "tailorText": "あなたの歩調、興味、そして目覚めたい時間に合わせて旅程を組み立てます。",
+    "tailorCta": "ご相談を始める",
+    "destinationsEyebrow": "訪れる場所"
   },
   "tours": {
-    "title": "ツアー一覧",
+    "title": "旅の数々",
     "days": "{count}日間",
     "from": "料金",
     "perPerson": "お一人様",
@@ -75,8 +75,8 @@
     "assuranceTitle": "TripsFactory の保証",
     "assuranceText": "地元の専門家が企画。催行保証と専任サポート付き。",
     "viewAll": "すべてのツアーを見る",
-    "listEyebrow": "厳選された旅",
-    "listIntro": "シルクロードを巡る、丁寧に作り上げたグループ＆プライベートの旅。"
+    "listEyebrow": "すべての出発日",
+    "listIntro": "シルクロードと中央アジアを巡る、グループとプライベートのルート。"
   },
   "destinations": {
     "title": "目的地",

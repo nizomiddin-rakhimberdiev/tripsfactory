@@ -12,8 +12,8 @@
   "home": {
     "heroTitle": "Descubra el corazón de la Ruta de la Seda",
     "heroSubtitle": "Tours en grupo y privados por Uzbekistán y Asia Central — diseñados por expertos locales.",
-    "heroCta": "Ver tours",
-    "featuredTours": "Tours destacados",
+    "heroCta": "Ver los viajes",
+    "featuredTours": "Los viajes",
     "whyUs": "Por qué TripsFactory",
     "whyLocal": "Experiencia local",
     "whyLocalText": "Nacidos en Uzbekistán, conocemos cada rincón de la Ruta de la Seda.",
@@ -21,7 +21,7 @@
     "whyGuaranteedText": "Su tour se realiza aunque sea el único viajero.",
     "whyTailored": "Viajes a medida",
     "whyTailoredText": "Cada itinerario puede personalizarse según sus deseos.",
-    "exploreDestinations": "Explorar destinos",
+    "exploreDestinations": "Los lugares",
     "heroEyebrow": "Expediciones por la Ruta de la Seda",
     "heroCtaSecondary": "Habla con un experto",
     "searchDestination": "Destino",
@@ -29,15 +29,15 @@
     "searchTourType": "Tipo de tour",
     "searchTypeAll": "Todos los tours",
     "searchButton": "Buscar",
-    "featuredEyebrow": "Viajes excepcionales",
+    "featuredEyebrow": "Esta temporada",
     "viewAllTours": "Ver todos los tours",
-    "tailorTitle": "Comienza tu viaje a medida",
-    "tailorText": "Trabaja con nuestros planificadores expertos para crear un itinerario único para ti.",
-    "tailorCta": "Empezar a planificar",
-    "destinationsEyebrow": "Dónde viajamos"
+    "tailorTitle": "Cuéntenos cómo le gusta viajar",
+    "tailorText": "Trazaremos la ruta según su ritmo, sus intereses y la hora a la que le gusta despertar.",
+    "tailorCta": "Empecemos a hablar",
+    "destinationsEyebrow": "Adónde vamos"
   },
   "tours": {
-    "title": "Nuestros tours",
+    "title": "Los viajes",
     "days": "{count} días",
     "from": "desde",
     "perPerson": "por persona",
@@ -75,8 +75,8 @@
     "assuranceTitle": "Garantía TripsFactory",
     "assuranceText": "Planificado por expertos locales, con salidas garantizadas y atención personal.",
     "viewAll": "Ver todos los tours",
-    "listEyebrow": "Viajes seleccionados",
-    "listIntro": "Viajes privados y en grupo por la Ruta de la Seda, hechos a mano."
+    "listEyebrow": "Todas las salidas",
+    "listIntro": "Rutas privadas y en grupo por la Ruta de la Seda y Asia Central."
   },
   "destinations": {
     "title": "Destinos",
