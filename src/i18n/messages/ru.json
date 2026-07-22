@@ -142,6 +142,7 @@
   "common": {
     "prevImage": "Предыдущее фото",
     "nextImage": "Следующее фото",
-    "goToImage": "Перейти к фото {number}"
+    "goToImage": "Перейти к фото {number}",
+    "skipToContent": "Перейти к содержимому"
   }
 }

@@ -142,6 +142,7 @@
   "common": {
     "prevImage": "前の写真",
     "nextImage": "次の写真",
-    "goToImage": "写真 {number} へ移動"
+    "goToImage": "写真 {number} へ移動",
+    "skipToContent": "本文へスキップ"
   }
 }

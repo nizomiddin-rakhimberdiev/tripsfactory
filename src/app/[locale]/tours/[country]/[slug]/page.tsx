@@ -110,7 +110,7 @@ export default async function TourPage({
 
       {/* Breadcrumbs */}
       <nav aria-label="Breadcrumb" className="mx-auto max-w-6xl px-4 pt-6 md:px-6">
-        <ol className="tf-eyebrow flex flex-wrap items-center gap-1.5 text-[11px] text-muted">
+        <ol className="flex flex-wrap items-center gap-1.5 text-sm text-muted">
           <li>
             <Link href="/" className="transition-colors hover:text-primary">
               {nav("home")}
@@ -125,7 +125,9 @@ export default async function TourPage({
           {countryDoc && (
             <>
               <li aria-hidden>/</li>
-              <li className="text-primary">{countryDoc.name}</li>
+              <li aria-current="page" className="text-foreground">
+                {countryDoc.name}
+              </li>
             </>
           )}
         </ol>

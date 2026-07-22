@@ -142,6 +142,7 @@
   "common": {
     "prevImage": "Vorheriges Bild",
     "nextImage": "Nächstes Bild",
-    "goToImage": "Zu Bild {number} springen"
+    "goToImage": "Zu Bild {number} springen",
+    "skipToContent": "Zum Inhalt springen"
   }
 }

@@ -70,10 +70,20 @@ function Dropdown({
   };
 
   return (
-    <div ref={ref} className="relative" onMouseEnter={show} onMouseLeave={hide}>
+    <div
+      ref={ref}
+      className="relative"
+      onMouseEnter={show}
+      onMouseLeave={hide}
+      onKeyDown={(e) => {
+        if (e.key === "Escape") setOpen(false);
+      }}
+    >
       <button
         type="button"
         onClick={() => setOpen((o) => !o)}
+        aria-expanded={open}
+        aria-haspopup="true"
         className={`flex items-center gap-1 ${NAV_LINK} ${open ? "text-foreground" : ""}`}
       >
         {label}
