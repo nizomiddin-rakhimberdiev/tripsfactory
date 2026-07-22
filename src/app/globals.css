@@ -299,7 +299,9 @@ textarea:focus-visible {
   border-radius: 999px;
   padding: 0.9375rem 2rem;
   font-weight: 500;
-  line-height: 1;
+  /* Not 1 — at that value descenders in longer localised labels (German,
+     Uzbek) sit on the edge of the text box and read as clipped. */
+  line-height: 1.15;
   transition:
     background-color 0.35s var(--ease-luxe),
     color 0.35s var(--ease-luxe),

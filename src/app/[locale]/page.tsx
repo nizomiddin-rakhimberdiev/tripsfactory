@@ -117,7 +117,7 @@ export default async function HomePage({
           <div className="grid gap-14 text-center md:grid-cols-3">
             {WHY.map(({ key, Icon }) => (
               <div key={key} className="flex flex-col items-center">
-                <div className="mb-6 grid h-16 w-16 place-items-center rounded-full bg-primary/8 text-primary">
+                <div className="mb-6 grid h-16 w-16 place-items-center rounded-full bg-primary/10 text-primary">
                   <Icon className="text-3xl" />
                 </div>
                 <h3 className="tf-headline mb-3 text-2xl">{t(key)}</h3>
