@@ -985,32 +985,88 @@
 /* --------------------------------------------------------------------------
    Login
    -------------------------------------------------------------------------- */
+/* Login — the first thing anyone sees of the Studio, so it carries the brand:
+   a warm ivory field, a low maroon glow, and a white glass card. */
 .s-login {
   min-height: 100vh;
   display: grid;
   place-items: center;
+  position: relative;
+  overflow: hidden;
   background:
-    radial-gradient(60% 50% at 50% 0%, var(--s-gold-soft) 0%, transparent 70%),
+    radial-gradient(
+      70% 55% at 50% 110%,
+      color-mix(in srgb, var(--s-accent) 14%, transparent) 0%,
+      transparent 70%
+    ),
+    radial-gradient(60% 50% at 50% -10%, var(--s-gold-soft) 0%, transparent 70%),
     var(--s-bg-subtle);
   padding: 24px;
 }
+/* A single hairline of gold across the top edge — the logo, abstracted. */
+.s-login::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--s-gold) 35%,
+    var(--s-accent) 65%,
+    transparent
+  );
+}
 .s-login__card {
   width: 100%;
-  max-width: 380px;
-  background: var(--s-bg);
-  border: 1px solid var(--s-border);
-  border-radius: var(--s-radius-lg);
-  box-shadow: var(--s-shadow-md);
-  padding: 32px;
+  max-width: 396px;
+  background: rgb(255 255 255 / 0.82);
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  border: 1px solid rgb(255 255 255 / 0.9);
+  border-radius: 16px;
+  box-shadow: var(--s-shadow-lg);
+  padding: 36px 32px 32px;
+  animation: s-login-in 0.5s var(--s-ease) both;
+}
+@keyframes s-login-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .s-login__card {
+    animation: none;
+  }
+}
+.s-login__foot {
+  margin-top: 22px;
+  padding-top: 16px;
+  border-top: 1px solid var(--s-border);
+  text-align: center;
+  font-size: 12px;
+  color: var(--s-fg-muted);
 }
 .s-login__brand {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 11px;
   font-weight: 700;
-  font-size: 17px;
+  font-size: 18px;
   letter-spacing: -0.02em;
-  margin-bottom: 4px;
+  margin-bottom: 6px;
+}
+.s-login__brand .s-brand__mark {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  font-size: 14px;
+  box-shadow: 0 4px 12px color-mix(in srgb, var(--s-accent) 30%, transparent);
 }
 .s-login__sub {
   color: var(--s-fg-muted);

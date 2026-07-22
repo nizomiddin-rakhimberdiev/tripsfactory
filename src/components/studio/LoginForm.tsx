@@ -79,7 +79,7 @@ export function LoginForm() {
             type="submit"
             className="s-btn s-btn--primary"
             disabled={status === "loading"}
-            style={{ height: 38 }}
+            style={{ height: 42, width: "100%", marginTop: 4 }}
           >
             {status === "loading" ? (
               <span className="s-spin" />
@@ -91,6 +91,7 @@ export function LoginForm() {
             )}
           </button>
         </form>
+        <p className="s-login__foot">TripsFactory Studio</p>
       </div>
     </div>
   );
