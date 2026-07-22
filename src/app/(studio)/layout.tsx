@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
-import { Geist } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./studio.css";
 import "leaflet/dist/leaflet.css";
 
-const geist = Geist({
+// Same face as the public site's UI layer — one voice across both surfaces.
+const inter = Inter({
   variable: "--font-studio",
   subsets: ["latin", "latin-ext", "cyrillic"],
 });
@@ -19,7 +20,7 @@ export default function StudioRootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="uz" className={geist.variable}>
+    <html lang="uz" className={inter.variable}>
       <body className="s-root">{children}</body>
     </html>
   );

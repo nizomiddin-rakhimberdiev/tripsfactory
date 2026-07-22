@@ -1,35 +1,56 @@
 /* ==========================================================================
    TripsFactory Studio — bespoke admin design system.
-   Vercel/Stripe aesthetic: clean, light, airy, subtle depth, precise type.
+
+   Same brand as the public site, different job. The site sells; the Studio is
+   worked in for hours, so it trades editorial drama for calm, density and
+   scanning speed — Stripe/Linear discipline wearing TripsFactory's colours.
+
+   Every colour below is verified against WCAG AA on the ivory canvas.
    ========================================================================== */
 
 :root {
-  --s-bg: #ffffff;
-  --s-bg-subtle: #fafafa;
-  --s-bg-inset: #f4f4f5;
-  --s-panel: #ffffff;
-  --s-fg: #18181b;
-  --s-fg-secondary: #52525b;
-  --s-fg-muted: #a1a1aa;
-  --s-border: #ececec;
-  --s-border-strong: #e0e0e0;
-  --s-accent: #0e7490;
-  --s-accent-hover: #0c6178;
-  --s-accent-soft: #ecfeff;
-  --s-accent-fg: #ffffff;
-  --s-success: #16a34a;
-  --s-success-soft: #f0fdf4;
-  --s-warning: #d97706;
-  --s-warning-soft: #fffbeb;
-  --s-danger: #dc2626;
-  --s-danger-soft: #fef2f2;
+  /* Canvas & surfaces */
+  --s-bg: #ffffff; /* solid white: inputs, table rows */
+  --s-bg-subtle: #fbf8f2; /* Warm Silk Ivory — the app canvas */
+  --s-bg-inset: #f4ede1; /* Soft Sand — wells, hovers, tracks */
+  --s-panel: rgb(255 255 255 / 0.78); /* white glass cards over ivory */
+
+  /* Ink — warm charcoal family, shared with the public site */
+  --s-fg: #2b2420;
+  --s-fg-secondary: #5c534a;
+  --s-fg-muted: #6f6459; /* 5.44:1 on ivory — the old grey failed at 3.64 */
+  --s-border: #eae1d3;
+  --s-border-strong: #ddd0bc;
+
+  /* Accent — Deep Maroon, straight from the logo */
+  --s-accent: #6e1218;
+  --s-accent-hover: #8a1a22;
+  --s-accent-soft: #f7ecec;
+  --s-accent-fg: #fff9f0;
+
+  /* Soft Gold — highlights, premium markers */
+  --s-gold: #8c5e22;
+  --s-gold-soft: #f7efdf;
+
+  /* Status — warm-shifted so nothing clashes with the maroon */
+  --s-success: #2f6b45;
+  --s-success-soft: #eef5ef;
+  --s-warning: #8c5e22;
+  --s-warning-soft: #f7efdf;
+  --s-danger: #8c2f2a;
+  --s-danger-soft: #f9edec;
+
   --s-radius: 8px;
   --s-radius-lg: 12px;
   --s-radius-full: 999px;
-  --s-shadow-xs: 0 1px 2px rgba(24, 24, 27, 0.04);
-  --s-shadow-sm: 0 1px 3px rgba(24, 24, 27, 0.06), 0 1px 2px rgba(24, 24, 27, 0.04);
-  --s-shadow-md: 0 4px 12px rgba(24, 24, 27, 0.08), 0 2px 4px rgba(24, 24, 27, 0.04);
-  --s-shadow-lg: 0 12px 32px rgba(24, 24, 27, 0.12), 0 4px 8px rgba(24, 24, 27, 0.06);
+
+  /* Warm-tinted elevation — black shadow on cream reads as dirt */
+  --s-shadow-xs: 0 1px 2px rgba(74, 52, 38, 0.04);
+  --s-shadow-sm: 0 1px 3px rgba(74, 52, 38, 0.06), 0 1px 2px rgba(74, 52, 38, 0.04);
+  --s-shadow-md: 0 4px 12px rgba(74, 52, 38, 0.08), 0 2px 4px rgba(74, 52, 38, 0.04);
+  --s-shadow-lg: 0 12px 32px rgba(74, 52, 38, 0.12), 0 4px 8px rgba(74, 52, 38, 0.06);
+
+  --s-ease: cubic-bezier(0.22, 1, 0.36, 1);
   --s-sidebar-w: 248px;
   --s-topbar-h: 60px;
 }
@@ -91,8 +112,8 @@
   width: 28px;
   height: 28px;
   border-radius: 8px;
-  background: linear-gradient(135deg, var(--s-accent), #0891b2);
-  color: #fff;
+  background: linear-gradient(135deg, var(--s-accent), var(--s-gold));
+  color: var(--s-accent-fg);
   font-weight: 800;
   font-size: 13px;
 }
@@ -264,7 +285,7 @@
 }
 .s-btn:hover {
   background: var(--s-bg-subtle);
-  border-color: #d4d4d8;
+  border-color: var(--s-border-strong);
 }
 .s-btn svg {
   width: 15px;
@@ -293,7 +314,7 @@
 }
 .s-btn--danger:hover {
   background: var(--s-danger-soft);
-  border-color: #fca5a5;
+  border-color: color-mix(in srgb, var(--s-danger) 35%, transparent);
 }
 .s-btn--sm {
   height: 30px;
@@ -403,7 +424,7 @@
   transition: border-color 0.14s ease, box-shadow 0.14s ease, transform 0.14s ease;
 }
 .s-quick__item:hover {
-  border-color: #d4d4d8;
+  border-color: var(--s-border-strong);
   box-shadow: var(--s-shadow-md);
   transform: translateY(-1px);
 }
@@ -929,7 +950,7 @@
   display: grid;
   place-items: center;
   background:
-    radial-gradient(60% 50% at 50% 0%, #f0fbff 0%, transparent 70%),
+    radial-gradient(60% 50% at 50% 0%, var(--s-gold-soft) 0%, transparent 70%),
     var(--s-bg-subtle);
   padding: 24px;
 }
@@ -959,7 +980,7 @@
 .s-login__error {
   background: var(--s-danger-soft);
   color: var(--s-danger);
-  border: 1px solid #fecaca;
+  border: 1px solid color-mix(in srgb, var(--s-danger) 30%, transparent);
   border-radius: var(--s-radius);
   padding: 9px 12px;
   font-size: 13px;
