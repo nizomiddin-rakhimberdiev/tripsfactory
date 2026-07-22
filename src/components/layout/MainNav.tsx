@@ -1,7 +1,7 @@
 "use client";
 
-import { useRef, useState } from "react";
-import { Link } from "@/i18n/navigation";
+import { useEffect, useRef, useState } from "react";
+import { Link, usePathname } from "@/i18n/navigation";
 
 export type NavCountry = { slug: string; regionSlug: string; name: string };
 export type NavRegion = { slug: string; name: string; countries: NavCountry[] };
@@ -27,6 +27,10 @@ type Labels = {
 const NAV_LINK =
   "text-sm text-muted transition-colors duration-300 hover:text-foreground";
 
+/** Current-section marker: a hairline beneath the label, never a colour block. */
+const NAV_LINK_ACTIVE =
+  "text-sm text-foreground transition-colors duration-300 border-b border-primary pb-0.5";
+
 function Caret({ open }: { open: boolean }) {
   return (
     <svg
@@ -51,10 +55,12 @@ function Caret({ open }: { open: boolean }) {
 function Dropdown({
   label,
   children,
+  active = false,
   width = "min-w-[220px]",
 }: {
   label: string;
   children: React.ReactNode;
+  active?: boolean;
   width?: string;
 }) {
   const [open, setOpen] = useState(false);
@@ -84,7 +90,9 @@ function Dropdown({
         onClick={() => setOpen((o) => !o)}
         aria-expanded={open}
         aria-haspopup="true"
-        className={`flex items-center gap-1 ${NAV_LINK} ${open ? "text-foreground" : ""}`}
+        className={`flex items-center gap-1 ${active ? NAV_LINK_ACTIVE : NAV_LINK} ${
+          open ? "text-foreground" : ""
+        }`}
       >
         {label}
         <Caret open={open} />
@@ -118,6 +126,26 @@ export function MainNav({
   localeSwitcher: React.ReactNode;
 }) {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const pathname = usePathname();
+
+  /** Section match, so /tours/group still marks "Tours" as current. */
+  const inSection = (base: string) =>
+    pathname === base || pathname.startsWith(`${base}/`);
+
+  const navClass = (base: string) =>
+    inSection(base) ? NAV_LINK_ACTIVE : NAV_LINK;
+  const current = (base: string) =>
+    inSection(base) ? ("page" as const) : undefined;
+
+  // The page behind a full-screen menu should not scroll with it.
+  useEffect(() => {
+    if (!mobileOpen) return;
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = previous;
+    };
+  }, [mobileOpen]);
 
   const activeRegions = regions.filter((r) => r.countries.length > 0);
 
@@ -170,17 +198,35 @@ export function MainNav({
     <>
       {/* desktop */}
       <nav className="hidden items-center gap-7 md:flex">
-        <Dropdown label={labels.tours}>{toursMenu}</Dropdown>
-        <Dropdown label={labels.destinations} width="min-w-[420px]">
+        <Dropdown label={labels.tours} active={inSection("/tours")}>
+          {toursMenu}
+        </Dropdown>
+        <Dropdown
+          label={labels.destinations}
+          active={inSection("/destinations")}
+          width="min-w-[420px]"
+        >
           {destinationsMenu}
         </Dropdown>
-        <Link href="/guide" className={NAV_LINK}>
+        <Link
+          href="/guide"
+          aria-current={current("/guide")}
+          className={navClass("/guide")}
+        >
           {labels.guide}
         </Link>
-        <Link href="/about" className={NAV_LINK}>
+        <Link
+          href="/about"
+          aria-current={current("/about")}
+          className={navClass("/about")}
+        >
           {labels.about}
         </Link>
-        <Link href="/contact" className={NAV_LINK}>
+        <Link
+          href="/contact"
+          aria-current={current("/contact")}
+          className={navClass("/contact")}
+        >
           {labels.contact}
         </Link>
         <div className="ml-1 flex items-center gap-3">
@@ -188,7 +234,12 @@ export function MainNav({
           {premium && (
             <Link
               href="/premium"
-              className="rounded-full border border-accent/45 px-5 py-2 text-sm text-accent transition-colors duration-300 hover:border-accent hover:bg-accent/10"
+              aria-current={current("/premium")}
+              className={`rounded-full border px-5 py-2 text-sm text-accent transition-colors duration-300 hover:border-accent hover:bg-accent/10 ${
+                inSection("/premium")
+                  ? "border-accent bg-accent/10"
+                  : "border-accent/45"
+              }`}
             >
               {labels.premium}
             </Link>
@@ -204,7 +255,7 @@ export function MainNav({
           aria-label={labels.menu}
           aria-expanded={mobileOpen}
           onClick={() => setMobileOpen((o) => !o)}
-          className="rounded-md border border-border p-2"
+          className="rounded-lg border border-border p-2.5 transition-colors duration-300 hover:border-primary hover:text-primary"
         >
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
             <path
@@ -221,7 +272,10 @@ export function MainNav({
       {mobileOpen && (
         <div
           onClick={() => setMobileOpen(false)}
-          className="tf-panel-max absolute inset-x-0 top-full overflow-auto border-b border-border bg-surface p-4 shadow-lg md:hidden"
+          onKeyDown={(e) => {
+            if (e.key === "Escape") setMobileOpen(false);
+          }}
+          className="tf-panel-max absolute inset-x-0 top-full overflow-auto border-b border-border bg-surface p-5 shadow-lg md:hidden"
         >
           <p className="tf-eyebrow mb-1 text-[11px] text-muted">{labels.tours}</p>
           <div className="mb-4 flex flex-col gap-1">
