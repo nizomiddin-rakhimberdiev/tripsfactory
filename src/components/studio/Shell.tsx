@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import {
@@ -11,29 +12,55 @@ import {
   IconImage,
   IconInbox,
   IconGlobe,
+  IconChevron,
+  IconExternal,
   IconLogout,
 } from "./icons";
 
-const NAV: {
+type NavItem = {
   href: string;
   label: string;
   Icon: (p: React.SVGProps<SVGSVGElement>) => React.ReactElement;
-  group: string;
   badgeKey?: "leads";
-}[] = [
-  { href: "/studio", label: "Boshqaruv", Icon: IconGrid, group: "" },
-  { href: "/studio/tours", label: "Turlar", Icon: IconCompass, group: "Kontent" },
-  { href: "/studio/countries", label: "Davlatlar", Icon: IconGlobe, group: "Kontent" },
-  { href: "/studio/cities", label: "Shaharlar", Icon: IconPin, group: "Kontent" },
-  { href: "/studio/guides", label: "Qo'llanmalar", Icon: IconBook, group: "Kontent" },
-  { href: "/studio/content", label: "Bosh sahifa", Icon: IconHome, group: "Kontent" },
-  { href: "/studio/media", label: "Rasmlar", Icon: IconImage, group: "Media" },
+};
+
+/**
+ * Explicit groups rather than a flat list with a running "last group" marker —
+ * the shape of the navigation is now visible in the data.
+ */
+const GROUPS: { id: string; label: string | null; items: NavItem[] }[] = [
   {
-    href: "/studio/leads",
-    label: "So'rovlar",
-    Icon: IconInbox,
-    group: "Mijozlar",
-    badgeKey: "leads",
+    id: "overview",
+    label: null,
+    items: [{ href: "/studio", label: "Boshqaruv", Icon: IconGrid }],
+  },
+  {
+    id: "content",
+    label: "Kontent",
+    items: [
+      { href: "/studio/tours", label: "Turlar", Icon: IconCompass },
+      { href: "/studio/countries", label: "Davlatlar", Icon: IconGlobe },
+      { href: "/studio/cities", label: "Shaharlar", Icon: IconPin },
+      { href: "/studio/guides", label: "Qo'llanmalar", Icon: IconBook },
+      { href: "/studio/content", label: "Bosh sahifa", Icon: IconHome },
+    ],
+  },
+  {
+    id: "media",
+    label: "Media",
+    items: [{ href: "/studio/media", label: "Rasmlar", Icon: IconImage }],
+  },
+  {
+    id: "clients",
+    label: "Mijozlar",
+    items: [
+      {
+        href: "/studio/leads",
+        label: "So'rovlar",
+        Icon: IconInbox,
+        badgeKey: "leads",
+      },
+    ],
   },
 ];
 
@@ -59,6 +86,7 @@ export function Shell({
 }) {
   const pathname = usePathname();
   const router = useRouter();
+  const [collapsed, setCollapsed] = useState<Record<string, boolean>>({});
 
   const isActive = (href: string) =>
     href === "/studio" ? pathname === "/studio" : pathname.startsWith(href);
@@ -79,7 +107,6 @@ export function Shell({
     router.refresh();
   }
 
-  let lastGroup = "";
   return (
     <div className="s-shell">
       <aside className="s-sidebar">
@@ -87,35 +114,61 @@ export function Shell({
           <span className="s-brand__mark">TF</span>
           Trips<span className="s-brand__accent">Factory</span>
         </div>
+
         <nav className="s-nav">
-          {NAV.map((item) => {
-            const showGroup = item.group && item.group !== lastGroup;
-            lastGroup = item.group || lastGroup;
+          {GROUPS.map((group) => {
+            const isCollapsed = collapsed[group.id] ?? false;
+            // A collapsed group still shows the page you are on, so the
+            // sidebar never hides your own location.
+            const holdsActive = group.items.some((i) => isActive(i.href));
+            const visible =
+              isCollapsed && !holdsActive
+                ? []
+                : isCollapsed
+                  ? group.items.filter((i) => isActive(i.href))
+                  : group.items;
+
             return (
-              <div key={item.href}>
-                {showGroup && <div className="s-nav__label">{item.group}</div>}
-                <Link
-                  href={item.href}
-                  className={`s-nav__item ${isActive(item.href) ? "s-nav__item--active" : ""}`}
-                >
-                  <item.Icon />
-                  {item.label}
-                  {item.badgeKey === "leads" && newLeads > 0 && (
-                    <span className="s-nav__badge">{newLeads}</span>
-                  )}
-                </Link>
+              <div key={group.id} className="s-nav__group">
+                {group.label && (
+                  <button
+                    type="button"
+                    className="s-nav__label"
+                    aria-expanded={!isCollapsed}
+                    onClick={() =>
+                      setCollapsed((c) => ({ ...c, [group.id]: !isCollapsed }))
+                    }
+                  >
+                    {group.label}
+                    <IconChevron
+                      width={12}
+                      height={12}
+                      className={`s-nav__chev ${isCollapsed ? "" : "s-nav__chev--open"}`}
+                    />
+                  </button>
+                )}
+                {visible.map((item) => (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    aria-current={isActive(item.href) ? "page" : undefined}
+                    className={`s-nav__item ${isActive(item.href) ? "s-nav__item--active" : ""}`}
+                  >
+                    <item.Icon />
+                    {item.label}
+                    {item.badgeKey === "leads" && newLeads > 0 && (
+                      <span className="s-nav__badge">{newLeads}</span>
+                    )}
+                  </Link>
+                ))}
               </div>
             );
           })}
         </nav>
+
         <div className="s-sidebar__foot">
-          <a
-            href="/"
-            target="_blank"
-            rel="noreferrer"
-            className="s-nav__item"
-          >
-            <IconGlobe />
+          <a href="/" target="_blank" rel="noreferrer" className="s-nav__item">
+            <IconExternal />
             Saytni ochish
           </a>
           <div className="s-user">
@@ -127,6 +180,7 @@ export function Shell({
               className="s-btn s-btn--icon s-btn--ghost"
               onClick={logout}
               title="Chiqish"
+              aria-label="Chiqish"
               style={{ marginLeft: "auto" }}
             >
               <IconLogout />
@@ -134,6 +188,7 @@ export function Shell({
           </div>
         </div>
       </aside>
+
       <div className="s-main">
         <header className="s-topbar">
           <span className="s-topbar__title">{title}</span>
