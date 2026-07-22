@@ -59,10 +59,11 @@ export default async function TourPage({
   const tour = await getTour(country, slug, locale);
   if (!tour) notFound();
 
-  const [t, tp, nav, currentLocale, countryDoc] = await Promise.all([
+  const [t, tp, nav, common, currentLocale, countryDoc] = await Promise.all([
     getTranslations("tours"),
     getTranslations("premium"),
     getTranslations("nav"),
+    getTranslations("common"),
     getLocale() as Promise<Locale>,
     getCountry(tour.countrySlug, locale),
   ]);
@@ -109,7 +110,10 @@ export default async function TourPage({
       />
 
       {/* Breadcrumbs */}
-      <nav aria-label="Breadcrumb" className="mx-auto max-w-6xl px-4 pt-6 md:px-6">
+      <nav
+        aria-label={common("breadcrumb")}
+        className="mx-auto max-w-6xl px-4 pt-6 md:px-6"
+      >
         <ol className="flex flex-wrap items-center gap-1.5 text-sm text-muted">
           <li>
             <Link href="/" className="transition-colors hover:text-primary">
@@ -118,7 +122,10 @@ export default async function TourPage({
           </li>
           <li aria-hidden>/</li>
           <li>
-            <Link href="/tours" className="transition-colors hover:text-primary">
+            <Link
+              href="/tours"
+              className="transition-colors hover:text-primary"
+            >
               {nav("tours")}
             </Link>
           </li>
@@ -148,9 +155,7 @@ export default async function TourPage({
         <p className="tf-eyebrow mb-4 text-xs text-primary">
           {t(`type_${tour.type}`)} · {t("days", { count: tour.durationDays })}
         </p>
-        <h1 className="tf-display tf-display-2 max-w-4xl">
-          {tour.title}
-        </h1>
+        <h1 className="tf-display tf-display-2 max-w-4xl">{tour.title}</h1>
       </header>
 
       {/* Content + sticky booking */}
@@ -222,7 +227,7 @@ export default async function TourPage({
               {tour.excluded.length > 0 && (
                 <div className="tf-card p-7">
                   <h3 className="mb-5 flex items-center gap-2 text-lg font-semibold">
-                    <IconXCircle className="text-xl text-secondary" />
+                    <IconXCircle className="text-xl text-muted" />
                     {t("excluded")}
                   </h3>
                   <ul className="space-y-3 text-sm text-muted">
@@ -265,7 +270,10 @@ export default async function TourPage({
                           {dateFmt.format(new Date(d.date))}
                         </td>
                         <td className="p-4">
-                          <StatusPill status={d.status} label={statusLabel[d.status]} />
+                          <StatusPill
+                            status={d.status}
+                            label={statusLabel[d.status]}
+                          />
                         </td>
                         <td className="p-4 text-right text-lg font-semibold text-primary">
                           {formatUsd(d.priceUsd)}
@@ -347,10 +355,11 @@ export default async function TourPage({
       {related.length > 0 && (
         <section className="tf-section mx-auto max-w-6xl px-4 md:px-6">
           <div className="mb-12 flex items-end justify-between gap-6">
-            <h2 className="tf-display tf-display-2">
-              {t("relatedTours")}
-            </h2>
-            <Link href="/tours" className="tf-link hidden shrink-0 text-sm sm:block">
+            <h2 className="tf-display tf-display-2">{t("relatedTours")}</h2>
+            <Link
+              href="/tours"
+              className="tf-link hidden shrink-0 text-sm sm:block"
+            >
               {t("viewAll")}
             </Link>
           </div>
@@ -389,7 +398,10 @@ export default async function TourPage({
               </span>
             )}
           </div>
-          <a href="#enquiry" className="tf-btn tf-btn-primary shrink-0 px-6 py-3">
+          <a
+            href="#enquiry"
+            className="tf-btn tf-btn-primary shrink-0 px-6 py-3"
+          >
             {t("bookNow")}
           </a>
         </div>

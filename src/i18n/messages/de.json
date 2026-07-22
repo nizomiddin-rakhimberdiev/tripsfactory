@@ -145,6 +145,7 @@
     "nextImage": "Nächstes Bild",
     "goToImage": "Zu Bild {number} springen",
     "skipToContent": "Zum Inhalt springen",
-    "language": "Sprache"
+    "language": "Sprache",
+    "breadcrumb": "Brotkrumennavigation"
   }
 }

@@ -145,6 +145,7 @@
     "nextImage": "次の写真",
     "goToImage": "写真 {number} へ移動",
     "skipToContent": "本文へスキップ",
-    "language": "言語"
+    "language": "言語",
+    "breadcrumb": "パンくずリスト"
   }
 }

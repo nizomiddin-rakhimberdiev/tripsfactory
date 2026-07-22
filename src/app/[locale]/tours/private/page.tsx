@@ -2,6 +2,7 @@ import { setRequestLocale, getTranslations } from "next-intl/server";
 import { getTours } from "@/lib/content";
 import { TourCard } from "@/components/tours/TourCard";
 import { PageHeader } from "@/components/PageHeader";
+import { EmptyState } from "@/components/EmptyState";
 
 export const revalidate = 300;
 
@@ -17,7 +18,10 @@ export default async function PrivateToursPage({
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
-  const t = await getTranslations("tours");
+  const [t, nav] = await Promise.all([
+    getTranslations("tours"),
+    getTranslations("nav"),
+  ]);
   const tours = await getTours({ type: "private" }, locale);
 
   return (
@@ -28,7 +32,11 @@ export default async function PrivateToursPage({
         subtitle={t("privateIntro")}
       />
       {tours.length === 0 ? (
-        <p className="mt-14 text-muted">{t("empty")}</p>
+        <EmptyState
+          message={t("empty")}
+          actionHref="/contact"
+          actionLabel={nav("contact")}
+        />
       ) : (
         <div className="mt-14 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {tours.map((tour) => (

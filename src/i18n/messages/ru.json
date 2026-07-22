@@ -145,6 +145,7 @@
     "nextImage": "Следующее фото",
     "goToImage": "Перейти к фото {number}",
     "skipToContent": "Перейти к содержимому",
-    "language": "Язык"
+    "language": "Язык",
+    "breadcrumb": "Навигационная цепочка"
   }
 }

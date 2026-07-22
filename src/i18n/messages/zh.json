@@ -145,6 +145,7 @@
     "nextImage": "下一张图片",
     "goToImage": "跳转到第 {number} 张图片",
     "skipToContent": "跳转到主要内容",
-    "language": "语言"
+    "language": "语言",
+    "breadcrumb": "面包屑导航"
   }
 }

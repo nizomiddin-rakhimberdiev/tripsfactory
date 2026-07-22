@@ -145,6 +145,7 @@
     "nextImage": "Next image",
     "goToImage": "Go to image {number}",
     "skipToContent": "Skip to content",
-    "language": "Language"
+    "language": "Language",
+    "breadcrumb": "Breadcrumb"
   }
 }
