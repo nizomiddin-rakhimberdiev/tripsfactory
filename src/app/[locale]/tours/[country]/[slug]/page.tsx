@@ -359,6 +359,39 @@ export default async function TourPage({
           </div>
         </section>
       )}
+
+      {/*
+        Mobile booking bar. On small screens the booking column stacks after the
+        whole left column, which buried the price below the itinerary and the
+        departures table. Sticky-bottom (not fixed) keeps it pinned while the
+        tour is on screen, then releases so it never covers the footer.
+      */}
+      <div className="sticky bottom-0 z-40 border-t border-border tf-glass lg:hidden">
+        <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3">
+          <div className="min-w-0">
+            {tour.priceFromUsd !== null ? (
+              <>
+                <span className="tf-eyebrow block text-[9px] leading-none text-muted">
+                  {t("startingFrom")}
+                </span>
+                <span className="text-lg font-semibold text-primary">
+                  {formatUsd(tour.priceFromUsd)}
+                </span>
+                <span className="ml-1 text-xs text-muted">
+                  / {t("perPerson")}
+                </span>
+              </>
+            ) : (
+              <span className="font-semibold text-accent">
+                {tp("onRequest")}
+              </span>
+            )}
+          </div>
+          <a href="#enquiry" className="tf-btn tf-btn-primary shrink-0 px-6 py-3">
+            {t("bookNow")}
+          </a>
+        </div>
+      </div>
     </article>
   );
 }
