@@ -251,9 +251,9 @@ export default async function TourPage({
                 <table className="w-full text-left text-sm">
                   <thead className="tf-eyebrow bg-surface-muted text-[11px] text-muted">
                     <tr>
-                      <th className="p-4 font-semibold">{t("date")}</th>
-                      <th className="p-4 font-semibold">{t("status")}</th>
-                      <th className="p-4 text-right font-semibold">
+                      <th scope="col" className="p-3 font-semibold sm:p-4">{t("date")}</th>
+                      <th scope="col" className="p-3 font-semibold sm:p-4">{t("status")}</th>
+                      <th scope="col" className="p-3 text-right font-semibold sm:p-4">
                         {t("price")}
                       </th>
                     </tr>
@@ -266,16 +266,16 @@ export default async function TourPage({
                           d.status === "soldout" ? "opacity-55" : ""
                         }`}
                       >
-                        <td className="p-4 font-semibold">
+                        <td className="p-3 font-semibold sm:p-4">
                           {dateFmt.format(new Date(d.date))}
                         </td>
-                        <td className="p-4">
+                        <td className="p-3 sm:p-4">
                           <StatusPill
                             status={d.status}
                             label={statusLabel[d.status]}
                           />
                         </td>
-                        <td className="p-4 text-right text-lg font-semibold text-primary">
+                        <td className="whitespace-nowrap p-3 text-right text-lg font-semibold text-primary sm:p-4">
                           {formatUsd(d.priceUsd)}
                         </td>
                       </tr>
@@ -382,7 +382,7 @@ export default async function TourPage({
           <div className="min-w-0">
             {tour.priceFromUsd !== null ? (
               <>
-                <span className="tf-eyebrow block text-[9px] leading-none text-muted">
+                <span className="tf-eyebrow block text-[10px] leading-none text-muted">
                   {t("startingFrom")}
                 </span>
                 <span className="text-lg font-semibold text-primary">

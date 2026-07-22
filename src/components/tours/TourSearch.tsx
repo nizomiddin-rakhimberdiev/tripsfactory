@@ -46,7 +46,7 @@ export function TourSearch({
   // through the glass pill.
   const fieldClass =
     "flex flex-1 items-center gap-3 rounded-full px-5 py-2.5 text-left text-foreground transition-colors focus-within:bg-white/45 focus-within:outline focus-within:outline-2 focus-within:outline-offset-1 focus-within:outline-primary";
-  const fieldLabel = "tf-eyebrow block text-[9px] leading-none text-muted";
+  const fieldLabel = "tf-eyebrow block text-[10px] leading-none text-muted";
   const fieldSelect =
     "mt-1 w-full cursor-pointer truncate bg-transparent text-sm outline-none";
 

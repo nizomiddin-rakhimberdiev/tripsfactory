@@ -21,35 +21,66 @@ export function CountryBar({
 
   return (
     <div className="sticky top-[60px] z-40 border-b border-border bg-background/92 backdrop-blur-sm">
-      <div className="mx-auto flex max-w-6xl items-center gap-5 overflow-x-auto px-4 py-2.5 text-sm">
-        <span className="flex items-center gap-2 font-semibold">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden>
-            <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1.6" />
-            <path
-              d="M3 12h18M12 3c2.5 2.6 2.5 15.4 0 18M12 3c-2.5 2.6-2.5 15.4 0 18"
-              stroke="currentColor"
-              strokeWidth="1.6"
-            />
-          </svg>
-          {countryName}
-        </span>
-        <a href="#tours" className="whitespace-nowrap text-muted hover:text-primary">
-          {toursLabel}
-        </a>
-        <a href="#cities" className="whitespace-nowrap text-muted hover:text-primary">
-          {citiesLabel}
-        </a>
+      {/*
+        The scrolling area is deliberately an inner element. When it wrapped the
+        whole bar, `overflow-x: auto` forced `overflow-y` to `auto` as well and
+        clipped the country dropdown below — it was cut off at every width.
+      */}
+      <div className="mx-auto flex max-w-6xl items-center gap-5 px-4 py-2.5 text-sm md:px-6">
+        <div className="flex min-w-0 flex-1 items-center gap-5 overflow-x-auto">
+          <span className="flex items-center gap-2 whitespace-nowrap font-semibold">
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              aria-hidden
+              className="shrink-0"
+            >
+              <circle
+                cx="12"
+                cy="12"
+                r="9"
+                stroke="currentColor"
+                strokeWidth="1.6"
+              />
+              <path
+                d="M3 12h18M12 3c2.5 2.6 2.5 15.4 0 18M12 3c-2.5 2.6-2.5 15.4 0 18"
+                stroke="currentColor"
+                strokeWidth="1.6"
+              />
+            </svg>
+            {countryName}
+          </span>
+          <a
+            href="#tours"
+            className="whitespace-nowrap text-muted transition-colors hover:text-primary"
+          >
+            {toursLabel}
+          </a>
+          <a
+            href="#cities"
+            className="whitespace-nowrap text-muted transition-colors hover:text-primary"
+          >
+            {citiesLabel}
+          </a>
+        </div>
 
         {siblings.length > 0 && (
           <div
-            className="relative ml-auto"
+            className="relative shrink-0"
             onMouseEnter={() => setOpen(true)}
             onMouseLeave={() => setOpen(false)}
+            onKeyDown={(e) => {
+              if (e.key === "Escape") setOpen(false);
+            }}
           >
             <button
               type="button"
               onClick={() => setOpen((o) => !o)}
-              className="flex items-center gap-1 whitespace-nowrap text-muted hover:text-foreground"
+              aria-expanded={open}
+              aria-haspopup="true"
+              className="flex items-center gap-1 whitespace-nowrap text-muted transition-colors hover:text-foreground"
             >
               {switchLabel}
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
