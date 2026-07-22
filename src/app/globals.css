@@ -270,6 +270,36 @@ textarea:focus-visible {
   -webkit-backdrop-filter: blur(14px) saturate(140%);
 }
 
+/* ---------------------------------------------------------------------------
+ * Entrance motion.
+ *
+ * Pure CSS scroll-driven animation — no JavaScript, no observers, no hydration
+ * cost. Content is visible by default and only *enhanced* where the browser
+ * supports it, so there is no flash of hidden content and nothing can strand
+ * the page invisible. Elements already on screen at load resolve to their
+ * final state immediately.
+ * ------------------------------------------------------------------------- */
+@keyframes tf-rise {
+  from {
+    opacity: 0;
+    transform: translateY(1.25rem);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .tf-reveal {
+      animation: tf-rise linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 40%;
+    }
+  }
+}
+
 /* Cinematic scrim over hero photography. */
 .tf-hero-scrim {
   background: linear-gradient(

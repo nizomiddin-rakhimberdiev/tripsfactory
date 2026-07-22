@@ -100,7 +100,7 @@ export default async function CountryPage({
       />
 
       {/* Editorial overview */}
-      <article id="overview" className="tf-section scroll-mt-28 px-4 md:px-6">
+      <article id="overview" className="tf-section tf-reveal scroll-mt-28 px-4 md:px-6">
         <header className="mx-auto mb-14 flex max-w-2xl flex-col items-center text-center">
           <p className="tf-eyebrow mb-5 text-xs text-primary">{t("overview")}</p>
           <div className="tf-rule" />
@@ -129,7 +129,7 @@ export default async function CountryPage({
 
       {/* Tours */}
       {countryTours.length > 0 && (
-        <section id="tours" className="tf-section scroll-mt-28 bg-surface">
+        <section id="tours" className="tf-section tf-reveal scroll-mt-28 bg-surface">
           <div className="mx-auto max-w-6xl px-4 md:px-6">
             <p className="tf-eyebrow mb-3 text-xs text-primary">
               {t("curated")}
@@ -150,7 +150,7 @@ export default async function CountryPage({
       {cityList.length > 0 && (
         <section
           id="cities"
-          className="tf-section mx-auto max-w-6xl scroll-mt-28 px-4 md:px-6"
+          className="tf-section tf-reveal mx-auto max-w-6xl scroll-mt-28 px-4 md:px-6"
         >
           <h2 className="tf-display tf-display-2 mb-12">
             {t("citiesTitle")}

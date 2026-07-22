@@ -353,7 +353,7 @@ export default async function TourPage({
 
       {/* Related */}
       {related.length > 0 && (
-        <section className="tf-section mx-auto max-w-6xl px-4 md:px-6">
+        <section className="tf-section tf-reveal mx-auto max-w-6xl px-4 md:px-6">
           <div className="mb-12 flex items-end justify-between gap-6">
             <h2 className="tf-display tf-display-2">{t("relatedTours")}</h2>
             <Link

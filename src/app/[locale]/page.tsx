@@ -86,7 +86,7 @@ export default async function HomePage({
         landing page ships. The three ideas are worth keeping; the furniture
         was not. Set as three editorial columns under hairline rules.
       */}
-      <section className="tf-section bg-surface">
+      <section className="tf-section tf-reveal bg-surface">
         <div className="mx-auto max-w-5xl px-4 md:px-6">
           <div className="grid gap-14 md:grid-cols-3">
             {WHY.map((key) => (
@@ -102,7 +102,7 @@ export default async function HomePage({
 
       {/* Featured Tours */}
       {featured.length > 0 && (
-        <section className="tf-section mx-auto max-w-6xl px-4 md:px-6">
+        <section className="tf-section tf-reveal mx-auto max-w-6xl px-4 md:px-6">
           <div className="mb-12 flex items-end justify-between gap-6">
             <div>
               <p className="tf-eyebrow mb-3 text-xs text-primary">
@@ -127,7 +127,7 @@ export default async function HomePage({
 
       {/* Explore Destinations — asymmetric editorial composition */}
       {countryList.length > 0 && (
-        <section className="tf-section bg-surface">
+        <section className="tf-section tf-reveal bg-surface">
           <div className="mx-auto max-w-6xl px-4 md:px-6">
             <p className="tf-eyebrow mb-3 text-xs text-primary">
               {t("destinationsEyebrow")}
@@ -164,7 +164,7 @@ export default async function HomePage({
       )}
 
       {/* Closing CTA — tailor-made */}
-      <section className="tf-section mx-auto max-w-6xl px-4 md:px-6">
+      <section className="tf-section tf-reveal mx-auto max-w-6xl px-4 md:px-6">
         <div className="relative flex min-h-[440px] items-center justify-center overflow-hidden rounded-3xl px-6 py-20 text-center">
           <Image
             src={ctaImage}
