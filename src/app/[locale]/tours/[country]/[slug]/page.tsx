@@ -203,7 +203,7 @@ export default async function TourPage({
             <div className="mb-12 grid gap-6 md:grid-cols-2">
               {tour.included.length > 0 && (
                 <div className="tf-card p-7">
-                  <h3 className="tf-headline mb-5 flex items-center gap-2 text-lg">
+                  <h3 className="mb-5 flex items-center gap-2 text-lg font-semibold">
                     <IconCheckCircle className="text-xl text-primary" />
                     {t("included")}
                   </h3>
@@ -219,7 +219,7 @@ export default async function TourPage({
               )}
               {tour.excluded.length > 0 && (
                 <div className="tf-card p-7">
-                  <h3 className="tf-headline mb-5 flex items-center gap-2 text-lg">
+                  <h3 className="mb-5 flex items-center gap-2 text-lg font-semibold">
                     <IconXCircle className="text-xl text-secondary" />
                     {t("excluded")}
                   </h3>

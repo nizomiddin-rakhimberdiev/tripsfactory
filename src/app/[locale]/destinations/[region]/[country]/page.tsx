@@ -169,7 +169,7 @@ export default async function CountryPage({
                 </div>
                 <div className="p-7">
                   <div className="flex items-baseline justify-between gap-3">
-                    <h3 className="tf-headline text-xl">{city.name}</h3>
+                    <h3 className="tf-headline text-2xl">{city.name}</h3>
                     <span className="tf-eyebrow shrink-0 rounded-full bg-surface-muted px-3 py-1 text-[10px] text-muted">
                       {t("nights", { count: city.recommendedNights })}
                     </span>

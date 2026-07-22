@@ -54,7 +54,7 @@ export async function TourCard({ tour }: { tour: Tour }) {
             {t("days", { count: tour.durationDays })}
           </span>
         </div>
-        <h3 className="tf-headline mb-4 text-lg">{tour.title}</h3>
+        <h3 className="tf-headline mb-4 text-[1.375rem]">{tour.title}</h3>
 
         <div className="mt-auto flex items-end justify-between border-t border-border pt-4">
           <div>

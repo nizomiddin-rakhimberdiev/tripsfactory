@@ -31,7 +31,7 @@ export function LeadForm({ tourSlug }: { tourSlug?: string }) {
 
   if (status === "success") {
     return (
-      <p className="tf-headline rounded-2xl border border-primary/25 bg-primary/5 p-10 text-center text-xl text-primary">
+      <p className="tf-headline rounded-2xl border border-primary/25 bg-primary/5 p-10 text-center text-2xl text-primary">
         {t("success")}
       </p>
     );

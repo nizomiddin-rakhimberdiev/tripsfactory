@@ -33,7 +33,7 @@ export default async function GuideIndexPage({
               className="tf-card tf-card-interactive group flex items-center gap-5 p-7"
             >
               <div className="flex-1">
-                <h2 className="tf-headline text-xl">{g.title}</h2>
+                <h2 className="tf-headline text-2xl">{g.title}</h2>
                 <p className="mt-1 line-clamp-2 text-sm text-muted">
                   {g.sections[0]?.body}
                 </p>

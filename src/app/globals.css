@@ -154,8 +154,9 @@ textarea:focus-visible {
  * Typography — the primary luxury device.
  * ------------------------------------------------------------------------- */
 
-/* Editorial display face. Only ever set large — it is high-contrast and
-   loses its elegance below ~20px. */
+/* Editorial display face. HARD RULE: never set below 22px (text-[1.375rem]).
+   It is high-contrast and delicate; at 18–20px it turns spindly and costs
+   legibility — especially in Cyrillic. Smaller headings use the sans at 600. */
 .tf-display {
   font-family: var(--font-display), Georgia, serif;
   font-weight: 600;
