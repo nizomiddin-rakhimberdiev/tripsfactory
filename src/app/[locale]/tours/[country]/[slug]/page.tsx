@@ -146,7 +146,7 @@ export default async function TourPage({
         <p className="tf-eyebrow mb-4 text-xs text-primary">
           {t(`type_${tour.type}`)} · {t("days", { count: tour.durationDays })}
         </p>
-        <h1 className="tf-display max-w-4xl text-4xl sm:text-6xl">
+        <h1 className="tf-display tf-display-2 max-w-4xl">
           {tour.title}
         </h1>
       </header>
@@ -345,7 +345,7 @@ export default async function TourPage({
       {related.length > 0 && (
         <section className="tf-section mx-auto max-w-6xl px-4 md:px-6">
           <div className="mb-12 flex items-end justify-between gap-6">
-            <h2 className="tf-display text-4xl sm:text-5xl">
+            <h2 className="tf-display tf-display-2">
               {t("relatedTours")}
             </h2>
             <Link href="/tours" className="tf-link hidden shrink-0 text-sm sm:block">

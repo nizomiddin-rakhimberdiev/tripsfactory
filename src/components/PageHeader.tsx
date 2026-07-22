@@ -18,7 +18,7 @@ export function PageHeader({
       {eyebrow && (
         <p className="tf-eyebrow mb-3 text-xs text-primary">{eyebrow}</p>
       )}
-      <h1 className="tf-display text-4xl sm:text-5xl">{title}</h1>
+      <h1 className="tf-display tf-display-2">{title}</h1>
       {subtitle && (
         <p
           className={`mt-4 max-w-2xl text-lg text-muted ${center ? "mx-auto" : ""}`}

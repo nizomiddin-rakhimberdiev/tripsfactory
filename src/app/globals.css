@@ -170,6 +170,39 @@ textarea:focus-visible {
   line-height: 1.18;
 }
 
+/* Two display tiers, fluid rather than stepped. Type that grows with the
+   viewport reads as bespoke; type that jumps at breakpoints reads as a
+   template. Replaces four ad-hoc scales and two magic pixel values. */
+.tf-display-1 {
+  font-size: clamp(2.75rem, 7vw, 5.5rem);
+}
+.tf-display-2 {
+  font-size: clamp(2.125rem, 4.2vw, 3.25rem);
+}
+
+/* Hero heights. `svh` is the small-viewport unit: unlike `vh` it excludes
+   mobile browser chrome, so the hero neither overflows the visible area nor
+   lurches when the address bar collapses. The `vh` line is the fallback for
+   browsers without `svh` — the cascade handles the rest. */
+.tf-hero-full {
+  min-height: 88vh;
+  min-height: 88svh;
+}
+.tf-hero-tall {
+  min-height: 72vh;
+  min-height: 72svh;
+}
+@media (min-width: 768px) {
+  .tf-hero-tall {
+    min-height: 82vh;
+    min-height: 82svh;
+  }
+}
+.tf-panel-max {
+  max-height: 80vh;
+  max-height: 80svh;
+}
+
 /* Small uppercase label. Used ONLY for short section eyebrows — never for
    navigation or body, where caps hurt legibility and do nothing in ja/zh. */
 .tf-eyebrow {

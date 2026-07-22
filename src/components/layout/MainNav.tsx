@@ -211,7 +211,7 @@ export function MainNav({
       {mobileOpen && (
         <div
           onClick={() => setMobileOpen(false)}
-          className="absolute inset-x-0 top-full max-h-[80vh] overflow-auto border-b border-border bg-surface p-4 shadow-lg md:hidden"
+          className="tf-panel-max absolute inset-x-0 top-full overflow-auto border-b border-border bg-surface p-4 shadow-lg md:hidden"
         >
           <p className="tf-eyebrow mb-1 text-[11px] text-muted">{labels.tours}</p>
           <div className="mb-4 flex flex-col gap-1">

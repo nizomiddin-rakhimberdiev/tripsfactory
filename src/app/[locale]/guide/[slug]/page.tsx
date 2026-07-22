@@ -38,7 +38,7 @@ export default async function GuidePage({
 
   return (
     <article className="tf-section mx-auto max-w-3xl px-4 md:px-6">
-      <h1 className="tf-display mb-10 text-4xl sm:text-5xl">{guide.title}</h1>
+      <h1 className="tf-display tf-display-2 mb-10">{guide.title}</h1>
       {guide.sections.map((s) => (
         <section key={s.heading} className="mb-10">
           <h2 className="tf-headline mb-3 text-2xl">{s.heading}</h2>

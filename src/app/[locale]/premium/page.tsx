@@ -29,7 +29,7 @@ export default async function PremiumPage({
   return (
     <div className="bg-background text-foreground">
       {/* Cinematic hero */}
-      <section className="relative flex min-h-[90vh] items-center justify-center overflow-hidden">
+      <section className="tf-hero-full relative flex items-center justify-center overflow-hidden">
         <Image
           src={site.premiumHero.image}
           alt=""
@@ -43,7 +43,7 @@ export default async function PremiumPage({
           <p className="tf-eyebrow mb-6 text-xs tracking-[0.3em] text-primary">
             {t("invitation")}
           </p>
-          <h1 className="tf-display text-5xl sm:text-7xl">
+          <h1 className="tf-display tf-display-1">
             {site.premiumHero.title}
           </h1>
           <p className="mx-auto mt-6 max-w-xl text-lg text-muted">
@@ -83,7 +83,7 @@ export default async function PremiumPage({
               <p className="tf-eyebrow mb-3 text-xs text-primary">
                 {t("journeysEyebrow")}
               </p>
-              <h2 className="tf-display text-4xl sm:text-5xl">
+              <h2 className="tf-display tf-display-2">
                 {t("journeys")}
               </h2>
             </div>
@@ -133,7 +133,7 @@ export default async function PremiumPage({
           <p className="tf-eyebrow mb-6 text-xs tracking-[0.3em] text-primary">
             {t("navLabel")}
           </p>
-          <h2 className="tf-display max-w-2xl text-3xl sm:text-4xl">
+          <h2 className="tf-display tf-display-2 max-w-2xl">
             {t("closingTitle")}
           </h2>
           <a

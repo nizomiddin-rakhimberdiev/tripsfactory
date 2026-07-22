@@ -69,7 +69,7 @@ export default async function CountryPage({
   return (
     <div>
       {/* Cinematic hero */}
-      <section className="relative flex min-h-[70vh] items-end justify-center overflow-hidden md:min-h-[80vh]">
+      <section className="tf-hero-tall relative flex items-end justify-center overflow-hidden">
         <Image
           src={c.heroImage}
           alt={c.name}
@@ -85,7 +85,7 @@ export default async function CountryPage({
               {regionName}
             </p>
           )}
-          <h1 className="tf-display text-6xl sm:text-8xl lg:text-[7rem]">
+          <h1 className="tf-display tf-display-1">
             {c.name}
           </h1>
         </div>
@@ -134,7 +134,7 @@ export default async function CountryPage({
             <p className="tf-eyebrow mb-3 text-xs text-primary">
               {t("curated")}
             </p>
-            <h2 className="tf-display mb-12 text-4xl sm:text-5xl">
+            <h2 className="tf-display tf-display-2 mb-12">
               {t("toursIn", { country: c.name })}
             </h2>
             <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
@@ -152,7 +152,7 @@ export default async function CountryPage({
           id="cities"
           className="tf-section mx-auto max-w-6xl scroll-mt-28 px-4 md:px-6"
         >
-          <h2 className="tf-display mb-12 text-4xl sm:text-5xl">
+          <h2 className="tf-display tf-display-2 mb-12">
             {t("citiesTitle")}
           </h2>
           <div className="grid gap-8 md:grid-cols-2">

@@ -67,7 +67,7 @@ export default async function HomePage({
   return (
     <>
       {/* Hero */}
-      <section className="relative flex min-h-[88vh] items-center justify-center overflow-hidden">
+      <section className="tf-hero-full relative flex items-center justify-center overflow-hidden">
         <Image
           src={site.hero.image}
           alt=""
@@ -81,7 +81,7 @@ export default async function HomePage({
           <p className="tf-eyebrow mb-6 text-xs text-white/85">
             {t("heroEyebrow")}
           </p>
-          <h1 className="tf-display text-5xl sm:text-7xl lg:text-[5.5rem]">
+          <h1 className="tf-display tf-display-1">
             {site.hero.title}
           </h1>
           <p className="mx-auto mt-7 max-w-xl text-lg leading-relaxed text-white/90">
@@ -135,7 +135,7 @@ export default async function HomePage({
               <p className="tf-eyebrow mb-3 text-xs text-primary">
                 {t("featuredEyebrow")}
               </p>
-              <h2 className="tf-display text-4xl sm:text-5xl">
+              <h2 className="tf-display tf-display-2">
                 {t("featuredTours")}
               </h2>
             </div>
@@ -158,7 +158,7 @@ export default async function HomePage({
             <p className="tf-eyebrow mb-3 text-xs text-primary">
               {t("featuredEyebrow")}
             </p>
-            <h2 className="tf-display mb-12 text-4xl sm:text-5xl">
+            <h2 className="tf-display tf-display-2 mb-12">
               {t("exploreDestinations")}
             </h2>
             <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 lg:auto-rows-[26rem]">
@@ -198,7 +198,7 @@ export default async function HomePage({
           />
           <div className="absolute inset-0 bg-primary/60" />
           <div className="relative z-10 max-w-2xl">
-            <h2 className="tf-display text-4xl text-white sm:text-5xl">
+            <h2 className="tf-display tf-display-2 text-white">
               {t("tailorTitle")}
             </h2>
             <p className="mx-auto mt-5 max-w-xl text-lg leading-relaxed text-white/90">
