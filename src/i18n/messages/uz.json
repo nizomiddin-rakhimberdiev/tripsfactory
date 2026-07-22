@@ -144,6 +144,7 @@
     "prevImage": "Oldingi rasm",
     "nextImage": "Keyingi rasm",
     "goToImage": "{number}-rasmga o'tish",
-    "skipToContent": "Asosiy qismga o'tish"
+    "skipToContent": "Asosiy qismga o'tish",
+    "language": "Til"
   }
 }

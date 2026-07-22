@@ -144,6 +144,7 @@
     "prevImage": "Vorheriges Bild",
     "nextImage": "Nächstes Bild",
     "goToImage": "Zu Bild {number} springen",
-    "skipToContent": "Zum Inhalt springen"
+    "skipToContent": "Zum Inhalt springen",
+    "language": "Sprache"
   }
 }
