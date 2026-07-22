@@ -138,5 +138,10 @@
   "contact": {
     "title": "Biz bilan bog'laning",
     "subtitle": "Sayohatingiz haqida yozing — 24 soat ichida javob beramiz."
+  },
+  "common": {
+    "prevImage": "Oldingi rasm",
+    "nextImage": "Keyingi rasm",
+    "goToImage": "{number}-rasmga o'tish"
   }
 }

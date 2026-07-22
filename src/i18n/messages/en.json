@@ -138,5 +138,10 @@
   "contact": {
     "title": "Contact Us",
     "subtitle": "Tell us about your trip — we reply within 24 hours."
+  },
+  "common": {
+    "prevImage": "Previous image",
+    "nextImage": "Next image",
+    "goToImage": "Go to image {number}"
   }
 }

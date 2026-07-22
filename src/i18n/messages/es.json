@@ -138,5 +138,10 @@
   "contact": {
     "title": "Contáctenos",
     "subtitle": "Cuéntenos sobre su viaje — respondemos en 24 horas."
+  },
+  "common": {
+    "prevImage": "Imagen anterior",
+    "nextImage": "Imagen siguiente",
+    "goToImage": "Ir a la imagen {number}"
   }
 }
