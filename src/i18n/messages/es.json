@@ -33,7 +33,8 @@
     "viewAllTours": "Ver todos los tours",
     "tailorTitle": "Comienza tu viaje a medida",
     "tailorText": "Trabaja con nuestros planificadores expertos para crear un itinerario único para ti.",
-    "tailorCta": "Empezar a planificar"
+    "tailorCta": "Empezar a planificar",
+    "destinationsEyebrow": "Dónde viajamos"
   },
   "tours": {
     "title": "Nuestros tours",

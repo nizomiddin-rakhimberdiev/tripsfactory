@@ -59,7 +59,7 @@ export default async function PremiumPage({
       </section>
 
       {/* Pillars */}
-      <section className="mx-auto max-w-6xl px-4 py-24 md:px-6">
+      <section className="tf-section mx-auto max-w-6xl px-4 md:px-6">
         <div className="grid gap-12 md:grid-cols-3">
           {PILLARS.map((key, i) => (
             <div key={key} className="border-t border-primary/25 pt-6">
@@ -77,7 +77,7 @@ export default async function PremiumPage({
 
       {/* Extraordinary expeditions */}
       {premiumTours.length > 0 && (
-        <section id="journeys" className="scroll-mt-24 px-4 py-24">
+        <section id="journeys" className="tf-section scroll-mt-24 px-4">
           <div className="mx-auto max-w-6xl">
             <div className="mb-14 text-center">
               <p className="tf-eyebrow mb-3 text-xs text-primary">
@@ -100,7 +100,7 @@ export default async function PremiumPage({
                       alt={tour.title}
                       fill
                       sizes="(max-width: 768px) 100vw, 50vw"
-                      className="object-cover transition-transform duration-700 group-hover:scale-105"
+                      className="object-cover transition-transform duration-[1200ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.05]"
                     />
                   </div>
                   <p className="tf-eyebrow mt-5 text-[11px] text-primary">
@@ -128,7 +128,7 @@ export default async function PremiumPage({
       )}
 
       {/* Enquire privately */}
-      <section id="enquire" className="px-4 py-24">
+      <section id="enquire" className="tf-section px-4">
         <div className="mx-auto flex max-w-4xl flex-col items-center border border-primary/15 px-6 py-16 text-center md:py-24">
           <p className="tf-eyebrow mb-6 text-xs tracking-[0.3em] text-primary">
             {t("navLabel")}

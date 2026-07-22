@@ -33,7 +33,8 @@
     "viewAllTours": "查看所有行程",
     "tailorTitle": "开启您的专属定制之旅",
     "tailorText": "与我们的专业策划师一起，打造独一无二的专属行程。",
-    "tailorCta": "开始规划"
+    "tailorCta": "开始规划",
+    "destinationsEyebrow": "我们的目的地"
   },
   "tours": {
     "title": "旅游线路",

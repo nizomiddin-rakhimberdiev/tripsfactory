@@ -33,7 +33,8 @@
     "viewAllTours": "すべてのツアーを見る",
     "tailorTitle": "オーダーメイドの旅を始めましょう",
     "tailorText": "専門プランナーと一緒に、あなただけの旅程を作り上げます。",
-    "tailorCta": "プランニングを始める"
+    "tailorCta": "プランニングを始める",
+    "destinationsEyebrow": "旅する場所"
   },
   "tours": {
     "title": "ツアー一覧",

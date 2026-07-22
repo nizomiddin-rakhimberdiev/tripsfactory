@@ -33,7 +33,8 @@
     "viewAllTours": "Alle Touren ansehen",
     "tailorTitle": "Beginnen Sie Ihre maßgeschneiderte Reise",
     "tailorText": "Gestalten Sie gemeinsam mit unseren Experten eine Reiseroute, die einzigartig ist.",
-    "tailorCta": "Planung beginnen"
+    "tailorCta": "Planung beginnen",
+    "destinationsEyebrow": "Wohin wir reisen"
   },
   "tours": {
     "title": "Unsere Touren",

@@ -33,7 +33,8 @@
     "viewAllTours": "Barcha turlarni ko'rish",
     "tailorTitle": "O'zingizga xos sayohatni boshlang",
     "tailorText": "Mutaxassis rejalashtiruvchilarimiz bilan birga faqat sizga mos marshrut yarating.",
-    "tailorCta": "Rejalashtirishni boshlash"
+    "tailorCta": "Rejalashtirishni boshlash",
+    "destinationsEyebrow": "Biz sayohat qiladigan yo'nalishlar"
   },
   "tours": {
     "title": "Bizning turlar",

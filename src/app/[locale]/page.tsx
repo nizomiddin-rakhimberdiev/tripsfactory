@@ -156,7 +156,7 @@ export default async function HomePage({
         <section className="tf-section bg-surface">
           <div className="mx-auto max-w-6xl px-4 md:px-6">
             <p className="tf-eyebrow mb-3 text-xs text-primary">
-              {t("featuredEyebrow")}
+              {t("destinationsEyebrow")}
             </p>
             <h2 className="tf-display tf-display-2 mb-12">
               {t("exploreDestinations")}
