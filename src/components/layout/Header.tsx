@@ -46,12 +46,10 @@ export async function Header() {
         the hamburger — seven items will not fit a tablet without crowding.
       */}
       <div className="relative mx-auto flex max-w-6xl items-center gap-4 px-4 py-3 md:px-6 lg:grid lg:grid-cols-[1fr_auto_1fr]">
-        <Link
-          href="/"
-          aria-label="TripsFactory"
-          className="shrink-0 lg:justify-self-start"
-        >
-          <Wordmark />
+        {/* No aria-label: the lockup's alt text already names the brand, and a
+            label here would make screen readers announce it twice. */}
+        <Link href="/" className="shrink-0 lg:justify-self-start">
+          <Wordmark priority />
         </Link>
         <MainNav
           labels={labels}

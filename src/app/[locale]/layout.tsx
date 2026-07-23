@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Cormorant_Garamond, Teko, Rajdhani } from "next/font/google";
+import { Inter, Cormorant_Garamond } from "next/font/google";
 import { notFound } from "next/navigation";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
@@ -18,22 +18,6 @@ const inter = Inter({
 // Editorial display face. Chosen over Playfair for two reasons: it carries
 // Cyrillic (so ru/uz headings keep the brand voice instead of falling back to
 // Inter), and it reads as couture rather than as a default web serif.
-// Wordmark faces, matching the logo artwork: Teko for the tall ultra-condensed
-// "TRIPS", Rajdhani for the squared geometric "FACTORY". Latin subset only —
-// a brand name is never transliterated, so the Cyrillic cut would be dead
-// weight on every page.
-const teko = Teko({
-  variable: "--font-wordmark",
-  subsets: ["latin"],
-  weight: ["600"],
-});
-
-const rajdhani = Rajdhani({
-  variable: "--font-wordmark-sub",
-  subsets: ["latin"],
-  weight: ["500"],
-});
-
 const cormorant = Cormorant_Garamond({
   variable: "--font-cormorant",
   subsets: ["latin", "latin-ext", "cyrillic"],
@@ -69,7 +53,7 @@ export default async function LocaleLayout({
   return (
     <html
       lang={locale}
-      className={`${inter.variable} ${cormorant.variable} ${teko.variable} ${rajdhani.variable} h-full antialiased`}
+      className={`${inter.variable} ${cormorant.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
         <NextIntlClientProvider>
