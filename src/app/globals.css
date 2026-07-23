@@ -161,422 +161,452 @@ textarea:focus-visible {
 /* Editorial display face. HARD RULE: never set below 22px (text-[1.375rem]).
    It is high-contrast and delicate; at 18–20px it turns spindly and costs
    legibility — especially in Cyrillic. Smaller headings use the sans at 600. */
-.tf-display {
-  font-family: var(--font-display), Georgia, serif;
-  font-weight: 600;
-  letter-spacing: -0.015em;
-  line-height: 1.05;
-}
-.tf-headline {
-  font-family: var(--font-display), Georgia, serif;
-  font-weight: 600;
-  letter-spacing: -0.01em;
-  line-height: 1.18;
-}
-
-/* Two display tiers, fluid rather than stepped. Type that grows with the
-   viewport reads as bespoke; type that jumps at breakpoints reads as a
-   template. Replaces four ad-hoc scales and two magic pixel values. */
-.tf-display-1 {
-  font-size: clamp(2.75rem, 7vw, 5.5rem);
-}
-.tf-display-2 {
-  font-size: clamp(2.125rem, 4.2vw, 3.25rem);
-}
-
-/* Hero heights. `svh` is the small-viewport unit: unlike `vh` it excludes
-   mobile browser chrome, so the hero neither overflows the visible area nor
-   lurches when the address bar collapses. The `vh` line is the fallback for
-   browsers without `svh` — the cascade handles the rest. */
-/* A 16:9 photo poured into a 9:19 phone viewport has to scale ~4x to cover,
- * which throws away the sides — the Registan arrived as one arch. A shorter
- * box on small screens keeps the composition; full height returns at md. */
-.tf-hero-full {
-  min-height: 62vh;
-  min-height: 62svh;
-}
-@media (min-width: 768px) {
-  .tf-hero-full {
-    min-height: 88vh;
-    min-height: 88svh;
-  }
-}
-.tf-hero-tall {
-  min-height: 72vh;
-  min-height: 72svh;
-}
-@media (min-width: 768px) {
-  .tf-hero-tall {
-    min-height: 82vh;
-    min-height: 82svh;
-  }
-}
-.tf-panel-max {
-  max-height: 80vh;
-  max-height: 80svh;
-}
-
-/* Small uppercase label. Used ONLY for short section eyebrows — never for
-   navigation or body, where caps hurt legibility and do nothing in ja/zh. */
-.tf-eyebrow {
-  font-weight: 600;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-}
-
-/* Introductory paragraph — larger, calmer, set on a comfortable measure. */
-.tf-lead {
-  font-size: 1.1875rem;
-  line-height: 1.75;
-  color: var(--muted);
-}
-
-/* Comfortable reading measure for long-form copy. */
-.tf-measure {
-  max-width: 68ch;
-}
-
-/* Consistent vertical rhythm for page sections. */
-.tf-section {
-  padding-block: 5rem;
-}
-@media (min-width: 768px) {
-  .tf-section {
-    padding-block: 7rem;
-  }
-}
-
 /* ---------------------------------------------------------------------------
- * Surfaces
- * ------------------------------------------------------------------------- */
-
-/* Translucent white card — the warm ground tints through, which is what makes
-   it feel like glass. Deliberately NO backdrop-filter: cards sit on flat ivory
-   or sand, so a blur has nothing to sample and only costs GPU time on every
-   card in a scrolling grid. Blur is reserved for surfaces that content
-   actually passes beneath (.tf-glass). */
-.tf-card {
-  background: var(--card);
-  border-radius: var(--radius-2xl);
-  box-shadow: var(--shadow-soft);
-}
-
-/* Gentle lift — a slow rise, never a pop. Guarded to pointer devices: on iOS
-   a tap leaves :hover stuck, so a touch user would be left with a card frozen
-   mid-lift. */
-.tf-card-interactive {
-  transition:
-    transform 0.5s var(--ease-luxe),
-    box-shadow 0.5s var(--ease-luxe);
-}
-@media (hover: hover) {
-  .tf-card-interactive:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-lift);
-  }
-}
-
-/* Frosted chrome — reserved for navigation, search and the booking card. */
-.tf-glass {
-  background: color-mix(in srgb, var(--background) 78%, transparent);
-  backdrop-filter: blur(14px) saturate(140%);
-  -webkit-backdrop-filter: blur(14px) saturate(140%);
-}
-
-/* ---------------------------------------------------------------------------
- * Entrance motion.
+ * Everything below is a component class, and it lives in @layer components on
+ * purpose.
  *
- * Pure CSS scroll-driven animation — no JavaScript, no observers, no hydration
- * cost. Content is visible by default and only *enhanced* where the browser
- * supports it, so there is no flash of hidden content and nothing can strand
- * the page invisible. Elements already on screen at load resolve to their
- * final state immediately.
+ * Unlayered CSS beats every layered rule, so while these sat outside a layer
+ * they silently outranked every Tailwind utility — .tf-btn's padding won over
+ * `md:p-0`, which squeezed the search button's content box to zero and erased
+ * the icon inside it. Layered here, utilities come last and override as they
+ * are meant to.
  * ------------------------------------------------------------------------- */
-@keyframes tf-rise {
-  from {
-    opacity: 0;
-    transform: translateY(1.25rem);
+@layer components {
+  .tf-display {
+    font-family: var(--font-display), Georgia, serif;
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    line-height: 1.05;
   }
-  to {
-    opacity: 1;
-    transform: none;
+  .tf-headline {
+    font-family: var(--font-display), Georgia, serif;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    line-height: 1.18;
   }
-}
 
-@media (prefers-reduced-motion: no-preference) {
-  @supports (animation-timeline: view()) {
-    .tf-reveal {
-      animation: tf-rise linear both;
-      animation-timeline: view();
-      animation-range: entry 0% entry 40%;
+  /* Two display tiers, fluid rather than stepped. Type that grows with the
+     viewport reads as bespoke; type that jumps at breakpoints reads as a
+     template. Replaces four ad-hoc scales and two magic pixel values. */
+  .tf-display-1 {
+    font-size: clamp(2.75rem, 7vw, 5.5rem);
+  }
+  .tf-display-2 {
+    font-size: clamp(2.125rem, 4.2vw, 3.25rem);
+  }
+
+  /* Hero heights. `svh` is the small-viewport unit: unlike `vh` it excludes
+     mobile browser chrome, so the hero neither overflows the visible area nor
+     lurches when the address bar collapses. The `vh` line is the fallback for
+     browsers without `svh` — the cascade handles the rest. */
+  /* A 16:9 photo poured into a 9:19 phone viewport has to scale ~4x to cover,
+   * which throws away the sides — the Registan arrived as one arch. A shorter
+   * box on small screens keeps the composition; full height returns at md. */
+  .tf-hero-full {
+    min-height: 62vh;
+    min-height: 62svh;
+  }
+  @media (min-width: 768px) {
+    .tf-hero-full {
+      min-height: 88vh;
+      min-height: 88svh;
     }
   }
-}
-
-/* Cinematic scrim over hero photography.
- *
- * Tinted with the logo's deep maroon rather than a neutral brown, and — the
- * point of the rewrite — no longer thinnest where the words sit. It used to
- * fall to 10% at 38% height, which is exactly where the headline lands, so
- * white type had to fight a bright sky. A radial pool now sinks the middle,
- * and the linear pass holds the edges. */
-.tf-hero-scrim {
-  background:
-    radial-gradient(
-      75% 60% at 50% 48%,
-      rgb(45 8 12 / 0.58) 0%,
-      rgb(45 8 12 / 0.28) 55%,
-      transparent 100%
-    ),
-    linear-gradient(
-      180deg,
-      rgb(45 8 12 / 0.5) 0%,
-      rgb(45 8 12 / 0.28) 40%,
-      rgb(45 8 12 / 0.78) 100%
-    );
-}
-
-/* Hairline gold rule — an editorial full stop under section eyebrows. */
-.tf-rule {
-  height: 2px;
-  width: 3rem;
-  border-radius: 999px;
-  background: var(--accent-soft);
-}
-
-/* ---------------------------------------------------------------------------
- * Buttons — soft, warm, unhurried. No scale-punch on press.
- * ------------------------------------------------------------------------- */
-.tf-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  border-radius: 999px;
-  padding: 0.9375rem 2rem;
-  font-weight: 500;
-  /* Not 1 — at that value descenders in longer localised labels (German,
-     Uzbek) sit on the edge of the text box and read as clipped. */
-  line-height: 1.15;
-  transition:
-    background-color 0.35s var(--ease-luxe),
-    color 0.35s var(--ease-luxe),
-    box-shadow 0.45s var(--ease-luxe),
-    transform 0.45s var(--ease-luxe);
-}
-@media (hover: hover) {
-  .tf-btn:hover {
-    transform: translateY(-2px);
+  .tf-hero-tall {
+    min-height: 72vh;
+    min-height: 72svh;
   }
-}
+  @media (min-width: 768px) {
+    .tf-hero-tall {
+      min-height: 82vh;
+      min-height: 82svh;
+    }
+  }
+  .tf-panel-max {
+    max-height: 80vh;
+    max-height: 80svh;
+  }
 
-.tf-btn-primary {
-  background: var(--primary);
-  color: var(--primary-foreground);
-  box-shadow: 0 2px 10px color-mix(in srgb, var(--primary) 22%, transparent);
-}
-.tf-btn-primary:hover {
-  background: var(--primary-hover);
-  box-shadow: 0 10px 28px color-mix(in srgb, var(--primary) 28%, transparent);
-}
-/* Touch feedback, since these devices get no hover state at all. */
-.tf-btn-primary:active {
-  background: var(--primary-hover);
-}
+  /* Small uppercase label. Used ONLY for short section eyebrows — never for
+     navigation or body, where caps hurt legibility and do nothing in ja/zh. */
+  /* Card titles carry the display face — but only where it earns its keep.
+     Two cards abreast on a phone leave about 163px, and Cormorant below its
+     22px floor turns spindly, worst of all in Cyrillic. So the sans holds the
+     small size and the display face takes over at sm.
 
-/* Quiet button for secondary actions on light ground. */
-.tf-btn-ghost {
-  border: 1px solid var(--border);
-  color: var(--foreground);
-  background: transparent;
-}
-.tf-btn-ghost:hover {
-  border-color: var(--primary);
-  color: var(--primary);
-}
+     This is a class rather than `sm:tf-headline` in the markup: Tailwind only
+     generates variants for utilities it knows about, so a variant prefix on a
+     hand-written class silently produces nothing at all. */
+  .tf-card-title {
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.375;
+  }
+  @media (min-width: 640px) {
+    .tf-card-title {
+      font-family: var(--font-display), Georgia, serif;
+      font-size: 1.375rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      line-height: 1.18;
+    }
+  }
 
-/* Outline button over photography. */
-.tf-btn-onimage {
-  border: 1px solid rgb(255 255 255 / 0.7);
-  color: #fff;
-  background: rgb(255 255 255 / 0.06);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-}
-.tf-btn-onimage:hover {
-  background: rgb(255 255 255 / 0.16);
-}
+  .tf-eyebrow {
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
 
-/* Underlined text link used for "view all" style actions. */
-.tf-link {
-  color: var(--primary);
-  border-bottom: 1px solid color-mix(in srgb, var(--primary) 45%, transparent);
-  padding-bottom: 2px;
-  transition: border-color 0.35s var(--ease-luxe);
-}
-.tf-link:hover {
-  border-bottom-color: var(--primary);
-}
+  /* Introductory paragraph — larger, calmer, set on a comfortable measure. */
+  .tf-lead {
+    font-size: 1.1875rem;
+    line-height: 1.75;
+    color: var(--muted);
+  }
 
-/* ---------------------------------------------------------------------------
- * Rich Markdown content (country / tour long-form copy)
- * ------------------------------------------------------------------------- */
-.tf-prose {
-  color: var(--foreground);
-  line-height: 1.8;
-  max-width: 68ch;
-}
-.tf-prose > * + * {
-  margin-top: 1.25rem;
-}
-.tf-prose h1,
-.tf-prose h2,
-.tf-prose h3 {
-  font-family: var(--font-display), Georgia, serif;
-  font-weight: 600;
-  line-height: 1.2;
-  letter-spacing: -0.01em;
-  margin-top: 2.75rem;
-  color: var(--foreground);
-}
-.tf-prose h1 {
-  font-size: 2.25rem;
-}
-.tf-prose h2 {
-  font-size: 1.875rem;
-}
-.tf-prose h3 {
-  font-size: 1.5rem;
-}
-.tf-prose p,
-.tf-prose li {
-  color: var(--muted);
-}
-.tf-prose a {
-  color: var(--primary);
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
-.tf-prose ul,
-.tf-prose ol {
-  padding-left: 1.5rem;
-}
-.tf-prose ul {
-  list-style: disc;
-}
-.tf-prose ol {
-  list-style: decimal;
-}
-.tf-prose img {
-  border-radius: var(--radius-2xl);
-  max-width: 100%;
-  height: auto;
-  margin: 2.5rem 0;
-}
-.tf-prose blockquote {
-  border-left: 2px solid var(--accent-soft);
-  padding-left: 1.5rem;
-  margin-block: 2.5rem;
-  font-family: var(--font-display), Georgia, serif;
-  font-size: 1.5rem;
-  line-height: 1.5;
-  font-style: italic;
-  color: var(--foreground);
-}
-.tf-prose strong {
-  color: var(--foreground);
-  font-weight: 600;
-}
-.tf-prose table {
-  width: 100%;
-  border-collapse: collapse;
-}
-.tf-prose th,
-.tf-prose td {
-  border: 1px solid var(--border);
-  padding: 0.625rem 0.875rem;
-  text-align: left;
-}
+  /* Comfortable reading measure for long-form copy. */
+  .tf-measure {
+    max-width: 68ch;
+  }
 
-/* ---------------------------------------------------------------------------
- * Premium link — a gilded pill, not a menu item.
- *
- * Premium is a different product, so it gets the one piece of chrome the rest
- * of the navigation is denied: a ring. At rest it is a thin gold hairline. On
- * hover it fills with the logo's own gradient — deep maroon falling to brand
- * gold — and the label lifts to a pale champagne.
- *
- * The fill lives on a pseudo-element because CSS cannot transition a
- * background-image; opacity can, so the gradient dissolves in rather than
- * snapping. `isolate` keeps the -1 layer inside the pill.
- *
- * Colours are measured, not picked. The gold end of the gradient is the worst
- * case for the label: #f5e6c8 on #8c5e22 is 4.56:1, clearing AA. A more
- * saturated champagne (#e8c489) drops to 3.39:1 there and was rejected.
- * ------------------------------------------------------------------------- */
-.tf-premium {
-  position: relative;
-  isolation: isolate;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.55rem;
-  border-radius: var(--radius-full, 9999px);
-  border: 1px solid color-mix(in srgb, var(--accent) 45%, transparent);
-  padding: 0.5rem 1.25rem;
-  font-size: 0.875rem;
-  font-weight: 500;
-  color: var(--accent);
-  transition:
-    color 0.45s var(--ease-luxe),
-    border-color 0.45s var(--ease-luxe),
-    box-shadow 0.45s var(--ease-luxe);
-}
-.tf-premium::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  border-radius: inherit;
-  background: linear-gradient(
-    135deg,
-    #3d0b10 0%,
-    #6e1218 45%,
-    #8c5e22 100%
-  );
-  opacity: 0;
-  transition: opacity 0.45s var(--ease-luxe);
-}
-/* The lozenge: a struck-gold mark that survives the fill by going pale with
-   the label. */
-.tf-premium__mark {
-  width: 5px;
-  height: 5px;
-  rotate: 45deg;
-  background: var(--accent);
-  transition: background 0.45s var(--ease-luxe);
-}
-@media (hover: hover) {
-  .tf-premium:hover {
+  /* Consistent vertical rhythm for page sections. */
+  .tf-section {
+    padding-block: 5rem;
+  }
+  @media (min-width: 768px) {
+    .tf-section {
+      padding-block: 7rem;
+    }
+  }
+
+  /* ---------------------------------------------------------------------------
+   * Surfaces
+   * ------------------------------------------------------------------------- */
+
+  /* Translucent white card — the warm ground tints through, which is what makes
+     it feel like glass. Deliberately NO backdrop-filter: cards sit on flat ivory
+     or sand, so a blur has nothing to sample and only costs GPU time on every
+     card in a scrolling grid. Blur is reserved for surfaces that content
+     actually passes beneath (.tf-glass). */
+  .tf-card {
+    background: var(--card);
+    border-radius: var(--radius-2xl);
+    box-shadow: var(--shadow-soft);
+  }
+
+  /* Gentle lift — a slow rise, never a pop. Guarded to pointer devices: on iOS
+     a tap leaves :hover stuck, so a touch user would be left with a card frozen
+     mid-lift. */
+  .tf-card-interactive {
+    transition:
+      transform 0.5s var(--ease-luxe),
+      box-shadow 0.5s var(--ease-luxe);
+  }
+  @media (hover: hover) {
+    .tf-card-interactive:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lift);
+    }
+  }
+
+  /* Frosted chrome — reserved for navigation, search and the booking card. */
+  .tf-glass {
+    background: color-mix(in srgb, var(--background) 78%, transparent);
+    backdrop-filter: blur(14px) saturate(140%);
+    -webkit-backdrop-filter: blur(14px) saturate(140%);
+  }
+
+  /* ---------------------------------------------------------------------------
+   * Entrance motion.
+   *
+   * Pure CSS scroll-driven animation — no JavaScript, no observers, no hydration
+   * cost. Content is visible by default and only *enhanced* where the browser
+   * supports it, so there is no flash of hidden content and nothing can strand
+   * the page invisible. Elements already on screen at load resolve to their
+   * final state immediately.
+   * ------------------------------------------------------------------------- */
+  @keyframes tf-rise {
+    from {
+      opacity: 0;
+      transform: translateY(1.25rem);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    @supports (animation-timeline: view()) {
+      .tf-reveal {
+        animation: tf-rise linear both;
+        animation-timeline: view();
+        animation-range: entry 0% entry 40%;
+      }
+    }
+  }
+
+  /* Cinematic scrim over hero photography.
+   *
+   * Tinted with the logo's deep maroon rather than a neutral brown, and — the
+   * point of the rewrite — no longer thinnest where the words sit. It used to
+   * fall to 10% at 38% height, which is exactly where the headline lands, so
+   * white type had to fight a bright sky. A radial pool now sinks the middle,
+   * and the linear pass holds the edges. */
+  .tf-hero-scrim {
+    background:
+      radial-gradient(
+        75% 60% at 50% 48%,
+        rgb(45 8 12 / 0.58) 0%,
+        rgb(45 8 12 / 0.28) 55%,
+        transparent 100%
+      ),
+      linear-gradient(
+        180deg,
+        rgb(45 8 12 / 0.5) 0%,
+        rgb(45 8 12 / 0.28) 40%,
+        rgb(45 8 12 / 0.78) 100%
+      );
+  }
+
+  /* Hairline gold rule — an editorial full stop under section eyebrows. */
+  .tf-rule {
+    height: 2px;
+    width: 3rem;
+    border-radius: 999px;
+    background: var(--accent-soft);
+  }
+
+  /* ---------------------------------------------------------------------------
+   * Buttons — soft, warm, unhurried. No scale-punch on press.
+   * ------------------------------------------------------------------------- */
+  .tf-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border-radius: 999px;
+    padding: 0.9375rem 2rem;
+    font-weight: 500;
+    /* Not 1 — at that value descenders in longer localised labels (German,
+       Uzbek) sit on the edge of the text box and read as clipped. */
+    line-height: 1.15;
+    transition:
+      background-color 0.35s var(--ease-luxe),
+      color 0.35s var(--ease-luxe),
+      box-shadow 0.45s var(--ease-luxe),
+      transform 0.45s var(--ease-luxe);
+  }
+  @media (hover: hover) {
+    .tf-btn:hover {
+      transform: translateY(-2px);
+    }
+  }
+
+  .tf-btn-primary {
+    background: var(--primary);
+    color: var(--primary-foreground);
+    box-shadow: 0 2px 10px color-mix(in srgb, var(--primary) 22%, transparent);
+  }
+  .tf-btn-primary:hover {
+    background: var(--primary-hover);
+    box-shadow: 0 10px 28px color-mix(in srgb, var(--primary) 28%, transparent);
+  }
+  /* Touch feedback, since these devices get no hover state at all. */
+  .tf-btn-primary:active {
+    background: var(--primary-hover);
+  }
+
+  /* Quiet button for secondary actions on light ground. */
+  .tf-btn-ghost {
+    border: 1px solid var(--border);
+    color: var(--foreground);
+    background: transparent;
+  }
+  .tf-btn-ghost:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+  }
+
+  /* Outline button over photography. */
+  .tf-btn-onimage {
+    border: 1px solid rgb(255 255 255 / 0.7);
+    color: #fff;
+    background: rgb(255 255 255 / 0.06);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+  }
+  .tf-btn-onimage:hover {
+    background: rgb(255 255 255 / 0.16);
+  }
+
+  /* Underlined text link used for "view all" style actions. */
+  .tf-link {
+    color: var(--primary);
+    border-bottom: 1px solid color-mix(in srgb, var(--primary) 45%, transparent);
+    padding-bottom: 2px;
+    transition: border-color 0.35s var(--ease-luxe);
+  }
+  .tf-link:hover {
+    border-bottom-color: var(--primary);
+  }
+
+  /* ---------------------------------------------------------------------------
+   * Rich Markdown content (country / tour long-form copy)
+   * ------------------------------------------------------------------------- */
+  .tf-prose {
+    color: var(--foreground);
+    line-height: 1.8;
+    max-width: 68ch;
+  }
+  .tf-prose > * + * {
+    margin-top: 1.25rem;
+  }
+  .tf-prose h1,
+  .tf-prose h2,
+  .tf-prose h3 {
+    font-family: var(--font-display), Georgia, serif;
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    margin-top: 2.75rem;
+    color: var(--foreground);
+  }
+  .tf-prose h1 {
+    font-size: 2.25rem;
+  }
+  .tf-prose h2 {
+    font-size: 1.875rem;
+  }
+  .tf-prose h3 {
+    font-size: 1.5rem;
+  }
+  .tf-prose p,
+  .tf-prose li {
+    color: var(--muted);
+  }
+  .tf-prose a {
+    color: var(--primary);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .tf-prose ul,
+  .tf-prose ol {
+    padding-left: 1.5rem;
+  }
+  .tf-prose ul {
+    list-style: disc;
+  }
+  .tf-prose ol {
+    list-style: decimal;
+  }
+  .tf-prose img {
+    border-radius: var(--radius-2xl);
+    max-width: 100%;
+    height: auto;
+    margin: 2.5rem 0;
+  }
+  .tf-prose blockquote {
+    border-left: 2px solid var(--accent-soft);
+    padding-left: 1.5rem;
+    margin-block: 2.5rem;
+    font-family: var(--font-display), Georgia, serif;
+    font-size: 1.5rem;
+    line-height: 1.5;
+    font-style: italic;
+    color: var(--foreground);
+  }
+  .tf-prose strong {
+    color: var(--foreground);
+    font-weight: 600;
+  }
+  .tf-prose table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .tf-prose th,
+  .tf-prose td {
+    border: 1px solid var(--border);
+    padding: 0.625rem 0.875rem;
+    text-align: left;
+  }
+
+  /* ---------------------------------------------------------------------------
+   * Premium link — a gilded pill, not a menu item.
+   *
+   * Premium is a different product, so it gets the one piece of chrome the rest
+   * of the navigation is denied: a ring. At rest it is a thin gold hairline. On
+   * hover it fills with the logo's own gradient — deep maroon falling to brand
+   * gold — and the label lifts to a pale champagne.
+   *
+   * The fill lives on a pseudo-element because CSS cannot transition a
+   * background-image; opacity can, so the gradient dissolves in rather than
+   * snapping. `isolate` keeps the -1 layer inside the pill.
+   *
+   * Colours are measured, not picked. The gold end of the gradient is the worst
+   * case for the label: #f5e6c8 on #8c5e22 is 4.56:1, clearing AA. A more
+   * saturated champagne (#e8c489) drops to 3.39:1 there and was rejected.
+   * ------------------------------------------------------------------------- */
+  .tf-premium {
+    position: relative;
+    isolation: isolate;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    border-radius: var(--radius-full, 9999px);
+    border: 1px solid color-mix(in srgb, var(--accent) 45%, transparent);
+    padding: 0.5rem 1.25rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--accent);
+    transition:
+      color 0.45s var(--ease-luxe),
+      border-color 0.45s var(--ease-luxe),
+      box-shadow 0.45s var(--ease-luxe);
+  }
+  .tf-premium::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    background: linear-gradient(135deg, #3d0b10 0%, #6e1218 45%, #8c5e22 100%);
+    opacity: 0;
+    transition: opacity 0.45s var(--ease-luxe);
+  }
+  /* The lozenge: a struck-gold mark that survives the fill by going pale with
+     the label. */
+  .tf-premium__mark {
+    width: 5px;
+    height: 5px;
+    rotate: 45deg;
+    background: var(--accent);
+    transition: background 0.45s var(--ease-luxe);
+  }
+  @media (hover: hover) {
+    .tf-premium:hover {
+      color: #f5e6c8;
+      border-color: color-mix(in srgb, var(--accent) 85%, transparent);
+      box-shadow: 0 6px 20px color-mix(in srgb, #3d0b10 32%, transparent);
+    }
+    .tf-premium:hover::before {
+      opacity: 1;
+    }
+    .tf-premium:hover .tf-premium__mark {
+      background: #f5e6c8;
+    }
+  }
+  /* On the Premium pages themselves the pill stays filled, so the ring doubles
+     as the current-section marker the other links get from an underline. */
+  .tf-premium[aria-current="page"] {
     color: #f5e6c8;
     border-color: color-mix(in srgb, var(--accent) 85%, transparent);
-    box-shadow: 0 6px 20px color-mix(in srgb, #3d0b10 32%, transparent);
   }
-  .tf-premium:hover::before {
+  .tf-premium[aria-current="page"]::before {
     opacity: 1;
   }
-  .tf-premium:hover .tf-premium__mark {
+  .tf-premium[aria-current="page"] .tf-premium__mark {
     background: #f5e6c8;
   }
-}
-/* On the Premium pages themselves the pill stays filled, so the ring doubles
-   as the current-section marker the other links get from an underline. */
-.tf-premium[aria-current="page"] {
-  color: #f5e6c8;
-  border-color: color-mix(in srgb, var(--accent) 85%, transparent);
-}
-.tf-premium[aria-current="page"]::before {
-  opacity: 1;
-}
-.tf-premium[aria-current="page"] .tf-premium__mark {
-  background: #f5e6c8;
 }

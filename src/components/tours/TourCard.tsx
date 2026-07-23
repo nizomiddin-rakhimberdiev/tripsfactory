@@ -54,9 +54,7 @@ export async function TourCard({ tour }: { tour: Tour }) {
             {t("days", { count: tour.durationDays })}
           </span>
         </div>
-        <h3 className="mb-3 text-base font-semibold leading-snug sm:tf-headline sm:mb-4 sm:text-[1.375rem] sm:font-semibold">
-          {tour.title}
-        </h3>
+        <h3 className="tf-card-title mb-3 sm:mb-4">{tour.title}</h3>
 
         <div className="mt-auto flex items-end justify-between border-t border-border pt-4">
           <div>
@@ -73,7 +71,9 @@ export async function TourCard({ tour }: { tour: Tour }) {
                 )}
               </>
             ) : (
-              <span className="font-semibold text-accent">{tp("onRequest")}</span>
+              <span className="font-semibold text-accent">
+                {tp("onRequest")}
+              </span>
             )}
           </div>
           <span
