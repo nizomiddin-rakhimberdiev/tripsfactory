@@ -242,15 +242,25 @@ export function MainNav({
           {labels.contact}
         </Link>
         {premium && (
-          /* Now a menu item rather than a pill, but kept in gold: it is a
-             different product, and that distinction is worth one colour. */
+          /*
+            A menu item rather than a pill, but it has to read as a different
+            product. Colour alone could not carry that: gold and the muted link
+            grey measure 5.30:1 and 5.44:1 on ivory — a 0.5% luminance gap, so
+            the eye saw one weight and skipped past it. Distinction now comes
+            from three signals at once — gold, medium weight, and a small
+            lozenge — none of which shouts.
+          */
           <Link
             href="/premium"
             aria-current={current("/premium")}
-            className={`text-sm text-accent transition-colors duration-300 hover:text-accent-foreground ${
+            className={`group/prem flex items-center gap-2 text-sm font-medium text-accent transition-colors duration-300 hover:text-accent-hover ${
               inSection("/premium") ? "border-b border-accent pb-0.5" : ""
             }`}
           >
+            <span
+              aria-hidden="true"
+              className="h-[5px] w-[5px] rotate-45 bg-accent transition-colors duration-300 group-hover/prem:bg-accent-hover"
+            />
             {labels.premium}
           </Link>
         )}
@@ -353,7 +363,7 @@ export function MainNav({
             {premium && (
               <Link
                 href="/premium"
-                className="mt-2 rounded-full border border-accent/45 px-3 py-2 text-center text-accent"
+                className="mt-2 rounded-full border border-accent/45 px-3 py-2 text-center text-sm font-medium text-accent"
               >
                 {labels.premium}
               </Link>

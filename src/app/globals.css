@@ -32,6 +32,9 @@
      WCAG AA (4.5:1) as body text on BOTH ivory and sand. The lighter gold it
      replaced measured 3.72:1 and failed at small sizes. */
   --accent: #8c5e22;
+  /* Hover must go DARKER on the ivory canvas. The white --accent-foreground
+     reads only where a filled background arrives with it. */
+  --accent-hover: #6b4419;
   --accent-soft: #e8c489; /* decorative only — rules, fills, never text */
   --accent-foreground: #fff9f0;
 
@@ -88,6 +91,7 @@
   --color-secondary: var(--secondary);
   --color-secondary-foreground: var(--secondary-foreground);
   --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
   --color-accent-soft: var(--accent-soft);
   --color-accent-foreground: var(--accent-foreground);
   --color-danger: var(--danger);
