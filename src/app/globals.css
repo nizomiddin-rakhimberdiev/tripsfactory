@@ -203,6 +203,49 @@ textarea:focus-visible {
   max-height: 80svh;
 }
 
+/* ---------------------------------------------------------------------------
+ * Wordmark — the logo lockup, set in live type rather than shipped as an image
+ * so it stays crisp at any density, inherits colour and costs no request.
+ *
+ * TRIPS  — Teko, tall ultra-condensed.
+ * FACTORY — Rajdhani, squared geometric, tracked out until the two lines share
+ *           a width, exactly as they do in the logo artwork.
+ *
+ * The three variables below are the only tuning surface: adjust them here and
+ * every placement (header, footer, any future use) follows.
+ * ------------------------------------------------------------------------- */
+.tf-wordmark {
+  --wm-size: 1.85rem; /* TRIPS cap height */
+  --wm-sub-size: 0.72rem; /* FACTORY cap height */
+  --wm-track: 0.25em; /* tracking that squares the two widths */
+  display: inline-block;
+  line-height: 1;
+}
+.tf-wordmark__top {
+  display: block;
+  font-family: var(--font-wordmark), "Arial Narrow", sans-serif;
+  font-weight: 600;
+  font-size: var(--wm-size);
+  line-height: 0.78;
+  text-transform: uppercase;
+}
+.tf-wordmark__bottom {
+  display: block;
+  font-family: var(--font-wordmark-sub), system-ui, sans-serif;
+  font-weight: 500;
+  font-size: var(--wm-sub-size);
+  line-height: 1;
+  letter-spacing: var(--wm-track);
+  /* Cancels the trailing space letter-spacing adds after the final letter,
+     so both lines stay optically flush left. */
+  margin-right: calc(-1 * var(--wm-track));
+  text-transform: uppercase;
+}
+.tf-wordmark--lg {
+  --wm-size: 2.75rem;
+  --wm-sub-size: 1.06rem;
+}
+
 /* Small uppercase label. Used ONLY for short section eyebrows — never for
    navigation or body, where caps hurt legibility and do nothing in ja/zh. */
 .tf-eyebrow {
