@@ -56,7 +56,8 @@ export default async function HomePage({
           fill
           priority
           sizes="100vw"
-          className="object-cover"
+          /* Favour the architecture over the empty sky when the crop bites. */
+          className="object-cover object-[50%_58%] md:object-center"
         />
         <div className="absolute inset-0 tf-hero-scrim" />
         <div className="relative z-10 mx-auto w-full max-w-4xl px-4 text-center text-white">
@@ -117,7 +118,7 @@ export default async function HomePage({
               {t("viewAllTours")}
             </Link>
           </div>
-          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid grid-cols-2 gap-4 sm:gap-8 lg:grid-cols-3">
             {featured.map((tour) => (
               <TourCard key={tour.slug} tour={tour} />
             ))}

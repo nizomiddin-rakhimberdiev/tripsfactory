@@ -137,7 +137,7 @@ export default async function CountryPage({
             <h2 className="tf-display tf-display-2 mb-12">
               {t("toursIn", { country: c.name })}
             </h2>
-            <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="grid grid-cols-2 gap-4 sm:gap-8 lg:grid-cols-3">
               {countryTours.map((tour) => (
                 <TourCard key={tour.slug} tour={tour} />
               ))}

@@ -37,7 +37,7 @@ export async function TourCard({ tour }: { tour: Tour }) {
           src={tour.heroImage}
           alt={tour.title}
           fill
-          sizes="(max-width: 768px) 100vw, 33vw"
+          sizes="(max-width: 640px) 50vw, (max-width: 1024px) 50vw, 33vw"
           className="object-cover transition-transform duration-[1200ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.06]"
         />
         <span
@@ -47,21 +47,23 @@ export async function TourCard({ tour }: { tour: Tour }) {
         </span>
       </div>
 
-      <div className="flex flex-1 flex-col p-7">
+      <div className="flex flex-1 flex-col p-4 sm:p-7">
         <div className="mb-2 flex items-center gap-1.5 text-muted">
           <IconClock className="text-sm" />
           <span className="tf-eyebrow text-[10px]">
             {t("days", { count: tour.durationDays })}
           </span>
         </div>
-        <h3 className="tf-headline mb-4 text-[1.375rem]">{tour.title}</h3>
+        <h3 className="mb-3 text-base font-semibold leading-snug sm:tf-headline sm:mb-4 sm:text-[1.375rem] sm:font-semibold">
+          {tour.title}
+        </h3>
 
         <div className="mt-auto flex items-end justify-between border-t border-border pt-4">
           <div>
             {tour.priceFromUsd !== null ? (
               <>
                 <span className="block text-xs text-muted">{t("from")}</span>
-                <span className="text-xl font-semibold text-primary">
+                <span className="text-lg font-semibold text-primary sm:text-xl">
                   {formatUsd(tour.priceFromUsd)}
                 </span>
                 {approx && (

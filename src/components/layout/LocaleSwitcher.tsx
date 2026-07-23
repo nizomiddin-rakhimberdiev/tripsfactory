@@ -3,6 +3,7 @@
 import { useLocale, useTranslations } from "next-intl";
 import { locales, localeNames, type Locale } from "@/i18n/routing";
 import { usePathname, useRouter } from "@/i18n/navigation";
+import { SelectMenu } from "@/components/SelectMenu";
 
 export function LocaleSwitcher() {
   const locale = useLocale();
@@ -10,25 +11,18 @@ export function LocaleSwitcher() {
   const router = useRouter();
   const pathname = usePathname();
 
-  function onChange(next: string) {
-    router.replace(pathname, { locale: next as Locale });
-  }
-
+  // Was a native <select>, on the reasoning that the platform picker is the
+  // most reliable one. That held until the site had a picker of its own — now
+  // the native list is the only surface the brand cannot reach, and it opens in
+  // grey OS chrome beside a warm ivory header. Consistency wins.
   return (
-    // Borderless by design: a boxed control was the one piece of raw browser
-    // chrome left in an otherwise composed header. Native <select> is kept —
-    // it is the most reliable picker on every platform, especially mobile.
-    <select
-      aria-label={t("language")}
-      className="cursor-pointer rounded-lg bg-transparent py-1.5 pl-1 pr-0 text-sm text-muted transition-colors hover:text-foreground"
+    <SelectMenu
+      compact
+      align="right"
+      label={t("language")}
       value={locale}
-      onChange={(e) => onChange(e.target.value)}
-    >
-      {locales.map((l) => (
-        <option key={l} value={l}>
-          {localeNames[l]}
-        </option>
-      ))}
-    </select>
+      onChange={(next) => router.replace(pathname, { locale: next as Locale })}
+      options={locales.map((l) => ({ value: l, label: localeNames[l] }))}
+    />
   );
 }

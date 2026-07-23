@@ -188,9 +188,18 @@ textarea:focus-visible {
    mobile browser chrome, so the hero neither overflows the visible area nor
    lurches when the address bar collapses. The `vh` line is the fallback for
    browsers without `svh` — the cascade handles the rest. */
+/* A 16:9 photo poured into a 9:19 phone viewport has to scale ~4x to cover,
+ * which throws away the sides — the Registan arrived as one arch. A shorter
+ * box on small screens keeps the composition; full height returns at md. */
 .tf-hero-full {
-  min-height: 88vh;
-  min-height: 88svh;
+  min-height: 62vh;
+  min-height: 62svh;
+}
+@media (min-width: 768px) {
+  .tf-hero-full {
+    min-height: 88vh;
+    min-height: 88svh;
+  }
 }
 .tf-hero-tall {
   min-height: 72vh;
@@ -304,14 +313,27 @@ textarea:focus-visible {
   }
 }
 
-/* Cinematic scrim over hero photography. */
+/* Cinematic scrim over hero photography.
+ *
+ * Tinted with the logo's deep maroon rather than a neutral brown, and — the
+ * point of the rewrite — no longer thinnest where the words sit. It used to
+ * fall to 10% at 38% height, which is exactly where the headline lands, so
+ * white type had to fight a bright sky. A radial pool now sinks the middle,
+ * and the linear pass holds the edges. */
 .tf-hero-scrim {
-  background: linear-gradient(
-    180deg,
-    rgb(30 16 12 / 0.42) 0%,
-    rgb(30 16 12 / 0.1) 38%,
-    rgb(30 16 12 / 0.72) 100%
-  );
+  background:
+    radial-gradient(
+      75% 60% at 50% 48%,
+      rgb(45 8 12 / 0.58) 0%,
+      rgb(45 8 12 / 0.28) 55%,
+      transparent 100%
+    ),
+    linear-gradient(
+      180deg,
+      rgb(45 8 12 / 0.5) 0%,
+      rgb(45 8 12 / 0.28) 40%,
+      rgb(45 8 12 / 0.78) 100%
+    );
 }
 
 /* Hairline gold rule — an editorial full stop under section eyebrows. */

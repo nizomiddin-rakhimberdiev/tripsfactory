@@ -363,7 +363,7 @@ export default async function TourPage({
               {t("viewAll")}
             </Link>
           </div>
-          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid grid-cols-2 gap-4 sm:gap-8 lg:grid-cols-3">
             {related.slice(0, 3).map((r) => (
               <TourCard key={r.slug} tour={r} />
             ))}

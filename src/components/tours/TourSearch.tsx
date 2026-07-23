@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "@/i18n/navigation";
 import { IconMapPin, IconCompass, IconSearch } from "@/components/icons";
+import { SelectMenu } from "@/components/SelectMenu";
 
 export type TourSearchCountry = {
   slug: string;
@@ -41,57 +42,42 @@ export function TourSearch({
     router.push(destination || type);
   }
 
-  // Focus lives on the field wrapper, not the bare <select>: the whole field
-  // lights up, so keyboard users get a clear target without a ring cutting
-  // through the glass pill.
-  const fieldClass =
-    "flex flex-1 items-center gap-3 rounded-full px-5 py-2.5 text-left text-foreground transition-colors focus-within:bg-white/45 focus-within:outline focus-within:outline-2 focus-within:outline-offset-1 focus-within:outline-primary";
-  const fieldLabel = "tf-eyebrow block text-[10px] leading-none text-muted";
-  const fieldSelect =
-    "mt-1 w-full cursor-pointer truncate bg-transparent text-sm outline-none";
+  const destinationOptions = [
+    { value: "", label: labels.allDestinations },
+    ...countries.map((c) => ({
+      value: `/destinations/${c.regionSlug}/${c.slug}`,
+      label: c.name,
+    })),
+  ];
+
+  const typeOptions = [
+    { value: "/tours", label: labels.allTours },
+    { value: "/tours/group", label: labels.group },
+    { value: "/tours/private", label: labels.private },
+  ];
 
   return (
     <form
       onSubmit={submit}
       className="mx-auto flex max-w-2xl flex-col items-stretch gap-2 rounded-3xl border border-border bg-card p-2 md:flex-row md:items-center md:gap-0 md:rounded-full"
     >
-      <label className={`${fieldClass} md:border-r md:border-border`}>
-        <IconMapPin className="shrink-0 text-lg text-primary" />
-        <span className="min-w-0 flex-1">
-          <span className={fieldLabel}>{labels.destination}</span>
-          <select
-            value={destination}
-            onChange={(e) => setDestination(e.target.value)}
-            className={fieldSelect}
-          >
-            <option value="">{labels.allDestinations}</option>
-            {countries.map((c) => (
-              <option
-                key={c.slug}
-                value={`/destinations/${c.regionSlug}/${c.slug}`}
-              >
-                {c.name}
-              </option>
-            ))}
-          </select>
-        </span>
-      </label>
+      <SelectMenu
+        label={labels.destination}
+        value={destination}
+        onChange={setDestination}
+        options={destinationOptions}
+        icon={<IconMapPin className="shrink-0 text-lg text-primary" />}
+        className="flex-1 md:border-r md:border-border"
+      />
 
-      <label className={fieldClass}>
-        <IconCompass className="shrink-0 text-lg text-primary" />
-        <span className="min-w-0 flex-1">
-          <span className={fieldLabel}>{labels.tourType}</span>
-          <select
-            value={type}
-            onChange={(e) => setType(e.target.value)}
-            className={fieldSelect}
-          >
-            <option value="/tours">{labels.allTours}</option>
-            <option value="/tours/group">{labels.group}</option>
-            <option value="/tours/private">{labels.private}</option>
-          </select>
-        </span>
-      </label>
+      <SelectMenu
+        label={labels.tourType}
+        value={type}
+        onChange={setType}
+        options={typeOptions}
+        icon={<IconCompass className="shrink-0 text-lg text-primary" />}
+        className="flex-1"
+      />
 
       <button
         type="submit"

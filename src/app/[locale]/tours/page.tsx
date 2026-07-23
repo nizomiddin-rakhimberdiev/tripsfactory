@@ -67,7 +67,7 @@ export default async function ToursPage({
           actionLabel={nav("contact")}
         />
       ) : (
-        <div className="mt-14 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-14 grid grid-cols-2 gap-4 sm:gap-8 lg:grid-cols-3">
           {allTours.map((tour) => (
             <TourCard key={tour.slug} tour={tour} />
           ))}
