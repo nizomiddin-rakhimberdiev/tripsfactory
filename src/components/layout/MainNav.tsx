@@ -242,25 +242,14 @@ export function MainNav({
           {labels.contact}
         </Link>
         {premium && (
-          /*
-            A menu item rather than a pill, but it has to read as a different
-            product. Colour alone could not carry that: gold and the muted link
-            grey measure 5.30:1 and 5.44:1 on ivory — a 0.5% luminance gap, so
-            the eye saw one weight and skipped past it. Distinction now comes
-            from three signals at once — gold, medium weight, and a small
-            lozenge — none of which shouts.
-          */
+          /* Styling lives in .tf-premium — see the note there for why the fill
+             is a pseudo-element and how the champagne was measured. */
           <Link
             href="/premium"
             aria-current={current("/premium")}
-            className={`group/prem flex items-center gap-2 text-sm font-medium text-accent transition-colors duration-300 hover:text-accent-hover ${
-              inSection("/premium") ? "border-b border-accent pb-0.5" : ""
-            }`}
+            className="tf-premium"
           >
-            <span
-              aria-hidden="true"
-              className="h-[5px] w-[5px] rotate-45 bg-accent transition-colors duration-300 group-hover/prem:bg-accent-hover"
-            />
+            <span aria-hidden="true" className="tf-premium__mark" />
             {labels.premium}
           </Link>
         )}
@@ -363,8 +352,9 @@ export function MainNav({
             {premium && (
               <Link
                 href="/premium"
-                className="mt-2 rounded-full border border-accent/45 px-3 py-2 text-center text-sm font-medium text-accent"
+                className="tf-premium mt-2 justify-center"
               >
+                <span aria-hidden="true" className="tf-premium__mark" />
                 {labels.premium}
               </Link>
             )}

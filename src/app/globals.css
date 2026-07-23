@@ -475,3 +475,86 @@ textarea:focus-visible {
   padding: 0.625rem 0.875rem;
   text-align: left;
 }
+
+/* ---------------------------------------------------------------------------
+ * Premium link — a gilded pill, not a menu item.
+ *
+ * Premium is a different product, so it gets the one piece of chrome the rest
+ * of the navigation is denied: a ring. At rest it is a thin gold hairline. On
+ * hover it fills with the logo's own gradient — deep maroon falling to brand
+ * gold — and the label lifts to a pale champagne.
+ *
+ * The fill lives on a pseudo-element because CSS cannot transition a
+ * background-image; opacity can, so the gradient dissolves in rather than
+ * snapping. `isolate` keeps the -1 layer inside the pill.
+ *
+ * Colours are measured, not picked. The gold end of the gradient is the worst
+ * case for the label: #f5e6c8 on #8c5e22 is 4.56:1, clearing AA. A more
+ * saturated champagne (#e8c489) drops to 3.39:1 there and was rejected.
+ * ------------------------------------------------------------------------- */
+.tf-premium {
+  position: relative;
+  isolation: isolate;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  border-radius: var(--radius-full, 9999px);
+  border: 1px solid color-mix(in srgb, var(--accent) 45%, transparent);
+  padding: 0.5rem 1.25rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--accent);
+  transition:
+    color 0.45s var(--ease-luxe),
+    border-color 0.45s var(--ease-luxe),
+    box-shadow 0.45s var(--ease-luxe);
+}
+.tf-premium::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: linear-gradient(
+    135deg,
+    #3d0b10 0%,
+    #6e1218 45%,
+    #8c5e22 100%
+  );
+  opacity: 0;
+  transition: opacity 0.45s var(--ease-luxe);
+}
+/* The lozenge: a struck-gold mark that survives the fill by going pale with
+   the label. */
+.tf-premium__mark {
+  width: 5px;
+  height: 5px;
+  rotate: 45deg;
+  background: var(--accent);
+  transition: background 0.45s var(--ease-luxe);
+}
+@media (hover: hover) {
+  .tf-premium:hover {
+    color: #f5e6c8;
+    border-color: color-mix(in srgb, var(--accent) 85%, transparent);
+    box-shadow: 0 6px 20px color-mix(in srgb, #3d0b10 32%, transparent);
+  }
+  .tf-premium:hover::before {
+    opacity: 1;
+  }
+  .tf-premium:hover .tf-premium__mark {
+    background: #f5e6c8;
+  }
+}
+/* On the Premium pages themselves the pill stays filled, so the ring doubles
+   as the current-section marker the other links get from an underline. */
+.tf-premium[aria-current="page"] {
+  color: #f5e6c8;
+  border-color: color-mix(in srgb, var(--accent) 85%, transparent);
+}
+.tf-premium[aria-current="page"]::before {
+  opacity: 1;
+}
+.tf-premium[aria-current="page"] .tf-premium__mark {
+  background: #f5e6c8;
+}
