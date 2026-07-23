@@ -4,10 +4,11 @@
     "tours": "Turlar",
     "destinations": "Yo'nalishlar",
     "guide": "Sayohat qo'llanmasi",
-    "excursions": "Ekskursiyalar",
+    "excursions": "Tadbirlar",
     "premium": "Premium",
     "about": "Biz haqimizda",
-    "contact": "Aloqa"
+    "contact": "Aloqa",
+    "menu": "Menyu"
   },
   "home": {
     "heroTitle": "Buyuk Ipak yo'lining yuragini kashf eting",

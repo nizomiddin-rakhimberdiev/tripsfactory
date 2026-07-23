@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Cormorant_Garamond } from "next/font/google";
+import { Inter, Cormorant_Garamond, Oswald } from "next/font/google";
 import { notFound } from "next/navigation";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
@@ -18,6 +18,14 @@ const inter = Inter({
 // Editorial display face. Chosen over Playfair for two reasons: it carries
 // Cyrillic (so ru/uz headings keep the brand voice instead of falling back to
 // Inter), and it reads as couture rather than as a default web serif.
+// Wordmark face — tall, condensed, flat-terminalled grotesque matching the
+// logo lockup. Used ONLY for the wordmark, never for UI or content.
+const oswald = Oswald({
+  variable: "--font-wordmark",
+  subsets: ["latin", "latin-ext", "cyrillic"],
+  weight: ["500", "700"],
+});
+
 const cormorant = Cormorant_Garamond({
   variable: "--font-cormorant",
   subsets: ["latin", "latin-ext", "cyrillic"],
@@ -53,7 +61,7 @@ export default async function LocaleLayout({
   return (
     <html
       lang={locale}
-      className={`${inter.variable} ${cormorant.variable} h-full antialiased`}
+      className={`${inter.variable} ${cormorant.variable} ${oswald.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
         <NextIntlClientProvider>

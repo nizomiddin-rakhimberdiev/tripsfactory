@@ -4,10 +4,11 @@
     "tours": "Tours",
     "destinations": "Destinations",
     "guide": "Travel Guide",
-    "excursions": "Excursions",
+    "excursions": "Events",
     "premium": "Premium",
     "about": "About Us",
-    "contact": "Contact"
+    "contact": "Contact",
+    "menu": "Menu"
   },
   "home": {
     "heroTitle": "Discover the Heart of the Silk Road",

@@ -4,10 +4,11 @@
     "tours": "Туры",
     "destinations": "Направления",
     "guide": "Путеводитель",
-    "excursions": "Экскурсии",
+    "excursions": "События",
     "premium": "Premium",
     "about": "О нас",
-    "contact": "Контакты"
+    "contact": "Контакты",
+    "menu": "Меню"
   },
   "home": {
     "heroTitle": "Откройте сердце Великого шёлкового пути",

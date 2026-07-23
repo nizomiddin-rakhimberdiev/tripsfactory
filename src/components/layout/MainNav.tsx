@@ -12,6 +12,7 @@ type Labels = {
   group: string;
   private: string;
   destinations: string;
+  events: string;
   guide: string;
   about: string;
   contact: string;
@@ -118,11 +119,13 @@ export function MainNav({
   labels,
   regions,
   premium,
+  events,
   localeSwitcher,
 }: {
   labels: Labels;
   regions: NavRegion[];
   premium: boolean;
+  events: boolean;
   localeSwitcher: React.ReactNode;
 }) {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -196,8 +199,8 @@ export function MainNav({
 
   return (
     <>
-      {/* desktop */}
-      <nav className="hidden items-center gap-7 md:flex">
+      {/* desktop — centre column of the header grid */}
+      <nav className="hidden items-center gap-6 lg:flex lg:justify-self-center">
         <Dropdown label={labels.tours} active={inSection("/tours")}>
           {toursMenu}
         </Dropdown>
@@ -208,6 +211,15 @@ export function MainNav({
         >
           {destinationsMenu}
         </Dropdown>
+        {events && (
+          <Link
+            href="/excursions"
+            aria-current={current("/excursions")}
+            className={navClass("/excursions")}
+          >
+            {labels.events}
+          </Link>
+        )}
         <Link
           href="/guide"
           aria-current={current("/guide")}
@@ -229,33 +241,30 @@ export function MainNav({
         >
           {labels.contact}
         </Link>
-        <div className="ml-1 flex items-center gap-3">
-          {localeSwitcher}
-          {premium && (
-            <Link
-              href="/premium"
-              aria-current={current("/premium")}
-              className={`rounded-full border px-5 py-2 text-sm text-accent transition-colors duration-300 hover:border-accent hover:bg-accent/10 ${
-                inSection("/premium")
-                  ? "border-accent bg-accent/10"
-                  : "border-accent/45"
-              }`}
-            >
-              {labels.premium}
-            </Link>
-          )}
-        </div>
+        {premium && (
+          /* Now a menu item rather than a pill, but kept in gold: it is a
+             different product, and that distinction is worth one colour. */
+          <Link
+            href="/premium"
+            aria-current={current("/premium")}
+            className={`text-sm text-accent transition-colors duration-300 hover:text-accent-foreground ${
+              inSection("/premium") ? "border-b border-accent pb-0.5" : ""
+            }`}
+          >
+            {labels.premium}
+          </Link>
+        )}
       </nav>
 
-      {/* mobile trigger */}
-      <div className="flex items-center gap-2 md:hidden">
+      {/* right cluster — language, then the hamburger below lg */}
+      <div className="ml-auto flex items-center gap-2 lg:ml-0 lg:justify-self-end">
         {localeSwitcher}
         <button
           type="button"
           aria-label={labels.menu}
           aria-expanded={mobileOpen}
           onClick={() => setMobileOpen((o) => !o)}
-          className="rounded-lg border border-border p-2.5 transition-colors duration-300 hover:border-primary hover:text-primary"
+          className="rounded-lg border border-border p-2.5 transition-colors duration-300 hover:border-primary hover:text-primary lg:hidden"
         >
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
             <path
@@ -275,7 +284,7 @@ export function MainNav({
           onKeyDown={(e) => {
             if (e.key === "Escape") setMobileOpen(false);
           }}
-          className="tf-panel-max absolute inset-x-0 top-full overflow-auto border-b border-border bg-surface p-5 shadow-lg md:hidden"
+          className="tf-panel-max absolute inset-x-0 top-full overflow-auto border-b border-border bg-surface p-5 shadow-lg lg:hidden"
         >
           <p className="tf-eyebrow mb-1 text-[11px] text-muted">{labels.tours}</p>
           <div className="mb-4 flex flex-col gap-1">
@@ -315,6 +324,14 @@ export function MainNav({
             )}
           </div>
           <div className="flex flex-col gap-1">
+            {events && (
+              <Link
+                href="/excursions"
+                className="rounded-md px-2 py-1.5 hover:bg-surface-muted"
+              >
+                {labels.events}
+              </Link>
+            )}
             <Link
               href="/guide"
               className="rounded-md px-2 py-1.5 hover:bg-surface-muted"

@@ -4,10 +4,11 @@
     "tours": "ツアー",
     "destinations": "目的地",
     "guide": "旅行ガイド",
-    "excursions": "エクスカーション",
+    "excursions": "イベント",
     "premium": "プレミアム",
     "about": "会社概要",
-    "contact": "お問い合わせ"
+    "contact": "お問い合わせ",
+    "menu": "メニュー"
   },
   "home": {
     "heroTitle": "シルクロードの中心を発見する",

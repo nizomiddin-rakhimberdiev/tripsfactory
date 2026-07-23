@@ -4,10 +4,11 @@
     "tours": "Tours",
     "destinations": "Destinos",
     "guide": "Guía de viaje",
-    "excursions": "Excursiones",
+    "excursions": "Eventos",
     "premium": "Premium",
     "about": "Sobre nosotros",
-    "contact": "Contacto"
+    "contact": "Contacto",
+    "menu": "Menú"
   },
   "home": {
     "heroTitle": "Descubra el corazón de la Ruta de la Seda",

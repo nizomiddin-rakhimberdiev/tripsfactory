@@ -4,10 +4,11 @@
     "tours": "Touren",
     "destinations": "Reiseziele",
     "guide": "Reiseführer",
-    "excursions": "Ausflüge",
+    "excursions": "Events",
     "premium": "Premium",
     "about": "Über uns",
-    "contact": "Kontakt"
+    "contact": "Kontakt",
+    "menu": "Menü"
   },
   "home": {
     "heroTitle": "Entdecken Sie das Herz der Seidenstraße",

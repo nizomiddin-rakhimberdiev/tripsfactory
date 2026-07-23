@@ -1,6 +1,7 @@
 import { getLocale, getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { getPublishedCountries } from "@/lib/content";
+import { Wordmark } from "./Wordmark";
 
 export async function Footer() {
   const t = await getTranslations();
@@ -11,12 +12,7 @@ export async function Footer() {
     <footer className="mt-24 border-t border-border bg-surface">
       <div className="mx-auto grid max-w-6xl gap-12 px-4 py-20 sm:grid-cols-2 md:grid-cols-4 md:px-6">
         <div>
-          <p className="leading-none">
-            <span className="tf-display block text-2xl">Trips</span>
-            <span className="tf-eyebrow block text-[10px] text-primary">
-              Factory
-            </span>
-          </p>
+          <Wordmark />
           <div className="tf-rule mt-6" />
           <p className="mt-6 max-w-xs text-sm leading-relaxed text-muted">
             {t("footer.tagline")}

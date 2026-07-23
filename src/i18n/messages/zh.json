@@ -4,10 +4,11 @@
     "tours": "旅游线路",
     "destinations": "目的地",
     "guide": "旅行指南",
-    "excursions": "一日游",
+    "excursions": "活动",
     "premium": "尊享",
     "about": "关于我们",
-    "contact": "联系我们"
+    "contact": "联系我们",
+    "menu": "菜单"
   },
   "home": {
     "heroTitle": "探索丝绸之路的心脏",

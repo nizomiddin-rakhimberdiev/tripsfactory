@@ -4,10 +4,11 @@
     "tours": "Tour",
     "destinations": "Destinazioni",
     "guide": "Guida di viaggio",
-    "excursions": "Escursioni",
+    "excursions": "Eventi",
     "premium": "Premium",
     "about": "Chi siamo",
-    "contact": "Contatti"
+    "contact": "Contatti",
+    "menu": "Menu"
   },
   "home": {
     "heroTitle": "Scoprite il cuore della Via della Seta",
