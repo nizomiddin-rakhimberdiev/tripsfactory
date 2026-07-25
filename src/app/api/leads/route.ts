@@ -14,39 +14,89 @@ const leadSchema = z.object({
   website: z.string().max(0).optional().or(z.literal("")), // honeypot
 });
 
-/** Naive in-memory rate limit — swap for Upstash in production (multi-instance). */
+/**
+ * Naive in-memory rate limit. Still per-instance — on serverless each cold
+ * start gets a fresh Map and parallel instances cannot see each other, so this
+ * slows a single caller rather than stopping a distributed flood. A shared
+ * store (Upstash) is the real fix and is out of scope here.
+ *
+ * Two things that were wrong are fixed: the key now comes from a header the
+ * client cannot set, and the map is swept so it cannot grow without bound.
+ */
 const hits = new Map<string, { count: number; ts: number }>();
 const WINDOW_MS = 60_000;
 const LIMIT = 5;
 
-function rateLimited(ip: string): boolean {
+/**
+ * `x-forwarded-for` is attacker-controlled — anyone can rotate it and walk past
+ * the limit. Vercel sets `x-vercel-forwarded-for` itself and strips any client
+ * copy, so it is trustworthy where we actually deploy.
+ */
+function clientKey(request: Request): string {
+  return (
+    request.headers.get("x-vercel-forwarded-for") ??
+    request.headers.get("x-real-ip") ??
+    request.headers.get("x-forwarded-for")?.split(",")[0].trim() ??
+    "unknown"
+  );
+}
+
+function rateLimited(key: string): boolean {
   const now = Date.now();
-  const entry = hits.get(ip);
+
+  // Sweep expired entries so a long-lived instance does not leak memory.
+  if (hits.size > 500) {
+    for (const [k, v] of hits) if (now - v.ts > WINDOW_MS) hits.delete(k);
+  }
+
+  const entry = hits.get(key);
   if (!entry || now - entry.ts > WINDOW_MS) {
-    hits.set(ip, { count: 1, ts: now });
+    hits.set(key, { count: 1, ts: now });
     return false;
   }
   entry.count += 1;
   return entry.count > LIMIT;
 }
 
-async function notifyTelegram(text: string): Promise<void> {
+/**
+ * Returns whether the operator was actually reached. Previously this was
+ * unguarded: a hanging Telegram would hang the whole function, a network throw
+ * would 500 *after* the lead was already stored (user retries, duplicate lead),
+ * and a bad token returned 401 that nobody ever saw.
+ */
+async function notifyTelegram(text: string): Promise<boolean> {
   const token = process.env.TELEGRAM_BOT_TOKEN;
   const chatId = process.env.TELEGRAM_CHAT_ID;
   if (!token || !chatId) {
-    console.warn("Telegram env vars missing — lead logged only:", text);
-    return;
+    console.error("LEAD-ALERT: Telegram env vars missing. Lead:", text);
+    return false;
   }
-  await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ chat_id: chatId, text }),
-  });
+  try {
+    const res = await fetch(
+      `https://api.telegram.org/bot${token}/sendMessage`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ chat_id: chatId, text }),
+        signal: AbortSignal.timeout(8000),
+      },
+    );
+    if (!res.ok) {
+      console.error(
+        `LEAD-ALERT: Telegram rejected the message (${res.status}). Lead:`,
+        text,
+      );
+      return false;
+    }
+    return true;
+  } catch (err) {
+    console.error("LEAD-ALERT: Telegram unreachable. Lead:", text, err);
+    return false;
+  }
 }
 
 export async function POST(request: Request) {
-  const ip = request.headers.get("x-forwarded-for")?.split(",")[0] ?? "unknown";
-  if (rateLimited(ip)) {
+  if (rateLimited(clientKey(request))) {
     return NextResponse.json({ error: "rate_limited" }, { status: 429 });
   }
 
@@ -78,7 +128,10 @@ export async function POST(request: Request) {
     lead.message && `Message: ${lead.message}`,
   ].filter(Boolean);
 
-  // Persist to the CMS (admin sees leads under /admin) + notify Telegram
+  // An enquiry is captured if it reaches EITHER the CMS or the operator's
+  // Telegram. Both are attempted; the request only succeeds if at least one
+  // landed.
+  let stored = false;
   try {
     await createLead({
       name: lead.name,
@@ -90,10 +143,24 @@ export async function POST(request: Request) {
       message: lead.message || undefined,
       locale: lead.locale,
     });
+    stored = true;
   } catch (err) {
-    console.error("Failed to store lead in CMS:", err);
+    console.error("LEAD-ALERT: could not store lead in CMS.", err);
   }
-  await notifyTelegram(lines.join("\n"));
+
+  const notified = await notifyTelegram(lines.join("\n"));
+
+  if (!stored && !notified) {
+    // Nothing captured the enquiry. Saying "ok" here would show the visitor a
+    // success screen for a message that reached nobody — the worst possible
+    // outcome for the one form that carries the business. Fail loudly instead
+    // so the form offers a retry and the customer knows to use another channel.
+    console.error(
+      "LEAD-LOST: neither the CMS nor Telegram accepted this enquiry.",
+      lines.join(" | "),
+    );
+    return NextResponse.json({ error: "not_delivered" }, { status: 503 });
+  }
 
   return NextResponse.json({ ok: true });
 }

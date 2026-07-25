@@ -671,8 +671,24 @@ const heroGroup = (name: string, label: string): Field => ({
   ],
 });
 
+/**
+ * This secret signs admin session tokens. It used to fall back to a literal
+ * committed to this repository, which meant a misconfigured environment booted
+ * happily with a secret the whole world could read — and forge sessions with.
+ * Refusing to start is the only safe answer: a build that fails is visible, a
+ * forgeable admin is not.
+ */
+const payloadSecret = process.env.PAYLOAD_SECRET;
+if (!payloadSecret) {
+  throw new Error(
+    "PAYLOAD_SECRET is not set. Refusing to start — it signs admin sessions " +
+      "and there is no safe default. Set it in .env locally and in the Vercel " +
+      "project settings.",
+  );
+}
+
 export default buildConfig({
-  secret: process.env.PAYLOAD_SECRET ?? "dev-secret-change-me",
+  secret: payloadSecret,
   editor: lexicalEditor(),
   admin: {
     theme: "light",
