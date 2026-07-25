@@ -89,10 +89,12 @@
     "toursIn": "Tours in {country}",
     "overview": "Overview",
     "curated": "Curated Journeys",
-    "indexIntro": "Choose a country and begin your Silk Road journey."
+    "indexIntro": "Choose a country and begin your Silk Road journey.",
+    "empty": "No destinations are published yet — new routes are on the way."
   },
   "guide": {
-    "title": "Travel Guide"
+    "title": "Travel Guide",
+    "empty": "No travel guides yet — we're writing them."
   },
   "premium": {
     "navLabel": "Premium",

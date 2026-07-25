@@ -89,10 +89,12 @@
     "toursIn": "{country} bo'yicha turlar",
     "overview": "Umumiy ma'lumot",
     "curated": "Saralangan sayohatlar",
-    "indexIntro": "Davlatni tanlang va Ipak yo'li sayohatingizni boshlang."
+    "indexIntro": "Davlatni tanlang va Ipak yo'li sayohatingizni boshlang.",
+    "empty": "Hozircha yo'nalishlar e'lon qilinmagan — yangilari yo'lda."
   },
   "guide": {
-    "title": "Sayohat qo'llanmasi"
+    "title": "Sayohat qo'llanmasi",
+    "empty": "Hozircha qo'llanmalar yo'q — ustida ishlayapmiz."
   },
   "premium": {
     "navLabel": "Premium",

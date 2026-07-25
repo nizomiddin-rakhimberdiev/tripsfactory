@@ -89,10 +89,12 @@
     "toursIn": "{country}旅游线路",
     "overview": "概览",
     "curated": "臻选旅程",
-    "indexIntro": "选择一个国家，开启您的丝绸之路之旅。"
+    "indexIntro": "选择一个国家，开启您的丝绸之路之旅。",
+    "empty": "暂无已发布的目的地——新线路正在筹备中。"
   },
   "guide": {
-    "title": "旅行指南"
+    "title": "旅行指南",
+    "empty": "暂无旅行指南——我们正在编写。"
   },
   "premium": {
     "navLabel": "尊享",

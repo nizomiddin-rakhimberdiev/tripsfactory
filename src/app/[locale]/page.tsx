@@ -112,7 +112,7 @@ export default async function HomePage({
             {WHY.map((key) => (
               <div key={key}>
                 <div className="tf-rule mb-6" />
-                <h3 className="tf-headline mb-3 text-2xl">{t(key)}</h3>
+                <h2 className="tf-headline mb-3 text-2xl">{t(key)}</h2>
                 <p className="leading-relaxed text-muted">{t(`${key}Text`)}</p>
               </div>
             ))}

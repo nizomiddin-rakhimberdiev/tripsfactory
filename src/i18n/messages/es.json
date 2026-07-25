@@ -89,10 +89,12 @@
     "toursIn": "Tours en {country}",
     "overview": "Descripción general",
     "curated": "Viajes seleccionados",
-    "indexIntro": "Elige un país y comienza tu viaje por la Ruta de la Seda."
+    "indexIntro": "Elige un país y comienza tu viaje por la Ruta de la Seda.",
+    "empty": "Aún no hay destinos publicados: estamos preparando nuevas rutas."
   },
   "guide": {
-    "title": "Guía de viaje"
+    "title": "Guía de viaje",
+    "empty": "Aún no hay guías de viaje: las estamos escribiendo."
   },
   "premium": {
     "navLabel": "Premium",

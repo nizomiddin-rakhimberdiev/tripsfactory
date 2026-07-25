@@ -50,7 +50,7 @@ export default async function GroupToursPage({
       ) : (
         <div className="mt-14 grid grid-cols-2 gap-4 sm:gap-8 lg:grid-cols-3">
           {tours.map((tour) => (
-            <TourCard key={tour.slug} tour={tour} />
+            <TourCard key={tour.slug} tour={tour} headingLevel={2} />
           ))}
         </div>
       )}

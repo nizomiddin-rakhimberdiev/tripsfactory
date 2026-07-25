@@ -16,7 +16,21 @@ function tagToneClass(tour: Tour): string {
   return tour.tier === "premium" ? "text-accent" : "text-foreground";
 }
 
-export async function TourCard({ tour }: { tour: Tour }) {
+export async function TourCard({
+  tour,
+  headingLevel = 3,
+}: {
+  tour: Tour;
+  /**
+   * Where the card sits in the page outline: 3 under a section heading, as on
+   * the homepage; 2 on a listing, where the cards are the page's own content
+   * and follow the h1 directly. Listings were jumping h1 → h3.
+   *
+   * Purely semantic — the look comes from .tf-card-title either way.
+   */
+  headingLevel?: 2 | 3;
+}) {
+  const Heading = `h${headingLevel}` as "h2" | "h3";
   const [t, tp, locale] = await Promise.all([
     getTranslations("tours"),
     getTranslations("premium"),
@@ -54,7 +68,7 @@ export async function TourCard({ tour }: { tour: Tour }) {
             {t("days", { count: tour.durationDays })}
           </span>
         </div>
-        <h3 className="tf-card-title mb-3 sm:mb-4">{tour.title}</h3>
+        <Heading className="tf-card-title mb-3 sm:mb-4">{tour.title}</Heading>
 
         <div className="mt-auto flex items-end justify-between border-t border-border pt-4">
           <div>

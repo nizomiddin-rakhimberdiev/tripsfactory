@@ -89,10 +89,12 @@
     "toursIn": "Touren in {country}",
     "overview": "Überblick",
     "curated": "Ausgewählte Reisen",
-    "indexIntro": "Wählen Sie ein Land und beginnen Sie Ihre Reise entlang der Seidenstraße."
+    "indexIntro": "Wählen Sie ein Land und beginnen Sie Ihre Reise entlang der Seidenstraße.",
+    "empty": "Noch keine Reiseziele veröffentlicht — neue Routen sind in Arbeit."
   },
   "guide": {
-    "title": "Reiseführer"
+    "title": "Reiseführer",
+    "empty": "Noch keine Reiseführer — wir schreiben gerade daran."
   },
   "premium": {
     "navLabel": "Premium",

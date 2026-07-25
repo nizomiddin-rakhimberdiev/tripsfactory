@@ -31,11 +31,21 @@ export function LeadForm({ tourSlug }: { tourSlug?: string }) {
 
   if (status === "success") {
     return (
-      <p className="tf-headline rounded-2xl border border-primary/25 bg-primary/5 p-10 text-center text-2xl text-primary">
+      // role="status" so a screen reader announces the outcome; without it the
+      // form simply vanished and a non-sighted visitor had no idea whether the
+      // enquiry had been sent.
+      <p
+        role="status"
+        className="tf-headline rounded-2xl border border-primary/25 bg-primary/5 p-8 text-center text-xl text-primary sm:p-10 sm:text-2xl"
+      >
         {t("success")}
       </p>
     );
   }
+
+  // Today, for the date field's min. Computed per render rather than at module
+  // scope so a long-lived tab does not keep yesterday's date as the floor.
+  const today = new Date().toISOString().slice(0, 10);
 
   const inputClass =
     "w-full rounded-xl border border-transparent bg-surface-muted px-4 py-3.5 text-sm transition-colors duration-300 focus:border-primary focus:bg-background";
@@ -56,7 +66,13 @@ export function LeadForm({ tourSlug }: { tourSlug?: string }) {
       <div className="grid gap-5 sm:grid-cols-2">
         <label className="block">
           <span className={labelClass}>{t("name")}</span>
-          <input name="name" required maxLength={100} className={inputClass} />
+          <input
+            name="name"
+            required
+            maxLength={100}
+            autoComplete="name"
+            className={inputClass}
+          />
         </label>
         <label className="block">
           <span className={labelClass}>{t("email")}</span>
@@ -65,16 +81,30 @@ export function LeadForm({ tourSlug }: { tourSlug?: string }) {
             type="email"
             required
             maxLength={200}
+            autoComplete="email"
+            inputMode="email"
             className={inputClass}
           />
         </label>
         <label className="block">
           <span className={labelClass}>{t("phone")}</span>
-          <input name="phone" maxLength={50} className={inputClass} />
+          <input
+            name="phone"
+            type="tel"
+            maxLength={50}
+            autoComplete="tel"
+            inputMode="tel"
+            className={inputClass}
+          />
         </label>
         <label className="block">
           <span className={labelClass}>{t("date")}</span>
-          <input name="date" type="date" className={inputClass} />
+          <input
+            name="date"
+            type="date"
+            min={today}
+            className={inputClass}
+          />
         </label>
         <label className="block">
           <span className={labelClass}>{t("pax")}</span>
@@ -104,9 +134,12 @@ export function LeadForm({ tourSlug }: { tourSlug?: string }) {
       >
         {status === "sending" ? t("sending") : t("submit")}
       </button>
-      {status === "error" && (
-        <p className="text-sm text-danger">{t("error")}</p>
-      )}
+      {/* aria-live on a permanent node, not on the message itself: a region
+          inserted at the same moment it gains content is often missed. Empty
+          until there is something to say. */}
+      <p role="alert" aria-live="assertive" className="text-sm text-danger">
+        {status === "error" ? t("error") : ""}
+      </p>
     </form>
   );
 }

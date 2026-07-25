@@ -89,10 +89,12 @@
     "toursIn": "Tour in {country}",
     "overview": "Panoramica",
     "curated": "Viaggi selezionati",
-    "indexIntro": "Scegli un paese e inizia il tuo viaggio lungo la Via della Seta."
+    "indexIntro": "Scegli un paese e inizia il tuo viaggio lungo la Via della Seta.",
+    "empty": "Nessuna destinazione pubblicata per ora: nuovi itinerari in arrivo."
   },
   "guide": {
-    "title": "Guida di viaggio"
+    "title": "Guida di viaggio",
+    "empty": "Nessuna guida di viaggio per ora: le stiamo scrivendo."
   },
   "premium": {
     "navLabel": "Premium",
