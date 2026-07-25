@@ -148,5 +148,12 @@
     "skipToContent": "Vai al contenuto",
     "language": "Lingua",
     "breadcrumb": "Percorso di navigazione"
+  },
+  "error": {
+    "notFoundTitle": "Non abbiamo trovato questa pagina",
+    "notFoundBody": "Il link potrebbe non essere più valido o la pagina è stata spostata.",
+    "title": "Qualcosa è andato storto",
+    "body": "Questa pagina non si è caricata. Non dipende da te: riprova.",
+    "retry": "Riprova"
   }
 }

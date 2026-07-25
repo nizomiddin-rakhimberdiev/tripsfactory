@@ -148,5 +148,12 @@
     "skipToContent": "Saltar al contenido",
     "language": "Idioma",
     "breadcrumb": "Ruta de navegación"
+  },
+  "error": {
+    "notFoundTitle": "No encontramos esa página",
+    "notFoundBody": "Puede que el enlace esté desactualizado o que la página se haya movido.",
+    "title": "Algo salió mal",
+    "body": "Esta página no se cargó. No es culpa tuya: inténtalo de nuevo.",
+    "retry": "Intentar de nuevo"
   }
 }

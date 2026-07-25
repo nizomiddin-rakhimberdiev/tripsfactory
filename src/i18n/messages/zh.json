@@ -148,5 +148,12 @@
     "skipToContent": "跳转到主要内容",
     "language": "语言",
     "breadcrumb": "面包屑导航"
+  },
+  "error": {
+    "notFoundTitle": "未找到该页面",
+    "notFoundBody": "链接可能已失效，或页面已移动。",
+    "title": "出现了一些问题",
+    "body": "页面未能加载。请再试一次。",
+    "retry": "重试"
   }
 }

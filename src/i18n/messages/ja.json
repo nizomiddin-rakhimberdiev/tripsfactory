@@ -148,5 +148,12 @@
     "skipToContent": "本文へスキップ",
     "language": "言語",
     "breadcrumb": "パンくずリスト"
+  },
+  "error": {
+    "notFoundTitle": "ページが見つかりませんでした",
+    "notFoundBody": "リンクが古いか、ページが移動した可能性があります。",
+    "title": "問題が発生しました",
+    "body": "ページを読み込めませんでした。もう一度お試しください。",
+    "retry": "再試行"
   }
 }

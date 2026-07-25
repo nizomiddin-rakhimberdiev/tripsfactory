@@ -6,6 +6,14 @@ const withNextIntl = createNextIntlPlugin("./src/i18n/request.ts");
 
 const nextConfig: NextConfig = {
   outputFileTracingRoot: __dirname,
+  experimental: {
+    // Required for src/app/global-not-found.tsx. This app has three root
+    // layouts and a top-level dynamic segment, which Next documents as the
+    // case where a route-level not-found cannot compose a 404 — confirmed by
+    // testing. Scope is limited to 404 handling: if the flag misbehaves the
+    // fallback is Next's default page, which is what we have today anyway.
+    globalNotFound: true,
+  },
   images: {
     formats: ["image/avif", "image/webp"],
     remotePatterns: [

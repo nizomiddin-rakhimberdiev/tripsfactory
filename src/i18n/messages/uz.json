@@ -148,5 +148,12 @@
     "skipToContent": "Asosiy qismga o'tish",
     "language": "Til",
     "breadcrumb": "Navigatsiya zanjiri"
+  },
+  "error": {
+    "notFoundTitle": "Bu sahifani topa olmadik",
+    "notFoundBody": "Havola eskirgan yoki sahifa boshqa joyga ko'chirilgan bo'lishi mumkin.",
+    "title": "Nimadir noto'g'ri ketdi",
+    "body": "Bu sahifa yuklanmadi. Ayb sizda emas — qaytadan urinib ko'ring.",
+    "retry": "Qaytadan urinish"
   }
 }
