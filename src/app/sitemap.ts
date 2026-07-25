@@ -29,6 +29,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticPaths = [
     "",
     "/tours",
+    // Linked from the Tours menu and returning 200, but absent here — the same
+    // omission the note above describes, one level deeper.
+    "/tours/group",
+    "/tours/private",
     "/destinations",
     "/guide",
     "/about",

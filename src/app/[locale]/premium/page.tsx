@@ -76,7 +76,10 @@ export default async function PremiumPage({
               <span className="tf-display text-2xl text-primary/60">
                 0{i + 1}
               </span>
-              <h3 className="tf-headline mt-4 text-2xl">{t(key)}</h3>
+              {/* h2, not h3: these three sit directly under the page h1 with no
+                  section heading between, so h3 skipped a level and made the
+                  document outline lie to a screen reader. */}
+              <h2 className="tf-headline mt-4 text-2xl">{t(key)}</h2>
               <p className="mt-3 leading-relaxed text-muted">
                 {t(`${key}Text`)}
               </p>

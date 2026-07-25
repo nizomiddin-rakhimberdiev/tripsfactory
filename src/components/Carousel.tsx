@@ -106,7 +106,12 @@ export function Carousel({
               />
             </svg>
           </button>
-          <div className="absolute bottom-4 left-1/2 flex -translate-x-1/2 gap-1.5">
+          {/* The dots were 8×6px with 6px between them — under half the 24px
+              WCAG 2.5.8 asks for, and genuinely hard to hit on a phone. The
+              pill keeps its size; a centred 24×24 pseudo-element carries the
+              touch area, and the wider gap keeps neighbouring areas from
+              overlapping so a tap can't land on the wrong dot. */}
+          <div className="absolute bottom-4 left-1/2 flex -translate-x-1/2 gap-4">
             {images.map((_, idx) => (
               <button
                 key={idx}
@@ -114,7 +119,7 @@ export function Carousel({
                 aria-label={t("goToImage", { number: idx + 1 })}
                 aria-current={idx === i}
                 onClick={() => show(idx)}
-                className={`h-1.5 rounded-full transition-all duration-500 ${
+                className={`relative h-1.5 rounded-full transition-all duration-500 before:absolute before:left-1/2 before:top-1/2 before:h-6 before:w-6 before:-translate-x-1/2 before:-translate-y-1/2 before:content-[''] ${
                   idx === i ? "w-7 bg-white" : "w-2 bg-white/55 hover:bg-white/80"
                 }`}
               />

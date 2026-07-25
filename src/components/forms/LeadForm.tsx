@@ -53,7 +53,15 @@ export function LeadForm({ tourSlug }: { tourSlug?: string }) {
 
   return (
     <form onSubmit={onSubmit} className="space-y-6">
-      <h2 className="tf-headline text-2xl sm:text-3xl">{t("title")}</h2>
+      {/* "Request This Tour" is only true when there is a tour. On /contact the
+          same form carried that heading under an h1 reading "Contact Us", which
+          told the visitor they were requesting something they had not chosen.
+          The page's own header already introduces the form there, so the
+          heading is shown only where it is accurate — no new copy invented, and
+          the tour pages are unchanged. */}
+      {tourSlug && (
+        <h2 className="tf-headline text-2xl sm:text-3xl">{t("title")}</h2>
+      )}
       {/* Honeypot: bots fill it, humans never see it */}
       <input
         type="text"
