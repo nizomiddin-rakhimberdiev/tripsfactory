@@ -55,7 +55,7 @@ export async function TourCard({
           className="object-cover transition-transform duration-[1200ms] ease-luxe group-hover:scale-[1.06]"
         />
         <span
-          className={`tf-eyebrow tf-eyebrow-sm absolute left-4 top-4 rounded-full bg-white/85 px-3 py-1.5 backdrop-blur-sm ${tagToneClass(tour)}`}
+          className={`tf-eyebrow tf-card-tag absolute left-2.5 top-2.5 rounded-full bg-white/85 px-2 py-1 backdrop-blur-sm sm:left-4 sm:top-4 sm:px-3 sm:py-1.5 ${tagToneClass(tour)}`}
         >
           {t(`type_${tour.type}`)}
         </span>
