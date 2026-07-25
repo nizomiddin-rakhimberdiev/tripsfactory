@@ -11,9 +11,21 @@ import { SITE_URL } from "@/lib/seo";
 import "../globals.css";
 import "leaflet/dist/leaflet.css";
 
+/**
+ * Subsets are "latin" and "cyrillic" only. latin-ext was declared but is used
+ * by nothing: 434 KB of CMS content across all four collections and all eight
+ * locales contains not one character from that range, and neither do the UI
+ * strings. German umlauts, Spanish and Italian accents and Turkish "ü" all live
+ * in the basic latin subset. Dropping it takes the fonts fetched on every page
+ * from nine files to six.
+ *
+ * The trade: content added later in Polish, Czech or Turkish (ł, ř, İ) would
+ * fall back to a system face for those glyphs. Put "latin-ext" back on both
+ * declarations if that happens.
+ */
 const inter = Inter({
   variable: "--font-inter",
-  subsets: ["latin", "latin-ext", "cyrillic"],
+  subsets: ["latin", "cyrillic"],
 });
 
 // Editorial display face. Chosen over Playfair for two reasons: it carries
@@ -21,7 +33,7 @@ const inter = Inter({
 // Inter), and it reads as couture rather than as a default web serif.
 const cormorant = Cormorant_Garamond({
   variable: "--font-cormorant",
-  subsets: ["latin", "latin-ext", "cyrillic"],
+  subsets: ["latin", "cyrillic"],
   weight: ["500", "600"],
   style: ["normal", "italic"],
 });
