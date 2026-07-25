@@ -51,7 +51,7 @@ export default async function PremiumPage({
         />
         <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-transparent to-background" />
         <div className="relative z-10 mx-auto max-w-3xl px-4 text-center">
-          <p className="tf-eyebrow mb-6 text-xs tracking-[0.3em] text-primary">
+          <p className="tf-eyebrow mb-6 tracking-[0.3em] text-primary">
             {t("invitation")}
           </p>
           <h1 className="tf-display tf-display-1">{site.premiumHero.title}</h1>
@@ -60,7 +60,7 @@ export default async function PremiumPage({
           </p>
           <a
             href="#journeys"
-            className="tf-eyebrow mt-10 inline-block border border-primary px-10 py-4 text-xs tracking-[0.2em] text-primary transition-all duration-300 hover:bg-primary hover:text-primary-foreground"
+            className="tf-eyebrow mt-10 inline-block border border-primary px-10 py-4 tracking-[0.2em] text-primary transition-all duration-300 hover:bg-primary hover:text-primary-foreground"
           >
             {t("cta")}
           </a>
@@ -90,7 +90,7 @@ export default async function PremiumPage({
         <section id="journeys" className="tf-section scroll-mt-24 px-4">
           <div className="mx-auto max-w-6xl">
             <div className="mb-14 text-center">
-              <p className="tf-eyebrow mb-3 text-xs text-primary">
+              <p className="tf-eyebrow mb-3 text-primary">
                 {t("journeysEyebrow")}
               </p>
               <h2 className="tf-display tf-display-2">{t("journeys")}</h2>
@@ -138,7 +138,7 @@ export default async function PremiumPage({
       {/* Enquire privately */}
       <section id="enquire" className="tf-section px-4">
         <div className="mx-auto flex max-w-4xl flex-col items-center border border-primary/15 px-6 py-16 text-center md:py-24">
-          <p className="tf-eyebrow mb-6 text-xs tracking-[0.3em] text-primary">
+          <p className="tf-eyebrow mb-6 tracking-[0.3em] text-primary">
             {t("navLabel")}
           </p>
           <h2 className="tf-display tf-display-2 max-w-2xl">
@@ -146,7 +146,7 @@ export default async function PremiumPage({
           </h2>
           <a
             href="mailto:premium@tripsfactory.uz"
-            className="tf-eyebrow mt-10 inline-block bg-primary px-12 py-5 text-xs tracking-[0.2em] text-primary-foreground transition-colors duration-500 hover:opacity-90"
+            className="tf-eyebrow mt-10 inline-block bg-primary px-12 py-5 tracking-[0.2em] text-primary-foreground transition-colors duration-500 hover:opacity-90"
           >
             {t("enquire")}
           </a>

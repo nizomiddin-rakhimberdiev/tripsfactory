@@ -87,7 +87,7 @@ export default async function CountryPage({
         <div className="absolute inset-0 tf-hero-scrim" />
         <div className="relative z-10 mb-20 px-4 text-center text-white">
           {regionName && (
-            <p className="tf-eyebrow mb-5 text-xs tracking-[0.3em] text-white/85">
+            <p className="tf-eyebrow mb-5 text-white/85">
               {regionName}
             </p>
           )}
@@ -108,7 +108,7 @@ export default async function CountryPage({
       {/* Editorial overview */}
       <article id="overview" className="tf-section tf-reveal scroll-mt-28 px-4 md:px-6">
         <header className="mx-auto mb-14 flex max-w-2xl flex-col items-center text-center">
-          <p className="tf-eyebrow mb-5 text-xs text-primary">{t("overview")}</p>
+          <p className="tf-eyebrow mb-5 text-primary">{t("overview")}</p>
           <div className="tf-rule" />
         </header>
         <div className="tf-measure mx-auto">
@@ -137,7 +137,7 @@ export default async function CountryPage({
       {countryTours.length > 0 && (
         <section id="tours" className="tf-section tf-reveal scroll-mt-28 bg-surface">
           <div className="mx-auto max-w-6xl px-4 md:px-6">
-            <p className="tf-eyebrow mb-3 text-xs text-primary">
+            <p className="tf-eyebrow mb-3 text-primary">
               {t("curated")}
             </p>
             <h2 className="tf-display tf-display-2 mb-12">

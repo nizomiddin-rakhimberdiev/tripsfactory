@@ -19,7 +19,7 @@ export async function Footer() {
           </p>
         </div>
         <div>
-          <p className="tf-eyebrow mb-4 text-xs text-primary">
+          <p className="tf-eyebrow mb-4 text-primary">
             {t("footer.destinations")}
           </p>
           <ul className="space-y-3 text-sm text-muted">
@@ -36,7 +36,7 @@ export async function Footer() {
           </ul>
         </div>
         <div>
-          <p className="tf-eyebrow mb-4 text-xs text-primary">
+          <p className="tf-eyebrow mb-4 text-primary">
             {t("footer.company")}
           </p>
           <ul className="space-y-3 text-sm text-muted">
@@ -67,7 +67,7 @@ export async function Footer() {
           </ul>
         </div>
         <div>
-          <p className="tf-eyebrow mb-4 text-xs text-primary">
+          <p className="tf-eyebrow mb-4 text-primary">
             {t("footer.followUs")}
           </p>
           <ul className="space-y-3 text-sm text-muted">

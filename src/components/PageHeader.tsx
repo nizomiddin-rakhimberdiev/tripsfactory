@@ -16,7 +16,7 @@ export function PageHeader({
   return (
     <div className={center ? "text-center" : ""}>
       {eyebrow && (
-        <p className="tf-eyebrow mb-3 text-xs text-primary">{eyebrow}</p>
+        <p className="tf-eyebrow mb-3 text-primary">{eyebrow}</p>
       )}
       <h1 className="tf-display tf-display-2">{title}</h1>
       {subtitle && (

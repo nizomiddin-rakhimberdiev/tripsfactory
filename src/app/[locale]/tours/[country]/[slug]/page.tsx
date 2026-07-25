@@ -157,7 +157,7 @@ export default async function TourPage({
 
       {/* Feature-opener headline, set on the content grid */}
       <header className="mx-auto max-w-6xl px-4 pt-14 md:px-6">
-        <p className="tf-eyebrow mb-4 text-xs text-primary">
+        <p className="tf-eyebrow mb-4 text-primary">
           {t(`type_${tour.type}`)} · {t("days", { count: tour.durationDays })}
         </p>
         <h1 className="tf-display tf-display-2 max-w-4xl">{tour.title}</h1>

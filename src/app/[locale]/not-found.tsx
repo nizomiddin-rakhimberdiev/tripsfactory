@@ -18,7 +18,7 @@ export default async function NotFound() {
 
   return (
     <div className="tf-section mx-auto max-w-2xl px-4 text-center md:px-6">
-      <p className="tf-eyebrow mb-4 text-xs text-primary">404</p>
+      <p className="tf-eyebrow mb-4 text-primary">404</p>
       <h1 className="tf-display tf-display-2">{t("notFoundTitle")}</h1>
       <p className="tf-lead mx-auto mt-5 max-w-md">{t("notFoundBody")}</p>
       <div className="mt-9 flex flex-wrap items-center justify-center gap-3">

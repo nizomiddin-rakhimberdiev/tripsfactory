@@ -80,7 +80,7 @@ export default async function HomePage({
         />
         <div className="absolute inset-0 tf-hero-scrim" />
         <div className="relative z-10 mx-auto w-full max-w-4xl px-4 text-center text-white">
-          <p className="tf-eyebrow mb-6 text-xs text-white/85">
+          <p className="tf-eyebrow mb-6 text-white/85">
             {t("heroEyebrow")}
           </p>
           <h1 className="tf-display tf-display-1">{site.hero.title}</h1>
@@ -125,7 +125,7 @@ export default async function HomePage({
         <section className="tf-section tf-reveal mx-auto max-w-6xl px-4 md:px-6">
           <div className="mb-12 flex items-end justify-between gap-6">
             <div>
-              <p className="tf-eyebrow mb-3 text-xs text-primary">
+              <p className="tf-eyebrow mb-3 text-primary">
                 {t("featuredEyebrow")}
               </p>
               <h2 className="tf-display tf-display-2">{t("featuredTours")}</h2>
@@ -149,7 +149,7 @@ export default async function HomePage({
       {countryList.length > 0 && (
         <section className="tf-section tf-reveal bg-surface">
           <div className="mx-auto max-w-6xl px-4 md:px-6">
-            <p className="tf-eyebrow mb-3 text-xs text-primary">
+            <p className="tf-eyebrow mb-3 text-primary">
               {t("destinationsEyebrow")}
             </p>
             <h2 className="tf-display tf-display-2 mb-12">
