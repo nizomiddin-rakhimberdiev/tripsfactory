@@ -1224,3 +1224,150 @@
   background: var(--s-gold-soft);
   color: var(--s-gold);
 }
+
+/* --------------------------------------------------------------------------
+   Loading skeletons
+
+   Every Studio route is server-rendered on demand against the database, so
+   there is a real wait on each navigation — and until now it was a blank
+   screen. These stand in for the layout that is coming, at the same dimensions,
+   so the page does not jump when the data lands.
+   -------------------------------------------------------------------------- */
+.s-skel {
+  border-radius: var(--s-radius);
+  background: linear-gradient(
+    90deg,
+    var(--s-bg-inset) 0%,
+    var(--s-bg-subtle) 40%,
+    var(--s-bg-inset) 80%
+  );
+  background-size: 300% 100%;
+  animation: s-shimmer 1.4s ease-in-out infinite;
+}
+@keyframes s-shimmer {
+  from {
+    background-position: 100% 0;
+  }
+  to {
+    background-position: -100% 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .s-skel {
+    animation: none;
+  }
+}
+.s-skel--line {
+  height: 12px;
+}
+.s-skel--title {
+  height: 26px;
+  width: 220px;
+}
+.s-skel--thumb {
+  width: 44px;
+  height: 32px;
+}
+.s-skel--stat {
+  height: 92px;
+}
+
+/* Present to a screen reader, invisible on screen. */
+.s-visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* --------------------------------------------------------------------------
+   Narrow screens
+
+   The Studio had no mobile layout: the shell held a fixed 248px sidebar at
+   every width, which on a 375px phone left a 127px content column, and
+   .s-table-wrap clipped with overflow:hidden rather than scrolling — so a
+   six-column table simply lost its right-hand half with no way to reach it.
+
+   Desktop is untouched. Below 900px the sidebar becomes a scrolling strip
+   above the content and the shell goes to a single column.
+   -------------------------------------------------------------------------- */
+
+/* Tables scroll instead of clipping — at every width, not just mobile. */
+.s-table-wrap {
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+@media (max-width: 900px) {
+  .s-shell {
+    grid-template-columns: 1fr;
+  }
+  .s-sidebar {
+    position: static;
+    height: auto;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    border-right: 0;
+    border-bottom: 1px solid var(--s-border);
+    overflow-x: auto;
+  }
+  .s-brand {
+    padding: 0 8px 0 0;
+    flex-shrink: 0;
+  }
+  .s-nav {
+    flex-direction: row;
+    align-items: center;
+    gap: 4px;
+  }
+  .s-nav__group {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .s-nav__group + .s-nav__group {
+    margin-top: 0;
+  }
+  /* Group headings are a vertical-list device; in a row they are noise. */
+  .s-nav__label {
+    display: none;
+  }
+  .s-nav__item {
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  /* The spine marks the active row in a column; in a strip it lands on the
+     wrong edge, so the tinted pill carries it alone. */
+  .s-nav__item--active::before {
+    display: none;
+  }
+  .s-sidebar__foot {
+    margin-top: 0;
+    margin-left: auto;
+    padding-top: 0;
+    border-top: 0;
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+  }
+  .s-user__email {
+    display: none;
+  }
+  .s-content {
+    padding: 18px 14px 40px;
+  }
+  .s-topbar {
+    padding: 0 14px;
+  }
+  /* Two stats abreast beats six stacked on a phone. */
+  .s-stats {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  }
+}
