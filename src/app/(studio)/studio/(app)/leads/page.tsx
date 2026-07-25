@@ -29,7 +29,7 @@ export default async function StudioLeadsPage() {
     <ToastProvider>
       <div className="s-pagehead">
         <div className="s-pagehead__text">
-          <h1>So'rovlar</h1>
+          <h1>So&apos;rovlar</h1>
           <p>Saytdan kelgan mijoz murojaatlari.</p>
         </div>
       </div>

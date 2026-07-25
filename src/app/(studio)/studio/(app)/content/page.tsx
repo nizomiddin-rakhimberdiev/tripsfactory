@@ -37,7 +37,7 @@ export default async function StudioContentPage() {
       <div className="s-pagehead">
         <div className="s-pagehead__text">
           <h1>Bosh sahifa</h1>
-          <p>Bosh sahifa va Premium bo'lim uchun hero rasm va matnlar.</p>
+          <p>Bosh sahifa va Premium bo&apos;lim uchun hero rasm va matnlar.</p>
         </div>
       </div>
       <ContentEditor

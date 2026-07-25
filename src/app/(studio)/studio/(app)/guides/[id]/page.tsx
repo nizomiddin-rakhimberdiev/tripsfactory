@@ -47,7 +47,7 @@ export default async function StudioGuideEditPage({
       <div className="s-pagehead">
         <div className="s-pagehead__text">
           <div style={{ display: "flex", alignItems: "center", gap: 4, color: "var(--s-fg-muted)", fontSize: 13, marginBottom: 2 }}>
-            <Link href="/studio/guides" style={{ color: "inherit", textDecoration: "none" }}>Qo'llanmalar</Link>
+            <Link href="/studio/guides" style={{ color: "inherit", textDecoration: "none" }}>Qo&apos;llanmalar</Link>
             <IconChevron width={14} height={14} />
           </div>
           <h1>{raw.title?.en ?? raw.title?.uz ?? "Qo'llanma"}</h1>

@@ -9,7 +9,7 @@ export default function StudioMediaPage() {
       <div className="s-pagehead">
         <div className="s-pagehead__text">
           <h1>Rasmlar</h1>
-          <p>Media kutubxonasi — rasm yuklash, ko'rish va o'chirish.</p>
+          <p>Media kutubxonasi — rasm yuklash, ko&apos;rish va o&apos;chirish.</p>
         </div>
       </div>
       <MediaManager />

@@ -17,37 +17,51 @@ export default async function StudioGuidesPage() {
     <>
       <div className="s-pagehead">
         <div className="s-pagehead__text">
-          <h1>Qo'llanmalar</h1>
-          <p>Viza, mavsum, taomlar kabi maqolalar — tahrirlash uchun bosing.</p>
+          <h1>Qo&apos;llanmalar</h1>
+          <p>
+            {res.totalDocs} ta maqola — viza, mavsum, taomlar. Tahrirlash uchun
+            bosing.
+            {res.totalDocs > res.docs.length &&
+              ` Quyida dastlabki ${res.docs.length} tasi.`}
+          </p>
         </div>
       </div>
-      <div className="s-table-wrap">
-        <table className="s-table">
-          <thead>
-            <tr>
-              <th>Sarlavha</th>
-              <th>Davlat</th>
-            </tr>
-          </thead>
-          <tbody>
-            {res.docs.map((g) => {
-              const country = g.country;
-              const cname =
-                country && typeof country === "object" ? country.name : "—";
-              return (
-                <tr key={g.id}>
-                  <td>
-                    <Link href={`/studio/guides/${g.id}`} className="s-rowlink">
-                      {g.title}
-                    </Link>
-                  </td>
-                  <td>{cname}</td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
-      </div>
+      {res.docs.length === 0 ? (
+        <div className="s-table-wrap">
+          <div className="s-empty">Hozircha maqola yo&apos;q.</div>
+        </div>
+      ) : (
+        <div className="s-table-wrap">
+          <table className="s-table">
+            <thead>
+              <tr>
+                <th>Sarlavha</th>
+                <th>Davlat</th>
+              </tr>
+            </thead>
+            <tbody>
+              {res.docs.map((g) => {
+                const country = g.country;
+                const cname =
+                  country && typeof country === "object" ? country.name : "—";
+                return (
+                  <tr key={g.id}>
+                    <td>
+                      <Link
+                        href={`/studio/guides/${g.id}`}
+                        className="s-rowlink"
+                      >
+                        {g.title}
+                      </Link>
+                    </td>
+                    <td>{cname}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      )}
     </>
   );
 }
