@@ -18,9 +18,23 @@ const dirname = path.dirname(fileURLToPath(import.meta.url));
 const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL ?? "https://tripsfactory.vercel.app";
 
-/** Public site reads everything published; writing requires an admin login. */
+/** Reference data anyone may read: regions, cities, guides, media. */
 const publicRead: Access = () => true;
 const adminOnly: Access = ({ req }) => Boolean(req.user);
+
+/**
+ * For collections that carry a `published` flag — tours and countries.
+ *
+ * `publicRead` returned true unconditionally and the comment beside it claimed
+ * it read "everything published", which it did not: the REST API served drafts
+ * to anyone who asked. The site's own pages were never affected because they
+ * filter on published themselves and go through the local API, but the moment
+ * next season's pricing was drafted in Studio it was readable at /api/tours.
+ *
+ * Admins still see everything; an anonymous caller gets a constrained query.
+ */
+const publishedOrAdmin: Access = ({ req }) =>
+  req.user ? true : { published: { equals: true } };
 
 /**
  * On any content change, tell Next.js to rebuild the affected pages immediately
@@ -41,6 +55,11 @@ async function revalidateSite(): Promise<void> {
       "/[locale]/guide",
       "/[locale]/guide/[slug]",
       "/[locale]/premium",
+      // Were missing, so an edit to any of these waited out the 5-minute ISR
+      // window while the editor assumed the save had not taken.
+      "/[locale]/excursions",
+      "/[locale]/about",
+      "/[locale]/contact",
     ];
     for (const p of pages) revalidatePath(p, "page");
   } catch {
@@ -221,7 +240,7 @@ const Countries: CollectionConfig = {
     description: "Davlat sahifalari. Yangi davlat qo'shish uchun shu yerga.",
   },
   access: {
-    read: publicRead,
+    read: publishedOrAdmin,
     create: adminOnly,
     update: adminOnly,
     delete: adminOnly,
@@ -366,7 +385,7 @@ const Tours: CollectionConfig = {
       "Barcha turlar. Yangi tur qo'shish uchun 'Create New'. O'ng yuqoridagi 'Preview' tugmasi turni saytda ko'rsatadi.",
   },
   access: {
-    read: publicRead,
+    read: publishedOrAdmin,
     create: adminOnly,
     update: adminOnly,
     delete: adminOnly,

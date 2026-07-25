@@ -11,7 +11,11 @@ const leadSchema = z.object({
   message: z.string().max(2000).optional().or(z.literal("")),
   tourSlug: z.string().max(120).optional(),
   locale: z.string().max(5).optional(),
-  website: z.string().max(0).optional().or(z.literal("")), // honeypot
+  // Honeypot. Deliberately permissive: `max(0)` rejected a filled field with a
+  // 400 before the silent-drop below could run, which told the bot it had
+  // failed and invited a retry without the field. Accept anything, then drop it
+  // quietly further down — the trap only works if it looks like success.
+  website: z.string().max(200).optional(),
 });
 
 /**
