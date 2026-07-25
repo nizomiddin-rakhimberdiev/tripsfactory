@@ -1,8 +1,19 @@
 import { notFound } from "next/navigation";
 import { setRequestLocale, getTranslations } from "next-intl/server";
 import { flags } from "@/lib/flags";
+import { pageMeta } from "@/lib/seo";
 import { PageHeader } from "@/components/PageHeader";
 import { EmptyState } from "@/components/EmptyState";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "nav" });
+  return pageMeta({ locale, path: "/excursions", title: t("excursions") });
+}
 
 /**
  * Events (day trips and excursions) — routed and linked from the navigation.

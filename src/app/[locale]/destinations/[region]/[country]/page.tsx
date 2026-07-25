@@ -9,6 +9,7 @@ import {
   getTours,
 } from "@/lib/content";
 import { locales } from "@/i18n/routing";
+import { pageMeta } from "@/lib/seo";
 import { TourCard } from "@/components/tours/TourCard";
 import { CountryBar } from "@/components/layout/CountryBar";
 import { Markdown } from "@/components/Markdown";
@@ -36,10 +37,15 @@ export async function generateMetadata({
 }: {
   params: Promise<Params>;
 }) {
-  const { locale, country } = await params;
+  const { locale, region, country } = await params;
   const c = await getCountry(country, locale);
   if (!c) return {};
-  return { title: c.name, description: c.intro };
+  return pageMeta({
+    locale,
+    path: `/destinations/${region}/${country}`,
+    title: c.name,
+    description: c.intro,
+  });
 }
 
 export default async function CountryPage({

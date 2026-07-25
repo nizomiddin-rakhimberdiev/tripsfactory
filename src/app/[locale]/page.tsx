@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { setRequestLocale, getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
+import { pageMeta } from "@/lib/seo";
 import { getPublishedCountries, getSiteContent, getTours } from "@/lib/content";
 import { TourCard } from "@/components/tours/TourCard";
 
@@ -28,6 +29,24 @@ function tile(index: number, total: number): { span: string; sizes: string } {
   return isFirstOfPair === pairLeadsWide
     ? { span: "lg:col-span-2", sizes: `${responsive} 768px` }
     : { span: "lg:col-span-1", sizes: `${responsive} 384px` };
+}
+
+/**
+ * The homepage had no metadata of its own, so it inherited the layout defaults
+ * and shipped with no canonical and no share tags at all.
+ */
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "home" });
+  return pageMeta({
+    locale,
+    path: "",
+    description: t("heroSubtitle"),
+  });
 }
 
 export default async function HomePage({

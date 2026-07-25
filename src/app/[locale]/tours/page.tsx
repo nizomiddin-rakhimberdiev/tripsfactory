@@ -1,5 +1,6 @@
 import { setRequestLocale, getTranslations } from "next-intl/server";
 import { getPublishedCountries, getTours } from "@/lib/content";
+import { pageMeta } from "@/lib/seo";
 import { TourCard } from "@/components/tours/TourCard";
 import { PageHeader } from "@/components/PageHeader";
 import { EmptyState } from "@/components/EmptyState";
@@ -8,9 +9,18 @@ import { TourSearch } from "@/components/tours/TourSearch";
 // Content is editable in /admin — re-render periodically (ISR)
 export const revalidate = 300;
 
-export async function generateMetadata() {
-  const t = await getTranslations("tours");
-  return { title: t("title") };
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "tours" });
+  return pageMeta({
+    locale,
+    path: "/tours",
+    title: t("title"),
+  });
 }
 
 export default async function ToursPage({

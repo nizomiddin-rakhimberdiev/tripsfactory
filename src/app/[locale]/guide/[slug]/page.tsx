@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { setRequestLocale } from "next-intl/server";
 import { getGuide, getGuides } from "@/lib/content";
+import { pageMeta } from "@/lib/seo";
 import { locales } from "@/i18n/routing";
 
 type Params = { locale: string; slug: string };
@@ -23,7 +24,12 @@ export async function generateMetadata({
   const { locale, slug } = await params;
   const guide = await getGuide(slug, locale);
   if (!guide) return {};
-  return { title: guide.title, description: guide.sections[0]?.body };
+  return pageMeta({
+    locale,
+    path: `/guide/${slug}`,
+    title: guide.title,
+    description: guide.sections[0]?.body,
+  });
 }
 
 export default async function GuidePage({

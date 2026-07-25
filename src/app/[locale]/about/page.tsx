@@ -1,9 +1,19 @@
 import { setRequestLocale, getTranslations } from "next-intl/server";
 import { PageHeader } from "@/components/PageHeader";
+import { pageMeta } from "@/lib/seo";
 
-export async function generateMetadata() {
-  const t = await getTranslations("about");
-  return { title: t("title") };
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "about" });
+  return pageMeta({
+    locale,
+    path: "/about",
+    title: t("title"),
+  });
 }
 
 export default async function AboutPage({

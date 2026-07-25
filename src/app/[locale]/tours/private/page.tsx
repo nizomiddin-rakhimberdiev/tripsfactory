@@ -1,14 +1,24 @@
 import { setRequestLocale, getTranslations } from "next-intl/server";
 import { getTours } from "@/lib/content";
+import { pageMeta } from "@/lib/seo";
 import { TourCard } from "@/components/tours/TourCard";
 import { PageHeader } from "@/components/PageHeader";
 import { EmptyState } from "@/components/EmptyState";
 
 export const revalidate = 300;
 
-export async function generateMetadata() {
-  const t = await getTranslations("tours");
-  return { title: t("type_private") };
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "tours" });
+  return pageMeta({
+    locale,
+    path: "/tours/private",
+    title: t("type_private"),
+  });
 }
 
 export default async function PrivateToursPage({

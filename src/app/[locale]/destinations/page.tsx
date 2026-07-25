@@ -1,15 +1,25 @@
 import Image from "next/image";
 import { setRequestLocale, getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
+import { pageMeta } from "@/lib/seo";
 import { getPublishedCountries, getRegions } from "@/lib/content";
 import { PageHeader } from "@/components/PageHeader";
 
 // Content is editable in /admin — re-render periodically (ISR)
 export const revalidate = 300;
 
-export async function generateMetadata() {
-  const t = await getTranslations("destinations");
-  return { title: t("title") };
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "destinations" });
+  return pageMeta({
+    locale,
+    path: "/destinations",
+    title: t("title"),
+  });
 }
 
 export default async function DestinationsPage({

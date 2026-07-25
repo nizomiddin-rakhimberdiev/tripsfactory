@@ -7,6 +7,7 @@ import { getTranslations } from "next-intl/server";
 import { routing, locales } from "@/i18n/routing";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
+import { SITE_URL } from "@/lib/seo";
 import "../globals.css";
 import "leaflet/dist/leaflet.css";
 
@@ -25,14 +26,35 @@ const cormorant = Cormorant_Garamond({
   style: ["normal", "italic"],
 });
 
-export const metadata: Metadata = {
-  title: {
-    default: "TripsFactory — Silk Road Tours & Travel",
-    template: "%s | TripsFactory",
-  },
-  description:
-    "Group and private tours across Uzbekistan and Central Asia, crafted by local experts.",
-};
+/**
+ * Site-wide defaults. The description was a hard-coded English sentence, which
+ * meant an Uzbek or Japanese page carried an English summary into search
+ * results. It now comes from the same translated line the homepage hero uses,
+ * so every locale describes itself in its own language.
+ *
+ * `metadataBase` is what lets the per-page canonical and share tags resolve to
+ * absolute URLs; without it Next emits relative ones and neither Google nor
+ * Telegram can use them.
+ */
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  if (!hasLocale(routing.locales, locale)) return {};
+  setRequestLocale(locale);
+  const t = await getTranslations({ locale, namespace: "home" });
+
+  return {
+    metadataBase: new URL(SITE_URL),
+    title: {
+      default: "TripsFactory — Silk Road Tours & Travel",
+      template: "%s | TripsFactory",
+    },
+    description: t("heroSubtitle"),
+  };
+}
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));

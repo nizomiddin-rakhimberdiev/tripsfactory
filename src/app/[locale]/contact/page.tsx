@@ -1,10 +1,20 @@
 import { setRequestLocale, getTranslations } from "next-intl/server";
 import { LeadForm } from "@/components/forms/LeadForm";
+import { pageMeta } from "@/lib/seo";
 import { PageHeader } from "@/components/PageHeader";
 
-export async function generateMetadata() {
-  const t = await getTranslations("contact");
-  return { title: t("title") };
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "contact" });
+  return pageMeta({
+    locale,
+    path: "/contact",
+    title: t("title"),
+  });
 }
 
 export default async function ContactPage({

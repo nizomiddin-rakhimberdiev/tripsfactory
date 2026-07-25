@@ -19,7 +19,7 @@ import {
   IconXCircle,
   IconShieldCheck,
 } from "@/components/icons";
-import { tourJsonLd } from "@/lib/seo";
+import { tourJsonLd, pageMeta } from "@/lib/seo";
 
 type Params = { locale: string; country: string; slug: string };
 
@@ -46,7 +46,12 @@ export async function generateMetadata({
   const { locale, country, slug } = await params;
   const tour = await getTour(country, slug, locale);
   if (!tour) return {};
-  return { title: tour.title, description: tour.summary };
+  return pageMeta({
+    locale,
+    path: `/tours/${country}/${slug}`,
+    title: tour.title,
+    description: tour.summary,
+  });
 }
 
 export default async function TourPage({

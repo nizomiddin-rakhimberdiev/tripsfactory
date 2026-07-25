@@ -1,15 +1,26 @@
 import Image from "next/image";
 import { setRequestLocale, getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
+import { pageMeta } from "@/lib/seo";
 import { getSiteContent, getTours } from "@/lib/content";
 
 export const revalidate = 300;
 
 const PILLARS = ["concierge", "access", "stays"] as const;
 
-export async function generateMetadata() {
-  const t = await getTranslations("premium");
-  return { title: t("navLabel"), description: t("heroSubtitle") };
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "premium" });
+  return pageMeta({
+    locale,
+    path: "/premium",
+    title: t("navLabel"),
+    description: t("heroSubtitle"),
+  });
 }
 
 export default async function PremiumPage({

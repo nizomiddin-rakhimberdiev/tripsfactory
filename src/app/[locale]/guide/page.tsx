@@ -1,5 +1,6 @@
 import { setRequestLocale, getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
+import { pageMeta } from "@/lib/seo";
 import { getGuides } from "@/lib/content";
 import { PageHeader } from "@/components/PageHeader";
 import { IconArrowRight } from "@/components/icons";
@@ -7,9 +8,18 @@ import { IconArrowRight } from "@/components/icons";
 // Content is editable in /admin — re-render periodically (ISR)
 export const revalidate = 300;
 
-export async function generateMetadata() {
-  const t = await getTranslations("guide");
-  return { title: t("title") };
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "guide" });
+  return pageMeta({
+    locale,
+    path: "/guide",
+    title: t("title"),
+  });
 }
 
 export default async function GuideIndexPage({
