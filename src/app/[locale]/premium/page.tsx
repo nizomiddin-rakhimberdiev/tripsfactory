@@ -108,10 +108,10 @@ export default async function PremiumPage({
                       alt={tour.title}
                       fill
                       sizes="(max-width: 768px) 100vw, 50vw"
-                      className="object-cover transition-transform duration-[1200ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.05]"
+                      className="object-cover transition-transform duration-[1200ms] ease-luxe group-hover:scale-[1.05]"
                     />
                   </div>
-                  <p className="tf-eyebrow mt-5 text-[11px] text-primary">
+                  <p className="tf-eyebrow tf-eyebrow-sm mt-5 text-primary">
                     {tt("days", { count: tour.durationDays })}
                   </p>
                   <h3 className="tf-headline mt-2 text-2xl transition-colors group-hover:text-primary">
@@ -121,10 +121,10 @@ export default async function PremiumPage({
                     {tour.summary}
                   </p>
                   <div className="mt-5 flex items-center justify-between border-t border-primary/15 pt-5">
-                    <span className="tf-eyebrow text-[11px] text-foreground">
+                    <span className="tf-eyebrow tf-eyebrow-sm text-foreground">
                       {t("onRequest")}
                     </span>
-                    <span className="tf-eyebrow text-[11px] text-primary">
+                    <span className="tf-eyebrow tf-eyebrow-sm text-primary">
                       {tt("viewDetails")}
                     </span>
                   </div>

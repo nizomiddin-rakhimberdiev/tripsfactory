@@ -96,6 +96,10 @@
   --color-accent-foreground: var(--accent-foreground);
   --color-danger: var(--danger);
 
+  /* The house easing curve as a utility, so markup says ease-luxe instead of
+     repeating the cubic-bezier as an arbitrary value in six places. */
+  --ease-luxe: cubic-bezier(0.22, 1, 0.36, 1);
+
   /* One radius family — gentle steps, no jarring jumps between components. */
   --radius-sm: 0.5rem;
   --radius-md: 0.625rem;
@@ -252,10 +256,22 @@ textarea:focus-visible {
     }
   }
 
+  /* Two tiers, and only two.
+     Measured across five pages, the eyebrow rendered at 12px, 11px and 10px in
+     roughly equal numbers — the same element at three sizes with no rule behind
+     which one appeared where. The default is the section tier; -sm is for micro
+     labels inside cards, tables and menus. Anything reaching for text-[10px] or
+     text-[11px] alongside .tf-eyebrow should use -sm instead. */
   .tf-eyebrow {
+    font-size: 0.75rem;
     font-weight: 600;
     letter-spacing: 0.14em;
+    line-height: 1.3;
     text-transform: uppercase;
+  }
+  .tf-eyebrow-sm {
+    font-size: 0.6875rem;
+    line-height: 1.3;
   }
 
   /* Introductory paragraph — larger, calmer, set on a comfortable measure. */

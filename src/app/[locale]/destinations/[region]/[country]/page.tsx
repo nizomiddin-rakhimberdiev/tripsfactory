@@ -170,13 +170,13 @@ export default async function CountryPage({
                     alt={city.name}
                     fill
                     sizes="(max-width: 768px) 100vw, 50vw"
-                    className="object-cover transition-transform duration-[1200ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04]"
+                    className="object-cover transition-transform duration-[1200ms] ease-luxe group-hover:scale-[1.04]"
                   />
                 </div>
                 <div className="p-7">
                   <div className="flex items-baseline justify-between gap-3">
                     <h3 className="tf-headline text-2xl">{city.name}</h3>
-                    <span className="tf-eyebrow shrink-0 rounded-full bg-surface-muted px-3 py-1 text-[10px] text-muted">
+                    <span className="tf-eyebrow tf-eyebrow-sm shrink-0 rounded-full bg-surface-muted px-3 py-1 text-muted">
                       {t("nights", { count: city.recommendedNights })}
                     </span>
                   </div>
@@ -185,7 +185,7 @@ export default async function CountryPage({
                   </p>
                   {city.attractions.length > 0 && (
                     <>
-                      <p className="tf-eyebrow mt-5 mb-2 text-[11px] text-primary">
+                      <p className="tf-eyebrow tf-eyebrow-sm mt-5 mb-2 text-primary">
                         {t("topAttractions")}
                       </p>
                       <ul className="space-y-1.5 text-sm text-muted">

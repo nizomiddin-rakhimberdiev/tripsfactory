@@ -177,7 +177,7 @@ export function SelectMenu({
           <span className="min-w-0 flex-1">
             <span
               id={`${id}-label`}
-              className="tf-eyebrow block text-[10px] leading-none text-muted"
+              className="tf-eyebrow tf-eyebrow-sm block leading-none text-muted"
             >
               {label}
             </span>

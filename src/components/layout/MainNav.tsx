@@ -179,7 +179,7 @@ export function MainNav({
     <div className="grid gap-4 p-4 sm:grid-cols-2">
       {activeRegions.map((r) => (
         <div key={r.slug}>
-          <p className="tf-eyebrow mb-2 text-[11px] text-muted">{r.name}</p>
+          <p className="tf-eyebrow tf-eyebrow-sm mb-2 text-muted">{r.name}</p>
           <ul className="space-y-1">
             {r.countries.map((c) => (
               <li key={c.slug}>
@@ -285,7 +285,7 @@ export function MainNav({
           }}
           className="tf-panel-max absolute inset-x-0 top-full overflow-auto border-b border-border bg-surface p-5 shadow-lg lg:hidden"
         >
-          <p className="tf-eyebrow mb-1 text-[11px] text-muted">{labels.tours}</p>
+          <p className="tf-eyebrow tf-eyebrow-sm mb-1 text-muted">{labels.tours}</p>
           <div className="mb-4 flex flex-col gap-1">
             <Link
               href="/tours"
@@ -306,7 +306,7 @@ export function MainNav({
               {labels.private}
             </Link>
           </div>
-          <p className="tf-eyebrow mb-1 text-[11px] text-muted">
+          <p className="tf-eyebrow tf-eyebrow-sm mb-1 text-muted">
             {labels.destinations}
           </p>
           <div className="mb-4 flex flex-col gap-1">

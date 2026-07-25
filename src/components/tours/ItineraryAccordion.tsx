@@ -33,7 +33,7 @@ export function ItineraryAccordion({ days }: { days: Day[] }) {
                 height="18"
                 viewBox="0 0 24 24"
                 fill="none"
-                className={`flex-shrink-0 text-muted transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                className={`flex-shrink-0 text-muted transition-transform duration-500 ease-luxe ${
                   isOpen ? "rotate-180" : ""
                 }`}
                 aria-hidden
@@ -59,7 +59,7 @@ export function ItineraryAccordion({ days }: { days: Day[] }) {
               role="region"
               aria-labelledby={buttonId}
               aria-hidden={!isOpen}
-              className={`grid transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+              className={`grid transition-all duration-500 ease-luxe ${
                 isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
               }`}
             >

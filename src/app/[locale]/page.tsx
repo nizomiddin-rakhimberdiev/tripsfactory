@@ -169,7 +169,7 @@ export default async function HomePage({
                       alt={c.name}
                       fill
                       sizes={sizes}
-                      className="object-cover transition-transform duration-[1200ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.05]"
+                      className="object-cover transition-transform duration-[1200ms] ease-luxe group-hover:scale-[1.05]"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
                     <h3 className="tf-headline absolute inset-x-7 bottom-6 text-3xl text-white">

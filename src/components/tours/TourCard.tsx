@@ -52,10 +52,10 @@ export async function TourCard({
           alt={tour.title}
           fill
           sizes="(max-width: 640px) 50vw, (max-width: 1024px) 50vw, 33vw"
-          className="object-cover transition-transform duration-[1200ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.06]"
+          className="object-cover transition-transform duration-[1200ms] ease-luxe group-hover:scale-[1.06]"
         />
         <span
-          className={`tf-eyebrow absolute left-4 top-4 rounded-full bg-white/85 px-3 py-1.5 text-[10px] backdrop-blur-sm ${tagToneClass(tour)}`}
+          className={`tf-eyebrow tf-eyebrow-sm absolute left-4 top-4 rounded-full bg-white/85 px-3 py-1.5 backdrop-blur-sm ${tagToneClass(tour)}`}
         >
           {t(`type_${tour.type}`)}
         </span>
@@ -64,7 +64,7 @@ export async function TourCard({
       <div className="flex flex-1 flex-col p-4 sm:p-7">
         <div className="mb-2 flex items-center gap-1.5 text-muted">
           <IconClock className="text-sm" />
-          <span className="tf-eyebrow text-[10px]">
+          <span className="tf-eyebrow tf-eyebrow-sm">
             {t("days", { count: tour.durationDays })}
           </span>
         </div>

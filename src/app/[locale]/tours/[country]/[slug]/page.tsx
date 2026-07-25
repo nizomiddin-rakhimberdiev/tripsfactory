@@ -254,7 +254,7 @@ export default async function TourPage({
               <h2 className="tf-headline mb-6 text-2xl">{t("departures")}</h2>
               <div className="tf-card overflow-x-auto">
                 <table className="w-full text-left text-sm">
-                  <thead className="tf-eyebrow bg-surface-muted text-[11px] text-muted">
+                  <thead className="tf-eyebrow tf-eyebrow-sm bg-surface-muted text-muted">
                     <tr>
                       <th scope="col" className="p-3 font-semibold sm:p-4">{t("date")}</th>
                       <th scope="col" className="p-3 font-semibold sm:p-4">{t("status")}</th>
@@ -304,7 +304,7 @@ export default async function TourPage({
             <div className="tf-card border border-border p-7">
               {tour.priceFromUsd !== null ? (
                 <div className="mb-6">
-                  <p className="tf-eyebrow mb-1 text-[11px] text-muted">
+                  <p className="tf-eyebrow tf-eyebrow-sm mb-1 text-muted">
                     {t("startingFrom")}
                   </p>
                   <div className="flex items-baseline gap-2">
@@ -387,7 +387,7 @@ export default async function TourPage({
           <div className="min-w-0">
             {tour.priceFromUsd !== null ? (
               <>
-                <span className="tf-eyebrow block text-[10px] leading-none text-muted">
+                <span className="tf-eyebrow tf-eyebrow-sm block leading-none text-muted">
                   {t("startingFrom")}
                 </span>
                 <span className="text-lg font-semibold text-primary">
@@ -428,7 +428,7 @@ function MetaItem({
     <div className="flex items-center gap-3">
       {icon}
       <div>
-        <p className="tf-eyebrow text-[11px] text-muted">{label}</p>
+        <p className="tf-eyebrow tf-eyebrow-sm text-muted">{label}</p>
         <p className="font-semibold">{value}</p>
       </div>
     </div>
@@ -450,7 +450,7 @@ function StatusPill({
 }) {
   return (
     <span
-      className={`tf-eyebrow inline-block rounded-full px-3 py-1 text-[10px] ${STATUS_PILL[status]}`}
+      className={`tf-eyebrow tf-eyebrow-sm inline-block rounded-full px-3 py-1 ${STATUS_PILL[status]}`}
     >
       {label}
     </span>
