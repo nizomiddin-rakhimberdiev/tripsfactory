@@ -104,10 +104,8 @@ export function RoutePicker({
       mapRef.current?.remove();
       mapRef.current = null;
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     redraw();
   }, [value]);
@@ -123,8 +121,8 @@ export function RoutePicker({
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
       <p className="s-field__help">
-        Xaritani bosib bekat qo'shing. Markerni surib joyini o'zgartiring.
-        Pastdagi ro'yxatda nom bering, tartibini o'zgartiring yoki o'chiring.
+        Xaritani bosib bekat qo&apos;shing. Markerni surib joyini o&apos;zgartiring.
+        Pastdagi ro&apos;yxatda nom bering, tartibini o&apos;zgartiring yoki o&apos;chiring.
       </p>
       <div
         ref={elRef}
@@ -139,7 +137,7 @@ export function RoutePicker({
         }}
       />
       {value.length === 0 ? (
-        <p className="s-field__help">Hali bekat yo'q — xaritani bosing.</p>
+        <p className="s-field__help">Hali bekat yo&apos;q — xaritani bosing.</p>
       ) : (
         <div className="s-repeat">
           {value.map((p, i) => (

@@ -55,7 +55,7 @@ export function LeadsManager({ initial }: { initial: Lead[] }) {
   if (leads.length === 0)
     return (
       <div className="s-card">
-        <div className="s-empty">Hozircha so'rovlar yo'q.</div>
+        <div className="s-empty">Hozircha so&apos;rovlar yo&apos;q.</div>
       </div>
     );
 

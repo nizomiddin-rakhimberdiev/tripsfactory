@@ -1,3 +1,8 @@
+/* eslint-disable @next/next/no-html-link-for-pages --
+   Next serves this page for URLs that matched no route and, in its own words,
+   "skips rendering" the app to do so. There is no router on the page, so a
+   next/link would have nothing to navigate with; leaving the 404 requires a
+   real document load either way. */
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";

@@ -101,7 +101,7 @@ export function CountryEditor({
                     checked={c.published}
                     onChange={(e) => patch({ published: e.target.checked })}
                   />
-                  Saytda ko'rsatilsin
+                  Saytda ko&apos;rsatilsin
                 </label>
               </Field>
             </div>

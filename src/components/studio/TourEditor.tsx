@@ -131,7 +131,7 @@ export function TourEditor({
 
         <div className="s-card">
           <div className="s-card__body">
-            <div className="s-section-title" style={{ margin: "0 0 16px" }}>Asosiy ma'lumotlar</div>
+            <div className="s-section-title" style={{ margin: "0 0 16px" }}>Asosiy ma&apos;lumotlar</div>
             <div className="s-form">
               <div className="s-row2">
                 <Field label="Turi" required>
@@ -179,11 +179,11 @@ export function TourEditor({
               <div style={{ display: "flex", gap: 24 }}>
                 <label className="s-check">
                   <input type="checkbox" checked={t.featured} onChange={(e) => patch({ featured: e.target.checked })} />
-                  Bosh sahifada ko'rsatilsin
+                  Bosh sahifada ko&apos;rsatilsin
                 </label>
                 <label className="s-check">
                   <input type="checkbox" checked={t.published} onChange={(e) => patch({ published: e.target.checked })} />
-                  Saytda ko'rsatilsin
+                  Saytda ko&apos;rsatilsin
                 </label>
               </div>
             </div>
@@ -242,7 +242,7 @@ export function TourEditor({
                 ))}
                 <button type="button" className="s-btn s-btn--sm"
                   onClick={() => patch({ departures: [...t.departures, { date: "", priceUsd: 0, status: "available" }] })}>
-                  <IconPlus /> Sana qo'shish
+                  <IconPlus /> Sana qo&apos;shish
                 </button>
               </div>
             </Field>
@@ -252,7 +252,7 @@ export function TourEditor({
 
       <div className="s-savebar">
         <a className="s-btn" href={previewUrl} target="_blank" rel="noreferrer">
-          <IconExternal /> Saytda ko'rish
+          <IconExternal /> Saytda ko&apos;rish
         </a>
         <div className="s-savebar__spacer" />
         <button className="s-btn s-btn--primary" onClick={save} disabled={saving}>

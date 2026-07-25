@@ -53,9 +53,9 @@ export default function Dashboard() {
       <div className="tf-dashboard__head">
         <h2>Assalomu alaykum! 👋</h2>
         <p>
-          Nima o'zgartiramiz? Quyidan kerakli bo'limni tanlang. Har bir matnni 8
+          Nima o&apos;zgartiramiz? Quyidan kerakli bo&apos;limni tanlang. Har bir matnni 8
           tilda tahrirlash mumkin — maydon ustidagi til tugmasidan tilni
-          almashtiring. O'zgarishlar saytda ~5 daqiqada ko'rinadi.
+          almashtiring. O&apos;zgarishlar saytda ~5 daqiqada ko&apos;rinadi.
         </p>
       </div>
       <div className="tf-dashboard__grid">

@@ -101,7 +101,7 @@ export function GalleryPicker({
           }}
         >
           <IconPlus width={22} height={22} />
-          <span style={{ fontSize: 12 }}>Rasm qo'shish</span>
+          <span style={{ fontSize: 12 }}>Rasm qo&apos;shish</span>
         </button>
       </div>
       {open && (

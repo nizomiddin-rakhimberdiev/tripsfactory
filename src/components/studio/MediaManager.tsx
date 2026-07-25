@@ -86,7 +86,7 @@ export function MediaManager() {
             <IconUpload />
             <div>
               <strong>Rasm yuklang</strong> yoki bu yerga tortib tashlang (bir
-              nechta bo'lishi mumkin)
+              nechta bo&apos;lishi mumkin)
             </div>
           </>
         )}
@@ -106,7 +106,7 @@ export function MediaManager() {
         </div>
       ) : items.length === 0 ? (
         <div className="s-card">
-          <div className="s-empty">Hozircha rasm yo'q. Yuqoridan yuklang.</div>
+          <div className="s-empty">Hozircha rasm yo&apos;q. Yuqoridan yuklang.</div>
         </div>
       ) : (
         <div className="s-gallery">

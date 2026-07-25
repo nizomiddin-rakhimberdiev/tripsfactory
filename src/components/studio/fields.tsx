@@ -139,7 +139,7 @@ export function LocalizedList({
           className="s-btn s-btn--sm"
           onClick={() => setList([...list, { text: "" }])}
         >
-          <IconPlus /> Band qo'shish
+          <IconPlus /> Band qo&apos;shish
         </button>
       </div>
     </Field>
@@ -212,7 +212,7 @@ export function LocalizedItinerary({
           className="s-btn s-btn--sm"
           onClick={() => setList([...list, { title: "", description: "" }])}
         >
-          <IconPlus /> Kun qo'shish
+          <IconPlus /> Kun qo&apos;shish
         </button>
       </div>
     </Field>
@@ -285,7 +285,7 @@ export function LocalizedSections({
           className="s-btn s-btn--sm"
           onClick={() => setList([...list, { heading: "", body: "" }])}
         >
-          <IconPlus /> Bo'lim qo'shish
+          <IconPlus /> Bo&apos;lim qo&apos;shish
         </button>
       </div>
     </Field>
