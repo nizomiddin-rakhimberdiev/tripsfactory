@@ -43,3 +43,8 @@ next-env.d.ts
 # Payload local dev artifacts
 payload.db*
 /media
+
+# Generated tour-import template. Studio builds this on demand with live
+# country/city lists (/api/studio/import/template); `npm run template` writes
+# this copy only as an offline fallback, so the binary is not tracked.
+public/tripsfactory-turlar-shablon.xlsx

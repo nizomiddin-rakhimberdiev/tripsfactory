@@ -30,6 +30,11 @@ export default async function StudioToursPage() {
               ` Quyida dastlabki ${res.docs.length} tasi.`}
           </p>
         </div>
+        <div className="s-pagehead__actions">
+          <Link className="s-btn" href="/studio/import">
+            Sheets&apos;dan import
+          </Link>
+        </div>
       </div>
 
       {res.docs.length === 0 ? (

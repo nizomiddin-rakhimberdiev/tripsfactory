@@ -10,7 +10,9 @@
     "translate": "tsx scripts/translate-content.ts",
     "payload": "payload",
     "seed": "tsx scripts/seed.ts",
-    "reset-content": "tsx scripts/reset-content.ts"
+    "reset-content": "tsx scripts/reset-content.ts",
+    "template": "NODE_ENV=production tsx --env-file-if-exists=.env scripts/make-import-template.ts",
+    "template:check": "tsx scripts/check-import-template.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.111.0",
@@ -19,6 +21,7 @@
     "@payloadcms/next": "^3.86.0",
     "@payloadcms/richtext-lexical": "^3.86.0",
     "@payloadcms/storage-vercel-blob": "^3.86.0",
+    "exceljs": "^4.4.0",
     "graphql": "^16.14.2",
     "leaflet": "^1.9.4",
     "next": "^16.2.10",

@@ -14,6 +14,7 @@ import {
   IconGlobe,
   IconChevron,
   IconExternal,
+  IconTable,
   IconLogout,
 } from "./icons";
 
@@ -43,6 +44,7 @@ const GROUPS: { id: string; label: string | null; items: NavItem[] }[] = [
       { href: "/studio/cities", label: "Shaharlar", Icon: IconPin },
       { href: "/studio/guides", label: "Qo'llanmalar", Icon: IconBook },
       { href: "/studio/content", label: "Bosh sahifa", Icon: IconHome },
+      { href: "/studio/import", label: "Sheets import", Icon: IconTable },
     ],
   },
   {
@@ -71,6 +73,7 @@ const TITLES: Record<string, string> = {
   "/studio/cities": "Shaharlar",
   "/studio/guides": "Qo'llanmalar",
   "/studio/content": "Bosh sahifa",
+  "/studio/import": "Google Sheets'dan import",
   "/studio/media": "Rasmlar",
   "/studio/leads": "So'rovlar",
 };

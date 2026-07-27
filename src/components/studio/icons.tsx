@@ -84,6 +84,18 @@ export const IconUpload = (p: P) => (
     <path d="M4 16v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2" />
   </svg>
 );
+export const IconDownload = (p: P) => (
+  <svg {...base(p)}>
+    <path d="M12 4v12M8 12l4 4 4-4" />
+    <path d="M4 16v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2" />
+  </svg>
+);
+export const IconTable = (p: P) => (
+  <svg {...base(p)}>
+    <rect x="3" y="4" width="18" height="16" rx="2" />
+    <path d="M3 9h18M9 9v11" />
+  </svg>
+);
 export const IconExternal = (p: P) => (
   <svg {...base(p)}>
     <path d="M14 4h6v6M20 4l-8 8" />
