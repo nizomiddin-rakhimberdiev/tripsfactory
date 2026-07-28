@@ -8,9 +8,15 @@ function localized(path: string) {
   return locales.map((locale) => ({
     url: `${SITE_URL}/${locale}${path}`,
     alternates: {
-      languages: Object.fromEntries(
-        locales.map((l) => [l, `${SITE_URL}/${l}${path}`]),
-      ),
+      languages: {
+        // The page metadata already declares x-default; the sitemap did not,
+        // so the two disagreed about where to send a visitor whose language
+        // matches none of the eight.
+        "x-default": `${SITE_URL}/en${path}`,
+        ...Object.fromEntries(
+          locales.map((l) => [l, `${SITE_URL}/${l}${path}`]),
+        ),
+      },
     },
   }));
 }
