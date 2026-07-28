@@ -31,11 +31,30 @@ const inter = Inter({
 // Editorial display face. Chosen over Playfair for two reasons: it carries
 // Cyrillic (so ru/uz headings keep the brand voice instead of falling back to
 // Inter), and it reads as couture rather than as a default web serif.
+/**
+ * `preload: false` is deliberate, and measured rather than assumed.
+ *
+ * Two weights x two styles x two subsets is eight faces, and next/font
+ * preloads every declared face on every page. Instrumenting the homepage
+ * showed the browser actually *uses* three: Cormorant normal 600 in two
+ * subsets, and Inter. The rest — every italic, every 500, the Cyrillic cuts on
+ * an English page — were fetched and left `unloaded`.
+ *
+ * That is roughly half of 185KB of fonts downloading in parallel with the LCP
+ * element, which is the hero image. The image is 23KB and still took 2.2s to
+ * arrive, because it was queuing behind fonts nothing on the page would render.
+ *
+ * Dropping the preload hint does not remove a single face: the CSS still
+ * declares all eight, and the browser fetches whichever ones a page's text
+ * actually matches. Inter keeps its preload — body copy is on every page and
+ * is what paints first.
+ */
 const cormorant = Cormorant_Garamond({
   variable: "--font-cormorant",
   subsets: ["latin", "cyrillic"],
   weight: ["500", "600"],
   style: ["normal", "italic"],
+  preload: false,
 });
 
 /**
