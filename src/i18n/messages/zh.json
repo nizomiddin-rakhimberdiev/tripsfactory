@@ -141,7 +141,11 @@
   },
   "contact": {
     "title": "联系我们",
-    "subtitle": "告诉我们您的旅行计划 — 我们将在24小时内回复。"
+    "subtitle": "告诉我们您的旅行计划 — 我们将在24小时内回复。",
+    "phone": "电话",
+    "email": "邮箱",
+    "hours": "营业时间",
+    "address": "地址"
   },
   "common": {
     "prevImage": "上一张图片",
@@ -157,5 +161,10 @@
     "title": "出现了一些问题",
     "body": "页面未能加载。请再试一次。",
     "retry": "重试"
+  },
+  "legal": {
+    "privacyTitle": "隐私政策",
+    "termsTitle": "服务条款",
+    "updated": "最后更新"
   }
 }

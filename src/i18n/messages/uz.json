@@ -141,7 +141,11 @@
   },
   "contact": {
     "title": "Biz bilan bog'laning",
-    "subtitle": "Sayohatingiz haqida yozing — 24 soat ichida javob beramiz."
+    "subtitle": "Sayohatingiz haqida yozing — 24 soat ichida javob beramiz.",
+    "phone": "Telefon",
+    "email": "Email",
+    "hours": "Ish vaqti",
+    "address": "Manzil"
   },
   "common": {
     "prevImage": "Oldingi rasm",
@@ -157,5 +161,10 @@
     "title": "Nimadir noto'g'ri ketdi",
     "body": "Bu sahifa yuklanmadi. Ayb sizda emas — qaytadan urinib ko'ring.",
     "retry": "Qaytadan urinish"
+  },
+  "legal": {
+    "privacyTitle": "Maxfiylik siyosati",
+    "termsTitle": "Foydalanish shartlari",
+    "updated": "Oxirgi yangilanish"
   }
 }

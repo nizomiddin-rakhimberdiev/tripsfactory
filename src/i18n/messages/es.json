@@ -141,7 +141,11 @@
   },
   "contact": {
     "title": "Contáctenos",
-    "subtitle": "Cuéntenos sobre su viaje — respondemos en 24 horas."
+    "subtitle": "Cuéntenos sobre su viaje — respondemos en 24 horas.",
+    "phone": "Teléfono",
+    "email": "Correo electrónico",
+    "hours": "Horario de atención",
+    "address": "Dirección"
   },
   "common": {
     "prevImage": "Imagen anterior",
@@ -157,5 +161,10 @@
     "title": "Algo salió mal",
     "body": "Esta página no se cargó. No es culpa tuya: inténtalo de nuevo.",
     "retry": "Intentar de nuevo"
+  },
+  "legal": {
+    "privacyTitle": "Política de privacidad",
+    "termsTitle": "Términos del servicio",
+    "updated": "Última actualización"
   }
 }

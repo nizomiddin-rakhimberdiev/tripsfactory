@@ -141,7 +141,11 @@
   },
   "contact": {
     "title": "Kontaktieren Sie uns",
-    "subtitle": "Erzählen Sie uns von Ihrer Reise — wir antworten innerhalb von 24 Stunden."
+    "subtitle": "Erzählen Sie uns von Ihrer Reise — wir antworten innerhalb von 24 Stunden.",
+    "phone": "Telefon",
+    "email": "E-Mail",
+    "hours": "Öffnungszeiten",
+    "address": "Adresse"
   },
   "common": {
     "prevImage": "Vorheriges Bild",
@@ -157,5 +161,10 @@
     "title": "Etwas ist schiefgelaufen",
     "body": "Diese Seite wurde nicht geladen. Es liegt nicht an Ihnen — bitte versuchen Sie es erneut.",
     "retry": "Erneut versuchen"
+  },
+  "legal": {
+    "privacyTitle": "Datenschutzerklärung",
+    "termsTitle": "Nutzungsbedingungen",
+    "updated": "Zuletzt aktualisiert"
   }
 }

@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { setRequestLocale, getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
+import { EMAIL } from "@/lib/business";
 import { pageMeta } from "@/lib/seo";
 import { getSiteContent, getTours } from "@/lib/content";
 
@@ -148,12 +149,12 @@ export default async function PremiumPage({
             {t("closingTitle")}
           </h2>
           <a
-            href="mailto:premium@tripsfactory.uz"
+            href={`mailto:${EMAIL}`}
             className="tf-eyebrow mt-10 inline-block bg-primary px-12 py-5 tracking-[0.2em] text-primary-foreground transition-colors duration-500 hover:opacity-90"
           >
             {t("enquire")}
           </a>
-          <p className="mt-6 text-sm text-muted">premium@tripsfactory.uz</p>
+          <p className="mt-6 text-sm text-muted">{EMAIL}</p>
         </div>
       </section>
     </div>

@@ -1,9 +1,17 @@
 import type { Metadata } from "next";
 import type { Tour } from "@/lib/content";
 import { locales, type Locale } from "@/i18n/routing";
+import {
+  ADDRESS,
+  BRAND_NAME,
+  EMAIL,
+  LEGAL_NAME,
+  PHONE,
+  SAME_AS,
+} from "@/lib/business";
 
 export const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL ?? "https://tripsfactory.uz";
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://tripsfactory.com";
 
 /**
  * The share image. Points at the CMS hero rather than a separate asset, so the
@@ -132,9 +140,13 @@ export function tourJsonLd(tour: Tour, locale: string) {
  *
  * This is what an AI answer engine or a knowledge panel reads to learn who
  * runs the site — until now nothing on any page said so in machine-readable
- * form. Deliberately omitted: `sameAs` (no social profile URLs exist yet),
- * `telephone` and `address` (no verified contact details). Each of those is a
- * factual claim, and a wrong one is worse than a missing one.
+ * form. Every claim here is a verified business detail held in lib/business,
+ * so the structured data and the visible contact block cannot drift apart.
+ *
+ * Still omitted, deliberately: `aggregateRating`, because no reviews have been
+ * collected, and `openingHoursSpecification`, because the business gave hours
+ * but not which days they apply to — and Google shows opening hours to someone
+ * deciding whether to call right now.
  */
 export function travelAgencyJsonLd({
   locale,
@@ -149,10 +161,21 @@ export function travelAgencyJsonLd({
     "@context": "https://schema.org",
     "@type": "TravelAgency",
     "@id": `${SITE_URL}/#organization`,
-    name: "TripsFactory",
+    name: BRAND_NAME,
+    legalName: LEGAL_NAME,
     url: `${SITE_URL}/${locale}`,
     description,
     image: OG_IMAGE.url,
+    telephone: PHONE.href,
+    email: EMAIL,
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: ADDRESS.street,
+      addressLocality: ADDRESS.city,
+      addressRegion: ADDRESS.district,
+      addressCountry: ADDRESS.countryCode,
+    },
+    sameAs: SAME_AS,
     ...(areaServed.length
       ? { areaServed: areaServed.map((name) => ({ "@type": "Country", name })) }
       : {}),

@@ -1,6 +1,7 @@
 import { getLocale, getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { getPublishedCountries } from "@/lib/content";
+import { EMAIL, LEGAL_NAME, PHONE, SOCIAL } from "@/lib/business";
 import { Wordmark } from "./Wordmark";
 
 export async function Footer() {
@@ -70,15 +71,61 @@ export async function Footer() {
           <p className="tf-eyebrow mb-4 text-primary">
             {t("footer.followUs")}
           </p>
+          {/* These were three <li> of plain text on every page of the site —
+              a "Follow Us" column that could not be followed. */}
           <ul className="space-y-3 text-sm text-muted">
-            <li>Instagram</li>
-            <li>Telegram</li>
-            <li>YouTube</li>
+            {SOCIAL.map((s) => (
+              <li key={s.url}>
+                <a
+                  href={s.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="transition-colors hover:text-foreground"
+                >
+                  {s.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+          <div className="tf-rule my-6" />
+          <ul className="space-y-3 text-sm text-muted">
+            <li>
+              <a
+                href={`tel:${PHONE.href}`}
+                className="transition-colors hover:text-foreground"
+              >
+                {PHONE.display}
+              </a>
+            </li>
+            <li>
+              <a
+                href={`mailto:${EMAIL}`}
+                className="transition-colors hover:text-foreground"
+              >
+                {EMAIL}
+              </a>
+            </li>
           </ul>
         </div>
       </div>
       <div className="border-t border-border py-5 text-center text-xs text-muted">
-        © {new Date().getFullYear()} TripsFactory. {t("footer.rights")}
+        <p>
+          © {new Date().getFullYear()} {LEGAL_NAME}. {t("footer.rights")}
+        </p>
+        <p className="mt-2 flex flex-wrap justify-center gap-x-4 gap-y-1">
+          <Link
+            href="/privacy"
+            className="transition-colors hover:text-foreground"
+          >
+            {t("legal.privacyTitle")}
+          </Link>
+          <Link
+            href="/terms"
+            className="transition-colors hover:text-foreground"
+          >
+            {t("legal.termsTitle")}
+          </Link>
+        </p>
       </div>
     </footer>
   );
