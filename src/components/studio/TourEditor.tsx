@@ -10,7 +10,7 @@ import {
   type LocaleMap,
   type MediaRef,
 } from "./fields";
-import { sendPerLocale } from "@/lib/studio/save";
+import { saveMessage, sendPerLocale } from "@/lib/studio/save";
 import { LOCALE_CODES } from "@/lib/studio/locales";
 import { IconCheck, IconExternal, IconPlus, IconTrash } from "./icons";
 import { RoutePicker } from "./RoutePicker";
@@ -56,6 +56,9 @@ const DEP_STATUS = [
   { value: "guaranteed", label: "Kafolatlangan" },
   { value: "soldout", label: "Sotilgan" },
 ];
+
+/** Fields stored per locale; a locale with none of them filled in is not written. */
+const LOCALIZED = ["title", "summary", "itinerary", "included", "excluded"];
 
 export function TourEditor({
   initial,
@@ -103,9 +106,9 @@ export function TourEditor({
         },
       ]),
     );
-    const ok = await sendPerLocale("PATCH", `/api/tours/${t.id}`, bodies);
+    const { ok, failed } = await sendPerLocale("PATCH", `/api/tours/${t.id}`, bodies, LOCALIZED);
     setSaving(false);
-    toast(ok ? "Saqlandi — saytda ~5 daqiqada ko'rinadi" : "Saqlab bo'lmadi", ok ? "ok" : "error");
+    toast(saveMessage(failed, " — saytda ~5 daqiqada ko'rinadi"), ok ? "ok" : "error");
   }
 
   const toggleCity = (id: number) =>

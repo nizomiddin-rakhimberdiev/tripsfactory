@@ -8,7 +8,7 @@ import {
   type LocaleMap,
   type MediaRef,
 } from "./fields";
-import { sendPerLocale } from "@/lib/studio/save";
+import { saveMessage, sendPerLocale } from "@/lib/studio/save";
 import { LOCALE_CODES } from "@/lib/studio/locales";
 import { IconCheck } from "./icons";
 import { GalleryPicker, type GalleryItem } from "./GalleryPicker";
@@ -23,6 +23,9 @@ export type CountryInitial = {
   intro: LocaleMap;
   body: LocaleMap;
 };
+
+/** Fields stored per locale; a locale with none of them filled in is not written. */
+const LOCALIZED = ["name", "intro", "body"];
 
 export function CountryEditor({
   initial,
@@ -55,9 +58,9 @@ export function CountryEditor({
         },
       ]),
     );
-    const ok = await sendPerLocale("PATCH", `/api/countries/${c.id}`, bodies);
+    const { ok, failed } = await sendPerLocale("PATCH", `/api/countries/${c.id}`, bodies, LOCALIZED);
     setSaving(false);
-    toast(ok ? "Saqlandi — saytda ~5 daqiqada ko'rinadi" : "Saqlab bo'lmadi", ok ? "ok" : "error");
+    toast(saveMessage(failed, " — saytda ~5 daqiqada ko'rinadi"), ok ? "ok" : "error");
   }
 
   return (

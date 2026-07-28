@@ -9,7 +9,7 @@ import {
   type LocaleMap,
   type MediaRef,
 } from "./fields";
-import { sendPerLocale } from "@/lib/studio/save";
+import { saveMessage, sendPerLocale } from "@/lib/studio/save";
 import { LOCALE_CODES } from "@/lib/studio/locales";
 import { IconCheck } from "./icons";
 import { GalleryPicker, type GalleryItem } from "./GalleryPicker";
@@ -26,6 +26,9 @@ export type CityInitial = {
   intro: LocaleMap;
   attractions: Record<string, { text: string }[]>;
 };
+
+/** Fields stored per locale; a locale with none of them filled in is not written. */
+const LOCALIZED = ["name", "intro", "attractions"];
 
 export function CityEditor({
   initial,
@@ -60,9 +63,9 @@ export function CityEditor({
         },
       ]),
     );
-    const ok = await sendPerLocale("PATCH", `/api/cities/${c.id}`, bodies);
+    const { ok, failed } = await sendPerLocale("PATCH", `/api/cities/${c.id}`, bodies, LOCALIZED);
     setSaving(false);
-    toast(ok ? "Saqlandi" : "Saqlab bo'lmadi", ok ? "ok" : "error");
+    toast(saveMessage(failed), ok ? "ok" : "error");
   }
 
   return (

@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useToast } from "./ui";
 import { ImagePicker, LocalizedText, type LocaleMap, type MediaRef } from "./fields";
-import { sendPerLocale } from "@/lib/studio/save";
+import { saveMessage, sendPerLocale } from "@/lib/studio/save";
 import { LOCALE_CODES } from "@/lib/studio/locales";
 import { IconCheck } from "./icons";
 
@@ -40,9 +40,10 @@ export function ContentEditor({
         },
       ]),
     );
-    const ok = await sendPerLocale("POST", "/api/globals/site-content", bodies);
+    // The global always exists in every locale, so every locale is written.
+    const { ok, failed } = await sendPerLocale("POST", "/api/globals/site-content", bodies);
     setSaving(false);
-    toast(ok ? "Saqlandi — saytda ~5 daqiqada ko'rinadi" : "Saqlab bo'lmadi", ok ? "ok" : "error");
+    toast(saveMessage(failed, " — saytda ~5 daqiqada ko'rinadi"), ok ? "ok" : "error");
   }
 
   const block = (

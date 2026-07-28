@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useToast, Field } from "./ui";
 import { LocalizedText, LocalizedSections, type LocaleMap } from "./fields";
-import { sendPerLocale } from "@/lib/studio/save";
+import { saveMessage, sendPerLocale } from "@/lib/studio/save";
 import { LOCALE_CODES } from "@/lib/studio/locales";
 import { IconCheck } from "./icons";
 
@@ -13,6 +13,9 @@ export type GuideInitial = {
   title: LocaleMap;
   sections: Record<string, { heading: string; body: string }[]>;
 };
+
+/** Fields stored per locale; a locale with none of them filled in is not written. */
+const LOCALIZED = ["title", "sections"];
 
 export function GuideEditor({
   initial,
@@ -38,9 +41,9 @@ export function GuideEditor({
         },
       ]),
     );
-    const ok = await sendPerLocale("PATCH", `/api/guides/${g.id}`, bodies);
+    const { ok, failed } = await sendPerLocale("PATCH", `/api/guides/${g.id}`, bodies, LOCALIZED);
     setSaving(false);
-    toast(ok ? "Saqlandi" : "Saqlab bo'lmadi", ok ? "ok" : "error");
+    toast(saveMessage(failed), ok ? "ok" : "error");
   }
 
   return (
