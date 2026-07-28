@@ -54,9 +54,10 @@ const SEAT: Record<string, string> = { available: "Joy bor", guaranteed: "Kafola
 /** Turns a live tour document back into the row a manager would have typed. */
 function sampleRow(t: Tour, n: number): string[] {
   const list = (k: string) => ((t[k] as { text: string }[] | null) ?? []).map((x) => x.text).join("\n");
+  // Title on its own line, description under it — the shape parseItinerary reads.
   const days = ((t.itinerary as { title: string; description: string }[] | null) ?? [])
-    .map((d, i) => `${i + 1}-kun. ${d.title} — ${d.description}`)
-    .join("\n");
+    .map((d, i) => `${i + 1}-kun. ${d.title}\n${d.description}`)
+    .join("\n\n");
   const departures = ((t.departures as { date: string; priceUsd: number; status: string }[] | null) ?? [])
     .map((d) => `${d.date.slice(0, 10)} — $${d.priceUsd} — ${SEAT[d.status] ?? d.status}`)
     .join("\n");

@@ -65,6 +65,29 @@ export function ImportPanel() {
   const ready = report?.plans.filter((p) => p.action !== "skip") ?? [];
   const blocked = report?.plans.filter((p) => p.action === "skip") ?? [];
   const fatal = report?.issues.filter((i) => i.level === "error") ?? [];
+
+  /**
+   * The same four notes repeated down sixty cards read as "everything is
+   * broken" when they mean "this is expected". Anything affecting more than two
+   * tours is counted once at the top and dropped from the cards, so what stays
+   * beside a tour is genuinely specific to it.
+   */
+  const grouped = new Map<string, { count: number; sample: string }>();
+  for (const p of report?.plans ?? []) {
+    for (const w of p.warnings) {
+      const k = w.replace(/\d+/g, "#").slice(0, 60);
+      const entry = grouped.get(k);
+      if (entry) entry.count += 1;
+      else grouped.set(k, { count: 1, sample: w });
+    }
+  }
+  const common = new Set([...grouped].filter(([, v]) => v.count > 2).map(([k]) => k));
+  const summary = [...grouped.entries()]
+    .filter(([k]) => common.has(k))
+    .sort((a, b) => b[1].count - a[1].count);
+  const ownWarnings = (p: Plan) =>
+    p.warnings.filter((w) => !common.has(w.replace(/\d+/g, "#").slice(0, 60)));
+
   // Sixty rows of green cards teach nothing; problems first, the rest on demand.
   const visible = showAll || done ? (report?.plans ?? []) : [...blocked, ...ready].slice(0, 12);
 
@@ -161,7 +184,19 @@ export function ImportPanel() {
               </div>
             ))}
 
-            <div className="s-imp__list">
+            {summary.length > 0 && (
+              <div className="s-imp__notes" style={{ marginTop: 0, paddingTop: 0, borderTop: "none" }}>
+                <div className="s-imp__noteshead">Barcha turlarga tegishli eslatmalar</div>
+                {summary.map(([k, v]) => (
+                  <div key={k} className="s-imp__msg s-imp__msg--warn">
+                    <b style={{ whiteSpace: "nowrap" }}>{v.count} ta turda</b>
+                    {v.sample.replace(/^\d+ ta /, "")}
+                  </div>
+                ))}
+              </div>
+            )}
+
+            <div className="s-imp__list" style={{ marginTop: 14 }}>
               {visible.map((p) => {
                 const outcome = report.outcomes?.find((o) => o.slug === p.slug);
                 return (
@@ -198,7 +233,7 @@ export function ImportPanel() {
                         {e}
                       </div>
                     ))}
-                    {p.warnings.map((w, n) => (
+                    {ownWarnings(p).map((w, n) => (
                       <div key={`w${n}`} className="s-imp__msg s-imp__msg--warn">
                         {w}
                       </div>

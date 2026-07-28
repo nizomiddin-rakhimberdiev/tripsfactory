@@ -160,12 +160,17 @@ export const COLUMNS: Column[] = [
     aliases: ["Kunma-kun dastur", "itinerary"],
     hint: "Har kun yangi qatordan",
     help:
-      "Har bir kun alohida qatorda, «1-kun.» bilan boshlanadi.\n\n" +
-      "FORMAT:\n1-kun. Arrival in Tashkent — Meet at the airport and transfer to the hotel.\n" +
-      "2-kun. Tashkent city tour — Khast-Imam, Chorsu Bazaar and the metro.\n\n" +
-      "MUHIM: sarlavha bilan tavsif orasiga « — » qo'ying. Qo'ymasangiz butun matn " +
-      "tavsifga tushadi, sarlavha esa «Day 1» bo'ladi.\n" +
-      "Katak ichida yangi qator: Ctrl+Enter (Mac'da Cmd+Enter).",
+      "Har bir kun «1-kun.» bilan boshlanadi. Kun sarlavhasi — birinchi qatorda, " +
+      "tavsif — keyingi qatorda.\n\n" +
+      "FORMAT:\n" +
+      "1-kun. Arrival in Tashkent\n" +
+      "Meet at the airport and transfer to the hotel.\n" +
+      "\n" +
+      "2-kun. Tashkent city tour\n" +
+      "Khast-Imam, Chorsu Bazaar and the metro.\n\n" +
+      "Katak ichida yangi qator: Ctrl+Enter (Mac'da Cmd+Enter).\n" +
+      "Sarlavha bilan tavsifni bitta qatorga yozsangiz, sayt sarlavhasi «Day 1», " +
+      "«Day 2» bo'ladi — matn to'liq saqlanadi, faqat sarlavha chiroyliroq bo'lmaydi.",
     kind: "required",
     width: 72,
   },
@@ -358,30 +363,45 @@ export type ParseResult = { tours: TourDraft[]; issues: SheetIssue[] };
  * Splits the day-by-day cell.
  *
  * A day starts at `1-kun.`; everything up to the next marker belongs to it.
- * Title and description are separated by a dash — when the manager left it out
- * the whole text becomes the description and the heading falls back to `Day N`,
- * which reads perfectly well on the site and never loses a word of their text.
+ * Within a day the **first line is the title and the rest is the description** —
+ * exactly the shape the template's worked example shows:
+ *
+ *     1-kun. Arrival in Beijing — Gubei
+ *     Airport pickup in Beijing and transfer to Gubei. Check in to a…
+ *
+ * An earlier version instead looked for a dash separator, which was wrong twice
+ * over: it could not read the format its own template demonstrated, and where a
+ * title legitimately contained a dash — `Arrival in Beijing — Gubei` is a route,
+ * not a delimiter — it tore the title in half and pushed "Gubei" to the front of
+ * the description.
+ *
+ * When a day is a single run-on line there is no way to tell where the title
+ * ends, so the heading falls back to `Day N` and the whole text becomes the
+ * description. Nothing is lost and nothing is invented.
  */
 function parseItinerary(raw: string): { days: { title: string; description: string }[]; unsplit: number } {
-  const marker = /(?:^|\n)\s*(\d+)\s*-\s*kun\s*[.:)]?\s*/gi;
+  // `[ \t]` rather than `\s`: the latter eats the newline that starts the block.
+  const marker = /(?:^|\n)[ \t]*(\d+)[ \t]*-[ \t]*kun[ \t]*[.:)]?[ \t]*/gi;
   const hits = [...raw.matchAll(marker)];
   let unsplit = 0;
 
   const blocks = hits.length
     ? hits.map((m, i) => ({
         n: Number(m[1]),
-        text: raw.slice(m.index! + m[0].length, i + 1 < hits.length ? hits[i + 1].index! : undefined).trim(),
+        text: raw.slice(m.index! + m[0].length, i + 1 < hits.length ? hits[i + 1].index! : undefined),
       }))
     : lines(raw).map((text, i) => ({ n: i + 1, text }));
 
   const days = blocks
-    .filter((b) => b.text)
+    .map((b) => ({ n: b.n, rows: lines(b.text) }))
+    .filter((b) => b.rows.length)
     .map((b) => {
-      const text = b.text.replace(/\s*\n\s*/g, " ").trim();
-      const split = text.match(/^(.{3,90}?)\s+[—–|:]\s+(.+)$/);
-      if (split) return { title: split[1].trim(), description: split[2].trim() };
+      // A first line long enough to be a paragraph is a paragraph, not a title.
+      if (b.rows.length >= 2 && b.rows[0].length <= 120) {
+        return { title: b.rows[0], description: b.rows.slice(1).join(" ") };
+      }
       unsplit += 1;
-      return { title: `Day ${b.n}`, description: text };
+      return { title: `Day ${b.n}`, description: b.rows.join(" ") };
     });
 
   return { days, unsplit };
@@ -538,7 +558,8 @@ export function parseSheet(rows: string[][]): ParseResult {
     }
     if (unsplit) {
       warnings.push(
-        `${unsplit} ta kunda sarlavha ajratilmagan (« — » yo'q) — sarlavha «Day N» bo'ldi, matn to'liq saqlandi.`,
+        `${unsplit} ta kunda sarlavha alohida qatorda emas — sayt sarlavhasi «Day N» bo'ladi. ` +
+          "Matn to'liq saqlandi, tur to'g'ri qo'shiladi.",
       );
     }
 
