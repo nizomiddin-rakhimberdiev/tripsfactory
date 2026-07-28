@@ -19,8 +19,15 @@ const withNextIntl = createNextIntlPlugin("./src/i18n/request.ts");
  * base-uri stops a <base> tag rewriting every relative URL, object-src kills
  * plugin execution, and frame-ancestors backs up X-Frame-Options.
  *
- * Shipped as Report-Only first and promoted only after a live crawl showed no
- * violations. Read the header name below to see which mode is active.
+ * Enforcing on the public site, report-only behind the two admin surfaces.
+ * A crawl of 25 public pages plus the /admin login and the Studio login found
+ * zero violations, and the route map's Carto tiles and the Payload login boot
+ * were checked individually. What could not be checked is either admin *after
+ * sign-in* — no credentials here — and those screens do the riskiest things in
+ * the app: rich-text editing, media upload, blob previews. Enforcing a policy
+ * on the client's own content tool without having opened it once is how you
+ * find out at the worst moment, so those paths report instead of block until
+ * someone signs in and confirms the console is clean.
  */
 const csp = [
   "default-src 'self'",
@@ -68,7 +75,6 @@ const nextConfig: NextConfig = {
             key: "Strict-Transport-Security",
             value: "max-age=63072000; includeSubDomains; preload",
           },
-          { key: "Content-Security-Policy-Report-Only", value: csp },
           // Nothing here uses a camera, microphone or location, so the browser
           // should refuse those outright rather than leave them available to
           // injected script or an embedded frame.
@@ -77,6 +83,22 @@ const nextConfig: NextConfig = {
             value: "camera=(), microphone=(), geolocation=(), payment=()",
           },
         ],
+      },
+      {
+        // Everything except the two admin surfaces — enforced.
+        source: "/((?!admin|studio).*)",
+        headers: [{ key: "Content-Security-Policy", value: csp }],
+      },
+      // The admin surfaces — reported, for the reason given above the policy.
+      // Two rules rather than one alternation: path-to-regexp rejects two
+      // adjacent parameters, and the literal prefix is what makes each valid.
+      {
+        source: "/admin/:path*",
+        headers: [{ key: "Content-Security-Policy-Report-Only", value: csp }],
+      },
+      {
+        source: "/studio/:path*",
+        headers: [{ key: "Content-Security-Policy-Report-Only", value: csp }],
       },
     ];
   },
