@@ -24,6 +24,7 @@ import type { Payload, RequiredDataFromCollectionSlug } from "payload";
 import type { Tour } from "@/payload-types";
 import type { RoutePoint } from "@/lib/content/types";
 import type { SheetIssue, TourDraft } from "./schema";
+import { PLACEHOLDER_ALT, PLACEHOLDER_FILENAME, placeholderBytes } from "./placeholder";
 
 type TourWrite = Partial<
   Pick<
@@ -99,8 +100,6 @@ async function loadRefs(payload: Payload): Promise<Refs> {
 
 /* ------------------------------------------------------------- placeholder */
 
-const PLACEHOLDER_NAME = "rasm-qoshilmagan.png";
-
 /**
  * A single shared "photo pending" image, created once and reused.
  *
@@ -110,28 +109,29 @@ const PLACEHOLDER_NAME = "rasm-qoshilmagan.png";
  * render nothing. One neutral image costs nothing and reads as an instruction:
  * whoever opens Studio sees immediately which tours still need a photo.
  */
-async function placeholderId(payload: Payload, refs: Refs): Promise<number> {
-  const cached = refs.mediaByName.get(PLACEHOLDER_NAME);
+async function placeholderId(payload: Payload, refs: Refs): Promise<number | null> {
+  const cached = refs.mediaByName.get(PLACEHOLDER_FILENAME);
   if (cached) return cached;
 
-  const { default: sharp } = await import("sharp");
-  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000">
-    <rect width="1600" height="1000" fill="#f4ede1"/>
-    <rect x="60" y="60" width="1480" height="880" fill="none" stroke="#ddd0bc" stroke-width="4" stroke-dasharray="18 14"/>
-    <text x="800" y="500" text-anchor="middle" font-family="Helvetica,Arial,sans-serif"
-      font-size="54" fill="#6f6459">Rasm qo'shilmagan</text>
-    <text x="800" y="570" text-anchor="middle" font-family="Helvetica,Arial,sans-serif"
-      font-size="30" fill="#9a8f82">Studio &#8594; Turlar &#8594; Asosiy rasm</text>
-  </svg>`;
-  const buffer = await sharp(Buffer.from(svg)).png().toBuffer();
-
-  const doc = await payload.create({
-    collection: "media",
-    data: { alt: "Rasm hali qo'shilmagan" },
-    file: { data: buffer, mimetype: "image/png", name: PLACEHOLDER_NAME, size: buffer.byteLength },
-  });
-  refs.mediaByName.set(PLACEHOLDER_NAME, doc.id);
-  return doc.id;
+  try {
+    const buffer = placeholderBytes();
+    const doc = await payload.create({
+      collection: "media",
+      data: { alt: PLACEHOLDER_ALT },
+      file: {
+        data: buffer,
+        mimetype: "image/png",
+        name: PLACEHOLDER_FILENAME,
+        size: buffer.byteLength,
+      },
+    });
+    refs.mediaByName.set(PLACEHOLDER_FILENAME, doc.id);
+    return doc.id;
+  } catch {
+    // Reported against the tour that needed it rather than thrown: one failing
+    // upload must not take the other sixty-six tours down with it.
+    return null;
+  }
 }
 
 /* ------------------------------------------------------------------- media */
@@ -344,7 +344,17 @@ export async function apply(
     }
     // Only a brand-new tour needs one; an update without a photo column keeps
     // whatever Studio already has, including a photo added there by hand.
-    if (heroId === undefined && isNew) heroId = await placeholderId(payload, refs);
+    if (heroId === undefined && isNew) {
+      const fallback = await placeholderId(payload, refs);
+      if (fallback === null) {
+        const message = "Vaqtinchalik rasmni saqlab bo'lmadi — rasm kutubxonasini tekshiring.";
+        planned.action = "skip";
+        planned.errors.push(message);
+        outcomes.push({ slug: draft.slug, ok: false, action: "failed", message });
+        continue;
+      }
+      heroId = fallback;
+    }
 
     const galleryItems: { id: number; url: string }[] = [];
     for (const [i, ref] of draft.gallery.entries()) {

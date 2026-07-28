@@ -18,6 +18,7 @@ type Plan = {
 type Issue = { row: number | null; message: string; level: "error" | "warning" };
 type Outcome = { slug: string; ok: boolean; action: "created" | "updated" | "failed"; message?: string };
 type Report = { issues: Issue[]; plans: Plan[]; outcomes?: Outcome[] };
+type Answer = { report?: Report; error?: string; total?: number; nextOffset?: number | null; done?: number };
 
 const TEMPLATE = "/tripsfactory-turlar-shabloni.xlsx";
 
@@ -29,38 +30,91 @@ export function ImportPanel() {
   const [report, setReport] = useState<Report | null>(null);
   const [done, setDone] = useState(false);
   const [showAll, setShowAll] = useState(false);
+  const [progress, setProgress] = useState<{ done: number; total: number } | null>(null);
 
-  async function run(mode: "preview" | "commit") {
-    setBusy(mode);
-    setError(null);
-    if (mode === "preview") {
-      setReport(null);
-      setDone(false);
-    }
+  /** One request. Anything that is not JSON is reported as what it actually was. */
+  async function call(body: Record<string, unknown>): Promise<Answer> {
+    const res = await fetch("/api/studio/import", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+      body: JSON.stringify({ url, ...body }),
+    });
+    const text = await res.text();
     try {
-      const res = await fetch("/api/studio/import", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include",
-        body: JSON.stringify({ url, mode }),
-      });
-      const json = (await res.json()) as { report?: Report; error?: string };
-      if (!res.ok || !json.report) {
-        setError(json.error ?? "Import bajarilmadi.");
-        return;
-      }
-      setReport(json.report);
-      if (mode === "commit") {
-        setDone(true);
-        const ok = json.report.outcomes?.filter((o) => o.ok).length ?? 0;
-        toast(ok ? `${ok} ta tur qoralama sifatida qo'shildi.` : "Hech qanday tur yozilmadi.", ok ? "ok" : "error");
-      }
+      const json = JSON.parse(text) as Answer;
+      if (!res.ok && !json.error) json.error = `Server ${res.status} javob qaytardi.`;
+      return json;
     } catch {
-      setError("Server bilan bog'lanib bo'lmadi. Qaytadan urinib ko'ring.");
+      return {
+        error:
+          res.status === 504
+            ? "So'rov juda uzoq davom etdi (504). Qaytadan bosing — import to'xtagan joyidan davom etadi."
+            : `Server tushunarsiz javob qaytardi (${res.status}).`,
+      };
+    }
+  }
+
+  async function preview() {
+    setBusy("preview");
+    setError(null);
+    setReport(null);
+    setDone(false);
+    setProgress(null);
+    try {
+      const json = await call({ mode: "preview" });
+      if (json.error || !json.report) return setError(json.error ?? "Import bajarilmadi.");
+      setReport(json.report);
+    } catch {
+      setError("Server bilan bog'lanib bo'lmadi. Internetni tekshirib, qaytadan urining.");
     } finally {
       setBusy(null);
     }
   }
+
+  /**
+   * Commits in batches, resuming from the offset the server hands back. A batch
+   * that fails stops the loop with everything before it already saved, and the
+   * button can simply be pressed again — tours already written are recognised
+   * and updated rather than duplicated.
+   */
+  async function commit() {
+    setBusy("commit");
+    setError(null);
+    const plans: Plan[] = [];
+    const outcomes: Outcome[] = [];
+    const issues: Issue[] = [];
+    let offset: number | null = 0;
+
+    try {
+      while (offset !== null) {
+        const json: Answer = await call({ mode: "commit", offset });
+        if (json.error || !json.report) {
+          setError(json.error ?? "Import bajarilmadi.");
+          break;
+        }
+        plans.push(...json.report.plans);
+        outcomes.push(...(json.report.outcomes ?? []));
+        issues.push(...json.report.issues);
+        setReport({ plans, outcomes, issues });
+        setProgress({ done: json.done ?? plans.length, total: json.total ?? plans.length });
+        offset = json.nextOffset ?? null;
+      }
+    } catch {
+      setError("Server bilan bog'lanib bo'lmadi. Qaytadan bosing — qolgani davom etadi.");
+    } finally {
+      setBusy(null);
+      const ok = outcomes.filter((o) => o.ok).length;
+      if (ok) {
+        setDone(true);
+        toast(`${ok} ta tur qoralama sifatida qo'shildi.`, "ok");
+      } else if (outcomes.length) {
+        toast("Hech qanday tur yozilmadi.", "error");
+      }
+    }
+  }
+
+  const run = (mode: "preview" | "commit") => (mode === "preview" ? preview() : commit());
 
   const ready = report?.plans.filter((p) => p.action !== "skip") ?? [];
   const blocked = report?.plans.filter((p) => p.action === "skip") ?? [];
@@ -147,7 +201,9 @@ export function ImportPanel() {
                   if (confirm(`${ready.length} ta tur qoralama sifatida qo'shiladi. Davom etamizmi?`)) run("commit");
                 }}
               >
-                {busy === "commit" ? "Qo'shilmoqda…" : `${ready.length} ta turni qo'shish`}
+                {busy === "commit"
+                  ? `Qo'shilmoqda… ${progress ? `${progress.done}/${progress.total}` : ""}`
+                  : `${ready.length} ta turni qo'shish`}
               </button>
             )}
           </div>
