@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { setRequestLocale, getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
-import { pageMeta } from "@/lib/seo";
+import { pageMeta, travelAgencyJsonLd } from "@/lib/seo";
 import { getPublishedCountries, getSiteContent, getTours } from "@/lib/content";
 import { TourCard } from "@/components/tours/TourCard";
 
@@ -67,6 +67,23 @@ export default async function HomePage({
 
   return (
     <>
+      {/* Who runs this site, in machine-readable form. Nothing on any page said
+          so before, which left search engines and AI answer engines to infer
+          the operator from prose. The description and the served countries are
+          the same values the page renders — no separate copy to fall stale. */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            travelAgencyJsonLd({
+              locale,
+              description: t("heroSubtitle"),
+              areaServed: countryList.map((c) => c.name),
+            }),
+          ),
+        }}
+      />
+
       {/* Hero */}
       <section className="tf-hero-full relative flex items-center justify-center overflow-hidden">
         <Image

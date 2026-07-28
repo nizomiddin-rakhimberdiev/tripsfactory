@@ -69,14 +69,40 @@ export function pageMeta({
 
 export type { Locale };
 
-/** schema.org TouristTrip structured data for a tour page. */
-export function tourJsonLd(tour: Tour) {
+/** Media paths come from the CMS as site-relative; schema.org needs absolute. */
+function absolute(path: string): string {
+  return path.startsWith("http") ? path : `${SITE_URL}${path}`;
+}
+
+/**
+ * schema.org TouristTrip structured data for a tour page.
+ *
+ * `locale` is required because every URL in structured data must be the
+ * absolute address of the page it describes, and this site prefixes every
+ * route with a locale. Without it the `url` and `offers.url` would point at a
+ * path that 404s.
+ *
+ * Nothing here is asserted that the CMS does not hold. In particular there is
+ * no `aggregateRating` — the business has no collected reviews, and inventing
+ * a rating is both false and a manual-action risk with Google.
+ */
+export function tourJsonLd(tour: Tour, locale: string) {
+  const url = `${SITE_URL}/${locale}/tours/${tour.countrySlug}/${tour.slug}`;
+  const images = [tour.heroImage, ...(tour.gallery ?? [])]
+    .filter(Boolean)
+    .map(absolute);
+
   return {
     "@context": "https://schema.org",
     "@type": "TouristTrip",
+    "@id": url,
+    url,
     name: tour.title,
     description: tour.summary,
     touristType: tour.type === "group" ? "Group" : "Private",
+    // ISO 8601: an 8-day tour is P8D. Google reads this for trip rich results.
+    ...(tour.durationDays ? { duration: `P${tour.durationDays}D` } : {}),
+    ...(images.length ? { image: images } : {}),
     itinerary: {
       "@type": "ItemList",
       numberOfItems: tour.itinerary.length,
@@ -89,15 +115,70 @@ export function tourJsonLd(tour: Tour) {
     ...(tour.priceFromUsd !== null && {
       offers: {
         "@type": "Offer",
+        // Required by Google for an Offer to be eligible; it was missing, so
+        // the offer block was ignored entirely.
+        url,
         price: tour.priceFromUsd,
         priceCurrency: "USD",
         availability: "https://schema.org/InStock",
       },
     }),
-    provider: {
-      "@type": "TravelAgency",
-      name: "TripsFactory",
-      url: SITE_URL,
-    },
+    provider: { "@type": "TravelAgency", name: "TripsFactory", url: SITE_URL },
+  };
+}
+
+/**
+ * The operator itself, emitted once on the homepage.
+ *
+ * This is what an AI answer engine or a knowledge panel reads to learn who
+ * runs the site — until now nothing on any page said so in machine-readable
+ * form. Deliberately omitted: `sameAs` (no social profile URLs exist yet),
+ * `telephone` and `address` (no verified contact details). Each of those is a
+ * factual claim, and a wrong one is worse than a missing one.
+ */
+export function travelAgencyJsonLd({
+  locale,
+  description,
+  areaServed,
+}: {
+  locale: string;
+  description: string;
+  areaServed: string[];
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "TravelAgency",
+    "@id": `${SITE_URL}/#organization`,
+    name: "TripsFactory",
+    url: `${SITE_URL}/${locale}`,
+    description,
+    image: OG_IMAGE.url,
+    ...(areaServed.length
+      ? { areaServed: areaServed.map((name) => ({ "@type": "Country", name })) }
+      : {}),
+  };
+}
+
+/**
+ * Breadcrumb trail, mirroring the one already rendered on the page.
+ *
+ * Google uses this to replace the bare URL in a result with a readable path,
+ * which matters here because tours sit three levels deep.
+ *
+ * `items` must be in order and use paths without the locale prefix.
+ */
+export function breadcrumbJsonLd(
+  locale: string,
+  items: { name: string; path: string }[],
+) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: items.map((item, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: item.name,
+      item: `${SITE_URL}/${locale}${item.path}`,
+    })),
   };
 }

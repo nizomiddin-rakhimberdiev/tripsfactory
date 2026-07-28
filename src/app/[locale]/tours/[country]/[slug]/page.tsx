@@ -19,7 +19,7 @@ import {
   IconXCircle,
   IconShieldCheck,
 } from "@/components/icons";
-import { tourJsonLd, pageMeta } from "@/lib/seo";
+import { tourJsonLd, breadcrumbJsonLd, pageMeta } from "@/lib/seo";
 
 type Params = { locale: string; country: string; slug: string };
 
@@ -111,7 +111,31 @@ export default async function TourPage({
     <article>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(tourJsonLd(tour)) }}
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(tourJsonLd(tour, locale)),
+        }}
+      />
+      {/* Mirrors the visible trail below exactly, which is what Google asks
+          for — it replaces the bare URL in a result with a readable path, and
+          tours sit three levels deep. */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            breadcrumbJsonLd(locale, [
+              { name: nav("home"), path: "" },
+              { name: nav("tours"), path: "/tours" },
+              ...(countryDoc
+                ? [
+                    {
+                      name: countryDoc.name,
+                      path: `/destinations/${countryDoc.regionSlug}/${countryDoc.slug}`,
+                    },
+                  ]
+                : []),
+            ]),
+          ),
+        }}
       />
 
       {/* Breadcrumbs */}
