@@ -11,8 +11,7 @@
     "payload": "payload",
     "seed": "tsx scripts/seed.ts",
     "reset-content": "tsx scripts/reset-content.ts",
-    "template": "NODE_ENV=production tsx --env-file-if-exists=.env scripts/make-import-template.ts",
-    "template:check": "tsx scripts/check-import-template.ts"
+    "template": "tsx scripts/make-import-template.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.111.0",
