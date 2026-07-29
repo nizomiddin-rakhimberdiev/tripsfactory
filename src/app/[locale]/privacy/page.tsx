@@ -103,11 +103,16 @@ export default async function PrivacyPage({
 
         <h2>How long we keep it</h2>
         <p>
-          We keep an enquiry for as long as we are in conversation about it, and
-          afterwards for as long as we need it to handle any question or claim
-          arising from a trip and to meet our accounting and tax obligations.
-          When neither applies, we delete it. If you would like your enquiry
-          removed sooner, write to us and we will do it.
+          We delete the content of an enquiry — your dates, party size and
+          message — one year after we last discussed it with you. We keep your
+          name and contact details for longer, so that we recognise you if you
+          travel with us again and so that we can answer questions about a trip
+          you have already taken.
+        </p>
+        <p>
+          You can end that at any time: ask us to delete your details and we
+          will, except where we are required to keep a record for accounting or
+          tax purposes. We will tell you if that exception applies to you.
         </p>
 
         <h2>Cookies</h2>

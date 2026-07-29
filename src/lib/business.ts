@@ -17,12 +17,29 @@ export const LEGAL_NAME = "ООО TRIPS FACTORY";
 /** Trading name, used everywhere the visitor sees us. */
 export const BRAND_NAME = "TripsFactory";
 
+/**
+ * Primary number, Tashkent.
+ *
+ * A later message gave this as +99888269775 — eight digits after the country
+ * code where an Uzbek mobile has nine, so it is a dropped character rather than
+ * a different line. The nine-digit form supplied first is kept until confirmed;
+ * a phone number that does not connect is worse on a contact page than none.
+ */
 export const PHONE = {
   /** E.164, for tel: links — no spaces, the form a dialler expects. */
   href: "+998882697755",
   /** Grouped for reading. */
   display: "+998 88 269 77 55",
 };
+
+/** Second line, UAE. */
+export const PHONE_AE = {
+  href: "+971555413508",
+  display: "+971 55 541 3508",
+};
+
+/** Taxpayer identification number (ИНН), shown where a legal identity is due. */
+export const TAX_ID = "312944685";
 
 export const EMAIL = "sales@tripsfactory.com";
 

@@ -2,7 +2,14 @@ import { setRequestLocale, getTranslations } from "next-intl/server";
 import { LeadForm } from "@/components/forms/LeadForm";
 import { pageMeta } from "@/lib/seo";
 import { PageHeader } from "@/components/PageHeader";
-import { ADDRESS_LINE, EMAIL, HOURS, PHONE, TELEGRAM } from "@/lib/business";
+import {
+  ADDRESS_LINE,
+  EMAIL,
+  HOURS,
+  PHONE,
+  PHONE_AE,
+  TELEGRAM,
+} from "@/lib/business";
 
 export async function generateMetadata({
   params,
@@ -32,6 +39,14 @@ export default async function ContactPage({
       label: t("phone"),
       value: PHONE.display,
       href: `tel:${PHONE.href}`,
+    },
+    {
+      // A UAE line as well as the Tashkent one: a good share of the audience
+      // reaches Central Asia through the Gulf, and a local number is cheaper
+      // and less daunting to dial than an international one.
+      label: `${t("phone")} (UAE)`,
+      value: PHONE_AE.display,
+      href: `tel:${PHONE_AE.href}`,
     },
     { label: t("email"), value: EMAIL, href: `mailto:${EMAIL}` },
     { label: "Telegram", value: "@tripsfactory_uzb", href: TELEGRAM },
