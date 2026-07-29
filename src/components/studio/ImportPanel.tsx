@@ -116,6 +116,9 @@ export function ImportPanel() {
 
   const run = (mode: "preview" | "commit") => (mode === "preview" ? preview() : commit());
 
+  // A 401 means the session ran out while the tab stayed open — the page still
+  // renders from the router cache, so the only sign is this request failing.
+  const expired = Boolean(error?.startsWith("Ruxsat yo'q"));
   const ready = report?.plans.filter((p) => p.action !== "skip") ?? [];
   const blocked = report?.plans.filter((p) => p.action === "skip") ?? [];
   const fatal = report?.issues.filter((i) => i.level === "error") ?? [];
@@ -207,7 +210,34 @@ export function ImportPanel() {
               </button>
             )}
           </div>
-          {error && <div className="s-imp__fatal">{error}</div>}
+          {error && (
+            <div className="s-imp__fatal">
+              {error}
+              {expired && (
+                <>
+                  {" "}
+                  <button
+                    type="button"
+                    // A hard navigation, not a Link: the router cache is what
+                    // made the page look signed in after the token expired.
+                    onClick={() => window.location.assign("/studio/login")}
+                    style={{
+                      background: "none",
+                      border: "none",
+                      padding: 0,
+                      font: "inherit",
+                      color: "inherit",
+                      fontWeight: 600,
+                      textDecoration: "underline",
+                      cursor: "pointer",
+                    }}
+                  >
+                    Kirish sahifasiga o&apos;tish →
+                  </button>
+                </>
+              )}
+            </div>
+          )}
         </div>
       </section>
 

@@ -153,7 +153,16 @@ async function resolveSlug(
 const Users: CollectionConfig = {
   slug: "users",
   labels: { singular: "Foydalanuvchi", plural: "Foydalanuvchilar" },
-  auth: true,
+  auth: {
+    /**
+     * Payload's default is two hours, which is fine for a public app and wrong
+     * for a CMS somebody works in all day: the Studio tab stays open, the token
+     * quietly expires, and the next save or import comes back 401 while the
+     * page still looks signed in. A week matches how this panel is actually
+     * used — one operator, one machine.
+     */
+    tokenExpiration: 60 * 60 * 24 * 7,
+  },
   admin: { useAsTitle: "email", group: "Tizim" },
   access: {
     read: adminOnly,

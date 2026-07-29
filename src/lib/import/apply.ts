@@ -25,6 +25,7 @@ import type { Tour } from "@/payload-types";
 import type { RoutePoint } from "@/lib/content/types";
 import type { SheetIssue, TourDraft } from "./schema";
 import { PLACEHOLDER_ALT, PLACEHOLDER_FILENAME, placeholderBytes } from "./placeholder";
+import { lookupPlace } from "./places";
 
 type TourWrite = Partial<
   Pick<
@@ -266,11 +267,11 @@ function planOne(draft: TourDraft, refs: Refs): TourPlan {
     );
   }
 
-  // An unknown city is not worth blocking a tour over: it only costs the map pin.
-  const unknown = draft.cities.filter((c) => !refs.cities.has(key(c)));
+  // A place the gazetteer has no coordinates for costs a map pin, nothing more.
+  const { points, unknown } = routeFromCities(draft, refs);
   if (unknown.length) {
     warnings.push(
-      `Saytda yo'q shaharlar e'tiborsiz qoldiriladi: ${unknown.slice(0, 6).join(", ")}` +
+      `Xaritaga tushmaydigan joylar: ${unknown.slice(0, 6).join(", ")}` +
         `${unknown.length > 6 ? ` va yana ${unknown.length - 6} ta` : ""}.`,
     );
   }
@@ -289,7 +290,7 @@ function planOne(draft: TourDraft, refs: Refs): TourPlan {
       included: draft.included.length,
       excluded: draft.excluded.length,
       departures: draft.departures.length,
-      cities: draft.cities.length - unknown.length,
+      cities: points.length,
       images: (draft.heroImage ? 1 : 0) + draft.gallery.length,
     },
   };
@@ -306,12 +307,32 @@ export async function plan(
 
 /* ------------------------------------------------------------------- apply */
 
-function routeFromCities(draft: TourDraft, refs: Refs): RoutePoint[] {
-  return draft.cities
-    .map((name) => refs.cities.get(key(name)))
-    .filter((c): c is NonNullable<typeof c> => Boolean(c))
-    .filter((c) => typeof c.lat === "number" && typeof c.lng === "number")
-    .map((c) => ({ name: c.name, lat: c.lat as number, lng: c.lng as number }));
+/**
+ * Builds the map route from the sheet's city list, in the order written.
+ *
+ * A CMS city wins — it has the canonical name and the coordinates an editor set
+ * by hand. Anything else falls back to the built-in gazetteer, so a route
+ * through places the site has no page for still draws.
+ */
+function routeFromCities(draft: TourDraft, refs: Refs): { points: RoutePoint[]; unknown: string[] } {
+  const points: RoutePoint[] = [];
+  const unknown: string[] = [];
+
+  for (const name of draft.cities) {
+    const city = refs.cities.get(key(name));
+    if (city && typeof city.lat === "number" && typeof city.lng === "number") {
+      points.push({ name: city.name, lat: city.lat, lng: city.lng });
+      continue;
+    }
+    const place = lookupPlace(name);
+    if (place) {
+      points.push({ name, lat: place.lat, lng: place.lng });
+      continue;
+    }
+    unknown.push(name);
+  }
+
+  return { points, unknown };
 }
 
 export async function apply(
@@ -405,13 +426,19 @@ export async function apply(
 
     // The map route is derived from the cities, but never over one placed by
     // hand in Studio.
-    const route = routeFromCities(draft, refs);
-    if (route.length > 1) {
+    const { points, unknown } = routeFromCities(draft, refs);
+    if (unknown.length) {
+      planned.warnings.push(
+        `Xaritada ko'rsatib bo'lmadi: ${unknown.slice(0, 5).join(", ")}` +
+          `${unknown.length > 5 ? ` va yana ${unknown.length - 5} ta` : ""}.`,
+      );
+    }
+    if (points.length > 1) {
       if (isNew) {
-        data.route = route;
+        data.route = points;
       } else {
         const current = await payload.findByID({ collection: "tours", id: existingId, depth: 0, locale: "en" });
-        if (!Array.isArray(current.route) || current.route.length === 0) data.route = route;
+        if (!Array.isArray(current.route) || current.route.length === 0) data.route = points;
       }
     }
 
