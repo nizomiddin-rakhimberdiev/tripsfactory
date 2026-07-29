@@ -3,28 +3,31 @@ import { PageHeader } from "@/components/PageHeader";
 import { pageMeta } from "@/lib/seo";
 import {
   ADDRESS_LINE,
+  BOOKING,
   BRAND_NAME,
+  CANCELLATION,
   EMAIL,
   LEGAL_NAME,
   TAX_ID,
 } from "@/lib/business";
 
 /**
- * Terms of use, including the booking conditions the business has supplied:
- * payment in full in advance in USD, guaranteed departures, changes up to a
- * month out, compulsory insurance, documents on the traveller.
+ * Terms of use and booking conditions.
  *
- * One section is still missing on purpose. The cancellation and refund scale
- * has not been given as numbers — the instruction was to copy another
- * operator's, which is both their copyrighted text and written around a
- * deposit model this business does not use, since it takes 100% up front.
- * Terms that contradict how the money actually moves are worse than an honest
- * gap, so until the percentages arrive the page says the scale comes with the
- * booking confirmation rather than inventing one.
+ * The commercial structure — 20% deposit with a US$300 floor, balance at 45
+ * days, and a cancellation scale rising from loss-of-deposit to 100% inside 48
+ * hours — was set by the business to match the market norm for Central Asian
+ * operators, and supersedes an earlier instruction of payment in full up
+ * front. The two could not coexist: the longest-notice bracket charges the
+ * deposit and nothing more, which is meaningless without a deposit.
+ *
+ * The numbers live in lib/business so a percentage cannot drift between this
+ * page and an invoice. The wording is this site's own — the policy is a
+ * commercial fact and free to adopt, the prose expressing it is not.
  *
  * English only, for the same reason as the privacy policy.
  */
-const UPDATED = "2026-07-28";
+const UPDATED = "2026-07-29";
 
 export async function generateMetadata({
   params,
@@ -72,9 +75,24 @@ export default async function TermsPage({
 
         <h2>Payment</h2>
         <p>
-          Tours are paid in full in advance, in US dollars. We accept payment by
-          bank transfer, or by bank card through a payment link we send you. A
-          reservation is confirmed once payment has reached us.
+          To hold a booking we ask for a deposit of {BOOKING.depositPercent}% of
+          the tour price, and never less than US${BOOKING.depositMinimumUsd}.
+          Your booking is confirmed once we have received it and sent you a
+          written confirmation; until both have happened, nothing is reserved.
+          The deposit is not refundable, because we commit it immediately to
+          flights, permits and accommodation held in your name.
+        </p>
+        <p>
+          We invoice the balance after the deposit, and it must reach us no
+          later than {BOOKING.balanceDueDays} days before your tour begins. If
+          you are booking within {BOOKING.balanceDueDays} days of departure, the
+          full price is due at the time of booking unless we agree otherwise
+          with you in writing. If a balance is not paid by the date agreed, we
+          may treat the booking as cancelled and apply the scale below.
+        </p>
+        <p>
+          Tours are priced and paid in {BOOKING.currency}. We accept bank
+          transfer and payment by card through a secure link we send you.
         </p>
 
         <h2>Guaranteed departures</h2>
@@ -94,9 +112,13 @@ export default async function TermsPage({
 
         <h2>Travel insurance</h2>
         <p>
-          Travel insurance is compulsory. You must arrange your own cover before
-          you arrive, and it should include medical treatment and repatriation
-          for the whole time you are travelling with us. We may ask to see it.
+          Travel insurance is compulsory for every traveller. You must arrange
+          your own cover before you arrive, and it must run for the whole time
+          you are with us. It should cover personal injury and medical
+          treatment, repatriation, lost or delayed luggage, and cancellation —
+          the last of these matters most, because it is what stands between you
+          and the charges in the cancellation section above. We may ask to see
+          your policy.
         </p>
 
         <h2>Visas, passports and documents</h2>
@@ -109,14 +131,50 @@ export default async function TermsPage({
           because a document was missing or invalid.
         </p>
 
-        <h2>Cancellation</h2>
+        <h2>If you cancel</h2>
         <p>
-          If you need to cancel, tell us in writing as soon as you can — what
-          you can recover depends on how far ahead of departure we hear, because
-          flights, permits and accommodation are paid for on your behalf and
-          become non-refundable at different points. The scale that applies to
-          your trip is set out in your booking confirmation. Ask us before you
-          pay if you would like to see it first, and we will send it.
+          Cancellations must reach us in writing, from the person who made the
+          booking, at <a href={`mailto:${EMAIL}`}>{EMAIL}</a>. What you are
+          charged depends on how much notice we have, because the money we have
+          already committed on your behalf stops being recoverable as departure
+          approaches:
+        </p>
+        <ul>
+          {CANCELLATION.map((row) => (
+            <li key={row.notice}>
+              <strong>{row.notice}</strong> — {row.charge}.
+            </li>
+          ))}
+        </ul>
+        <p>
+          Once a tour has begun we cannot refund any unused part of it, and that
+          includes leaving early through illness. This is what travel insurance
+          is for, and why we require it.
+        </p>
+        <p>
+          A tailor-made itinerary can carry different terms, where the suppliers
+          we book for you impose their own. Where that is the case we tell you
+          before you pay, not afterwards.
+        </p>
+
+        <h2>If we cancel or change your tour</h2>
+        <p>
+          If we cancel before you have paid in full, everything you have paid us
+          — including the deposit — is returned to you.
+        </p>
+        <p>
+          After full payment we will only cancel for reasons genuinely outside
+          our control: war or civil unrest, a natural disaster, a closed border,
+          an epidemic, or a government decision that makes the journey
+          impossible. If that happens we will contact you straight away and you
+          choose between an equivalent journey and a full refund.
+        </p>
+        <p>
+          Small changes to an itinerary are sometimes unavoidable — a road
+          closes, a monument shuts for restoration, a flight is retimed. We will
+          tell you and put a comparable arrangement in its place. If we have to
+          make a change that materially alters the trip you booked, you may
+          accept it, take an alternative, or cancel and be refunded in full.
         </p>
 
         <h2>Prices and itineraries</h2>
@@ -128,6 +186,14 @@ export default async function TermsPage({
           do; weather, road and border conditions, local closures and the
           availability of guides and accommodation can all require a change, and
           we will tell you if that happens.
+        </p>
+        <p>
+          Once we have confirmed your booking the price is fixed, with one
+          exception: if a government introduces or raises a tax, if fuel charges
+          rise, or if exchange rates move sharply, we may have to pass that
+          through. We will show you exactly what changed and why, and if the
+          increase is one you are not willing to accept you may cancel and be
+          refunded.
         </p>
         <p>
           We take care to keep the information on this site accurate and

@@ -41,6 +41,40 @@ export const PHONE_AE = {
 /** Taxpayer identification number (ИНН), shown where a legal identity is due. */
 export const TAX_ID = "312944685";
 
+/**
+ * Booking terms, as numbers.
+ *
+ * These are commercial facts, kept out of the prose so that changing a
+ * percentage is a one-line edit and cannot leave the terms page and a future
+ * invoice disagreeing.
+ *
+ * The structure was set by the business to match the market norm for Central
+ * Asian operators: a deposit that secures the booking, the balance well ahead
+ * of departure, and a cancellation scale that rises as the operator's own
+ * commitments to airlines, hotels and permit offices become unrecoverable.
+ *
+ * Note the two are one system. The 30-days-or-more bracket charges the deposit
+ * and nothing more, which only means anything because a deposit exists; a
+ * scale like this cannot be lifted onto a pay-everything-upfront model without
+ * becoming incoherent.
+ */
+export const BOOKING = {
+  depositPercent: 20,
+  depositMinimumUsd: 300,
+  /** Balance due this many days before departure. */
+  balanceDueDays: 45,
+  currency: "USD",
+} as const;
+
+/** Cancellation scale, longest notice first. `charge` is of the total price. */
+export const CANCELLATION = [
+  { notice: "30 days or more before departure", charge: "the deposit" },
+  { notice: "15–29 days before departure", charge: "30% of the tour price" },
+  { notice: "7–14 days before departure", charge: "50% of the tour price" },
+  { notice: "3–6 days before departure", charge: "80% of the tour price" },
+  { notice: "48 hours or less before departure, or no show", charge: "100% of the tour price" },
+] as const;
+
 export const EMAIL = "sales@tripsfactory.com";
 
 export const TELEGRAM = "https://t.me/tripsfactory_uzb";
