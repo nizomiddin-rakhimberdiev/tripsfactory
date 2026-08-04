@@ -16,6 +16,14 @@
     "binding": "ASSETS"
   },
 
+  // Zone routes rather than custom domains: the zone already carries proxied
+  // A records for the apex and www, and a custom domain would collide with
+  // them. The Worker intercepts in front of those records instead.
+  "routes": [
+    { "pattern": "tripsfactory.com/*", "zone_name": "tripsfactory.com" },
+    { "pattern": "www.tripsfactory.com/*", "zone_name": "tripsfactory.com" }
+  ],
+
   // Media. The binding is what the Payload R2 storage plugin writes through,
   // so no API token lives in the Worker — the token exists only for the
   // one-off migration of the existing files out of Vercel Blob.
