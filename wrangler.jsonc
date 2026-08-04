@@ -1,0 +1,72 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "tripsfactory",
+  "main": ".open-next/worker.js",
+  "compatibility_date": "2026-07-01",
+  "compatibility_flags": [
+    // Payload and Next both reach for Node built-ins.
+    "nodejs_compat",
+    // The Sheets import fetches an xlsx export over HTTPS from a Worker.
+    // Without this, fetch() to public URLs is blocked.
+    "global_fetch_strictly_public"
+  ],
+
+  "assets": {
+    "directory": ".open-next/assets",
+    "binding": "ASSETS"
+  },
+
+  // Media. The binding is what the Payload R2 storage plugin writes through,
+  // so no API token lives in the Worker — the token exists only for the
+  // one-off migration of the existing files out of Vercel Blob.
+  "r2_buckets": [
+    {
+      "binding": "R2",
+      "bucket_name": "tripsfactory-media"
+    },
+    // The ISR output. Same bucket, different binding — the override namespaces
+    // its objects under an `incremental-cache` prefix, so they do not mix with
+    // the media files.
+    {
+      "binding": "NEXT_INC_CACHE_R2_BUCKET",
+      "bucket_name": "tripsfactory-media"
+    }
+  ],
+
+  // Required by the R2 incremental cache: the Worker calls back into itself to
+  // revalidate. The service name has to match "name" above.
+  "services": [
+    {
+      "binding": "WORKER_SELF_REFERENCE",
+      "service": "tripsfactory"
+    }
+  ],
+
+  // Tag cache for revalidatePath(). Every Studio save goes through it — see
+  // open-next.config.ts. Postgres stays where it is; this D1 database holds
+  // nothing but invalidation bookkeeping.
+  // TODO: replace with the id from `wrangler d1 create tripsfactory-tag-cache`.
+  "d1_databases": [
+    {
+      "binding": "NEXT_TAG_CACHE_D1",
+      "database_name": "tripsfactory-tag-cache",
+      "database_id": "REPLACE_WITH_D1_DATABASE_ID"
+    }
+  ],
+
+  // Neon Postgres, reached through Hyperdrive so connections are pooled
+  // across the edge instead of opened per invocation. Query caching is
+  // deliberately OFF in the Hyperdrive config: a Studio save triggers
+  // on-demand revalidation, and a 60s query cache would hand the re-render
+  // stale rows — the editor would save and not see the change.
+  "hyperdrive": [
+    {
+      "binding": "HYPERDRIVE",
+      "id": "abc5546fdc5348b899c8b1779e8c510c"
+    }
+  ],
+
+  "observability": {
+    "enabled": true
+  }
+}

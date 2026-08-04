@@ -104,7 +104,7 @@ async function liveSamples(): Promise<string[][]> {
       signal: AbortSignal.timeout(15_000),
     });
     if (!res.ok) throw new Error(String(res.status));
-    const docs = (await res.json()).docs as Tour[];
+    const { docs } = (await res.json()) as { docs: Tour[] };
     return SAMPLES.map((slug) => docs.find((d) => d.slug === slug))
       .filter((d): d is Tour => Boolean(d))
       .map((d, i) => sampleRow(d, i + 1));

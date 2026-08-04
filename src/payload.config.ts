@@ -5,6 +5,9 @@ import { sqliteAdapter } from "@payloadcms/db-sqlite";
 import { postgresAdapter } from "@payloadcms/db-postgres";
 import { lexicalEditor } from "@payloadcms/richtext-lexical";
 import { vercelBlobStorage } from "@payloadcms/storage-vercel-blob";
+import { r2Storage } from "@payloadcms/storage-r2";
+import type { CloudflareContext } from "@opennextjs/cloudflare";
+import type { GetPlatformProxyOptions } from "wrangler";
 import type {
   Access,
   CollectionConfig,
@@ -17,6 +20,57 @@ import type {
 const dirname = path.dirname(fileURLToPath(import.meta.url));
 const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL ?? "https://tripsfactory.vercel.app";
+
+const isProduction = process.env.NODE_ENV === "production";
+
+/**
+ * Cloudflare bindings, resolved before the config is built.
+ *
+ * On Workers the database connection and the media bucket arrive as bindings
+ * rather than environment variables, and `buildConfig` needs both up front —
+ * so they are awaited at module scope.
+ *
+ * Two ways in:
+ *
+ *   1. `getCloudflareContext` — the real bindings. This is the path on Workers
+ *      and during an OpenNext production build.
+ *   2. wrangler's platform proxy, behind `CF_LOCAL_BINDINGS=1` — local stand-ins
+ *      read out of wrangler.jsonc. This exists for one job: generating the
+ *      import map. Payload only writes entries for plugins that are *active*,
+ *      so an import map generated without the R2 plugin silently drops its
+ *      client upload handler and production /admin renders blank. AGENTS.md
+ *      documents that trap for Vercel Blob; R2 has exactly the same one.
+ *      It is opt-in because the proxy spawns a workerd process, and the seed
+ *      and import scripts must not inherit that.
+ *
+ * Neither is available under plain `next dev`, `tsx scripts/…` or a CI
+ * typecheck, and the config falls back to DATABASE_URL or local sqlite.
+ */
+async function resolveCloudflare(): Promise<CloudflareContext | null> {
+  try {
+    const { getCloudflareContext } = await import("@opennextjs/cloudflare");
+    return await getCloudflareContext({ async: true });
+  } catch {
+    /* not on Workers */
+  }
+
+  if (process.env.CF_LOCAL_BINDINGS !== "1") return null;
+
+  try {
+    // Assembled at runtime so bundlers do not try to follow the import.
+    const { getPlatformProxy } = await import(
+      /* webpackIgnore: true */ `${"__wrangler".replaceAll("_", "")}`
+    );
+    return await getPlatformProxy({
+      environment: process.env.CLOUDFLARE_ENV,
+      remoteBindings: isProduction,
+    } satisfies GetPlatformProxyOptions);
+  } catch {
+    return null;
+  }
+}
+
+const cf = await resolveCloudflare();
 
 /** Reference data anyone may read: regions, cities, guides, media. */
 const publicRead: Access = () => true;
@@ -767,17 +821,36 @@ export default buildConfig({
       ],
     },
   ],
-  db: process.env.DATABASE_URL
-    ? postgresAdapter({ pool: { connectionString: process.env.DATABASE_URL } })
-    : sqliteAdapter({ client: { url: "file:./payload.db" } }),
-  plugins: process.env.BLOB_READ_WRITE_TOKEN
-    ? [
-        vercelBlobStorage({
-          collections: { media: true },
-          token: process.env.BLOB_READ_WRITE_TOKEN,
-        }),
-      ]
-    : [],
+  /**
+   * Hyperdrive first — on Workers it is how Neon is reached, with connections
+   * pooled across the edge instead of opened per invocation. DATABASE_URL
+   * second: it covers the build step, where bindings are not always wired up,
+   * and it is what the Vercel deployment still runs on. sqlite last, for local
+   * development.
+   */
+  db: cf?.env.HYPERDRIVE
+    ? postgresAdapter({
+        pool: { connectionString: cf.env.HYPERDRIVE.connectionString },
+      })
+    : process.env.DATABASE_URL
+      ? postgresAdapter({
+          pool: { connectionString: process.env.DATABASE_URL },
+        })
+      : sqliteAdapter({ client: { url: "file:./payload.db" } }),
+  /**
+   * Same ordering, same reason. The R2 binding needs no credentials — the API
+   * token exists only to move the existing files off Vercel Blob once.
+   */
+  plugins: cf?.env.R2
+    ? [r2Storage({ bucket: cf.env.R2, collections: { media: true } })]
+    : process.env.BLOB_READ_WRITE_TOKEN
+      ? [
+          vercelBlobStorage({
+            collections: { media: true },
+            token: process.env.BLOB_READ_WRITE_TOKEN,
+          }),
+        ]
+      : [],
   typescript: {
     outputFile: path.resolve(dirname, "payload-types.ts"),
   },

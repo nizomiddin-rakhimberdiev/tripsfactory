@@ -371,7 +371,7 @@ export function MediaPickerModal({
     const res = await fetch("/api/media?limit=200&depth=0&sort=-createdAt", {
       credentials: "include",
     });
-    const data = await res.json();
+    const data = (await res.json()) as { docs?: MediaDoc[] };
     setItems(data.docs ?? []);
     setLoading(false);
   };
@@ -394,7 +394,9 @@ export function MediaPickerModal({
     });
     setUploading(false);
     if (res.ok) {
-      const data = await res.json();
+      // Payload answers a create with { doc }, but a direct upload with the
+      // document itself — the intersection covers both shapes.
+      const data = (await res.json()) as { doc?: MediaDoc } & MediaDoc;
       const doc: MediaDoc = data.doc ?? data;
       onPick({ id: doc.id, url: doc.url, filename: doc.filename });
     }

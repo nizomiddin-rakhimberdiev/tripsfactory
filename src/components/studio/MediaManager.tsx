@@ -18,7 +18,7 @@ export function MediaManager() {
     const res = await fetch("/api/media?limit=300&depth=0&sort=-createdAt", {
       credentials: "include",
     });
-    const data = await res.json();
+    const data = (await res.json()) as { docs?: MediaDoc[] };
     setItems(data.docs ?? []);
     setLoading(false);
   }, []);

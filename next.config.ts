@@ -33,9 +33,9 @@ const csp = [
   "default-src 'self'",
   "script-src 'self' 'unsafe-inline'",
   "style-src 'self' 'unsafe-inline'",
-  "img-src 'self' data: blob: https://*.basemaps.cartocdn.com https://*.public.blob.vercel-storage.com https://images.unsplash.com",
+  "img-src 'self' data: blob: https://*.basemaps.cartocdn.com https://*.public.blob.vercel-storage.com https://*.r2.dev https://images.unsplash.com",
   "font-src 'self' data:",
-  "connect-src 'self' https://*.public.blob.vercel-storage.com",
+  "connect-src 'self' https://*.public.blob.vercel-storage.com https://*.r2.dev",
   "media-src 'self'",
   "worker-src 'self' blob:",
   "manifest-src 'self'",
@@ -57,10 +57,17 @@ const nextConfig: NextConfig = {
     globalNotFound: true,
   },
   images: {
+    // Resizing happens at delivery through Cloudflare, not in a Next optimizer
+    // — see src/lib/cf-image-loader.ts for why, and for the flag that turns it
+    // on. The loader is a no-op until then, so this is safe to ship early.
+    loader: "custom",
+    loaderFile: "./src/lib/cf-image-loader.ts",
     formats: ["image/avif", "image/webp"],
     remotePatterns: [
       { protocol: "https", hostname: "images.unsplash.com" },
+      // Blob stays listed until the media migration is done and verified.
       { protocol: "https", hostname: "*.public.blob.vercel-storage.com" },
+      { protocol: "https", hostname: "*.r2.dev" },
     ],
   },
   async headers() {
