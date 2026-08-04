@@ -59,18 +59,6 @@
     }
   ],
 
-  // Neon Postgres, reached through Hyperdrive so connections are pooled
-  // across the edge instead of opened per invocation. Query caching is
-  // deliberately OFF in the Hyperdrive config: a Studio save triggers
-  // on-demand revalidation, and a 60s query cache would hand the re-render
-  // stale rows — the editor would save and not see the change.
-  "hyperdrive": [
-    {
-      "binding": "HYPERDRIVE",
-      "id": "abc5546fdc5348b899c8b1779e8c510c"
-    }
-  ],
-
   "observability": {
     "enabled": true
   }
