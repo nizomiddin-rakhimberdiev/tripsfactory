@@ -41,17 +41,31 @@ export async function sendPerLocale(
       loc === BASE_LOCALE || !localizedKeys?.length || !isBlank(body, localizedKeys),
   );
 
-  const results = await Promise.all(
-    wanted.map(async ([loc, body]) => {
-      const res = await fetch(`${endpoint}?locale=${loc}&depth=0`, {
-        method,
-        headers: { "Content-Type": "application/json" },
-        credentials: "include",
-        body: JSON.stringify(body),
-      }).catch(() => null);
-      return { loc, ok: Boolean(res?.ok) };
-    }),
-  );
+  // One at a time, not Promise.all.
+  //
+  // A per-locale PATCH is not as narrow as it looks: Payload rewrites the
+  // document's *whole* locale table on every write — it deletes every row for
+  // the document, then reinserts all of them. Eight of those in flight at once
+  // race each other, and two that interleave leave a duplicate behind, which
+  // the unique index on (_locale, _parent_id) rejects.
+  //
+  // Postgres hid this. Each request ran in its own transaction, so the losers
+  // were serialised rather than failing. D1 has no transactions, so the race
+  // became visible immediately: every locale came back 500 with
+  // "UNIQUE constraint failed: tours_locales._locale, tours_locales._parent_id".
+  //
+  // Sequential costs a few hundred milliseconds on a save nobody times, and
+  // removes a race the old backend was only papering over.
+  const results: { loc: string; ok: boolean }[] = [];
+  for (const [loc, body] of wanted) {
+    const res = await fetch(`${endpoint}?locale=${loc}&depth=0`, {
+      method,
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+      body: JSON.stringify(body),
+    }).catch(() => null);
+    results.push({ loc, ok: Boolean(res?.ok) });
+  }
 
   const failed = results.filter((r) => !r.ok).map((r) => r.loc);
   return { ok: failed.length === 0, failed };
