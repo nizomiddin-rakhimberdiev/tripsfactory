@@ -5,7 +5,10 @@ import { TourCard } from "@/components/tours/TourCard";
 import { PageHeader } from "@/components/PageHeader";
 import { EmptyState } from "@/components/EmptyState";
 
-export const revalidate = 300;
+// ISR safety net only: every Studio save triggers on-demand revalidation
+// (revalidateSite in payload.config.ts), so content is never this stale. The
+// window exists for edits made outside a Next request — seed scripts, raw SQL.
+export const revalidate = 86400;
 
 export async function generateMetadata({
   params,

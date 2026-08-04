@@ -5,8 +5,10 @@ import { pageMeta, travelAgencyJsonLd } from "@/lib/seo";
 import { getPublishedCountries, getSiteContent, getTours } from "@/lib/content";
 import { TourCard } from "@/components/tours/TourCard";
 
-// Content is editable in /admin — re-render pages periodically (ISR)
-export const revalidate = 300;
+// ISR safety net only: every Studio save triggers on-demand revalidation
+// (revalidateSite in payload.config.ts), so content is never this stale. The
+// window exists for edits made outside a Next request — seed scripts, raw SQL.
+export const revalidate = 86400;
 
 const WHY = ["whyLocal", "whyGuaranteed", "whyTailored"] as const;
 
