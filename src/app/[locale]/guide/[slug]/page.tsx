@@ -3,6 +3,7 @@ import { setRequestLocale } from "next-intl/server";
 import { getGuide, getGuides } from "@/lib/content";
 import { pageMeta } from "@/lib/seo";
 import { locales } from "@/i18n/routing";
+import { skipPrerender } from "@/lib/prerender";
 
 type Params = { locale: string; slug: string };
 
@@ -12,6 +13,7 @@ type Params = { locale: string; slug: string };
 export const revalidate = 86400;
 
 export async function generateStaticParams() {
+  if (skipPrerender) return [];
   const guideList = await getGuides();
   return locales.flatMap((locale) =>
     guideList.map((g) => ({ locale, slug: g.slug })),

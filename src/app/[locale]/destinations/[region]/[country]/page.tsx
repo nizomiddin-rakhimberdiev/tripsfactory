@@ -15,6 +15,7 @@ import { CountryBar } from "@/components/layout/CountryBar";
 import { Markdown } from "@/components/Markdown";
 import { Carousel } from "@/components/Carousel";
 import { IconMapPin } from "@/components/icons";
+import { skipPrerender } from "@/lib/prerender";
 
 type Params = { locale: string; region: string; country: string };
 
@@ -24,6 +25,7 @@ type Params = { locale: string; region: string; country: string };
 export const revalidate = 86400;
 
 export async function generateStaticParams() {
+  if (skipPrerender) return [];
   const countryList = await getPublishedCountries();
   return locales.flatMap((locale) =>
     countryList.map((c) => ({

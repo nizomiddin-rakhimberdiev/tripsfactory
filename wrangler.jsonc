@@ -51,6 +51,15 @@
       "binding": "D1",
       "database_name": "tripsfactory",
       "database_id": "c94d87c0-6d47-4466-8c43-036093360000"
+      // Deliberately not `remote`. Static generation renders 222 pages, and
+      // pointing those queries at the real database makes every one a network
+      // round trip from wherever the build runs — pages started timing out at
+      // 60s. The build reads a local copy seeded from the same export
+      // instead; the Worker itself always talks to the real D1, and ISR
+      // re-renders against it, so nothing serves stale local data.
+      //
+      // Reseed after a schema change:
+      //   wrangler d1 execute tripsfactory --local --file=<migration sql>
     },
     {
       "binding": "NEXT_TAG_CACHE_D1",

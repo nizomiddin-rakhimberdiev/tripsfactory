@@ -20,6 +20,7 @@ import {
   IconShieldCheck,
 } from "@/components/icons";
 import { tourJsonLd, breadcrumbJsonLd, pageMeta } from "@/lib/seo";
+import { skipPrerender } from "@/lib/prerender";
 
 type Params = { locale: string; country: string; slug: string };
 
@@ -29,6 +30,7 @@ type Params = { locale: string; country: string; slug: string };
 export const revalidate = 86400;
 
 export async function generateStaticParams() {
+  if (skipPrerender) return [];
   const allTours = await getTours();
   const premiumTours = await getTours({ tier: "premium" });
   return locales.flatMap((locale) =>

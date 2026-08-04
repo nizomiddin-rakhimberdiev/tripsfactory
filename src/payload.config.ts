@@ -72,6 +72,29 @@ async function resolveCloudflare(): Promise<CloudflareContext | null> {
 
 const cf = await resolveCloudflare();
 
+/**
+ * The development database — and a guard rail.
+ *
+ * Falling back to payload.db is right for `next dev` and the seed scripts. It
+ * is badly wrong for a build: prerendering reads the database, so a build that
+ * quietly used this file would bake months-old dev content into every static
+ * page and deploy it looking perfectly healthy. That already happened once —
+ * the deployed pages asked for image filenames that only exist in this file.
+ *
+ * So in production it refuses rather than falls back. `deploy:cf` sets
+ * CF_LOCAL_BINDINGS=1, which is what hands the build the D1 binding.
+ */
+function localDb() {
+  if (isProduction) {
+    throw new Error(
+      "payload.config: no D1 binding, and a production build must not fall " +
+        "back to payload.db — stale content would be prerendered into every " +
+        "page. Build with `npm run deploy:cf` (sets CF_LOCAL_BINDINGS=1).",
+    );
+  }
+  return sqliteAdapter({ client: { url: "file:./payload.db" } });
+}
+
 /** Reference data anyone may read: regions, cities, guides, media. */
 const publicRead: Access = () => true;
 const adminOnly: Access = ({ req }) => Boolean(req.user);
@@ -830,7 +853,7 @@ export default buildConfig({
    */
   db: cf?.env.D1
     ? sqliteD1Adapter({ binding: cf.env.D1 })
-    : sqliteAdapter({ client: { url: "file:./payload.db" } }),
+    : localDb(),
   /**
    * Same ordering, same reason. The R2 binding needs no credentials — the API
    * token exists only to move the existing files off Vercel Blob once.

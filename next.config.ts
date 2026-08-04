@@ -62,6 +62,16 @@ const nextConfig: NextConfig = {
     // testing. Scope is limited to 404 handling: if the flag misbehaves the
     // fallback is Next's default page, which is what we have today anyway.
     globalNotFound: true,
+    // One static-generation worker, not seven. The prerender reads the local
+    // D1 copy, and seven workers hammering the same sqlite file produced
+    // SQLITE_BUSY and then outright internal errors from miniflare. 222 pages
+    // through a single worker is slower to build and actually finishes.
+    staticGenerationMinPagesPerWorker: 1000,
+    // …and one page at a time inside it. The prerender reads miniflare's
+    // local D1, which is a single sqlite file; anything parallel against it
+    // returns SQLITE_BUSY and then "internal error" from D1. Serialising the
+    // reads trades build time for a build that completes.
+    staticGenerationMaxConcurrency: 1,
   },
   images: {
     // Resizing happens at delivery through Cloudflare, not in a Next optimizer

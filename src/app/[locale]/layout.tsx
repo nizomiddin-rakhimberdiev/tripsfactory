@@ -10,6 +10,7 @@ import { Footer } from "@/components/layout/Footer";
 import { SITE_URL } from "@/lib/seo";
 import "../globals.css";
 import "leaflet/dist/leaflet.css";
+import { skipPrerender } from "@/lib/prerender";
 
 /**
  * Subsets are "latin" and "cyrillic" only. latin-ext was declared but is used
@@ -88,6 +89,7 @@ export async function generateMetadata({
 }
 
 export function generateStaticParams() {
+  if (skipPrerender) return [];
   return locales.map((locale) => ({ locale }));
 }
 
