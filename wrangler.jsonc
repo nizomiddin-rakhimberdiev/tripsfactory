@@ -50,12 +50,12 @@
     {
       "binding": "D1",
       "database_name": "tripsfactory",
-      "database_id": "REPLACE_WITH_CONTENT_D1_ID"
+      "database_id": "c94d87c0-6d47-4466-8c43-036093360000"
     },
     {
       "binding": "NEXT_TAG_CACHE_D1",
       "database_name": "tripsfactory-tag-cache",
-      "database_id": "REPLACE_WITH_TAG_CACHE_D1_ID"
+      "database_id": "d4f63a14-f5b0-48f7-be72-4e5a44605f3a"
     }
   ],
 
