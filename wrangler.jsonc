@@ -48,9 +48,14 @@
   // TODO: replace with the id from `wrangler d1 create tripsfactory-tag-cache`.
   "d1_databases": [
     {
+      "binding": "D1",
+      "database_name": "tripsfactory",
+      "database_id": "REPLACE_WITH_CONTENT_D1_ID"
+    },
+    {
       "binding": "NEXT_TAG_CACHE_D1",
       "database_name": "tripsfactory-tag-cache",
-      "database_id": "REPLACE_WITH_D1_DATABASE_ID"
+      "database_id": "REPLACE_WITH_TAG_CACHE_D1_ID"
     }
   ],
 

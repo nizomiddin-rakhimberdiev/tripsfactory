@@ -20,6 +20,7 @@
   "dependencies": {
     "@anthropic-ai/sdk": "^0.111.0",
     "@opennextjs/cloudflare": "^1.20.2",
+    "@payloadcms/db-d1-sqlite": "^3.86.0",
     "@payloadcms/db-postgres": "^3.86.0",
     "@payloadcms/db-sqlite": "^3.86.0",
     "@payloadcms/next": "^3.86.0",

@@ -48,6 +48,13 @@ const csp = [
 
 const nextConfig: NextConfig = {
   outputFileTracingRoot: __dirname,
+  turbopack: {
+    resolveAlias: {
+      // Keeps drizzle-kit out of the Worker bundle — see the stub for why the
+      // build cannot resolve it otherwise.
+      "drizzle-kit/api": "./src/lib/drizzle-kit-stub.ts",
+    },
+  },
   experimental: {
     // Required for src/app/global-not-found.tsx. This app has three root
     // layouts and a top-level dynamic segment, which Next documents as the

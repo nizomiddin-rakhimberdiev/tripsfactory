@@ -2,7 +2,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 import { buildConfig } from "payload";
 import { sqliteAdapter } from "@payloadcms/db-sqlite";
-import { postgresAdapter } from "@payloadcms/db-postgres";
+import { sqliteD1Adapter } from "@payloadcms/db-d1-sqlite";
 import { lexicalEditor } from "@payloadcms/richtext-lexical";
 import { vercelBlobStorage } from "@payloadcms/storage-vercel-blob";
 import { r2Storage } from "@payloadcms/storage-r2";
@@ -828,15 +828,9 @@ export default buildConfig({
    * and it is what the Vercel deployment still runs on. sqlite last, for local
    * development.
    */
-  db: cf?.env.HYPERDRIVE
-    ? postgresAdapter({
-        pool: { connectionString: cf.env.HYPERDRIVE.connectionString },
-      })
-    : process.env.DATABASE_URL
-      ? postgresAdapter({
-          pool: { connectionString: process.env.DATABASE_URL },
-        })
-      : sqliteAdapter({ client: { url: "file:./payload.db" } }),
+  db: cf?.env.D1
+    ? sqliteD1Adapter({ binding: cf.env.D1 })
+    : sqliteAdapter({ client: { url: "file:./payload.db" } }),
   /**
    * Same ordering, same reason. The R2 binding needs no credentials — the API
    * token exists only to move the existing files off Vercel Blob once.
