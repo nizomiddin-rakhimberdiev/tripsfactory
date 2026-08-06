@@ -10,6 +10,7 @@ import {
 } from "./fields";
 import { saveMessage, sendPerLocale } from "@/lib/studio/save";
 import { fieldErrors, slugTaken, slugify } from "@/lib/studio/slug";
+import { fillTranslations } from "@/lib/studio/translate-client";
 import { useRouter } from "next/navigation";
 import { LOCALE_CODES } from "@/lib/studio/locales";
 import { IconCheck } from "./icons";
@@ -83,12 +84,24 @@ export function CountryEditor({
         failed.length ? "error" : "ok",
       );
       router.replace(`/studio/countries/${created}`);
+      // Not awaited: the record exists and the editor should not sit on a
+      // spinner while eight languages are written.
+      void fillTranslations("countries", created, toast, {
+        silentWhenNothingToDo: true,
+      });
       return;
     }
 
     const { ok, failed } = await sendPerLocale("PATCH", `/api/countries/${c.id}`, bodies, LOCALIZED);
     setSaving(false);
     toast(saveMessage(failed, " — saytda ~5 daqiqada ko'rinadi"), ok ? "ok" : "error");
+    // Any locale still empty is filled from the English just saved. Locales
+    // that already hold text are left alone, so a correction survives.
+    if (ok && c.id !== null) {
+      void fillTranslations("countries", c.id, toast, {
+        silentWhenNothingToDo: true,
+      });
+    }
   }
   /** Returns the new id, or null after reporting why it could not be made. */
   async function create(body: Record<string, unknown>): Promise<number | null> {

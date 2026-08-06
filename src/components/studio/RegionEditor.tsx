@@ -6,6 +6,7 @@ import { LocalizedText, type LocaleMap } from "./fields";
 import { saveMessage, sendPerLocale } from "@/lib/studio/save";
 import { LOCALE_CODES } from "@/lib/studio/locales";
 import { fieldErrors, slugTaken, slugify } from "@/lib/studio/slug";
+import { fillTranslations } from "@/lib/studio/translate-client";
 import { useRouter } from "next/navigation";
 
 export type RegionInitial = {
@@ -60,6 +61,9 @@ export function RegionEditor({ initial }: { initial: RegionInitial }) {
         failed.length ? "error" : "ok",
       );
       router.replace(`/studio/regions/${created}`);
+      void fillTranslations("regions", created, toast, {
+        silentWhenNothingToDo: true,
+      });
       return;
     }
 
@@ -71,10 +75,19 @@ export function RegionEditor({ initial }: { initial: RegionInitial }) {
     );
     setSaving(false);
     toast(saveMessage(failed, " — saytda ~5 daqiqada ko'rinadi"), ok ? "ok" : "error");
+    // Any locale still empty is filled from the English just saved. Locales
+    // that already hold text are left alone, so a correction survives.
+    if (ok && r.id !== null) {
+      void fillTranslations("regions", r.id, toast, {
+        silentWhenNothingToDo: true,
+      });
+    }
   }
   /** Returns the new id, or null after reporting why it could not be made. */
   async function create(body: Record<string, unknown>): Promise<number | null> {
-    const slug = slugify(r.name.en ?? "");
+    // This editor shows the slug, so a typed one wins. The others derive it
+    // from the title because they never ask for it.
+    const slug = slugify(r.slug.trim() || (r.name.en ?? ""));
     if (!slug) {
       toast("Inglizcha nom lotin harflarida bo'lishi kerak", "error");
       return null;

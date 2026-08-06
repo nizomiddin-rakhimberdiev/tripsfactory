@@ -137,6 +137,9 @@ export async function translateInto(
         return { target, value: parsed };
       } catch (err) {
         if (err instanceof TranslationUnavailable) throw err;
+        // Same reason: a locale that quietly disappears from the result is a
+        // support question with no evidence behind it.
+        console.error(`translate: ${target}`, err);
         return { target, value: null };
       }
     }),

@@ -12,6 +12,7 @@ import {
 } from "./fields";
 import { saveMessage, sendPerLocale } from "@/lib/studio/save";
 import { fieldErrors, slugTaken, slugify } from "@/lib/studio/slug";
+import { fillTranslations } from "@/lib/studio/translate-client";
 import { useRouter } from "next/navigation";
 import { LOCALE_CODES } from "@/lib/studio/locales";
 import { IconCheck, IconExternal, IconPlus, IconTrash } from "./icons";
@@ -134,12 +135,22 @@ export function TourEditor({
         failed.length ? "error" : "ok",
       );
       router.replace(`/studio/tours/${created}`);
+      void fillTranslations("tours", created, toast, {
+        silentWhenNothingToDo: true,
+      });
       return;
     }
 
     const { ok, failed } = await sendPerLocale("PATCH", `/api/tours/${t.id}`, bodies, LOCALIZED);
     setSaving(false);
     toast(saveMessage(failed, " — saytda ~5 daqiqada ko'rinadi"), ok ? "ok" : "error");
+    // Any locale still empty is filled from the English just saved. Locales
+    // that already hold text are left alone, so a correction survives.
+    if (ok && t.id !== null) {
+      void fillTranslations("tours", t.id, toast, {
+        silentWhenNothingToDo: true,
+      });
+    }
   }
 
   /** Returns the new id, or null after reporting why it could not be made. */

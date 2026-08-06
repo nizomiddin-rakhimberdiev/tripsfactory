@@ -28,7 +28,7 @@ export function RetranslateButton({ id }: { id: number }) {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       credentials: "include",
-      body: JSON.stringify({ id }),
+      body: JSON.stringify({ collection: "tours", id, force: true }),
     }).catch(() => null);
 
     setBusy(false);
