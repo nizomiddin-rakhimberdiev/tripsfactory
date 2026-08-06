@@ -65,15 +65,101 @@ const PLACES: Record<string, Place> = {
   jilin: { lat: 43.8378, lng: 126.5495 },
   xuegu: { lat: 44.32, lng: 128.9 },
   snowvalley: { lat: 44.32, lng: 128.9 },
+
+  // Uzbekistan. The gazetteer held only Chinese cities, so an Uzbek itinerary
+  // drew no route at all unless every stop already had a city page.
+  tashkent: { lat: 41.2995, lng: 69.2401 },
+  samarkand: { lat: 39.627, lng: 66.975 },
+  bukhara: { lat: 39.7747, lng: 64.4286 },
+  khiva: { lat: 41.3775, lng: 60.3619 },
+  shakhrisabz: { lat: 39.0578, lng: 66.83 },
+  urgench: { lat: 41.55, lng: 60.6333 },
+  nukus: { lat: 42.46, lng: 59.61 },
+  termez: { lat: 37.2242, lng: 67.2783 },
+  navoi: { lat: 40.0844, lng: 65.3792 },
+  nurata: { lat: 40.5606, lng: 65.6889 },
+  fergana: { lat: 40.3864, lng: 71.7864 },
+  kokand: { lat: 40.5283, lng: 70.9425 },
+  andijan: { lat: 40.7821, lng: 72.3442 },
+  namangan: { lat: 41.0011, lng: 71.6673 },
+  muynak: { lat: 43.7681, lng: 59.0219 },
+  chimgan: { lat: 41.55, lng: 70.0167 },
+  charvak: { lat: 41.6333, lng: 70.1 },
+
+  // Neighbours that appear on Silk Road itineraries
+  almaty: { lat: 43.222, lng: 76.8512 },
+  astana: { lat: 51.1605, lng: 71.4704 },
+  bishkek: { lat: 42.8746, lng: 74.5698 },
+  dushanbe: { lat: 38.5598, lng: 68.787 },
+  ashgabat: { lat: 37.9601, lng: 58.3261 },
+  merv: { lat: 37.6614, lng: 62.1922 },
+  khujand: { lat: 40.2833, lng: 69.6333 },
+};
+
+/**
+ * Spelling variants that resolve to the same place.
+ *
+ * The import sheet is written in Uzbek, so an editor types "Toshkent",
+ * "Samarqand", "Buxoro" — while both the gazetteer and the city pages are
+ * keyed on the English forms. Nothing matched, so the cities were silently
+ * dropped from the tour and the map came out empty. Neither spelling is a
+ * mistake, so both resolve.
+ *
+ * Keys are already normalised: lower case, apostrophes and punctuation gone.
+ */
+const ALIASES: Record<string, string> = {
+  // Uzbek Latin
+  toshkent: "tashkent",
+  samarqand: "samarkand",
+  buxoro: "bukhara",
+  xiva: "khiva",
+  shahrisabz: "shakhrisabz",
+  shahrisabaz: "shakhrisabz",
+  urganch: "urgench",
+  termiz: "termez",
+  navoiy: "navoi",
+  nurota: "nurata",
+  fargona: "fergana",
+  fergonavodiysi: "fergana",
+  fergonavalley: "fergana",
+  qoqon: "kokand",
+  andijon: "andijan",
+  moynoq: "muynak",
+  chimyon: "chimgan",
+  chorvoq: "charvak",
+  // Russian-influenced Latin spellings that also turn up
+  tashkand: "tashkent",
+  samarcand: "samarkand",
+  bukhoro: "bukhara",
+  boukhara: "bukhara",
+  khiwa: "khiva",
+  // Neighbours
+  olmaota: "almaty",
+  almaata: "almaty",
+  nursultan: "astana",
+  ashkhabad: "ashgabat",
+  ashgabad: "ashgabat",
 };
 
 const normalise = (name: string) =>
   name
     .toLowerCase()
-    .replace(/[’‘'`´]/g, "")
+    .replace(/[’‘'`´ʻʼ]/g, "")
     .replace(/\(.*?\)/g, "")
     .replace(/[^a-z0-9]/g, "");
 
+/**
+ * One key for a place however it was spelled.
+ *
+ * Used for the gazetteer *and* for matching the sheet against existing city
+ * pages, so "Toshkent" in the sheet finds the Tashkent page — which is what
+ * links the city to the tour and puts the pin on the map.
+ */
+export function placeKey(name: string): string {
+  const n = normalise(name);
+  return ALIASES[n] ?? n;
+}
+
 export function lookupPlace(name: string): Place | null {
-  return PLACES[normalise(name)] ?? null;
+  return PLACES[placeKey(name)] ?? null;
 }

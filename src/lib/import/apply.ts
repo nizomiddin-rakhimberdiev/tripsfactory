@@ -25,7 +25,7 @@ import type { Tour } from "@/payload-types";
 import type { RoutePoint } from "@/lib/content/types";
 import type { SheetIssue, TourDraft } from "./schema";
 import { PLACEHOLDER_ALT, PLACEHOLDER_FILENAME, placeholderBytes } from "./placeholder";
-import { lookupPlace } from "./places";
+import { lookupPlace, placeKey } from "./places";
 
 type TourWrite = Partial<
   Pick<
@@ -63,8 +63,13 @@ type Refs = {
   mediaByName: Map<string, number>;
 };
 
-/** Names and slugs both resolve, so neither spelling is a support request. */
-const key = (value: string) => value.trim().toLowerCase();
+/**
+ * Names and slugs both resolve, so neither spelling is a support request —
+ * and so does an Uzbek spelling of an English city name. The sheet is written
+ * in Uzbek, so "Toshkent" has to find the Tashkent page; before this it did
+ * not, and the city was dropped from the tour without a word.
+ */
+const key = (value: string) => placeKey(value);
 
 async function loadRefs(payload: Payload): Promise<Refs> {
   const [countries, cities, tours, media] = await Promise.all([
