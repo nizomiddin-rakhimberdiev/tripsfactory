@@ -31,11 +31,16 @@ const withNextIntl = createNextIntlPlugin("./src/i18n/request.ts");
  */
 const csp = [
   "default-src 'self'",
-  "script-src 'self' 'unsafe-inline'",
+  // Cloudflare injects its Web Analytics beacon into every response on the
+  // zone. This policy was written by crawling the Vercel deployment, where
+  // that script does not exist — so once the domain moved to Cloudflare it was
+  // blocked on every page load: a console error on every view, and no
+  // analytics reaching the dashboard the plan is being paid for.
+  "script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com",
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' data: blob: https://*.basemaps.cartocdn.com https://*.public.blob.vercel-storage.com https://*.r2.dev https://images.unsplash.com",
   "font-src 'self' data:",
-  "connect-src 'self' https://*.public.blob.vercel-storage.com https://*.r2.dev",
+  "connect-src 'self' https://cloudflareinsights.com https://*.public.blob.vercel-storage.com https://*.r2.dev",
   "media-src 'self'",
   "worker-src 'self' blob:",
   "manifest-src 'self'",
