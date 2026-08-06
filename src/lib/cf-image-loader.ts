@@ -36,6 +36,18 @@ export default function cloudflareImageLoader({
 }: LoaderArgs): string {
   if (process.env.NEXT_PUBLIC_CF_IMAGES !== "1") return src;
 
+  // Cloudflare Image Transformations reads JPEG, PNG, GIF, WebP and SVG. An
+  // AVIF source comes back 415, which renders as a broken image and costs a
+  // Lighthouse Best Practices point for the console error — one such file in
+  // the library was doing exactly that. Serving it untouched is the right
+  // answer anyway: AVIF is already the format the transformation would have
+  // produced.
+  //
+  // Matched on the extension because that is all a loader is given. A CMS
+  // filename without one would slip through, which is why uploads should keep
+  // their extension.
+  if (/\.avif(?:$|[?#])/i.test(src)) return src;
+
   const options = [`width=${width}`, `quality=${quality ?? 75}`, "format=auto"];
 
   // Relative sources are already same-origin; absolute ones (R2) are passed
