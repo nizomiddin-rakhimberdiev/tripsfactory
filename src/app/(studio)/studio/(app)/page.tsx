@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { formatDateTime } from "@/lib/studio/datetime";
 import { getPayloadClient } from "@/lib/studio/auth";
 import {
   IconCompass,
@@ -14,14 +15,6 @@ import {
 
 export const dynamic = "force-dynamic";
 
-function fmtDateTime(d: string) {
-  return new Intl.DateTimeFormat("uz-UZ", {
-    day: "2-digit",
-    month: "short",
-    hour: "2-digit",
-    minute: "2-digit",
-  }).format(new Date(d));
-}
 
 /** "3 daqiqa oldin" style — faster to scan than a timestamp. */
 function timeAgo(iso: string) {
@@ -33,7 +26,7 @@ function timeAgo(iso: string) {
   if (hrs < 24) return `${hrs} soat oldin`;
   const days = Math.round(hrs / 24);
   if (days < 30) return `${days} kun oldin`;
-  return fmtDateTime(iso);
+  return formatDateTime(iso);
 }
 
 const leadBadge: Record<string, string> = {

@@ -107,8 +107,13 @@ export default async function TourPage({
     tour.priceFromUsd !== null
       ? approxLocalPrice(tour.priceFromUsd, currentLocale)
       : null;
+  // A departure is a calendar date, stored as midnight UTC. Formatted in the
+  // runtime's own zone it slips a day for anyone west of Greenwich — the 7 Aug
+  // departure reads "Aug 6" in New York. Pinning to UTC renders the date that
+  // was actually entered, wherever the page is built or viewed.
   const dateFmt = new Intl.DateTimeFormat(currentLocale, {
     dateStyle: "medium",
+    timeZone: "UTC",
   });
 
   return (

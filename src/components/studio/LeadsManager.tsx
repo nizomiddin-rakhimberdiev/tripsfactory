@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { formatDateTime } from "@/lib/studio/datetime";
 import { useToast } from "./ui";
 import { IconTrash } from "./icons";
 
@@ -22,11 +23,6 @@ const STATUS = [
   { value: "closed", label: "Yopildi" },
 ];
 
-function fmt(d?: string) {
-  return d
-    ? new Intl.DateTimeFormat("uz-UZ", { day: "2-digit", month: "short", hour: "2-digit", minute: "2-digit" }).format(new Date(d))
-    : "—";
-}
 
 export function LeadsManager({ initial }: { initial: Lead[] }) {
   const toast = useToast();
@@ -106,7 +102,7 @@ export function LeadsManager({ initial }: { initial: Lead[] }) {
                     ))}
                   </select>
                 </td>
-                <td style={{ color: "var(--s-fg-muted)" }}>{fmt(l.createdAt)}</td>
+                <td style={{ color: "var(--s-fg-muted)" }}>{formatDateTime(l.createdAt)}</td>
                 <td>
                   <button
                     className="s-btn s-btn--icon s-btn--ghost s-btn--sm s-btn--danger"
