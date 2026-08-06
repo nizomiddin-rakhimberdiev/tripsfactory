@@ -11,8 +11,17 @@
  * so the flag decides: unset, the original file is served untouched — larger,
  * but correct. That keeps the staging deploy testable before the domain moves.
  *
- * Set NEXT_PUBLIC_CF_IMAGES=1 once tripsfactory.uz is on Cloudflare and
- * Image Transformations is enabled for the zone.
+ * The flag is set by `npm run deploy:cf`, not in the dashboard, and that is
+ * deliberate. NEXT_PUBLIC_ values are inlined into the client bundle when it is
+ * compiled; a runtime secret on the Worker arrives too late. Setting it there
+ * produced a deployment where the server rendered transformed URLs and the
+ * client did not, so React's preload for every `priority` image asked for the
+ * untouched original — the hero and the wordmark were each downloaded twice,
+ * once optimised and once whole, 420KB of waste on the homepage.
+ *
+ * It is not set for `preview:cf` or local development: /cdn-cgi/image/ exists
+ * only on a Cloudflare zone with Image Transformations enabled, so there the
+ * loader stays a no-op and the original file is served untouched.
  */
 type LoaderArgs = {
   src: string;
