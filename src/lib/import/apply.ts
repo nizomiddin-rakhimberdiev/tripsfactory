@@ -20,12 +20,21 @@
  */
 import "server-only";
 import { createHash } from "crypto";
-import type { Payload, RequiredDataFromCollectionSlug } from "payload";
+import type {
+  Payload,
+  RequiredDataFromCollectionSlug,
+  TypedLocale,
+} from "payload";
 import type { Tour } from "@/payload-types";
 import type { RoutePoint } from "@/lib/content/types";
 import type { SheetIssue, TourDraft } from "./schema";
 import { PLACEHOLDER_ALT, PLACEHOLDER_FILENAME, placeholderBytes } from "./placeholder";
 import { lookupPlace, placeKey } from "./places";
+import {
+  TARGET_LOCALES,
+  translateInto,
+  type Translatable,
+} from "./translate";
 
 type TourWrite = Partial<
   Pick<
@@ -340,16 +349,29 @@ function routeFromCities(draft: TourDraft, refs: Refs): { points: RoutePoint[]; 
   return { points, unknown };
 }
 
+/**
+ * `deadline` is a wall-clock stamp after which no further tour is started.
+ *
+ * Translating a tour costs several seconds, so a fixed batch size is either too
+ * small for a re-import that translates nothing or too large for a first run
+ * that translates everything. Stopping on time instead lets the batch be as big
+ * as it can be: the caller resumes from however many outcomes came back.
+ */
 export async function apply(
   payload: Payload,
   drafts: TourDraft[],
   issues: SheetIssue[],
+  deadline?: number,
 ): Promise<ImportReport> {
   const refs = await loadRefs(payload);
   const plans = drafts.map((d) => planOne(d, refs));
   const outcomes: ApplyOutcome[] = [];
 
   for (const draft of drafts) {
+    // Never mid-tour: a tour is written and translated as one unit, so the
+    // check belongs before it starts, not inside it.
+    if (deadline && outcomes.length > 0 && Date.now() > deadline) break;
+
     const planned = plans.find((p) => p.row === draft.row)!;
     if (planned.action === "skip") {
       outcomes.push({ slug: draft.slug, ok: false, action: "failed", message: "Xatolar tufayli o'tkazib yuborildi." });
@@ -448,6 +470,7 @@ export async function apply(
     }
 
     try {
+      let tourId: number;
       if (isNew) {
         const created = await payload.create({
           collection: "tours",
@@ -456,11 +479,29 @@ export async function apply(
           data: data as RequiredDataFromCollectionSlug<"tours">,
           locale: "en",
         });
+        tourId = created.id;
         refs.tours.set(key(draft.slug), created.id);
         outcomes.push({ slug: draft.slug, ok: true, action: "created" });
       } else {
         await payload.update({ collection: "tours", id: existingId, data, locale: "en" });
+        tourId = existingId;
         outcomes.push({ slug: draft.slug, ok: true, action: "updated" });
+      }
+
+      // Translate once, here, rather than on every page view. The sheet only
+      // ever carries English and Payload falls back to it, so without this a
+      // Japanese visitor reads English prose under a Japanese URL.
+      //
+      // Locales that already hold text are left alone: re-importing a sheet
+      // must not overwrite a translation somebody has since corrected by hand.
+      const missing = await localesMissingText(payload, tourId);
+      if (missing.length) {
+        const { failed } = await translateTour(payload, tourId, data, missing);
+        if (failed.length) {
+          planned.warnings.push(
+            `Tarjima qilinmadi: ${failed.map((l) => l.toUpperCase()).join(", ")}.`,
+          );
+        }
       }
     } catch (err) {
       const message = (err as Error).message || "noma'lum xato";
@@ -471,4 +512,93 @@ export async function apply(
   }
 
   return { issues, plans, outcomes };
+}
+
+/**
+ * Which locales still have nothing written for this tour.
+ *
+ * "Nothing" means the title is empty or identical to English — Payload's
+ * fallback returns the English string for a locale that was never filled, so
+ * an equality check is what distinguishes "not translated" from "translated".
+ * Anything already written, by an earlier import or by hand in Studio, is left
+ * exactly as it is.
+ */
+async function localesMissingText(
+  payload: Payload,
+  id: number,
+): Promise<string[]> {
+  const doc = (await payload.findByID({
+    collection: "tours",
+    id,
+    locale: "all",
+    depth: 0,
+  })) as unknown as { title?: Record<string, string> };
+
+  const en = doc.title?.en ?? "";
+  return TARGET_LOCALES.filter((loc) => {
+    const value = doc.title?.[loc] ?? "";
+    return !value.trim() || value === en;
+  });
+}
+
+/**
+ * Fill the given locales for one tour.
+ *
+ * The itinerary, inclusions and exclusions are localized arrays, so they are
+ * flattened into one flat payload with positional keys and rebuilt from the
+ * reply — one round trip per locale rather than one per field.
+ */
+async function translateTour(
+  payload: Payload,
+  id: number,
+  data: TourWrite,
+  targets: string[],
+): Promise<{ failed: string[] }> {
+  const source: Translatable = {
+    title: String(data.title ?? ""),
+    summary: String(data.summary ?? ""),
+  };
+  const itinerary = data.itinerary ?? [];
+  itinerary.forEach((d, i) => {
+    source[`day${i}_title`] = d.title ?? "";
+    source[`day${i}_description`] = d.description ?? "";
+  });
+  if (data.included?.length) {
+    source.included = data.included.map((x) => x.text ?? "");
+  }
+  if (data.excluded?.length) {
+    source.excluded = data.excluded.map((x) => x.text ?? "");
+  }
+
+  const { done, failed } = await translateInto(source, targets);
+
+  for (const [locale, out] of Object.entries(done)) {
+    const write: Record<string, unknown> = {
+      title: out.title,
+      summary: out.summary,
+    };
+    if (itinerary.length) {
+      write.itinerary = itinerary.map((d, i) => ({
+        title: out[`day${i}_title`] ?? d.title,
+        description: out[`day${i}_description`] ?? d.description,
+      }));
+    }
+    if (Array.isArray(out.included)) {
+      write.included = out.included.map((text) => ({ text }));
+    }
+    if (Array.isArray(out.excluded)) {
+      write.excluded = out.excluded.map((text) => ({ text }));
+    }
+    // One locale failing to write should not lose the others.
+    await payload
+      .update({
+        collection: "tours",
+        id,
+        data: write,
+        locale: locale as TypedLocale,
+      })
+      .catch(() => failed.push(locale));
+  }
+
+  return { failed };
 }

@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { getPayloadClient } from "@/lib/studio/auth";
 import { ToastProvider } from "@/components/studio/ui";
 import { DeleteDoc } from "@/components/studio/DeleteDoc";
+import { RetranslateButton } from "@/components/studio/RetranslateButton";
 import { TourEditor, type TourInitial } from "@/components/studio/TourEditor";
 import type { MediaRef } from "@/components/studio/fields";
 import { IconChevron } from "@/components/studio/icons";
@@ -122,6 +123,7 @@ export default async function StudioTourEditPage({
           <h1>{title}</h1>
         </div>
         <div className="s-pagehead__actions">
+          <RetranslateButton id={raw.id} />
           <DeleteDoc collection="tours" id={raw.id} label={title} />
         </div>
       </div>

@@ -24,8 +24,16 @@ export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 export const maxDuration = 60;
 
-/** Small enough that a batch finishes well inside the limit on a slow database. */
+/**
+ * The most a batch will attempt. It usually stops earlier — `apply` is given a
+ * deadline and returns after whichever tour is in flight when it passes, so a
+ * run that has to translate seven locales per tour shortens itself instead of
+ * being killed at the ceiling.
+ */
 const BATCH = 8;
+
+/** Leaves room inside maxDuration for the tour in flight to finish and reply. */
+const BUDGET_MS = 40_000;
 
 const bodySchema = z.object({
   url: z.string().min(1).max(500),
@@ -84,8 +92,15 @@ export async function POST(request: Request) {
     const offset = parsed.data.offset ?? 0;
     const batch = tours.slice(offset, offset + BATCH);
     // Sheet-wide notes belong to the first batch only, or they repeat per batch.
-    const report = await apply(payload, batch, offset === 0 ? issues : []);
-    const nextOffset = offset + batch.length;
+    const report = await apply(
+      payload,
+      batch,
+      offset === 0 ? issues : [],
+      Date.now() + BUDGET_MS,
+    );
+    // However many it actually got through — not however many it was handed.
+    const processed = report.outcomes?.length ?? batch.length;
+    const nextOffset = offset + processed;
 
     return NextResponse.json({
       total: tours.length,
