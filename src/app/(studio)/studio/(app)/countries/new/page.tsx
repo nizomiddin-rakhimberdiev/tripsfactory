@@ -1,8 +1,22 @@
+import Link from "next/link";
 import { getPayloadClient } from "@/lib/studio/auth";
 import { ToastProvider } from "@/components/studio/ui";
-import { NewDoc } from "@/components/studio/NewDoc";
+import { CountryEditor, type CountryInitial } from "@/components/studio/CountryEditor";
+import { IconChevron } from "@/components/studio/icons";
 
 export const dynamic = "force-dynamic";
+
+/** `id: null` is what tells the editor to create rather than update on save. */
+const EMPTY: CountryInitial = {
+  id: null,
+  region: null,
+  published: false,
+  heroImage: null,
+  gallery: [],
+  name: {},
+  intro: {},
+  body: {},
+};
 
 export default async function NewCountryPage() {
   const payload = await getPayloadClient();
@@ -18,29 +32,16 @@ export default async function NewCountryPage() {
     <ToastProvider>
       <div className="s-pagehead">
         <div className="s-pagehead__text">
+          <div style={{ display: "flex", alignItems: "center", gap: 4, color: "var(--s-fg-muted)", fontSize: 13, marginBottom: 2 }}>
+            <Link href="/studio/countries" style={{ color: "inherit", textDecoration: "none" }}>Davlatlar</Link>
+            <IconChevron width={14} height={14} />
+          </div>
           <h1>Yangi davlat</h1>
-          <p>Davlat sahifasi yaratish uchun quyidagilar shart.</p>
         </div>
       </div>
-      <NewDoc
-        collection="countries"
-        title="Yangi davlat"
-        slugFrom="name"
-        fixed={{ published: false }}
-        fields={[
-          { name: "name", label: "Nomi (inglizcha)", kind: "text" },
-          { name: "intro", label: "Qisqa tavsif", kind: "textarea" },
-          {
-            name: "region",
-            label: "Mintaqa",
-            kind: "select",
-            options: regions.docs.map((r) => ({
-              value: r.id,
-              label: String(r.name ?? r.slug),
-            })),
-          },
-          { name: "heroImage", label: "Asosiy rasm", kind: "media" },
-        ]}
+      <CountryEditor
+        initial={EMPTY}
+        regions={regions.docs.map((r) => ({ id: r.id, name: String(r.name ?? r.slug) }))}
       />
     </ToastProvider>
   );

@@ -10,12 +10,15 @@ import {
   type MediaRef,
 } from "./fields";
 import { saveMessage, sendPerLocale } from "@/lib/studio/save";
+import { fieldErrors, slugTaken, slugify } from "@/lib/studio/slug";
+import { useRouter } from "next/navigation";
 import { LOCALE_CODES } from "@/lib/studio/locales";
 import { IconCheck } from "./icons";
 import { GalleryPicker, type GalleryItem } from "./GalleryPicker";
 
 export type CityInitial = {
-  id: number;
+  /** null while the record has not been created yet. */
+  id: number | null;
   country: number | null;
   recommendedNights: number;
   lat: number | null;
@@ -38,6 +41,7 @@ export function CityEditor({
   countries: { id: number; name: string }[];
 }) {
   const toast = useToast();
+  const router = useRouter();
   const [c, setC] = useState<CityInitial>(initial);
   const [saving, setSaving] = useState(false);
   const patch = (p: Partial<CityInitial>) => setC((v) => ({ ...v, ...p }));
@@ -63,10 +67,60 @@ export function CityEditor({
         },
       ]),
     );
+    // Creating uses the same form and the same button: the base locale is
+    // posted to get an id, then the rest are written onto it exactly as on
+    // any later save.
+    if (c.id === null) {
+      const created = await create(bodies.en as Record<string, unknown>);
+      setSaving(false);
+      if (created === null) return;
+      const rest = Object.fromEntries(
+        Object.entries(bodies).filter(([loc]) => loc !== "en"),
+      );
+      const { failed } = await sendPerLocale(
+        "PATCH",
+        `/api/cities/${created}`,
+        rest,
+        LOCALIZED,
+      );
+      toast(
+        failed.length ? saveMessage(failed) : "Yaratildi",
+        failed.length ? "error" : "ok",
+      );
+      router.replace(`/studio/cities/${created}`);
+      return;
+    }
+
     const { ok, failed } = await sendPerLocale("PATCH", `/api/cities/${c.id}`, bodies, LOCALIZED);
     setSaving(false);
     toast(saveMessage(failed), ok ? "ok" : "error");
   }
+  /** Returns the new id, or null after reporting why it could not be made. */
+  async function create(body: Record<string, unknown>): Promise<number | null> {
+    const slug = slugify(c.name.en ?? "");
+    if (!slug) {
+      toast("Inglizcha nom lotin harflarida bo'lishi kerak", "error");
+      return null;
+    }
+    if (await slugTaken("cities", slug)) {
+      toast(`«${c.name.en}» nomli shahar allaqachon bor`, "error");
+      return null;
+    }
+    const res = await fetch("/api/cities?locale=en", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+      body: JSON.stringify({ ...body, slug }),
+    }).catch(() => null);
+    if (!res?.ok) {
+      const detail = await fieldErrors(res);
+      toast(detail ? `Yaratilmadi — to'ldiring: ${detail}` : "Yaratilmadi", "error");
+      return null;
+    }
+    const data = (await res.json()) as { doc?: { id: number } };
+    return data.doc?.id ?? null;
+  }
+
 
   return (
     <>

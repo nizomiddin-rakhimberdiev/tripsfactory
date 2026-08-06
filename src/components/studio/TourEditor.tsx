@@ -11,6 +11,8 @@ import {
   type MediaRef,
 } from "./fields";
 import { saveMessage, sendPerLocale } from "@/lib/studio/save";
+import { fieldErrors, slugTaken, slugify } from "@/lib/studio/slug";
+import { useRouter } from "next/navigation";
 import { LOCALE_CODES } from "@/lib/studio/locales";
 import { IconCheck, IconExternal, IconPlus, IconTrash } from "./icons";
 import { RoutePicker } from "./RoutePicker";
@@ -19,7 +21,8 @@ import type { RoutePoint } from "@/lib/content/types";
 
 type Departure = { date: string; priceUsd: number; status: string };
 export type TourInitial = {
-  id: number;
+  /** null while the tour has not been created yet. */
+  id: number | null;
   slug: string;
   type: string;
   tier: string;
@@ -72,6 +75,7 @@ export function TourEditor({
   previewUrl: string;
 }) {
   const toast = useToast();
+  const router = useRouter();
   const [t, setT] = useState<TourInitial>(initial);
   const [saving, setSaving] = useState(false);
   const patch = (p: Partial<TourInitial>) => setT((v) => ({ ...v, ...p }));
@@ -106,9 +110,62 @@ export function TourEditor({
         },
       ]),
     );
+    // A tour that does not exist yet is created from the base locale, then the
+    // other seven are written onto it exactly as they are on every later save.
+    // Same form, same fields, one button — the alternative was a second,
+    // shorter form that looked nothing like this one.
+    if (t.id === null) {
+      const created = await create(bodies.en as Record<string, unknown>);
+      setSaving(false);
+      if (created === null) return;
+      const rest = Object.fromEntries(
+        Object.entries(bodies).filter(([loc]) => loc !== "en"),
+      );
+      const { failed } = await sendPerLocale(
+        "PATCH",
+        `/api/tours/${created}`,
+        rest,
+        LOCALIZED,
+      );
+      toast(
+        failed.length
+          ? saveMessage(failed)
+          : "Yaratildi — saytda ~5 daqiqada ko'rinadi",
+        failed.length ? "error" : "ok",
+      );
+      router.replace(`/studio/tours/${created}`);
+      return;
+    }
+
     const { ok, failed } = await sendPerLocale("PATCH", `/api/tours/${t.id}`, bodies, LOCALIZED);
     setSaving(false);
     toast(saveMessage(failed, " — saytda ~5 daqiqada ko'rinadi"), ok ? "ok" : "error");
+  }
+
+  /** Returns the new id, or null after reporting why it could not be made. */
+  async function create(body: Record<string, unknown>): Promise<number | null> {
+    const slug = slugify(t.title.en ?? "");
+    if (!slug) {
+      toast("Inglizcha nom lotin harflarida bo'lishi kerak", "error");
+      return null;
+    }
+    if (await slugTaken("tours", slug)) {
+      toast(`«${t.title.en}» nomli tur allaqachon bor`, "error");
+      return null;
+    }
+    const res = await fetch("/api/tours?locale=en", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+      body: JSON.stringify({ ...body, slug }),
+    }).catch(() => null);
+    if (!res?.ok) {
+      const detail = await fieldErrors(res);
+      toast(detail ? `Yaratilmadi — to'ldiring: ${detail}` : "Yaratilmadi", "error");
+      return null;
+    }
+    const data = (await res.json()) as { doc?: { id: number } };
+    return data.doc?.id ?? null;
   }
 
   const toggleCity = (id: number) =>
