@@ -58,6 +58,14 @@ const nextConfig: NextConfig = {
       // Keeps drizzle-kit out of the Worker bundle — see the stub for why the
       // build cannot resolve it otherwise.
       "drizzle-kit/api": "./src/lib/drizzle-kit-stub.ts",
+      // Same idea, different reason: sharp falls back to a wasm build on a
+      // platform without its binary, and Workers refuses to compile wasm at
+      // runtime. Nothing needs it — see the stub.
+      sharp: "./src/lib/sharp-stub.ts",
+      // undici's HTTP parser is llhttp, compiled from wasm at load time. That
+      // is what actually took /admin down with a 500; the shim gives Payload
+      // the two names it uses, backed by the platform's own fetch.
+      undici: "./src/lib/undici-shim.ts",
     },
   },
   experimental: {
