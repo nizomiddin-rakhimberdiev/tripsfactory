@@ -16,6 +16,7 @@ import {
   IconExternal,
   IconTable,
   IconLogout,
+  IconMap,
 } from "./icons";
 
 type NavItem = {
@@ -40,6 +41,7 @@ const GROUPS: { id: string; label: string | null; items: NavItem[] }[] = [
     label: "Kontent",
     items: [
       { href: "/studio/tours", label: "Turlar", Icon: IconCompass },
+      { href: "/studio/regions", label: "Mintaqalar", Icon: IconMap },
       { href: "/studio/countries", label: "Davlatlar", Icon: IconGlobe },
       { href: "/studio/cities", label: "Shaharlar", Icon: IconPin },
       { href: "/studio/guides", label: "Qo'llanmalar", Icon: IconBook },

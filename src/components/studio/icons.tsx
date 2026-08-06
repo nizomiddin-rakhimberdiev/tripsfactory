@@ -129,3 +129,12 @@ export const IconChevron = (p: P) => (
     <path d="m9 6 6 6-6 6" />
   </svg>
 );
+
+/** Layered planes — a region groups countries, so a map rather than a globe. */
+export const IconMap = (p: P) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7"
+       strokeLinecap="round" strokeLinejoin="round" {...p}>
+    <path d="M9 4 3 6.5v13L9 17l6 2.5 6-2.5v-13L15 7 9 4Z" />
+    <path d="M9 4v13M15 7v12.5" />
+  </svg>
+);
