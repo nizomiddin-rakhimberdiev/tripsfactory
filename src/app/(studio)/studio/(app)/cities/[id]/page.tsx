@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getPayloadClient } from "@/lib/studio/auth";
 import { ToastProvider } from "@/components/studio/ui";
+import { DeleteDoc } from "@/components/studio/DeleteDoc";
 import { CityEditor, type CityInitial } from "@/components/studio/CityEditor";
 import type { MediaRef } from "@/components/studio/fields";
 import { IconChevron } from "@/components/studio/icons";
@@ -68,6 +69,9 @@ export default async function StudioCityEditPage({
             <IconChevron width={14} height={14} />
           </div>
           <h1>{raw.name?.en ?? raw.name?.uz ?? "Shahar"}</h1>
+        </div>
+        <div className="s-pagehead__actions">
+          <DeleteDoc collection="cities" id={raw.id} label={raw.name?.en ?? raw.name?.uz ?? "Shahar"} />
         </div>
       </div>
       <CityEditor

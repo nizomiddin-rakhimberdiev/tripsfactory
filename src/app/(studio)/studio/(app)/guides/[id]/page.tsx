@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getPayloadClient } from "@/lib/studio/auth";
 import { ToastProvider } from "@/components/studio/ui";
+import { DeleteDoc } from "@/components/studio/DeleteDoc";
 import { GuideEditor, type GuideInitial } from "@/components/studio/GuideEditor";
 import { IconChevron } from "@/components/studio/icons";
 
@@ -51,6 +52,9 @@ export default async function StudioGuideEditPage({
             <IconChevron width={14} height={14} />
           </div>
           <h1>{raw.title?.en ?? raw.title?.uz ?? "Qo'llanma"}</h1>
+        </div>
+        <div className="s-pagehead__actions">
+          <DeleteDoc collection="guides" id={raw.id} label={raw.title?.en ?? raw.title?.uz ?? "Qo'llanma"} />
         </div>
       </div>
       <GuideEditor

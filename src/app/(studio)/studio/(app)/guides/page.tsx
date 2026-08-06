@@ -25,6 +25,11 @@ export default async function StudioGuidesPage() {
               ` Quyida dastlabki ${res.docs.length} tasi.`}
           </p>
         </div>
+        <div className="s-pagehead__actions">
+          <Link href="/studio/guides/new" className="s-btn s-btn--primary">
+            Yangi maqola
+          </Link>
+        </div>
       </div>
       {res.docs.length === 0 ? (
         <div className="s-table-wrap">

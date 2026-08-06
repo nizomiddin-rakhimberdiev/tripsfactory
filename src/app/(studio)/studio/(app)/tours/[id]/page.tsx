@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getPayloadClient } from "@/lib/studio/auth";
 import { ToastProvider } from "@/components/studio/ui";
+import { DeleteDoc } from "@/components/studio/DeleteDoc";
 import { TourEditor, type TourInitial } from "@/components/studio/TourEditor";
 import type { MediaRef } from "@/components/studio/fields";
 import { IconChevron } from "@/components/studio/icons";
@@ -119,6 +120,9 @@ export default async function StudioTourEditPage({
             <IconChevron width={14} height={14} />
           </div>
           <h1>{title}</h1>
+        </div>
+        <div className="s-pagehead__actions">
+          <DeleteDoc collection="tours" id={raw.id} label={title} />
         </div>
       </div>
       <TourEditor

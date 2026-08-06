@@ -24,6 +24,11 @@ export default async function StudioCitiesPage() {
               ` Quyida dastlabki ${res.docs.length} tasi.`}
           </p>
         </div>
+        <div className="s-pagehead__actions">
+          <Link href="/studio/cities/new" className="s-btn s-btn--primary">
+            Yangi shahar
+          </Link>
+        </div>
       </div>
       {res.docs.length === 0 ? (
         <div className="s-table-wrap">

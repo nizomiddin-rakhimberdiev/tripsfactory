@@ -34,6 +34,9 @@ export default async function StudioToursPage() {
           <Link className="s-btn" href="/studio/import">
             Sheets&apos;dan import
           </Link>
+          <Link className="s-btn s-btn--primary" href="/studio/tours/new">
+            Yangi tur
+          </Link>
         </div>
       </div>
 

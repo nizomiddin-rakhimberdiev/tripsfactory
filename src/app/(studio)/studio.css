@@ -1370,6 +1370,17 @@
   .s-stats {
     grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
   }
+  /* The page head now carries actions — "Yangi tur", "O'chirish" — and they do
+     not fit beside a heading at this width. */
+  .s-pagehead {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+  .s-pagehead__actions {
+    margin-left: 0;
+    flex-wrap: wrap;
+  }
 }
 
 /* --------------------------------------------------------------------------

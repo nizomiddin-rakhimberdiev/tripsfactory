@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getPayloadClient } from "@/lib/studio/auth";
 import { ToastProvider } from "@/components/studio/ui";
+import { DeleteDoc } from "@/components/studio/DeleteDoc";
 import { CountryEditor, type CountryInitial } from "@/components/studio/CountryEditor";
 import type { MediaRef } from "@/components/studio/fields";
 import { IconChevron } from "@/components/studio/icons";
@@ -64,6 +65,9 @@ export default async function StudioCountryEditPage({
             <IconChevron width={14} height={14} />
           </div>
           <h1>{raw.name?.en ?? raw.name?.uz ?? "Davlat"}</h1>
+        </div>
+        <div className="s-pagehead__actions">
+          <DeleteDoc collection="countries" id={raw.id} label={raw.name?.en ?? raw.name?.uz ?? "Davlat"} />
         </div>
       </div>
       <CountryEditor
