@@ -36,14 +36,20 @@ export function GuideEditor({
 
   async function save() {
     setSaving(true);
+    // Shared fields go with the base locale only — see the note in TourEditor:
+    // they are not localized, so repeating them in all eight writes is wasted
+    // work, and for a relationship stored without a locale column it duplicates
+    // rows.
+    const localized = (loc: string) => ({
+      title: g.title[loc] ?? "",
+      sections: g.sections[loc] ?? [],
+    });
     const bodies = Object.fromEntries(
       LOCALE_CODES.map((loc) => [
         loc,
-        {
-          country: g.country,
-          title: g.title[loc] ?? "",
-          sections: g.sections[loc] ?? [],
-        },
+        loc === "en"
+          ? { country: g.country, ...localized(loc) }
+          : localized(loc),
       ]),
     );
     // Creating uses the same form and the same button: the base locale is

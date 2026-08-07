@@ -34,10 +34,16 @@ export function RegionEditor({ initial }: { initial: RegionInitial }) {
     setSaving(true);
     // Every configured locale, not just the ones already filled in: a new
     // region has none, and `bodies.en` has to exist for the create below.
+    // Shared fields go with the base locale only — see the note in TourEditor:
+    // they are not localized, so repeating them in all eight writes is wasted
+    // work, and for a relationship stored without a locale column it duplicates
+    // rows.
     const bodies = Object.fromEntries(
       LOCALE_CODES.map((loc) => [
         loc,
-        { slug: r.slug, name: r.name[loc] ?? "" },
+        loc === "en"
+          ? { slug: r.slug, name: r.name[loc] ?? "" }
+          : { name: r.name[loc] ?? "" },
       ]),
     );
     // Creating uses the same form and the same button: the base locale is

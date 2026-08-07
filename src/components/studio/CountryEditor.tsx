@@ -52,15 +52,23 @@ export function CountryEditor({
       heroImage: c.heroImage?.id ?? null,
       gallery: c.gallery,
     };
-    const bodies = Object.fromEntries(
-      LOCALE_CODES.map((loc) => [
-        loc,
-        {
-          ...shared,
+    // Shared fields go with the base locale only.
+    //
+    // They are not localized — country, cities, photo, dates, map — so
+    // repeating them in all eight writes is at best wasted work and at worst
+    // destructive: `cities` is a relationship stored in a flat table with no
+    // locale column, and sending it eight times left one tour with the same
+    // city listed four times. The other locales carry only what actually
+    // differs between them.
+    const localized = (loc: string) => ({
           name: c.name[loc] ?? "",
           intro: c.intro[loc] ?? "",
           body: c.body[loc] ?? "",
-        },
+    });
+    const bodies = Object.fromEntries(
+      LOCALE_CODES.map((loc) => [
+        loc,
+        loc === "en" ? { ...shared, ...localized(loc) } : localized(loc),
       ]),
     );
     // Creating uses the same form and the same button: the base locale is
