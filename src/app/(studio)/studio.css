@@ -841,7 +841,12 @@
    -------------------------------------------------------------------------- */
 .s-gallery {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  /* min(180px, 100%) rather than a bare 180px: on a 390px phone the track
+     demanded two 180px columns plus the gap, which is wider than the content
+     box, and the thumbnails' delete buttons hung off the right edge of the
+     page. The min() lets a column shrink to the container when there is not
+     room for the ideal width. */
+  grid-template-columns: repeat(auto-fill, minmax(min(180px, 100%), 1fr));
   gap: 14px;
 }
 .s-gtile {
