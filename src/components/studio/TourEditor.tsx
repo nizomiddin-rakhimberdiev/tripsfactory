@@ -298,7 +298,10 @@ export function TourEditor({
             <Field label="Jo'nash sanalari va narxlar">
               <div className="s-repeat">
                 {t.departures.map((d, i) => (
-                  <div key={i} style={{ display: "grid", gridTemplateColumns: "1fr 140px 1fr auto", gap: 8 }}>
+                  <div
+                    key={i}
+                    className="s-departure-row"
+                  >
                     <input className="s-input" type="date" value={d.date?.slice(0, 10) ?? ""}
                       onChange={(e) => {
                         const next = [...t.departures]; next[i] = { ...d, date: e.target.value }; patch({ departures: next });

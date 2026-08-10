@@ -1508,3 +1508,31 @@
   color: var(--s-fg-muted);
   margin-bottom: 4px;
 }
+
+/**
+ * A departure: date, price, status, remove.
+ *
+ * Was an inline grid of `1fr 140px 1fr auto`. The two 1fr tracks cannot go
+ * below the intrinsic width of a date input, so on a 390px phone the row
+ * demanded about 352px inside a 304px card and the remove button sat outside
+ * the page. min-width:0 lets the flexible tracks actually shrink, and below
+ * 620px the row stacks instead of trying to fit four controls across.
+ */
+.s-departure-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 120px) minmax(0, 1fr) auto;
+  gap: 8px;
+  align-items: center;
+}
+.s-departure-row > * {
+  min-width: 0;
+}
+
+@media (max-width: 620px) {
+  .s-departure-row {
+    grid-template-columns: 1fr auto;
+  }
+  .s-departure-row > :nth-child(3) {
+    grid-column: 1 / -1;
+  }
+}
