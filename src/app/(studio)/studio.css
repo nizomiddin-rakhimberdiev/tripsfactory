@@ -1317,6 +1317,11 @@
     border-right: 0;
     border-bottom: 1px solid var(--s-border);
     overflow-x: auto;
+    /* A grid item defaults to min-width:auto, so the nav strip — wider than
+       the screen by design, because it scrolls — was stretching the grid
+       track and taking the whole page with it. The editor pages were 29px
+       wider than the phone they were being read on. */
+    min-width: 0;
   }
   .s-brand {
     padding: 0 8px 0 0;
