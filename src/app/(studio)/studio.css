@@ -1368,6 +1368,15 @@
   .s-content {
     padding: 18px 14px 40px;
   }
+  /* The save bar pulls itself out of .s-content's padding with negative
+     margins so it runs edge to edge. Those margins were written for the
+     desktop padding of 28px and stayed at 28px here, where the padding is
+     14px — so the bar hung 14px past each edge and pushed the whole editor
+     page 28px wider than the phone. */
+  .s-savebar {
+    margin: 24px -14px -40px;
+    padding: 12px 14px;
+  }
   .s-topbar {
     padding: 0 14px;
   }
