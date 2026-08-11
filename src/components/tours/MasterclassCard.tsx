@@ -3,6 +3,7 @@ import { getLocale, getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import type { Masterclass } from "@/lib/content";
 import { approxLocalPrice, formatUsd } from "@/lib/currency";
+import { formatDate } from "@/lib/dates";
 import type { Locale } from "@/i18n/routing";
 import { IconClock, IconArrowRight } from "@/components/icons";
 
@@ -27,10 +28,7 @@ export async function MasterclassCard({
     getLocale() as Promise<Locale>,
   ]);
   const approx = approxLocalPrice(masterclass.priceUsd, locale);
-  const dateFmt = new Intl.DateTimeFormat(locale, {
-    dateStyle: "medium",
-    timeZone: "UTC",
-  });
+
 
   return (
     <Link
@@ -68,7 +66,7 @@ export async function MasterclassCard({
         {masterclass.nextSession && (
           <p className="mb-3 text-sm text-primary sm:mb-4">
             {t("nextOn", {
-              date: dateFmt.format(new Date(masterclass.nextSession.date)),
+              date: formatDate(masterclass.nextSession.date, locale),
             })}
           </p>
         )}

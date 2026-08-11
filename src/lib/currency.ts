@@ -29,6 +29,22 @@ export function approxLocalPrice(usd: number, locale: Locale): string | null {
   const { code, rate } = localeCurrency[locale];
   if (code === "USD") return null;
   const converted = usd * rate;
+
+  // Uzbek is composed by hand for the same reason dates are: the Workers
+  // runtime has no Uzbek locale data, so Intl fell back to the ISO code and
+  // English grouping — "≈ UZS 10,080,000" on every Uzbek page, where the rest
+  // of the site says "≈ 63 200 ₽" and "≈ ￥117,600". Grouping comes from a
+  // locale both runtimes agree on, then the separator and the currency name
+  // are set explicitly.
+  if (locale === "uz") {
+    const grouped = new Intl.NumberFormat("en-US", {
+      maximumFractionDigits: 0,
+    })
+      .format(converted)
+      .replace(/,/g, " ");
+    return `≈ ${grouped} soʻm`;
+  }
+
   const formatted = new Intl.NumberFormat(locale, {
     style: "currency",
     currency: code,

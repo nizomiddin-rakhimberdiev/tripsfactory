@@ -5,6 +5,7 @@ import { flags } from "@/lib/flags";
 import { getMasterclass, getMasterclasses } from "@/lib/content";
 import { locales, type Locale } from "@/i18n/routing";
 import { approxLocalPrice, formatUsd } from "@/lib/currency";
+import { formatDate } from "@/lib/dates";
 import { LeadForm } from "@/components/forms/LeadForm";
 import { MasterclassCard } from "@/components/tours/MasterclassCard";
 import { Carousel } from "@/components/Carousel";
@@ -70,13 +71,7 @@ export default async function MasterclassPage({
     Boolean,
   );
   const approx = approxLocalPrice(m.priceUsd, currentLocale);
-  // A session is a calendar date stored as midnight UTC; formatted in the
-  // runtime's own zone it slips a day west of Greenwich. Same fix as the
-  // departures table.
-  const dateFmt = new Intl.DateTimeFormat(currentLocale, {
-    dateStyle: "full",
-    timeZone: "UTC",
-  });
+
   const next = m.nextSession;
 
   return (
@@ -264,7 +259,7 @@ export default async function MasterclassPage({
                     {t("nextSession")}
                   </p>
                   <p className="text-lg font-semibold text-primary">
-                    {dateFmt.format(new Date(next.date))}
+                    {formatDate(next.date, currentLocale, "full")}
                   </p>
                   <p className="mt-1 text-sm text-muted">
                     {t("seatsLeft", {

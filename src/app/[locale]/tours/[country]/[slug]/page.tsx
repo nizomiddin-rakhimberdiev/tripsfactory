@@ -6,6 +6,7 @@ import { getTour, getTours, getCity, getCountry } from "@/lib/content";
 import { locales, type Locale } from "@/i18n/routing";
 import type { DepartureStatus } from "@/lib/content";
 import { approxLocalPrice, formatUsd } from "@/lib/currency";
+import { formatDate } from "@/lib/dates";
 import { LeadForm } from "@/components/forms/LeadForm";
 import { TourCard } from "@/components/tours/TourCard";
 import { ItineraryAccordion } from "@/components/tours/ItineraryAccordion";
@@ -107,14 +108,7 @@ export default async function TourPage({
     tour.priceFromUsd !== null
       ? approxLocalPrice(tour.priceFromUsd, currentLocale)
       : null;
-  // A departure is a calendar date, stored as midnight UTC. Formatted in the
-  // runtime's own zone it slips a day for anyone west of Greenwich — the 7 Aug
-  // departure reads "Aug 6" in New York. Pinning to UTC renders the date that
-  // was actually entered, wherever the page is built or viewed.
-  const dateFmt = new Intl.DateTimeFormat(currentLocale, {
-    dateStyle: "medium",
-    timeZone: "UTC",
-  });
+
 
   return (
     <article>
@@ -305,7 +299,7 @@ export default async function TourPage({
                         }`}
                       >
                         <td className="p-3 font-semibold sm:p-4">
-                          {dateFmt.format(new Date(d.date))}
+                          {formatDate(d.date, currentLocale)}
                         </td>
                         <td className="p-3 sm:p-4">
                           <StatusPill
