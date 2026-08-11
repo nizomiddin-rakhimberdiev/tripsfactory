@@ -86,73 +86,123 @@ export async function POST(request: Request) {
     }
 
     /**
-     * A locale needs filling when any translatable field of it is still
-     * English — not just the title.
+     * Which *fields* of a locale still need filling — not merely whether the
+     * locale needs anything.
      *
      * Payload's fallback returns the English string for a locale nobody
-     * filled, so equality with English is what separates "not translated"
-     * from "translated". Checking only the title would skip a record whose
-     * name was translated last month and whose newly written description is
-     * still in English.
+     * filled, so "empty, or identical to English" is the only available signal
+     * for "not translated". It is an imperfect one: "Wi-Fi", "Transfer" and a
+     * proper noun come back from the model unchanged, which makes a fully
+     * translated record look untranslated for ever.
+     *
+     * That mattered because the whole locale used to be rewritten whenever any
+     * one field looked English. A record with a one-word list item was
+     * re-translated on every save, and — worse — an editor's hand-corrected
+     * paragraph in that locale was overwritten each time by a fresh machine
+     * translation. Narrowing it to the fields that actually look untouched
+     * costs nothing and makes a correction survive.
      */
-    const needsLocale = (loc: string): boolean =>
-      spec.text.some((field) => {
-        const values = doc[field] as Localized<string> | undefined;
-        const en = values?.en ?? "";
-        if (!en.trim()) return false; // nothing to translate in this field
-        const value = values?.[loc] ?? "";
-        return !value.trim() || value === en;
-      }) ||
-      spec.arrays.some(({ name, keys }) => {
-        const rows = doc[name] as Localized<Row[]> | undefined;
-        const en = rows?.en ?? [];
-        if (!en.length) return false;
-        const other = rows?.[loc] ?? [];
-        if (other.length !== en.length) return true;
-        return en.some((row, i) =>
-          keys.some((key) => {
-            const source = String(row[key] ?? "");
-            if (!source.trim()) return false;
-            const target = String(other[i]?.[key] ?? "");
-            return !target.trim() || target === source;
-          }),
-        );
+    const needsText = (field: string, loc: string): boolean => {
+      const values = doc[field] as Localized<string> | undefined;
+      const en = values?.en ?? "";
+      if (!en.trim()) return false; // nothing to translate in this field
+      const value = values?.[loc] ?? "";
+      return !value.trim() || value === en;
+    };
+
+    /** Row indexes and keys of one array field that are still English. */
+    const needsRows = (
+      name: string,
+      keys: string[],
+      loc: string,
+    ): { i: number; key: string }[] => {
+      const rows = doc[name] as Localized<Row[]> | undefined;
+      const en = rows?.en ?? [];
+      const other = rows?.[loc] ?? [];
+      const out: { i: number; key: string }[] = [];
+      en.forEach((row, i) => {
+        for (const key of keys) {
+          const source = String(row[key] ?? "");
+          if (!source.trim()) continue;
+          const target = String(other[i]?.[key] ?? "");
+          if (!target.trim() || target === source) out.push({ i, key });
+        }
       });
+      return out;
+    };
 
-    const targets = force
-      ? TARGET_LOCALES
-      : TARGET_LOCALES.filter(needsLocale);
+    /** The work for one locale: the field names and row cells to translate. */
+    type Work = {
+      locale: string;
+      text: string[];
+      arrays: { name: string; keys: string[]; cells: { i: number; key: string }[] }[];
+    };
 
-    if (!targets.length) {
+    const work: Work[] = TARGET_LOCALES.map((locale) => ({
+      locale,
+      text: spec.text.filter((f) =>
+        force
+          ? Boolean((doc[f] as Localized<string> | undefined)?.en?.trim())
+          : needsText(f, locale),
+      ),
+      arrays: spec.arrays
+        .map(({ name, keys }) => {
+          const rows = (doc[name] as Localized<Row[]> | undefined)?.en ?? [];
+          const cells = force
+            ? rows.flatMap((row, i) =>
+                keys
+                  .filter((key) => String(row[key] ?? "").trim())
+                  .map((key) => ({ i, key })),
+              )
+            : needsRows(name, keys, locale);
+          return { name, keys, cells };
+        })
+        .filter((a) => a.cells.length),
+    })).filter((w) => w.text.length || w.arrays.length);
+
+    if (!work.length) {
       return NextResponse.json({ translated: [], failed: [], skipped: true });
     }
 
-    // Flatten to one payload: plain fields by name, array rows by position, so
-    // the reply can be rebuilt into the same shape it came from.
-    const source: Translatable = {};
-    for (const field of spec.text) {
-      source[field] = (doc[field] as Localized<string> | undefined)?.en ?? "";
-    }
-    for (const { name, keys } of spec.arrays) {
-      const rows = (doc[name] as Localized<Row[]> | undefined)?.en ?? [];
-      rows.forEach((row, i) => {
-        for (const key of keys) {
-          source[`${name}.${i}.${key}`] = String(row[key] ?? "");
+    const failed: string[] = [];
+    const translated: string[] = [];
+
+    // One request per locale, in parallel — each carrying only that locale's
+    // gaps, so a record missing one German line does not re-translate seven
+    // languages.
+    const results = await Promise.all(
+      work.map(async ({ locale, text, arrays }) => {
+        // Flatten to one payload: plain fields by name, array cells by
+        // position, so the reply can be rebuilt into the shape it came from.
+        const source: Translatable = {};
+        for (const field of text) {
+          source[field] = (doc[field] as Localized<string> | undefined)?.en ?? "";
         }
-      });
-    }
+        for (const { name, cells } of arrays) {
+          const rows = (doc[name] as Localized<Row[]> | undefined)?.en ?? [];
+          for (const { i, key } of cells) {
+            source[`${name}.${i}.${key}`] = String(rows[i]?.[key] ?? "");
+          }
+        }
+        const { done } = await translateInto(source, [locale]);
+        return { locale, text, arrays, out: done[locale] ?? null };
+      }),
+    );
 
-    const { done, failed } = await translateInto(source, targets);
-
-    for (const [locale, out] of Object.entries(done)) {
+    for (const { locale, text, arrays, out } of results) {
+      if (!out) {
+        failed.push(locale);
+        continue;
+      }
       const data: Record<string, unknown> = {};
-      for (const field of spec.text) {
+      for (const field of text) {
         if (typeof out[field] === "string") data[field] = out[field];
       }
-      for (const { name, keys } of spec.arrays) {
-        const rows = (doc[name] as Localized<Row[]> | undefined)?.en ?? [];
-        if (!rows.length) continue;
-        data[name] = rows.map((row, i) => {
+      for (const { name, cells } of arrays) {
+        const enRows = (doc[name] as Localized<Row[]> | undefined)?.en ?? [];
+        const locRows = (doc[name] as Localized<Row[]> | undefined)?.[locale] ?? [];
+        const wanted = new Set(cells.map((c) => `${c.i}.${c.key}`));
+        data[name] = enRows.map((row, i) => {
           // `id` is dropped deliberately. A localized array row carries the
           // primary key of the *English* row, and sending it back while
           // writing another locale makes Payload insert that same key again —
@@ -160,9 +210,16 @@ export async function POST(request: Request) {
           // fresh key per locale when none is given.
           const { id: _rowId, ...rest } = row as Row & { id?: unknown };
           const next: Row = { ...rest };
-          for (const key of keys) {
+          // Keep whatever this locale already had for cells nobody asked to
+          // translate — that is where a manual correction lives.
+          for (const [key, value] of Object.entries(locRows[i] ?? {})) {
+            if (key !== "id" && typeof value === "string") next[key] = value;
+          }
+          for (const { key } of cells.filter((c) => c.i === i)) {
             const value = out[`${name}.${i}.${key}`];
-            if (typeof value === "string") next[key] = value;
+            if (typeof value === "string" && wanted.has(`${i}.${key}`)) {
+              next[key] = value;
+            }
           }
           return next;
         });
@@ -174,6 +231,7 @@ export async function POST(request: Request) {
           data,
           locale: locale as TypedLocale,
         });
+        translated.push(locale);
       } catch (err) {
         // Logged, not swallowed: a locale reported as failed that actually
         // landed sends the editor looking for a problem that is not there,
@@ -183,10 +241,7 @@ export async function POST(request: Request) {
       }
     }
 
-    return NextResponse.json({
-      translated: Object.keys(done).filter((l) => !failed.includes(l)),
-      failed,
-    });
+    return NextResponse.json({ translated, failed });
   } catch (err) {
     console.error("studio/translate", err);
     return NextResponse.json(
