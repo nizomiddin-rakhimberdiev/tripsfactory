@@ -1,6 +1,11 @@
 import type { MetadataRoute } from "next";
 import { locales } from "@/i18n/routing";
-import { getGuides, getPublishedCountries, getTours } from "@/lib/content";
+import {
+  getExcursions,
+  getGuides,
+  getPublishedCountries,
+  getTours,
+} from "@/lib/content";
 import { flags } from "@/lib/flags";
 import { SITE_URL } from "@/lib/seo";
 
@@ -22,12 +27,14 @@ function localized(path: string) {
 }
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const [standard, premium, countryList, guideList] = await Promise.all([
-    getTours(),
-    getTours({ tier: "premium" }),
-    getPublishedCountries(),
-    getGuides(),
-  ]);
+  const [standard, premium, countryList, guideList, excursionList] =
+    await Promise.all([
+      getTours(),
+      getTours({ tier: "premium" }),
+      getPublishedCountries(),
+      getGuides(),
+      flags.excursions ? getExcursions() : Promise.resolve([]),
+    ]);
 
   // Flag-gated routes are read from the same source the navigation uses, so a
   // page cannot end up linked in the menu but missing from the sitemap — which
@@ -58,5 +65,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       localized(`/destinations/${c.regionSlug}/${c.slug}`),
     ),
     ...guideList.flatMap((g) => localized(`/guide/${g.slug}`)),
+    ...excursionList.flatMap((x) => localized(`/excursions/${x.slug}`)),
   ];
 }

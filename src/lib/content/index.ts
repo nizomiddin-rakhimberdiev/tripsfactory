@@ -11,6 +11,7 @@ import config from "@payload-config";
 import type {
   Country,
   City,
+  Excursion,
   GuidePage,
   Region,
   Tour,
@@ -20,6 +21,7 @@ import type {
 import type {
   City as CityDoc,
   Country as CountryDoc,
+  Excursion as ExcursionDoc,
   Guide as GuideDoc,
   Media,
   Region as RegionDoc,
@@ -119,6 +121,25 @@ function mapTour(doc: TourDoc): Tour {
     gallery: galleryUrls(doc.gallery),
     route: Array.isArray(doc.route) ? (doc.route as Tour["route"]) : [],
     featured: Boolean(doc.featured),
+    published: Boolean(doc.published),
+  };
+}
+
+function mapExcursion(doc: ExcursionDoc): Excursion {
+  const city = doc.city;
+  return {
+    slug: doc.slug,
+    citySlug: relSlug(city),
+    // Read at depth 1, so the city document is already here; its name comes
+    // back in the requested locale like any other localized field.
+    cityName: typeof city === "object" && city ? city.name : "",
+    title: doc.title,
+    description: doc.description,
+    durationHours: doc.durationHours,
+    priceUsd: doc.priceUsd,
+    included: texts(doc.included),
+    heroImage: mediaUrl(doc.heroImage),
+    gallery: galleryUrls(doc.gallery),
     published: Boolean(doc.published),
   };
 }
@@ -264,6 +285,47 @@ export async function getTour(
     limit: 1,
   });
   return res.docs[0] && mapTour(res.docs[0]);
+}
+
+export async function getExcursions(
+  filter?: { citySlug?: string },
+  locale: string = EN,
+): Promise<Excursion[]> {
+  const payload = await db();
+  const conditions: Where[] = [{ published: { equals: true } }];
+  if (filter?.citySlug) {
+    conditions.push({ "city.slug": { equals: filter.citySlug } });
+  }
+  const res = await payload.find({
+    collection: "excursions",
+    where: { and: conditions },
+    locale: loc(locale),
+    fallbackLocale: EN,
+    // depth 1 so the city name and the hero image URL arrive with the row
+    // rather than as a query per card.
+    depth: 1,
+    limit: 100,
+    sort: "createdAt",
+  });
+  return res.docs.map(mapExcursion);
+}
+
+export async function getExcursion(
+  slug: string,
+  locale: string = EN,
+): Promise<Excursion | undefined> {
+  const payload = await db();
+  const res = await payload.find({
+    collection: "excursions",
+    where: {
+      and: [{ slug: { equals: slug } }, { published: { equals: true } }],
+    },
+    locale: loc(locale),
+    fallbackLocale: EN,
+    depth: 1,
+    limit: 1,
+  });
+  return res.docs[0] && mapExcursion(res.docs[0]);
 }
 
 export async function getGuides(

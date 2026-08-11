@@ -79,6 +79,16 @@
     "listEyebrow": "Alle Termine",
     "listIntro": "Gruppen- und Privatrouten entlang der Seidenstraße und durch Zentralasien."
   },
+  "excursions": {
+    "title": "Events",
+    "listEyebrow": "Tagesausflüge",
+    "listIntro": "Kurze Ausflüge in einer Stadt, Preis pro Person.",
+    "empty": "Hier gibt es noch keine Ausflüge — schauen Sie bald wieder vorbei.",
+    "hours": "{count, plural, one {# Stunde} other {# Stunden}}",
+    "cityLabel": "Stadt",
+    "related": "Mehr in dieser Stadt",
+    "viewAll": "Alle Ausflüge ansehen"
+  },
   "destinations": {
     "title": "Reiseziele",
     "countries": "Länder",

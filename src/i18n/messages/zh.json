@@ -79,6 +79,16 @@
     "listEyebrow": "所有出发日期",
     "listIntro": "穿行丝绸之路与中亚的团队与私人路线。"
   },
+  "excursions": {
+    "title": "活动",
+    "listEyebrow": "一日游",
+    "listIntro": "在同一座城市的短途游览，价格为每人。",
+    "empty": "这里暂时还没有游览项目 — 请稍后再来。",
+    "hours": "{count}小时",
+    "cityLabel": "城市",
+    "related": "本城市的其他项目",
+    "viewAll": "查看全部游览项目"
+  },
   "destinations": {
     "title": "目的地",
     "countries": "国家",

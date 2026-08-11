@@ -130,6 +130,22 @@ export const IconChevron = (p: P) => (
   </svg>
 );
 
+/** A ticket — an excursion is bought by the seat, not by the itinerary. */
+export const IconTicket = (p: P) => (
+  <svg {...base(p)}>
+    <path d="M3 9V7a1 1 0 0 1 1-1h16a1 1 0 0 1 1 1v2a2.5 2.5 0 0 0 0 5v2a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-2a2.5 2.5 0 0 0 0-5Z" />
+    <path d="M14 6v2M14 11v2M14 16v2" />
+  </svg>
+);
+
+export const IconUsers = (p: P) => (
+  <svg {...base(p)}>
+    <circle cx="9" cy="8" r="3.5" />
+    <path d="M3 20c0-3.3 2.7-5.5 6-5.5s6 2.2 6 5.5" />
+    <path d="M16 5.2a3.5 3.5 0 0 1 0 6.6M17.5 14.9c2.1.6 3.5 2.4 3.5 5.1" />
+  </svg>
+);
+
 /** Layered planes — a region groups countries, so a map rather than a globe. */
 export const IconMap = (p: P) => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7"

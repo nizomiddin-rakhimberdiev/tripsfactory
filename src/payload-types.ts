@@ -73,6 +73,7 @@ export interface Config {
     countries: Country;
     cities: City;
     tours: Tour;
+    excursions: Excursion;
     guides: Guide;
     leads: Lead;
     'payload-kv': PayloadKv;
@@ -88,6 +89,7 @@ export interface Config {
     countries: CountriesSelect<false> | CountriesSelect<true>;
     cities: CitiesSelect<false> | CitiesSelect<true>;
     tours: ToursSelect<false> | ToursSelect<true>;
+    excursions: ExcursionsSelect<false> | ExcursionsSelect<true>;
     guides: GuidesSelect<false> | GuidesSelect<true>;
     leads: LeadsSelect<false> | LeadsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
@@ -385,6 +387,55 @@ export interface Tour {
   createdAt: string;
 }
 /**
+ * Bir kunlik ekskursiyalar — saytdagi «Events» bo'limida chiqadi.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "excursions".
+ */
+export interface Excursion {
+  id: number;
+  /**
+   * Sahifa manzilidagi qism — faqat kichik lotin harflar va defis (masalan: classic-uzbekistan-group-tour). O'zgartirmaslik tavsiya etiladi.
+   */
+  slug: string;
+  city: number | City;
+  title: string;
+  /**
+   * Katalog kartasida va ekskursiya sahifasida chiqadigan matn.
+   */
+  description: string;
+  durationHours: number;
+  priceUsd: number;
+  /**
+   * Rasmni almashtirish: rasm yonidagi ✕ tugmasini bosing, so'ng «Create New» bilan yangi rasm yuklang (yoki faylni shu maydonga tortib tashlang). Eski rasm o'chmaydi — kutubxonada qoladi.
+   */
+  heroImage: number | Media;
+  /**
+   * Bir nechta rasm qo'shing — sahifada karuselda ko'rinadi. «Rasm qo'shish» tugmasi orqali tanlaysiz.
+   */
+  gallery?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  /**
+   * Belgilanmasa, ekskursiya saytda ko'rinmaydi (qoralama).
+   */
+  published?: boolean | null;
+  included?:
+    | {
+        text: string;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
  * Viza, mavsum, taomlar kabi foydali maqolalar.
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -475,6 +526,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'tours';
         value: number | Tour;
+      } | null)
+    | ({
+        relationTo: 'excursions';
+        value: number | Excursion;
       } | null)
     | ({
         relationTo: 'guides';
@@ -658,6 +713,29 @@ export interface ToursSelect<T extends boolean = true> {
         date?: T;
         priceUsd?: T;
         status?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "excursions_select".
+ */
+export interface ExcursionsSelect<T extends boolean = true> {
+  slug?: T;
+  city?: T;
+  title?: T;
+  description?: T;
+  durationHours?: T;
+  priceUsd?: T;
+  heroImage?: T;
+  gallery?: T;
+  published?: T;
+  included?:
+    | T
+    | {
+        text?: T;
         id?: T;
       };
   updatedAt?: T;

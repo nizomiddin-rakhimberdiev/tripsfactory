@@ -79,6 +79,16 @@
     "listEyebrow": "すべての出発日",
     "listIntro": "シルクロードと中央アジアを巡る、グループとプライベートのルート。"
   },
+  "excursions": {
+    "title": "イベント",
+    "listEyebrow": "日帰りプラン",
+    "listIntro": "ひとつの都市をめぐる短い観光です。料金はお一人様あたりです。",
+    "empty": "まだ観光プランがありません — またご確認ください。",
+    "hours": "{count}時間",
+    "cityLabel": "都市",
+    "related": "この都市のその他のプラン",
+    "viewAll": "すべての観光プランを見る"
+  },
   "destinations": {
     "title": "目的地",
     "countries": "国",

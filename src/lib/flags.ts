@@ -3,7 +3,7 @@
  * (navigation entries, routes and sitemap inclusion).
  */
 export const flags = {
-  excursions: true, // "Events" — visible in the nav; catalog content still to come
+  excursions: true, // "Events" — day trips, managed in Studio → Ekskursiyalar
   premium: true,
   onlinePayments: false, // MVP: booking = enquiry; flips on when acquiring contract is signed
 } as const;

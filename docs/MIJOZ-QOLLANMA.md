@@ -6,11 +6,11 @@ Bu qo'llanma sayt kontentini boshqaradigan xodim uchun. Texnik bilim talab qilin
 
 ## Kirish
 
-1. Brauzerda oching: **https://tripsfactory.uz/studio**
+1. Brauzerda oching: **https://tripsfactory.com/studio**
 2. Email va parolni kiriting (sizga alohida berilgan)
 3. Kirgach — boshqaruv paneli ochiladi
 
-> Parolni hech kim bilan ulashmang. Yangi xodim kerak bo'lsa, unga **alohida hisob** ochilsin — dasturchiga murojaat qiling.
+> Parolni hech kim bilan ulashmang. Yangi xodimga **alohida hisob** oching — pastdagi «Yangi xodim qo'shish» bo'limiga qarang.
 
 ---
 
@@ -20,13 +20,18 @@ Bu qo'llanma sayt kontentini boshqaradigan xodim uchun. Texnik bilim talab qilin
 |---|---|
 | **Bosh sahifa** | Statistika, oxirgi so'rovlar |
 | **Turlar** | Tur paketlari — asosiy ish shu yerda |
+| **Ekskursiyalar** | Bir kunlik dasturlar — saytdagi «Events» bo'limi |
+| **Mintaqalar** | Davlatlar biriktiriladigan yirik hududlar |
 | **Davlatlar** | Yo'nalish davlatlari (Xitoy, O'zbekiston…) |
 | **Shaharlar** | Shaharlar, ularning tavsifi va xaritadagi joyi |
 | **Qo'llanmalar** | Sayohat maslahatlari, maqolalar |
-| **Kontent** | Bosh sahifadagi sarlavha va rasmlar |
+| **Bosh sahifa (kontent)** | Bosh sahifadagi sarlavha va rasmlar |
 | **Rasmlar** | Barcha rasmlar ombori |
 | **So'rovlar** | Saytdan kelgan mijoz so'rovlari |
 | **Import** | Excel jadvaldan turlarni ommaviy yuklash |
+| **Foydalanuvchilar** | Studioga kira oladigan hisoblar |
+
+> Saytdagi barcha kontent shu bo'limlardan boshqariladi. Boshqa panel kerak emas.
 
 ---
 
@@ -38,15 +43,31 @@ Bu qo'llanma sayt kontentini boshqaradigan xodim uchun. Texnik bilim talab qilin
 4. **Saqlash**
 
 > Yangi tur avtomatik ravishda **qoralama** bo'lib tushadi — saytda ko'rinmaydi.
-> Ko'rinishi uchun **Holati** ni "Chop etilgan" ga o'tkazing va yana saqlang.
+> Ko'rinishi uchun **«Saytda ko'rsatilsin»** katagini belgilang va yana saqlang.
 
 ### Tillar
 
 Sayt 8 tilda ishlaydi. Har bir maydonning yuqorisida til tanlagich bor.
 
 - **Ingliz tili — asosiy.** Avval shuni to'ldiring.
-- Boshqa tillarni ketma-ket to'ldiring, yoki dasturchidan avtomatik tarjimani so'rang.
-- Tarjima bo'sh qolsa — o'sha tildagi sahifada ingliz matni ko'rinadi.
+- Saqlaganingizdan keyin qolgan 7 til **avtomatik tarjima qilinadi** — bir necha soniya ketadi, sahifani yopmang.
+- Tarjimani qo'lda tuzatsangiz, keyingi saqlashda u **o'zgarmaydi** — faqat bo'sh tillar to'ldiriladi.
+- Inglizcha matnni o'zgartirgach barcha tarjimani yangilamoqchi bo'lsangiz — tur sahifasidagi **«Tarjimalarni yangilash»** tugmasini bosing.
+
+---
+
+## Ekskursiya qo'shish
+
+Ekskursiya — bir kunlik dastur. Saytda **Events** bo'limida chiqadi.
+
+1. **Ekskursiyalar** → **Yangi ekskursiya**
+2. To'ldiring: nomi, tavsifi, shahar, davomiyligi (soat), narxi (USD, kishiga)
+3. Asosiy rasm tanlang; xohlasangiz galereyaga yana rasm qo'shing
+4. **Narxga kiradi** ro'yxatini yozing (gid, chiptalar, transport…)
+5. Saytda ko'rinishi uchun **«Saytda ko'rsatilsin»** katagini belgilang
+6. **Saqlash** — qolgan 7 til avtomatik tarjima qilinadi
+
+> Turdan farqi: ekskursiyada kunma-kun dastur, jo'nash sanalari va davlat maydonlari yo'q. Narx — bitta, kishi boshiga.
 
 ---
 
@@ -104,6 +125,19 @@ Saytdagi forma to'ldirilganda:
 - Bir vaqtda **Telegram**ga xabar keladi
 
 Telegram xabari kelmay qolsa — bu texnik nosozlik, dasturchiga xabar bering.
+
+---
+
+## Yangi xodim qo'shish
+
+1. **Foydalanuvchilar** bo'limini oching
+2. Pastdagi formaga email va parol yozing (parol kamida 8 belgi)
+3. **Qo'shish**
+
+Parolni unutgan xodim uchun: uning qatoridagi **«Parolni almashtirish»** tugmasini bosing va yangi parol qo'ying. Eski parol darhol ishlamay qoladi.
+
+> Parol saqlangach qayta ko'rsatilmaydi — yozib oling va xodimga xavfsiz yo'l bilan yetkazing.
+> O'z hisobingizni o'chira olmaysiz — bu ataylab, aks holda panelga kira olmay qolasiz.
 
 ---
 

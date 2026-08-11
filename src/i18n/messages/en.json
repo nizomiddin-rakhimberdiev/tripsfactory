@@ -79,6 +79,16 @@
     "listEyebrow": "Every departure",
     "listIntro": "Group and private routes across the Silk Road and Central Asia."
   },
+  "excursions": {
+    "title": "Events",
+    "listEyebrow": "Day trips",
+    "listIntro": "Short excursions in a single city, priced per person.",
+    "empty": "No excursions here yet — check back soon.",
+    "hours": "{count, plural, one {# hour} other {# hours}}",
+    "cityLabel": "City",
+    "related": "More in this city",
+    "viewAll": "View all excursions"
+  },
   "destinations": {
     "title": "Destinations",
     "countries": "Countries",

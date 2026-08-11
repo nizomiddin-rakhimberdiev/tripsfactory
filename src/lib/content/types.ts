@@ -80,6 +80,26 @@ export interface Tour {
   published: boolean;
 }
 
+/**
+ * A day trip — the "Events" section. Deliberately not a Tour: hours rather
+ * than days, one price per person rather than a from-price with departures,
+ * a city rather than a country.
+ */
+export interface Excursion {
+  slug: string;
+  citySlug: string;
+  /** For the card and the detail page; the city record itself is not fetched. */
+  cityName: string;
+  title: string;
+  description: string;
+  durationHours: number;
+  priceUsd: number;
+  included: string[];
+  heroImage: string;
+  gallery: string[];
+  published: boolean;
+}
+
 export interface GuidePage {
   slug: string;
   countrySlug: string;

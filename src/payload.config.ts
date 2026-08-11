@@ -135,6 +135,7 @@ async function revalidateSite(): Promise<void> {
       // Were missing, so an edit to any of these waited out the 5-minute ISR
       // window while the editor assumed the save had not taken.
       "/[locale]/excursions",
+      "/[locale]/excursions/[slug]",
       "/[locale]/about",
       "/[locale]/contact",
     ];
@@ -675,6 +676,104 @@ const Tours: CollectionConfig = {
   ],
 };
 
+/**
+ * Day trips — the "Events" entry in the navigation.
+ *
+ * Kept apart from Tours rather than added as a fourth `type`, because almost
+ * nothing they carry is the same: an excursion lasts hours instead of days,
+ * costs one price per person instead of a from-price with departures and a
+ * single supplement, has no country, no day-by-day itinerary and no map route.
+ * Folding it into Tours would have meant a form where two thirds of the fields
+ * do not apply and a catalogue query that has to exclude them everywhere.
+ *
+ * Fields are exactly the ones agreed: name, city, hours, price per person,
+ * description, photographs, what the price covers.
+ */
+const Excursions: CollectionConfig = {
+  slug: "excursions",
+  labels: { singular: "Ekskursiya", plural: "Ekskursiyalar" },
+  hooks: revalidateHooks,
+  admin: {
+    useAsTitle: "title",
+    group: "Kontent",
+    defaultColumns: ["title", "city", "durationHours", "priceUsd", "published"],
+    preview: (doc, { locale }) => {
+      const loc = locale || "uz";
+      const slug = doc.slug as string | undefined;
+      return slug
+        ? `${SITE_URL}/${loc}/excursions/${slug}`
+        : `${SITE_URL}/${loc}/excursions`;
+    },
+    description:
+      "Bir kunlik ekskursiyalar — saytdagi «Events» bo'limida chiqadi.",
+  },
+  access: {
+    read: publishedOrAdmin,
+    create: adminOnly,
+    update: adminOnly,
+    delete: adminOnly,
+  },
+  fields: [
+    {
+      type: "row",
+      fields: [
+        slugField,
+        {
+          name: "city",
+          type: "relationship",
+          relationTo: "cities",
+          label: "Shahar",
+          required: true,
+        },
+      ],
+    },
+    locText("title", "Nomi"),
+    locArea("description", "Tavsif", {
+      description:
+        "Katalog kartasida va ekskursiya sahifasida chiqadigan matn.",
+    }),
+    {
+      type: "row",
+      fields: [
+        {
+          name: "durationHours",
+          type: "number",
+          label: "Davomiyligi (soat)",
+          required: true,
+          min: 1,
+        },
+        {
+          name: "priceUsd",
+          type: "number",
+          label: "Narxi (USD, kishiga)",
+          required: true,
+          min: 0,
+        },
+      ],
+    },
+    imageField("heroImage", "Asosiy rasm"),
+    galleryField,
+    {
+      name: "published",
+      type: "checkbox",
+      label: "Saytda ko'rsatilsin",
+      defaultValue: false,
+      admin: {
+        description:
+          "Belgilanmasa, ekskursiya saytda ko'rinmaydi (qoralama).",
+      },
+    },
+    {
+      name: "included",
+      type: "array",
+      label: "Narxga kiradi",
+      localized: true,
+      labels: { singular: "Band", plural: "Bandlar" },
+      fields: [{ name: "text", type: "text", label: "Matn", required: true }],
+    },
+  ],
+};
+
 const previewGuide: GeneratePreviewURL = (doc, { locale }) => {
   const loc = locale || "uz";
   const slug = doc.slug as string | undefined;
@@ -825,7 +924,17 @@ export default buildConfig({
     defaultLocale: "en",
     fallback: true,
   },
-  collections: [Users, Media, Regions, Countries, Cities, Tours, Guides, Leads],
+  collections: [
+    Users,
+    Media,
+    Regions,
+    Countries,
+    Cities,
+    Tours,
+    Excursions,
+    Guides,
+    Leads,
+  ],
   globals: [
     {
       slug: "site-content",

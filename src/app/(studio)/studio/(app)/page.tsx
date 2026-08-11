@@ -11,6 +11,7 @@ import {
   IconPin,
   IconBook,
   IconGlobe,
+  IconTicket,
 } from "@/components/studio/icons";
 
 export const dynamic = "force-dynamic";
@@ -148,6 +149,7 @@ export default async function StudioDashboard() {
 
   const quick = [
     { href: "/studio/tours", t: "Turlarni tahrirlash", d: "Narx, sana, marshrut", Icon: IconCompass },
+    { href: "/studio/excursions", t: "Ekskursiyalar", d: "Bir kunlik dasturlar", Icon: IconTicket },
     { href: "/studio/content", t: "Bosh sahifa", d: "Hero rasm va matn", Icon: IconHome },
     { href: "/studio/media", t: "Rasm yuklash", d: "Media kutubxonasi", Icon: IconImage },
     { href: "/studio/guides", t: "Qo'llanmalar", d: "Viza, mavsum, taomlar", Icon: IconBook },

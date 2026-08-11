@@ -79,6 +79,16 @@
     "listEyebrow": "Barcha jo'nashlar",
     "listIntro": "Ipak yo'li va Markaziy Osiyo bo'ylab guruh va individual marshrutlar."
   },
+  "excursions": {
+    "title": "Tadbirlar",
+    "listEyebrow": "Bir kunlik dasturlar",
+    "listIntro": "Bitta shahar bo'ylab qisqa ekskursiyalar — narx kishi boshiga.",
+    "empty": "Bu yerda hozircha ekskursiyalar yo'q — tez orada qaytib keling.",
+    "hours": "{count} soat",
+    "cityLabel": "Shahar",
+    "related": "Shu shahardagi boshqalari",
+    "viewAll": "Barcha ekskursiyalarni ko'rish"
+  },
   "destinations": {
     "title": "Yo'nalishlar",
     "countries": "Davlatlar",

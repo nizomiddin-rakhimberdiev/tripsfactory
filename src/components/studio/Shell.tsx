@@ -17,6 +17,8 @@ import {
   IconTable,
   IconLogout,
   IconMap,
+  IconTicket,
+  IconUsers,
 } from "./icons";
 
 type NavItem = {
@@ -41,6 +43,7 @@ const GROUPS: { id: string; label: string | null; items: NavItem[] }[] = [
     label: "Kontent",
     items: [
       { href: "/studio/tours", label: "Turlar", Icon: IconCompass },
+      { href: "/studio/excursions", label: "Ekskursiyalar", Icon: IconTicket },
       { href: "/studio/regions", label: "Mintaqalar", Icon: IconMap },
       { href: "/studio/countries", label: "Davlatlar", Icon: IconGlobe },
       { href: "/studio/cities", label: "Shaharlar", Icon: IconPin },
@@ -66,11 +69,18 @@ const GROUPS: { id: string; label: string | null; items: NavItem[] }[] = [
       },
     ],
   },
+  {
+    id: "system",
+    label: "Tizim",
+    items: [{ href: "/studio/users", label: "Foydalanuvchilar", Icon: IconUsers }],
+  },
 ];
 
 const TITLES: Record<string, string> = {
   "/studio": "Boshqaruv paneli",
   "/studio/tours": "Turlar",
+  "/studio/excursions": "Ekskursiyalar",
+  "/studio/regions": "Mintaqalar",
   "/studio/countries": "Davlatlar",
   "/studio/cities": "Shaharlar",
   "/studio/guides": "Qo'llanmalar",
@@ -78,6 +88,7 @@ const TITLES: Record<string, string> = {
   "/studio/import": "Google Sheets'dan import",
   "/studio/media": "Rasmlar",
   "/studio/leads": "So'rovlar",
+  "/studio/users": "Foydalanuvchilar",
 };
 
 export function Shell({

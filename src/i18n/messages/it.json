@@ -79,6 +79,16 @@
     "listEyebrow": "Tutte le partenze",
     "listIntro": "Percorsi privati e di gruppo lungo la Via della Seta e l'Asia centrale."
   },
+  "excursions": {
+    "title": "Eventi",
+    "listEyebrow": "Escursioni di un giorno",
+    "listIntro": "Brevi escursioni in una sola città, prezzo a persona.",
+    "empty": "Ancora nessuna escursione qui — torna presto.",
+    "hours": "{count, plural, one {# ora} other {# ore}}",
+    "cityLabel": "Città",
+    "related": "Altro in questa città",
+    "viewAll": "Vedi tutte le escursioni"
+  },
   "destinations": {
     "title": "Destinazioni",
     "countries": "Paesi",

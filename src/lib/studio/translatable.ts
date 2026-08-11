@@ -42,6 +42,10 @@ export const TRANSLATABLE: Record<string, TranslatableSpec> = {
     text: ["name"],
     arrays: [],
   },
+  excursions: {
+    text: ["title", "description"],
+    arrays: [{ name: "included", keys: ["text"] }],
+  },
 };
 
 /** The field a "has this locale been written?" check looks at. */
@@ -51,6 +55,7 @@ export const TITLE_FIELD: Record<string, string> = {
   cities: "name",
   guides: "title",
   regions: "name",
+  excursions: "title",
 };
 
 export const TRANSLATABLE_COLLECTIONS = Object.keys(TRANSLATABLE);

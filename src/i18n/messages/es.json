@@ -79,6 +79,16 @@
     "listEyebrow": "Todas las salidas",
     "listIntro": "Rutas privadas y en grupo por la Ruta de la Seda y Asia Central."
   },
+  "excursions": {
+    "title": "Eventos",
+    "listEyebrow": "Excursiones de un día",
+    "listIntro": "Excursiones breves en una sola ciudad, precio por persona.",
+    "empty": "Aún no hay excursiones aquí — vuelva pronto.",
+    "hours": "{count, plural, one {# hora} other {# horas}}",
+    "cityLabel": "Ciudad",
+    "related": "Más en esta ciudad",
+    "viewAll": "Ver todas las excursiones"
+  },
   "destinations": {
     "title": "Destinos",
     "countries": "Países",

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import type { Tour } from "@/lib/content";
+import type { Excursion, Tour } from "@/lib/content";
 import { locales, type Locale } from "@/i18n/routing";
 import {
   ADDRESS,
@@ -132,6 +132,41 @@ export function tourJsonLd(tour: Tour, locale: string) {
       },
     }),
     provider: { "@type": "TravelAgency", name: "TripsFactory", url: SITE_URL },
+  };
+}
+
+/**
+ * A day trip.
+ *
+ * Also a TouristTrip — the type does not distinguish a fortnight from an
+ * afternoon — but the duration is hours (PT4H) and the price is the price,
+ * not a from-price, so the Offer can state it outright.
+ */
+export function excursionJsonLd(excursion: Excursion, locale: string) {
+  const url = `${SITE_URL}/${locale}/excursions/${excursion.slug}`;
+  const images = [excursion.heroImage, ...(excursion.gallery ?? [])]
+    .filter(Boolean)
+    .map(absolute);
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "TouristTrip",
+    "@id": url,
+    url,
+    name: excursion.title,
+    description: excursion.description,
+    ...(excursion.durationHours
+      ? { duration: `PT${excursion.durationHours}H` }
+      : {}),
+    ...(images.length ? { image: images } : {}),
+    offers: {
+      "@type": "Offer",
+      url,
+      price: excursion.priceUsd,
+      priceCurrency: "USD",
+      availability: "https://schema.org/InStock",
+    },
+    provider: { "@type": "TravelAgency", name: BRAND_NAME, url: SITE_URL },
   };
 }
 

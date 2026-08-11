@@ -35,13 +35,47 @@ export async function slugTaken(
     .catch(() => false);
 }
 
+/**
+ * Field names as the editor sees them on screen.
+ *
+ * Payload reports the offending field by its schema name — "heroImage",
+ * "durationHours" — which is the one name that appears nowhere in the Studio.
+ * An editor who left the photograph out was told to fill in "heroImage".
+ */
+const FIELD_LABELS: Record<string, string> = {
+  title: "Nomi",
+  name: "Nomi",
+  slug: "Manzil (slug)",
+  summary: "Qisqa tavsif",
+  description: "Tavsif",
+  intro: "Tavsif",
+  body: "Matn",
+  country: "Davlat",
+  city: "Shahar",
+  cities: "Shaharlar",
+  region: "Mintaqa",
+  heroImage: "Asosiy rasm",
+  image: "Rasm",
+  durationDays: "Davomiyligi (kun)",
+  durationHours: "Davomiyligi (soat)",
+  priceUsd: "Narxi",
+  priceFromUsd: "Narxi",
+  recommendedNights: "Tavsiya etilgan kechalar",
+  type: "Turi",
+  tier: "Daraja",
+  email: "Email",
+  password: "Parol",
+};
+
 /** Payload names the offending fields; showing them beats "could not save". */
 export async function fieldErrors(res: Response | null): Promise<string> {
   try {
     const data = (await res?.json()) as {
       errors?: { data?: { errors?: { path: string }[] } }[];
     };
-    return (data?.errors?.[0]?.data?.errors ?? []).map((e) => e.path).join(", ");
+    return (data?.errors?.[0]?.data?.errors ?? [])
+      .map((e) => FIELD_LABELS[e.path] ?? e.path)
+      .join(", ");
   } catch {
     return "";
   }
