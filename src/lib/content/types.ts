@@ -100,6 +100,49 @@ export interface Excursion {
   published: boolean;
 }
 
+/** One announced run of a master class. */
+export interface MasterclassSession {
+  /** ISO yyyy-mm-dd. */
+  date: string;
+  capacity: number;
+  booked: number;
+  /** capacity − booked, never below zero. */
+  seatsLeft: number;
+}
+
+export interface MasterclassReview {
+  author: string;
+  text: string;
+}
+
+/**
+ * A cooking master class: a class that runs on announced dates with a fixed
+ * number of seats, so what the page shows depends on which run is still open.
+ */
+export interface Masterclass {
+  slug: string;
+  citySlug: string;
+  cityName: string;
+  title: string;
+  /** One line under the title. Optional — not every class has one. */
+  tagline: string;
+  summary: string;
+  description: string;
+  durationHours: number;
+  priceUsd: number;
+  /** Video id only; the page builds the embed URL. Empty when there is none. */
+  youtubeId: string;
+  included: string[];
+  reviews: MasterclassReview[];
+  /** Every announced run, in date order, past ones included. */
+  sessions: MasterclassSession[];
+  /** The earliest run that is still ahead and not yet full. */
+  nextSession: MasterclassSession | null;
+  heroImage: string;
+  gallery: string[];
+  published: boolean;
+}
+
 export interface GuidePage {
   slug: string;
   countrySlug: string;

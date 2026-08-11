@@ -13,6 +13,8 @@ import type {
   City,
   Excursion,
   GuidePage,
+  Masterclass,
+  MasterclassSession,
   Region,
   Tour,
   TourTier,
@@ -23,6 +25,7 @@ import type {
   Country as CountryDoc,
   Excursion as ExcursionDoc,
   Guide as GuideDoc,
+  Masterclass as MasterclassDoc,
   Media,
   Region as RegionDoc,
   Tour as TourDoc,
@@ -138,6 +141,72 @@ function mapExcursion(doc: ExcursionDoc): Excursion {
     durationHours: doc.durationHours,
     priceUsd: doc.priceUsd,
     included: texts(doc.included),
+    heroImage: mediaUrl(doc.heroImage),
+    gallery: galleryUrls(doc.gallery),
+    published: Boolean(doc.published),
+  };
+}
+
+/**
+ * The video id out of whatever the editor pasted.
+ *
+ * Studio takes a link, not an id, because a link is what you get from the
+ * share button. All three shapes YouTube hands out are accepted; anything else
+ * yields "" and the page simply shows no player rather than an empty frame.
+ */
+function youtubeId(url: string | null | undefined): string {
+  if (!url) return "";
+  const match =
+    /(?:youtube\.com\/(?:watch\?(?:.*&)?v=|embed\/|live\/|shorts\/)|youtu\.be\/)([A-Za-z0-9_-]{11})/.exec(
+      url,
+    );
+  return match?.[1] ?? "";
+}
+
+/** Dates only, so a class running later today still counts as ahead. */
+function today(): string {
+  return new Date().toISOString().slice(0, 10);
+}
+
+function mapMasterclass(doc: MasterclassDoc): Masterclass {
+  const city = doc.city;
+  const sessions: MasterclassSession[] = (doc.sessions ?? []).map((s) => {
+    const capacity = s.capacity ?? 0;
+    const booked = s.booked ?? 0;
+    return {
+      date: s.date.slice(0, 10),
+      capacity,
+      booked,
+      seatsLeft: Math.max(0, capacity - booked),
+    };
+  });
+  sessions.sort((a, b) => a.date.localeCompare(b.date));
+
+  // What the page announces: the soonest run that has not happened yet and
+  // still has a seat. A full run is skipped rather than shown sold out —
+  // "the next one" is the useful answer, not "you are too late".
+  const from = today();
+  const nextSession =
+    sessions.find((s) => s.date >= from && s.seatsLeft > 0) ?? null;
+
+  return {
+    slug: doc.slug,
+    citySlug: relSlug(city),
+    cityName: typeof city === "object" && city ? city.name : "",
+    title: doc.title,
+    tagline: doc.tagline ?? "",
+    summary: doc.summary,
+    description: doc.description,
+    durationHours: doc.durationHours,
+    priceUsd: doc.priceUsd,
+    youtubeId: youtubeId(doc.youtubeUrl),
+    included: texts(doc.included),
+    reviews: (doc.reviews ?? []).map((r) => ({
+      author: r.author,
+      text: r.text,
+    })),
+    sessions,
+    nextSession,
     heroImage: mediaUrl(doc.heroImage),
     gallery: galleryUrls(doc.gallery),
     published: Boolean(doc.published),
@@ -328,6 +397,40 @@ export async function getExcursion(
   return res.docs[0] && mapExcursion(res.docs[0]);
 }
 
+export async function getMasterclasses(
+  locale: string = EN,
+): Promise<Masterclass[]> {
+  const payload = await db();
+  const res = await payload.find({
+    collection: "masterclasses",
+    where: { published: { equals: true } },
+    locale: loc(locale),
+    fallbackLocale: EN,
+    depth: 1,
+    limit: 100,
+    sort: "createdAt",
+  });
+  return res.docs.map(mapMasterclass);
+}
+
+export async function getMasterclass(
+  slug: string,
+  locale: string = EN,
+): Promise<Masterclass | undefined> {
+  const payload = await db();
+  const res = await payload.find({
+    collection: "masterclasses",
+    where: {
+      and: [{ slug: { equals: slug } }, { published: { equals: true } }],
+    },
+    locale: loc(locale),
+    fallbackLocale: EN,
+    depth: 1,
+    limit: 1,
+  });
+  return res.docs[0] && mapMasterclass(res.docs[0]);
+}
+
 export async function getGuides(
   countrySlug?: string,
   locale: string = EN,
@@ -396,6 +499,8 @@ export async function createLead(data: {
   email: string;
   phone?: string;
   tourSlug?: string;
+  /** Which catalogue `tourSlug` names. Defaults to a tour, as it always was. */
+  kind?: "tour" | "excursion" | "masterclass";
   date?: string;
   pax?: number;
   message?: string;

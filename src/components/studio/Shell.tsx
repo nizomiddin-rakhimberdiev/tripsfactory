@@ -17,6 +17,7 @@ import {
   IconTable,
   IconLogout,
   IconMap,
+  IconChef,
   IconTicket,
   IconUsers,
 } from "./icons";
@@ -44,6 +45,7 @@ const GROUPS: { id: string; label: string | null; items: NavItem[] }[] = [
     items: [
       { href: "/studio/tours", label: "Turlar", Icon: IconCompass },
       { href: "/studio/excursions", label: "Ekskursiyalar", Icon: IconTicket },
+      { href: "/studio/masterclasses", label: "Masterklasslar", Icon: IconChef },
       { href: "/studio/regions", label: "Mintaqalar", Icon: IconMap },
       { href: "/studio/countries", label: "Davlatlar", Icon: IconGlobe },
       { href: "/studio/cities", label: "Shaharlar", Icon: IconPin },
@@ -80,6 +82,7 @@ const TITLES: Record<string, string> = {
   "/studio": "Boshqaruv paneli",
   "/studio/tours": "Turlar",
   "/studio/excursions": "Ekskursiyalar",
+  "/studio/masterclasses": "Masterklasslar",
   "/studio/regions": "Mintaqalar",
   "/studio/countries": "Davlatlar",
   "/studio/cities": "Shaharlar",

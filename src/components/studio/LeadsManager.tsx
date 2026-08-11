@@ -11,10 +11,27 @@ type Lead = {
   email: string;
   phone?: string | null;
   tourSlug?: string | null;
+  /** Which catalogue tourSlug names — a tour, an excursion, a master class. */
+  kind?: string | null;
+  /** Resolved from the slug on the server, so the row reads as a name. */
+  subject?: string | null;
+  date?: string | null;
   pax?: number | null;
   message?: string | null;
   status?: string | null;
   createdAt?: string;
+};
+
+const KIND_LABEL: Record<string, string> = {
+  tour: "Tur",
+  excursion: "Ekskursiya",
+  masterclass: "Masterklass",
+};
+
+const KIND_BADGE: Record<string, string> = {
+  tour: "s-badge--gray",
+  excursion: "s-badge--teal",
+  masterclass: "s-badge--gold",
 };
 
 const STATUS = [
@@ -63,7 +80,7 @@ export function LeadsManager({ initial }: { initial: Lead[] }) {
             <tr>
               <th>Ism</th>
               <th>Aloqa</th>
-              <th>Tur</th>
+              <th>Nima so&apos;ralgan</th>
               <th>Holat</th>
               <th>Sana</th>
               <th></th>
@@ -87,7 +104,27 @@ export function LeadsManager({ initial }: { initial: Lead[] }) {
                     <div style={{ color: "var(--s-fg-muted)", fontSize: 12 }}>{l.phone}</div>
                   )}
                 </td>
-                <td>{l.tourSlug ?? "—"}</td>
+                <td>
+                  {l.tourSlug ? (
+                    <>
+                      <span
+                        className={`s-badge ${KIND_BADGE[l.kind ?? "tour"] ?? "s-badge--gray"}`}
+                      >
+                        {KIND_LABEL[l.kind ?? "tour"] ?? l.kind}
+                      </span>
+                      <div style={{ marginTop: 4 }}>
+                        {l.subject ?? l.tourSlug}
+                      </div>
+                      {l.kind === "masterclass" && l.date && (
+                        <div style={{ color: "var(--s-fg-muted)", fontSize: 12 }}>
+                          Patok: {l.date}
+                        </div>
+                      )}
+                    </>
+                  ) : (
+                    "—"
+                  )}
+                </td>
                 <td>
                   <select
                     className="s-select"
@@ -126,7 +163,17 @@ export function LeadsManager({ initial }: { initial: Lead[] }) {
               <div className="s-form">
                 <div><strong>Email:</strong> {open.email}</div>
                 {open.phone && <div><strong>Telefon:</strong> {open.phone}</div>}
-                {open.tourSlug && <div><strong>Tur:</strong> {open.tourSlug}</div>}
+                {open.tourSlug && (
+                  <div>
+                    <strong>{KIND_LABEL[open.kind ?? "tour"] ?? "Tur"}:</strong>{" "}
+                    {open.subject ?? open.tourSlug}
+                  </div>
+                )}
+                {open.date && (
+                  <div>
+                    <strong>Sana:</strong> {open.date}
+                  </div>
+                )}
                 {open.pax != null && <div><strong>Kishilar:</strong> {open.pax}</div>}
                 {open.message && (
                   <div>

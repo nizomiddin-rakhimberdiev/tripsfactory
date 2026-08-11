@@ -30,6 +30,7 @@ export async function Header() {
     private: toursT("type_private"),
     destinations: nav("destinations"),
     events: nav("excursions"),
+    masterclasses: nav("masterclasses"),
     guide: nav("guide"),
     about: nav("about"),
     contact: nav("contact"),
@@ -56,6 +57,7 @@ export async function Header() {
           regions={navRegions}
           premium={flags.premium}
           events={flags.excursions}
+          masterclasses={flags.masterclasses}
           localeSwitcher={<LocaleSwitcher />}
         />
       </div>

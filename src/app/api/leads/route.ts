@@ -10,6 +10,7 @@ const leadSchema = z.object({
   pax: z.coerce.number().int().min(1).max(50).optional(),
   message: z.string().max(2000).optional().or(z.literal("")),
   tourSlug: z.string().max(120).optional(),
+  kind: z.enum(["tour", "excursion", "masterclass"]).optional(),
   locale: z.string().max(5).optional(),
   // Honeypot. Deliberately permissive: `max(0)` rejected a filled field with a
   // 400 before the silent-drop below could run, which told the bot it had
@@ -120,12 +121,18 @@ export async function POST(request: Request) {
   // Honeypot filled → pretend success, drop silently
   if (lead.website) return NextResponse.json({ ok: true });
 
+  const subject: Record<string, string> = {
+    tour: "Tour",
+    excursion: "Excursion",
+    masterclass: "Master class",
+  };
   const lines = [
     "🧭 New lead — TripsFactory",
     `Name: ${lead.name}`,
     `Email: ${lead.email}`,
     lead.phone && `Phone: ${lead.phone}`,
-    lead.tourSlug && `Tour: ${lead.tourSlug}`,
+    lead.tourSlug &&
+      `${subject[lead.kind ?? "tour"] ?? "Tour"}: ${lead.tourSlug}`,
     lead.date && `Start date: ${lead.date}`,
     lead.pax && `Travelers: ${lead.pax}`,
     lead.locale && `Locale: ${lead.locale}`,
@@ -142,6 +149,7 @@ export async function POST(request: Request) {
       email: lead.email,
       phone: lead.phone || undefined,
       tourSlug: lead.tourSlug,
+      kind: lead.kind,
       date: lead.date || undefined,
       pax: lead.pax,
       message: lead.message || undefined,

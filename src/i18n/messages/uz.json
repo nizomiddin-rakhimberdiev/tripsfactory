@@ -5,6 +5,7 @@
     "destinations": "Yo'nalishlar",
     "guide": "Sayohat qo'llanmasi",
     "excursions": "Tadbirlar",
+    "masterclasses": "Masterklasslar",
     "premium": "Premium",
     "about": "Biz haqimizda",
     "contact": "Aloqa",
@@ -88,6 +89,24 @@
     "cityLabel": "Shahar",
     "related": "Shu shahardagi boshqalari",
     "viewAll": "Barcha ekskursiyalarni ko'rish"
+  },
+  "masterclasses": {
+    "title": "Oshpazlik masterklasslari",
+    "listEyebrow": "Masterklass",
+    "listIntro": "Oshpaz bilan birga o'zbek taomlarini tayyorlaysiz — pishirasiz va o'zingiz yeysiz.",
+    "empty": "Bu yerda hozircha masterklasslar yo'q — tez orada qaytib keling.",
+    "hours": "{count} soat",
+    "cityLabel": "Shahar",
+    "nextOn": "Keyingi patok: {date}",
+    "nextSession": "Keyingi patok",
+    "seatsLeft": "{total} joydan {left} tasi bo'sh",
+    "noSession": "Keyingi sana hali e'lon qilinmagan — bizga yozing, birinchi bo'lib xabar beramiz.",
+    "video": "Video",
+    "reviews": "Mijozlar fikri",
+    "bookNow": "Joy band qilish",
+    "bookTitle": "Joy band qilish",
+    "related": "Boshqa masterklasslar",
+    "viewAll": "Barcha masterklasslarni ko'rish"
   },
   "destinations": {
     "title": "Yo'nalishlar",

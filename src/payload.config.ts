@@ -136,6 +136,8 @@ async function revalidateSite(): Promise<void> {
       // window while the editor assumed the save had not taken.
       "/[locale]/excursions",
       "/[locale]/excursions/[slug]",
+      "/[locale]/masterclasses",
+      "/[locale]/masterclasses/[slug]",
       "/[locale]/about",
       "/[locale]/contact",
     ];
@@ -774,6 +776,195 @@ const Excursions: CollectionConfig = {
   ],
 };
 
+/**
+ * Cooking master classes.
+ *
+ * A fourth product, not a tour and not an excursion: it runs in batches on
+ * announced dates with a fixed number of seats, it carries a video, and it
+ * carries what previous guests said about it. Those three things are why it is
+ * its own collection — an excursion has no seat count, and nothing else on the
+ * site has sessions that close when they fill.
+ *
+ * `heroImage` is optional here, unlike everywhere else: the copy for these
+ * classes exists before the photographs do, and refusing to save a class
+ * without a picture would mean the text could not be entered at all. The
+ * catalogue card falls back to a plain panel, and a class stays a draft until
+ * somebody publishes it.
+ */
+const Masterclasses: CollectionConfig = {
+  slug: "masterclasses",
+  labels: { singular: "Masterklass", plural: "Masterklasslar" },
+  hooks: revalidateHooks,
+  admin: {
+    useAsTitle: "title",
+    group: "Kontent",
+    defaultColumns: ["title", "city", "durationHours", "priceUsd", "published"],
+    preview: (doc, { locale }) => {
+      const loc = locale || "uz";
+      const slug = doc.slug as string | undefined;
+      return slug
+        ? `${SITE_URL}/${loc}/masterclasses/${slug}`
+        : `${SITE_URL}/${loc}/masterclasses`;
+    },
+    description:
+      "Oshpazlik masterklasslari — sanalar (patoklar), video va mijoz fikrlari bilan.",
+  },
+  access: {
+    read: publishedOrAdmin,
+    create: adminOnly,
+    update: adminOnly,
+    delete: adminOnly,
+  },
+  fields: [
+    {
+      type: "row",
+      fields: [
+        slugField,
+        {
+          name: "city",
+          type: "relationship",
+          relationTo: "cities",
+          label: "Shahar",
+          required: true,
+        },
+      ],
+    },
+    locText("title", "Nomi"),
+    locText("tagline", "Qisqa shior", {
+      required: false,
+      description:
+        "Sarlavha ostidagi bir qatorlik ta'rif. Masalan: «Eng fotogenik — nafis buklash san'ati».",
+    }),
+    locArea("summary", "Qisqa tavsif", {
+      description: "Katalog kartasida chiqadigan 1–2 gap.",
+    }),
+    locArea("description", "To'liq tavsif", {
+      description:
+        "Masterklass sahifasidagi asosiy matn. Yangi qatorlar saqlanadi.",
+    }),
+    {
+      type: "row",
+      fields: [
+        {
+          name: "durationHours",
+          type: "number",
+          label: "Davomiyligi (soat)",
+          required: true,
+          min: 1,
+        },
+        {
+          name: "priceUsd",
+          type: "number",
+          label: "Narxi (USD, kishiga)",
+          required: true,
+          min: 0,
+        },
+      ],
+    },
+    {
+      name: "youtubeUrl",
+      type: "text",
+      label: "YouTube havolasi",
+      admin: {
+        description:
+          "Video havolasini shu yerga qo'ying — sahifada o'ynatgich bo'lib chiqadi. Bo'sh qolsa video ko'rsatilmaydi.",
+      },
+    },
+    {
+      name: "heroImage",
+      type: "upload",
+      relationTo: "media",
+      label: "Asosiy rasm",
+      admin: { description: REPLACE_HELP },
+    },
+    galleryField,
+    {
+      name: "published",
+      type: "checkbox",
+      label: "Saytda ko'rsatilsin",
+      defaultValue: false,
+      admin: {
+        description: "Belgilanmasa, masterklass saytda ko'rinmaydi (qoralama).",
+      },
+    },
+    {
+      name: "included",
+      type: "array",
+      label: "Narxga kiradi",
+      localized: true,
+      labels: { singular: "Band", plural: "Bandlar" },
+      fields: [{ name: "text", type: "text", label: "Matn", required: true }],
+    },
+    {
+      type: "collapsible",
+      label: "Patoklar (sanalar va joylar)",
+      admin: { initCollapsed: true },
+      fields: [
+        {
+          name: "sessions",
+          type: "array",
+          label: "Patoklar",
+          labels: { singular: "Patok", plural: "Patoklar" },
+          admin: {
+            description:
+              "Saytda eng yaqin, hali to'lmagan patok ko'rinadi. Patok to'lganda keyingisi avtomatik chiqadi.",
+          },
+          fields: [
+            {
+              type: "row",
+              fields: [
+                { name: "date", type: "date", label: "Sana", required: true },
+                {
+                  name: "capacity",
+                  type: "number",
+                  label: "Joylar soni",
+                  required: true,
+                  min: 1,
+                },
+                {
+                  name: "booked",
+                  type: "number",
+                  label: "Band qilingan",
+                  required: true,
+                  defaultValue: 0,
+                  min: 0,
+                  admin: {
+                    description:
+                      "To'lovni tasdiqlaganingizda qo'lda oshiring — sayt qolgan joylarni shu raqamdan hisoblaydi.",
+                  },
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+    {
+      type: "collapsible",
+      label: "Mijozlar fikrlari",
+      admin: { initCollapsed: true },
+      fields: [
+        {
+          name: "reviews",
+          type: "array",
+          label: "Fikrlar",
+          localized: true,
+          labels: { singular: "Fikr", plural: "Fikrlar" },
+          fields: [
+            {
+              name: "author",
+              type: "text",
+              label: "Kim aytgan",
+              required: true,
+            },
+            { name: "text", type: "textarea", label: "Fikr", required: true },
+          ],
+        },
+      ],
+    },
+  ],
+};
+
 const previewGuide: GeneratePreviewURL = (doc, { locale }) => {
   const loc = locale || "uz";
   const slug = doc.slug as string | undefined;
@@ -846,6 +1037,20 @@ const Leads: CollectionConfig = {
     { name: "email", type: "email", label: "Email", required: true },
     { name: "phone", type: "text", label: "Telefon" },
     { name: "tourSlug", type: "text", label: "Tur" },
+    {
+      // Which catalogue the slug above belongs to. Without it a lead reading
+      // "manti-master-class" is indistinguishable from a tour enquiry, and the
+      // Studio had no way to say what was actually requested.
+      name: "kind",
+      type: "select",
+      label: "Turi",
+      defaultValue: "tour",
+      options: [
+        { label: "Tur", value: "tour" },
+        { label: "Ekskursiya", value: "excursion" },
+        { label: "Masterklass", value: "masterclass" },
+      ],
+    },
     { name: "date", type: "text", label: "Sana" },
     { name: "pax", type: "number", label: "Kishilar soni" },
     { name: "message", type: "textarea", label: "Xabar" },
@@ -932,6 +1137,7 @@ export default buildConfig({
     Cities,
     Tours,
     Excursions,
+    Masterclasses,
     Guides,
     Leads,
   ],

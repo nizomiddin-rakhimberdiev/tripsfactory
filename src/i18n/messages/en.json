@@ -5,6 +5,7 @@
     "destinations": "Destinations",
     "guide": "Travel Guide",
     "excursions": "Events",
+    "masterclasses": "Master Classes",
     "premium": "Premium",
     "about": "About Us",
     "contact": "Contact",
@@ -88,6 +89,24 @@
     "cityLabel": "City",
     "related": "More in this city",
     "viewAll": "View all excursions"
+  },
+  "masterclasses": {
+    "title": "Cooking Master Classes",
+    "listEyebrow": "Master class",
+    "listIntro": "Hands-on Uzbek cooking with a chef — you cook the dish, then you eat it.",
+    "empty": "No master classes here yet — check back soon.",
+    "hours": "{count, plural, one {# hour} other {# hours}}",
+    "cityLabel": "City",
+    "nextOn": "Next session: {date}",
+    "nextSession": "Next session",
+    "seatsLeft": "{left} of {total} seats left",
+    "noSession": "The next date has not been announced yet — write to us and we will tell you first.",
+    "video": "Watch",
+    "reviews": "What guests say",
+    "bookNow": "Book a seat",
+    "bookTitle": "Book your seat",
+    "related": "Other master classes",
+    "viewAll": "View all master classes"
   },
   "destinations": {
     "title": "Destinations",

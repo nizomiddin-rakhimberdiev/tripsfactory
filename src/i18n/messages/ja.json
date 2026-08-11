@@ -5,6 +5,7 @@
     "destinations": "目的地",
     "guide": "旅行ガイド",
     "excursions": "イベント",
+    "masterclasses": "料理教室",
     "premium": "プレミアム",
     "about": "会社概要",
     "contact": "お問い合わせ",
@@ -88,6 +89,24 @@
     "cityLabel": "都市",
     "related": "この都市のその他のプラン",
     "viewAll": "すべての観光プランを見る"
+  },
+  "masterclasses": {
+    "title": "ウズベク料理教室",
+    "listEyebrow": "料理教室",
+    "listIntro": "シェフと一緒にウズベク料理を作り、作った料理をその場で味わえます。",
+    "empty": "まだ料理教室がありません — またご確認ください。",
+    "hours": "{count}時間",
+    "cityLabel": "都市",
+    "nextOn": "次回開催：{date}",
+    "nextSession": "次回開催",
+    "seatsLeft": "残り{left}席（全{total}席）",
+    "noSession": "次回の日程は未定です — ご連絡いただければ決まり次第お知らせします。",
+    "video": "動画",
+    "reviews": "参加者の声",
+    "bookNow": "席を予約する",
+    "bookTitle": "席のご予約",
+    "related": "ほかの料理教室",
+    "viewAll": "すべての料理教室を見る"
   },
   "destinations": {
     "title": "目的地",

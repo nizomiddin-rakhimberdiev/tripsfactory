@@ -46,6 +46,15 @@ export const TRANSLATABLE: Record<string, TranslatableSpec> = {
     text: ["title", "description"],
     arrays: [{ name: "included", keys: ["text"] }],
   },
+  masterclasses: {
+    text: ["title", "tagline", "summary", "description"],
+    arrays: [
+      { name: "included", keys: ["text"] },
+      // Only the words, never the name: a guest called Anna is called Anna in
+      // Japanese too, and a translated signature is a fabricated one.
+      { name: "reviews", keys: ["text"] },
+    ],
+  },
 };
 
 /** The field a "has this locale been written?" check looks at. */
@@ -56,6 +65,7 @@ export const TITLE_FIELD: Record<string, string> = {
   guides: "title",
   regions: "name",
   excursions: "title",
+  masterclasses: "title",
 };
 
 export const TRANSLATABLE_COLLECTIONS = Object.keys(TRANSLATABLE);

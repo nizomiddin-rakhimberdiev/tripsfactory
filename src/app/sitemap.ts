@@ -3,6 +3,7 @@ import { locales } from "@/i18n/routing";
 import {
   getExcursions,
   getGuides,
+  getMasterclasses,
   getPublishedCountries,
   getTours,
 } from "@/lib/content";
@@ -27,14 +28,21 @@ function localized(path: string) {
 }
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const [standard, premium, countryList, guideList, excursionList] =
-    await Promise.all([
-      getTours(),
-      getTours({ tier: "premium" }),
-      getPublishedCountries(),
-      getGuides(),
-      flags.excursions ? getExcursions() : Promise.resolve([]),
-    ]);
+  const [
+    standard,
+    premium,
+    countryList,
+    guideList,
+    excursionList,
+    masterclassList,
+  ] = await Promise.all([
+    getTours(),
+    getTours({ tier: "premium" }),
+    getPublishedCountries(),
+    getGuides(),
+    flags.excursions ? getExcursions() : Promise.resolve([]),
+    flags.masterclasses ? getMasterclasses() : Promise.resolve([]),
+  ]);
 
   // Flag-gated routes are read from the same source the navigation uses, so a
   // page cannot end up linked in the menu but missing from the sitemap — which
@@ -54,6 +62,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "/terms",
     ...(flags.premium ? ["/premium"] : []),
     ...(flags.excursions ? ["/excursions"] : []),
+    ...(flags.masterclasses ? ["/masterclasses"] : []),
   ];
 
   return [
@@ -66,5 +75,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ),
     ...guideList.flatMap((g) => localized(`/guide/${g.slug}`)),
     ...excursionList.flatMap((x) => localized(`/excursions/${x.slug}`)),
+    ...masterclassList.flatMap((m) => localized(`/masterclasses/${m.slug}`)),
   ];
 }

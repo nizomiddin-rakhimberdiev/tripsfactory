@@ -5,7 +5,27 @@ import { useTranslations, useLocale } from "next-intl";
 
 type Status = "idle" | "sending" | "success" | "error";
 
-export function LeadForm({ tourSlug }: { tourSlug?: string }) {
+export function LeadForm({
+  tourSlug,
+  kind = "tour",
+  compact = false,
+  heading,
+  sessionDate,
+}: {
+  tourSlug?: string;
+  /** Which catalogue `tourSlug` names, so the Studio can say what was asked for. */
+  kind?: "tour" | "excursion" | "masterclass";
+  /**
+   * Drops the travel-date and party-size inputs. A master class is booked for
+   * an announced session on a fixed date, so asking a visitor to pick one is
+   * asking a question that has already been answered above the form.
+   */
+  compact?: boolean;
+  /** Overrides the "Request This Tour" heading where that is not what it is. */
+  heading?: string;
+  /** The session the page was showing when they wrote — recorded, not asked. */
+  sessionDate?: string;
+}) {
   const t = useTranslations("form");
   const locale = useLocale();
   const [status, setStatus] = useState<Status>("idle");
@@ -19,7 +39,13 @@ export function LeadForm({ tourSlug }: { tourSlug?: string }) {
       const res = await fetch("/api/leads", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...data, tourSlug, locale }),
+        body: JSON.stringify({
+          ...data,
+          ...(sessionDate && !data.date ? { date: sessionDate } : {}),
+          tourSlug,
+          kind,
+          locale,
+        }),
       });
       if (!res.ok) throw new Error(String(res.status));
       setStatus("success");
@@ -59,8 +85,10 @@ export function LeadForm({ tourSlug }: { tourSlug?: string }) {
           The page's own header already introduces the form there, so the
           heading is shown only where it is accurate — no new copy invented, and
           the tour pages are unchanged. */}
-      {tourSlug && (
-        <h2 className="tf-headline text-2xl sm:text-3xl">{t("title")}</h2>
+      {(heading || tourSlug) && (
+        <h2 className="tf-headline text-2xl sm:text-3xl">
+          {heading ?? t("title")}
+        </h2>
       )}
       {/* Honeypot: bots fill it, humans never see it */}
       <input
@@ -105,26 +133,30 @@ export function LeadForm({ tourSlug }: { tourSlug?: string }) {
             className={inputClass}
           />
         </label>
-        <label className="block">
-          <span className={labelClass}>{t("date")}</span>
-          <input
-            name="date"
-            type="date"
-            min={today}
-            className={inputClass}
-          />
-        </label>
-        <label className="block">
-          <span className={labelClass}>{t("pax")}</span>
-          <input
-            name="pax"
-            type="number"
-            min={1}
-            max={50}
-            defaultValue={2}
-            className={inputClass}
-          />
-        </label>
+        {!compact && (
+          <>
+            <label className="block">
+              <span className={labelClass}>{t("date")}</span>
+              <input
+                name="date"
+                type="date"
+                min={today}
+                className={inputClass}
+              />
+            </label>
+            <label className="block">
+              <span className={labelClass}>{t("pax")}</span>
+              <input
+                name="pax"
+                type="number"
+                min={1}
+                max={50}
+                defaultValue={2}
+                className={inputClass}
+              />
+            </label>
+          </>
+        )}
       </div>
       <label className="block">
         <span className={labelClass}>{t("message")}</span>

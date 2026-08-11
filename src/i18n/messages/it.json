@@ -5,6 +5,7 @@
     "destinations": "Destinazioni",
     "guide": "Guida di viaggio",
     "excursions": "Eventi",
+    "masterclasses": "Corsi di cucina",
     "premium": "Premium",
     "about": "Chi siamo",
     "contact": "Contatti",
@@ -88,6 +89,24 @@
     "cityLabel": "Città",
     "related": "Altro in questa città",
     "viewAll": "Vedi tutte le escursioni"
+  },
+  "masterclasses": {
+    "title": "Corsi di cucina uzbeka",
+    "listEyebrow": "Corso di cucina",
+    "listIntro": "Cucina uzbeka con le mani e con uno chef: preparate il piatto e poi lo mangiate.",
+    "empty": "Ancora nessun corso qui — torna presto.",
+    "hours": "{count, plural, one {# ora} other {# ore}}",
+    "cityLabel": "Città",
+    "nextOn": "Prossima sessione: {date}",
+    "nextSession": "Prossima sessione",
+    "seatsLeft": "Restano {left} posti su {total}",
+    "noSession": "La prossima data non è ancora fissata — scriveteci e sarete i primi a saperlo.",
+    "video": "Video",
+    "reviews": "Cosa dicono gli ospiti",
+    "bookNow": "Prenota un posto",
+    "bookTitle": "Prenota il tuo posto",
+    "related": "Altri corsi di cucina",
+    "viewAll": "Vedi tutti i corsi"
   },
   "destinations": {
     "title": "Destinazioni",

@@ -74,6 +74,7 @@ export interface Config {
     cities: City;
     tours: Tour;
     excursions: Excursion;
+    masterclasses: Masterclass;
     guides: Guide;
     leads: Lead;
     'payload-kv': PayloadKv;
@@ -90,6 +91,7 @@ export interface Config {
     cities: CitiesSelect<false> | CitiesSelect<true>;
     tours: ToursSelect<false> | ToursSelect<true>;
     excursions: ExcursionsSelect<false> | ExcursionsSelect<true>;
+    masterclasses: MasterclassesSelect<false> | MasterclassesSelect<true>;
     guides: GuidesSelect<false> | GuidesSelect<true>;
     leads: LeadsSelect<false> | LeadsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
@@ -436,6 +438,88 @@ export interface Excursion {
   createdAt: string;
 }
 /**
+ * Oshpazlik masterklasslari — sanalar (patoklar), video va mijoz fikrlari bilan.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "masterclasses".
+ */
+export interface Masterclass {
+  id: number;
+  /**
+   * Sahifa manzilidagi qism — faqat kichik lotin harflar va defis (masalan: classic-uzbekistan-group-tour). O'zgartirmaslik tavsiya etiladi.
+   */
+  slug: string;
+  city: number | City;
+  title: string;
+  /**
+   * Sarlavha ostidagi bir qatorlik ta'rif. Masalan: «Eng fotogenik — nafis buklash san'ati».
+   */
+  tagline?: string | null;
+  /**
+   * Katalog kartasida chiqadigan 1–2 gap.
+   */
+  summary: string;
+  /**
+   * Masterklass sahifasidagi asosiy matn. Yangi qatorlar saqlanadi.
+   */
+  description: string;
+  durationHours: number;
+  priceUsd: number;
+  /**
+   * Video havolasini shu yerga qo'ying — sahifada o'ynatgich bo'lib chiqadi. Bo'sh qolsa video ko'rsatilmaydi.
+   */
+  youtubeUrl?: string | null;
+  /**
+   * Rasmni almashtirish: rasm yonidagi ✕ tugmasini bosing, so'ng «Create New» bilan yangi rasm yuklang (yoki faylni shu maydonga tortib tashlang). Eski rasm o'chmaydi — kutubxonada qoladi.
+   */
+  heroImage?: (number | null) | Media;
+  /**
+   * Bir nechta rasm qo'shing — sahifada karuselda ko'rinadi. «Rasm qo'shish» tugmasi orqali tanlaysiz.
+   */
+  gallery?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  /**
+   * Belgilanmasa, masterklass saytda ko'rinmaydi (qoralama).
+   */
+  published?: boolean | null;
+  included?:
+    | {
+        text: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Saytda eng yaqin, hali to'lmagan patok ko'rinadi. Patok to'lganda keyingisi avtomatik chiqadi.
+   */
+  sessions?:
+    | {
+        date: string;
+        capacity: number;
+        /**
+         * To'lovni tasdiqlaganingizda qo'lda oshiring — sayt qolgan joylarni shu raqamdan hisoblaydi.
+         */
+        booked: number;
+        id?: string | null;
+      }[]
+    | null;
+  reviews?:
+    | {
+        author: string;
+        text: string;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
  * Viza, mavsum, taomlar kabi foydali maqolalar.
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -471,6 +555,7 @@ export interface Lead {
   email: string;
   phone?: string | null;
   tourSlug?: string | null;
+  kind?: ('tour' | 'excursion' | 'masterclass') | null;
   date?: string | null;
   pax?: number | null;
   message?: string | null;
@@ -530,6 +615,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'excursions';
         value: number | Excursion;
+      } | null)
+    | ({
+        relationTo: 'masterclasses';
+        value: number | Masterclass;
       } | null)
     | ({
         relationTo: 'guides';
@@ -743,6 +832,47 @@ export interface ExcursionsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "masterclasses_select".
+ */
+export interface MasterclassesSelect<T extends boolean = true> {
+  slug?: T;
+  city?: T;
+  title?: T;
+  tagline?: T;
+  summary?: T;
+  description?: T;
+  durationHours?: T;
+  priceUsd?: T;
+  youtubeUrl?: T;
+  heroImage?: T;
+  gallery?: T;
+  published?: T;
+  included?:
+    | T
+    | {
+        text?: T;
+        id?: T;
+      };
+  sessions?:
+    | T
+    | {
+        date?: T;
+        capacity?: T;
+        booked?: T;
+        id?: T;
+      };
+  reviews?:
+    | T
+    | {
+        author?: T;
+        text?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "guides_select".
  */
 export interface GuidesSelect<T extends boolean = true> {
@@ -768,6 +898,7 @@ export interface LeadsSelect<T extends boolean = true> {
   email?: T;
   phone?: T;
   tourSlug?: T;
+  kind?: T;
   date?: T;
   pax?: T;
   message?: T;

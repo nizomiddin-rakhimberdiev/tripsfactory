@@ -5,6 +5,7 @@
     "destinations": "目的地",
     "guide": "旅行指南",
     "excursions": "活动",
+    "masterclasses": "烹饪课",
     "premium": "尊享",
     "about": "关于我们",
     "contact": "联系我们",
@@ -88,6 +89,24 @@
     "cityLabel": "城市",
     "related": "本城市的其他项目",
     "viewAll": "查看全部游览项目"
+  },
+  "masterclasses": {
+    "title": "乌兹别克烹饪课",
+    "listEyebrow": "烹饪课",
+    "listIntro": "与厨师一起动手做乌兹别克菜 — 亲手烹制，当场品尝。",
+    "empty": "这里暂时还没有烹饪课 — 请稍后再来。",
+    "hours": "{count}小时",
+    "cityLabel": "城市",
+    "nextOn": "下一期：{date}",
+    "nextSession": "下一期",
+    "seatsLeft": "共{total}个名额，剩余{left}个",
+    "noSession": "下一期日期尚未公布 — 请联系我们，确定后第一时间通知您。",
+    "video": "视频",
+    "reviews": "学员评价",
+    "bookNow": "预订名额",
+    "bookTitle": "预订名额",
+    "related": "其他烹饪课",
+    "viewAll": "查看全部烹饪课"
   },
   "destinations": {
     "title": "目的地",

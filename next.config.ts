@@ -42,6 +42,11 @@ const csp = [
   "font-src 'self' data:",
   "connect-src 'self' https://cloudflareinsights.com https://*.public.blob.vercel-storage.com https://*.r2.dev",
   "media-src 'self'",
+  // The only third-party frame on the site: the optional video on a master
+  // class page. youtube-nocookie is what the page embeds; www.youtube.com is
+  // here because the player redirects there for some videos, and a blocked
+  // redirect shows an empty box with an error in the console.
+  "frame-src https://www.youtube-nocookie.com https://www.youtube.com",
   "worker-src 'self' blob:",
   "manifest-src 'self'",
   "frame-ancestors 'none'",

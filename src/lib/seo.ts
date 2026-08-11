@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import type { Excursion, Tour } from "@/lib/content";
+import type { Excursion, Masterclass, Tour } from "@/lib/content";
 import { locales, type Locale } from "@/i18n/routing";
 import {
   ADDRESS,
@@ -167,6 +167,62 @@ export function excursionJsonLd(excursion: Excursion, locale: string) {
       availability: "https://schema.org/InStock",
     },
     provider: { "@type": "TravelAgency", name: BRAND_NAME, url: SITE_URL },
+  };
+}
+
+/**
+ * A cooking master class.
+ *
+ * An Event rather than a TouristTrip: it happens at a fixed place on announced
+ * dates, which is what `startDate` and `location` are for and what a search
+ * result shows. Only the run that is actually open is described — advertising
+ * a date that has filled is worse than advertising none.
+ */
+export function masterclassJsonLd(m: Masterclass, locale: string) {
+  const url = `${SITE_URL}/${locale}/masterclasses/${m.slug}`;
+  const images = [m.heroImage, ...(m.gallery ?? [])].filter(Boolean).map(absolute);
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "Event",
+    "@id": url,
+    url,
+    name: m.title,
+    description: m.summary,
+    eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+    ...(images.length ? { image: images } : {}),
+    ...(m.nextSession
+      ? {
+          startDate: m.nextSession.date,
+          eventStatus: "https://schema.org/EventScheduled",
+          maximumAttendeeCapacity: m.nextSession.capacity,
+          remainingAttendeeCapacity: m.nextSession.seatsLeft,
+        }
+      : {}),
+    ...(m.cityName
+      ? {
+          location: {
+            "@type": "Place",
+            name: m.cityName,
+            address: {
+              "@type": "PostalAddress",
+              addressLocality: m.cityName,
+              addressCountry: ADDRESS.countryCode,
+            },
+          },
+        }
+      : {}),
+    offers: {
+      "@type": "Offer",
+      url,
+      price: m.priceUsd,
+      priceCurrency: "USD",
+      availability:
+        m.nextSession && m.nextSession.seatsLeft > 0
+          ? "https://schema.org/InStock"
+          : "https://schema.org/SoldOut",
+    },
+    organizer: { "@type": "TravelAgency", name: BRAND_NAME, url: SITE_URL },
   };
 }
 

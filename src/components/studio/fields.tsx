@@ -292,6 +292,80 @@ export function LocalizedSections({
   );
 }
 
+/* ------------------------------------ localized reviews [{author, text}] */
+export function LocalizedReviews({
+  value,
+  onChange,
+}: {
+  value: Record<string, { author: string; text: string }[]>;
+  onChange: (v: Record<string, { author: string; text: string }[]>) => void;
+}) {
+  const [active, setActive] = useState("en");
+  const list = value[active] ?? [];
+  const setList = (next: { author: string; text: string }[]) =>
+    onChange({ ...value, [active]: next });
+  return (
+    <Field
+      label="Mijozlar fikri"
+      help="Ingliz tilida yozing — qolgan tillarga matn tarjima qilinadi, ism o'zgarmaydi."
+      right={
+        <LocaleTabs
+          active={active}
+          onChange={setActive}
+          filled={(l) => (value[l]?.length ?? 0) > 0}
+        />
+      }
+    >
+      <div className="s-repeat">
+        {list.map((item, i) => (
+          <div key={i} className="s-repeat__item">
+            <div className="s-repeat__head">
+              <span className="s-repeat__num">{i + 1}</span>
+              <button
+                type="button"
+                className="s-btn s-btn--icon s-btn--danger s-btn--sm"
+                style={{ marginLeft: "auto" }}
+                onClick={() => setList(list.filter((_, j) => j !== i))}
+              >
+                <IconTrash />
+              </button>
+            </div>
+            <div className="s-repeat__fields">
+              <input
+                className="s-input"
+                placeholder="Ism (masalan: Anna, Germaniya)"
+                value={item.author}
+                onChange={(e) => {
+                  const next = [...list];
+                  next[i] = { ...next[i], author: e.target.value };
+                  setList(next);
+                }}
+              />
+              <textarea
+                className="s-textarea"
+                placeholder="Fikr matni"
+                value={item.text}
+                onChange={(e) => {
+                  const next = [...list];
+                  next[i] = { ...next[i], text: e.target.value };
+                  setList(next);
+                }}
+              />
+            </div>
+          </div>
+        ))}
+        <button
+          type="button"
+          className="s-btn s-btn--sm"
+          onClick={() => setList([...list, { author: "", text: "" }])}
+        >
+          <IconPlus /> Fikr qo&apos;shish
+        </button>
+      </div>
+    </Field>
+  );
+}
+
 /* ---------------------------------------------------------- image picker */
 export function ImagePicker({
   label,

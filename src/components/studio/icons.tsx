@@ -130,6 +130,15 @@ export const IconChevron = (p: P) => (
   </svg>
 );
 
+/** A chef's toque — the cooking classes. */
+export const IconChef = (p: P) => (
+  <svg {...base(p)}>
+    <path d="M7 14a3.5 3.5 0 1 1 .8-6.9 4 4 0 0 1 7.4 0A3.5 3.5 0 1 1 17 14Z" />
+    <path d="M7 14v5a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-5" />
+    <path d="M7.5 17h9" />
+  </svg>
+);
+
 /** A ticket — an excursion is bought by the seat, not by the itinerary. */
 export const IconTicket = (p: P) => (
   <svg {...base(p)}>

@@ -13,6 +13,7 @@ type Labels = {
   private: string;
   destinations: string;
   events: string;
+  masterclasses: string;
   guide: string;
   about: string;
   contact: string;
@@ -120,12 +121,14 @@ export function MainNav({
   regions,
   premium,
   events,
+  masterclasses,
   localeSwitcher,
 }: {
   labels: Labels;
   regions: NavRegion[];
   premium: boolean;
   events: boolean;
+  masterclasses: boolean;
   localeSwitcher: React.ReactNode;
 }) {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -218,6 +221,15 @@ export function MainNav({
             className={navClass("/excursions")}
           >
             {labels.events}
+          </Link>
+        )}
+        {masterclasses && (
+          <Link
+            href="/masterclasses"
+            aria-current={current("/masterclasses")}
+            className={navClass("/masterclasses")}
+          >
+            {labels.masterclasses}
           </Link>
         )}
         <Link
@@ -329,6 +341,14 @@ export function MainNav({
                 className="rounded-md px-2 py-1.5 hover:bg-surface-muted"
               >
                 {labels.events}
+              </Link>
+            )}
+            {masterclasses && (
+              <Link
+                href="/masterclasses"
+                className="rounded-md px-2 py-1.5 hover:bg-surface-muted"
+              >
+                {labels.masterclasses}
               </Link>
             )}
             <Link

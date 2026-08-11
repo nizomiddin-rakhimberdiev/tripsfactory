@@ -5,6 +5,7 @@
     "destinations": "Reiseziele",
     "guide": "Reiseführer",
     "excursions": "Events",
+    "masterclasses": "Kochkurse",
     "premium": "Premium",
     "about": "Über uns",
     "contact": "Kontakt",
@@ -88,6 +89,24 @@
     "cityLabel": "Stadt",
     "related": "Mehr in dieser Stadt",
     "viewAll": "Alle Ausflüge ansehen"
+  },
+  "masterclasses": {
+    "title": "Usbekische Kochkurse",
+    "listEyebrow": "Kochkurs",
+    "listIntro": "Usbekisch kochen mit einem Koch — Sie bereiten das Gericht zu und essen es anschließend.",
+    "empty": "Hier gibt es noch keine Kochkurse — schauen Sie bald wieder vorbei.",
+    "hours": "{count, plural, one {# Stunde} other {# Stunden}}",
+    "cityLabel": "Stadt",
+    "nextOn": "Nächster Termin: {date}",
+    "nextSession": "Nächster Termin",
+    "seatsLeft": "Noch {left} von {total} Plätzen frei",
+    "noSession": "Der nächste Termin steht noch nicht fest — schreiben Sie uns, Sie erfahren es zuerst.",
+    "video": "Video",
+    "reviews": "Was Gäste sagen",
+    "bookNow": "Platz buchen",
+    "bookTitle": "Buchen Sie Ihren Platz",
+    "related": "Weitere Kochkurse",
+    "viewAll": "Alle Kochkurse ansehen"
   },
   "destinations": {
     "title": "Reiseziele",
