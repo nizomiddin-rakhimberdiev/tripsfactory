@@ -21,7 +21,13 @@
   // them. The Worker intercepts in front of those records instead.
   "routes": [
     { "pattern": "tripsfactory.com/*", "zone_name": "tripsfactory.com" },
-    { "pattern": "www.tripsfactory.com/*", "zone_name": "tripsfactory.com" }
+    { "pattern": "www.tripsfactory.com/*", "zone_name": "tripsfactory.com" },
+    // The .uz pair is here only so the Worker can answer them at all; every
+    // request they receive is redirected to the canonical host by the
+    // middleware. Without these routes the traffic falls through to the old
+    // hosting the zone still points at.
+    { "pattern": "tripsfactory.uz/*", "zone_name": "tripsfactory.uz" },
+    { "pattern": "www.tripsfactory.uz/*", "zone_name": "tripsfactory.uz" }
   ],
 
   // Media. The binding is what the Payload R2 storage plugin writes through,
