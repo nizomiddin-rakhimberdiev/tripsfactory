@@ -17,6 +17,8 @@ export type PartnerInitial = {
   contactPhone: string;
   contactEmail: string;
   active: boolean;
+  /** False while the code is printed but not yet given to a hotel. */
+  assigned: boolean;
   notes: string;
 };
 
@@ -73,6 +75,7 @@ export function PartnerEditor({ initial }: { initial: PartnerInitial }) {
       contactPhone: p.contactPhone.trim(),
       contactEmail: p.contactEmail.trim() || null,
       active: p.active,
+      assigned: p.assigned,
       notes: p.notes.trim(),
     };
     const res = await fetch(
@@ -202,6 +205,29 @@ export function PartnerEditor({ initial }: { initial: PartnerInitial }) {
               />
               Faol — QR kod ishlaydi
             </label>
+            <label className="s-check">
+              <input
+                type="checkbox"
+                checked={p.assigned}
+                onChange={(e) => patch({ assigned: e.target.checked })}
+              />
+              Mehmonxonaga biriktirilgan
+            </label>
+            {!p.assigned && (
+              <p
+                style={{
+                  margin: "-6px 0 0",
+                  fontSize: 12.5,
+                  color: "var(--s-fg-muted)",
+                  lineHeight: 1.7,
+                }}
+              >
+                Bu kod hali zaxirada. Shartnoma tuzilgach nomini mehmonxona
+                nomiga o&apos;zgartiring, aloqa ma&apos;lumotlarini yozing va shu
+                katakni belgilang. <strong>Kodni o&apos;zgartirmang</strong> —
+                banner allaqachon chop etilgan.
+              </p>
+            )}
 
             <Field label="Izoh">
               <textarea

@@ -61,6 +61,7 @@ export default async function StudioPartnerEditPage({
     contactPhone: raw.contactPhone ?? "",
     contactEmail: raw.contactEmail ?? "",
     active: Boolean(raw.active),
+    assigned: raw.assigned !== false,
     notes: raw.notes ?? "",
   };
 

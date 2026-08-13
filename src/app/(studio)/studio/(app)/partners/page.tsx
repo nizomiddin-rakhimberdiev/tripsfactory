@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { getPayloadClient } from "@/lib/studio/auth";
 import { formatUsd } from "@/lib/currency";
+import { ToastProvider } from "@/components/studio/ui";
+import { PartnerBatch } from "@/components/studio/PartnerBatch";
 
 export const dynamic = "force-dynamic";
 
@@ -21,12 +23,18 @@ const TYPE_LABEL: Record<string, string> = {
  */
 export default async function StudioPartnersPage() {
   const payload = await getPayloadClient();
-  const partners = await payload.find({
+  const all = await payload.find({
     collection: "partners",
-    limit: 200,
+    limit: 300,
     depth: 0,
-    sort: "name",
+    sort: "code",
   });
+
+  // Two different things, deliberately shown apart: hotels that send guests,
+  // and codes waiting on a contract. Mixed together, forty banners in stock
+  // bury the handful that are actually earning.
+  const partners = { docs: all.docs.filter((p) => p.assigned !== false) };
+  const stock = all.docs.filter((p) => p.assigned === false);
 
   const rows = await Promise.all(
     partners.docs.map(async (p) => {
@@ -71,7 +79,7 @@ export default async function StudioPartnersPage() {
   );
 
   return (
-    <>
+    <ToastProvider>
       <div className="s-pagehead">
         <div className="s-pagehead__text">
           <h1>Hamkorlar</h1>
@@ -81,6 +89,7 @@ export default async function StudioPartnersPage() {
           </p>
         </div>
         <div className="s-pagehead__actions">
+          <PartnerBatch />
           <Link href="/studio/partners/new" className="s-btn s-btn--primary">
             Yangi hamkor
           </Link>
@@ -123,8 +132,8 @@ export default async function StudioPartnersPage() {
       {rows.length === 0 ? (
         <div className="s-table-wrap">
           <div className="s-empty">
-            Hozircha hamkor yo&apos;q. «Yangi hamkor» bilan birinchisini
-            qo&apos;shing — QR kod avtomatik yaratiladi.
+            Hozircha biriktirilgan hamkor yo&apos;q. Mehmonxona bilan shartnoma
+            tuzilgach, zaxiradagi QR kodlardan birini unga biriktiring.
           </div>
         </div>
       ) : (
@@ -173,6 +182,80 @@ export default async function StudioPartnersPage() {
         </div>
       )}
 
+      <div
+        className="s-section-title"
+        style={{
+          marginTop: 30,
+          display: "flex",
+          alignItems: "center",
+          gap: 12,
+        }}
+      >
+        Zaxiradagi QR kodlar
+        <Link
+          href="/studio/partners/print?only=stock"
+          className="s-btn s-btn--sm"
+          style={{ marginLeft: "auto", fontWeight: 400 }}
+        >
+          Chop etishga tayyorlash
+        </Link>
+      </div>
+      <p
+        style={{
+          margin: "0 0 12px",
+          fontSize: 12.5,
+          color: "var(--s-fg-muted)",
+          lineHeight: 1.7,
+          maxWidth: 640,
+        }}
+      >
+        Chop etilgan, lekin hali hech kimga berilmagan kodlar. Ular{" "}
+        <strong>bugundan ishlaydi</strong> — bannerni mehmonxonaga bergan
+        zahoti skanlar hisoblana boshlaydi. Shartnoma tuzilgach kodni ochib,
+        nomini mehmonxona nomiga o&apos;zgartiring va «Mehmonxonaga
+        biriktirilgan» katagini belgilang. Banner qayta chop etilmaydi.
+      </p>
+      {stock.length === 0 ? (
+        <div className="s-table-wrap">
+          <div className="s-empty">
+            Zaxirada kod yo&apos;q. «QR partiyasi» bilan bir yo&apos;la 40 ta
+            yarating va chop etishga bering.
+          </div>
+        </div>
+      ) : (
+        <div className="s-table-wrap">
+          <table className="s-table">
+            <thead>
+              <tr>
+                <th>Kod</th>
+                <th>Havola</th>
+                <th style={{ width: 140 }}>
+                  <span className="s-visually-hidden">Amal</span>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {stock.map((p) => (
+                <tr key={p.id}>
+                  <td style={{ fontWeight: 600, letterSpacing: ".04em" }}>
+                    {p.code.toUpperCase()}
+                  </td>
+                  <td style={{ color: "var(--s-fg-muted)" }}>/r/{p.code}</td>
+                  <td>
+                    <Link
+                      href={`/studio/partners/${p.id}`}
+                      className="s-btn s-btn--sm"
+                    >
+                      Mehmonxonaga biriktirish
+                    </Link>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+
       <p
         style={{
           marginTop: 14,
@@ -186,6 +269,6 @@ export default async function StudioPartnersPage() {
         qabul qilindi» tugmasini bosing: mijozga tasdiq xati ketadi va holat
         o&apos;zi o&apos;zgaradi.
       </p>
-    </>
+    </ToastProvider>
   );
 }

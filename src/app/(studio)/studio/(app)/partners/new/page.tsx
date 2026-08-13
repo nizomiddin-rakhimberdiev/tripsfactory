@@ -21,6 +21,7 @@ const EMPTY: PartnerInitial = {
   contactPhone: "",
   contactEmail: "",
   active: true,
+  assigned: true,
   notes: "",
 };
 

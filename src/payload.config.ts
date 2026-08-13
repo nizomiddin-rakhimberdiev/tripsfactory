@@ -1053,14 +1053,39 @@ const Partners: CollectionConfig = {
       ],
     },
     {
-      name: "active",
-      type: "checkbox",
-      label: "Faol",
-      defaultValue: true,
-      admin: {
-        description:
-          "Belgilanmasa QR kod ishlamaydi — mijoz oddiy sahifaga tushadi va hamkorga yozilmaydi.",
-      },
+      type: "row",
+      fields: [
+        {
+          name: "active",
+          type: "checkbox",
+          label: "Faol",
+          defaultValue: true,
+          admin: {
+            description:
+              "Belgilanmasa QR kod ishlamaydi — mijoz oddiy sahifaga tushadi va hamkorga yozilmaydi.",
+          },
+        },
+        {
+          /**
+           * Whether a real partner is behind this code yet.
+           *
+           * Banners are printed in batches of thirty or forty, long before
+           * that many hotels have signed. So a code identifies the *banner*,
+           * not the hotel: it is printed, it works from the day it is printed,
+           * and the hotel is attached to it when the contract is signed. A
+           * code in stock still counts its scans, which is what makes it safe
+           * to hand a banner over before anybody has updated the Studio.
+           */
+          name: "assigned",
+          type: "checkbox",
+          label: "Mehmonxonaga biriktirilgan",
+          defaultValue: true,
+          admin: {
+            description:
+              "Chop etilgan, lekin hali hech kimga berilmagan QR kodlar uchun belgilanmaydi.",
+          },
+        },
+      ],
     },
     { name: "notes", type: "textarea", label: "Izoh" },
   ],

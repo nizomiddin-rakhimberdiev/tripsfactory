@@ -595,6 +595,10 @@ export interface Partner {
    * Belgilanmasa QR kod ishlamaydi — mijoz oddiy sahifaga tushadi va hamkorga yozilmaydi.
    */
   active?: boolean | null;
+  /**
+   * Chop etilgan, lekin hali hech kimga berilmagan QR kodlar uchun belgilanmaydi.
+   */
+  assigned?: boolean | null;
   notes?: string | null;
   updatedAt: string;
   createdAt: string;
@@ -976,6 +980,7 @@ export interface PartnersSelect<T extends boolean = true> {
   contactPhone?: T;
   contactEmail?: T;
   active?: T;
+  assigned?: T;
   notes?: T;
   updatedAt?: T;
   createdAt?: T;
