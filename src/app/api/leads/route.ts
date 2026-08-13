@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
-import { createLead } from "@/lib/content";
+import { createLead, findPartnerByCode } from "@/lib/content";
+import { REF_COOKIE } from "@/app/r/[code]/route";
 
 const leadSchema = z.object({
   name: z.string().min(1).max(100),
@@ -11,6 +12,9 @@ const leadSchema = z.object({
   message: z.string().max(2000).optional().or(z.literal("")),
   tourSlug: z.string().max(120).optional(),
   kind: z.enum(["tour", "excursion", "masterclass"]).optional(),
+  // Fallback for a browser that dropped the cookie. Never trusted as given —
+  // it is looked up, and an unknown code credits nobody.
+  ref: z.string().max(60).optional(),
   locale: z.string().max(5).optional(),
   // Honeypot. Deliberately permissive: `max(0)` rejected a filled field with a
   // 400 before the silent-drop below could run, which told the bot it had
@@ -121,6 +125,22 @@ export async function POST(request: Request) {
   // Honeypot filled → pretend success, drop silently
   if (lead.website) return NextResponse.json({ ok: true });
 
+  /**
+   * Who sent this guest.
+   *
+   * The cookie was set by /r/<code> when they scanned the QR at a hotel
+   * reception, and it is what the cashback at the end of the month is
+   * calculated from. Last touch wins: a guest who passed two partners is
+   * credited to the one whose code they scanned most recently, which is the
+   * one who actually sent them through the door.
+   */
+  const refCookie = request.headers
+    .get("cookie")
+    ?.match(new RegExp(`(?:^|;\\s*)${REF_COOKIE}=([^;]+)`))?.[1];
+  const partner = await findPartnerByCode(
+    refCookie ? decodeURIComponent(refCookie) : lead.ref,
+  );
+
   const subject: Record<string, string> = {
     tour: "Tour",
     excursion: "Excursion",
@@ -133,6 +153,7 @@ export async function POST(request: Request) {
     lead.phone && `Phone: ${lead.phone}`,
     lead.tourSlug &&
       `${subject[lead.kind ?? "tour"] ?? "Tour"}: ${lead.tourSlug}`,
+    partner && `Referred by: ${partner.name}`,
     lead.date && `Start date: ${lead.date}`,
     lead.pax && `Travelers: ${lead.pax}`,
     lead.locale && `Locale: ${lead.locale}`,
@@ -150,6 +171,7 @@ export async function POST(request: Request) {
       phone: lead.phone || undefined,
       tourSlug: lead.tourSlug,
       kind: lead.kind,
+      partner: partner?.id,
       date: lead.date || undefined,
       pax: lead.pax,
       message: lead.message || undefined,

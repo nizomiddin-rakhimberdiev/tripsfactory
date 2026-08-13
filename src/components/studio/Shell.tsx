@@ -18,6 +18,7 @@ import {
   IconLogout,
   IconMap,
   IconChef,
+  IconHandshake,
   IconTicket,
   IconUsers,
 } from "./icons";
@@ -69,6 +70,7 @@ const GROUPS: { id: string; label: string | null; items: NavItem[] }[] = [
         Icon: IconInbox,
         badgeKey: "leads",
       },
+      { href: "/studio/partners", label: "Hamkorlar", Icon: IconHandshake },
     ],
   },
   {
@@ -91,6 +93,7 @@ const TITLES: Record<string, string> = {
   "/studio/import": "Google Sheets'dan import",
   "/studio/media": "Rasmlar",
   "/studio/leads": "So'rovlar",
+  "/studio/partners": "Hamkorlar",
   "/studio/users": "Foydalanuvchilar",
 };
 

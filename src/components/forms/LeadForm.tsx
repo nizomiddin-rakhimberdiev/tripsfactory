@@ -45,6 +45,19 @@ export function LeadForm({
           tourSlug,
           kind,
           locale,
+          // Referral fallback. The QR redirect sets a server cookie, which is
+          // what normally carries this; ?ref= covers a browser that refuses
+          // cookies and a link somebody shared by hand. Read at submit time
+          // rather than through useSearchParams, which would force a Suspense
+          // boundary onto every statically rendered page carrying this form.
+          ...(typeof window !== "undefined"
+            ? (() => {
+                const ref = new URLSearchParams(window.location.search).get(
+                  "ref",
+                );
+                return ref ? { ref } : {};
+              })()
+            : {}),
         }),
       });
       if (!res.ok) throw new Error(String(res.status));

@@ -25,9 +25,11 @@ export function slugify(value: string): string {
 export async function slugTaken(
   collection: string,
   slug: string,
+  /** Partners are unique on `code`; everything else on `slug`. */
+  field: string = "slug",
 ): Promise<boolean> {
   return fetch(
-    `/api/${collection}?where[slug][equals]=${encodeURIComponent(slug)}&limit=1&depth=0`,
+    `/api/${collection}?where[${field}][equals]=${encodeURIComponent(slug)}&limit=1&depth=0`,
     { credentials: "include" },
   )
     .then((r) => (r.ok ? (r.json() as Promise<{ totalDocs?: number }>) : null))

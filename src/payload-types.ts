@@ -77,6 +77,8 @@ export interface Config {
     masterclasses: Masterclass;
     guides: Guide;
     leads: Lead;
+    partners: Partner;
+    'partner-visits': PartnerVisit;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -94,6 +96,8 @@ export interface Config {
     masterclasses: MasterclassesSelect<false> | MasterclassesSelect<true>;
     guides: GuidesSelect<false> | GuidesSelect<true>;
     leads: LeadsSelect<false> | LeadsSelect<true>;
+    partners: PartnersSelect<false> | PartnersSelect<true>;
+    'partner-visits': PartnerVisitsSelect<false> | PartnerVisitsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -556,11 +560,52 @@ export interface Lead {
   phone?: string | null;
   tourSlug?: string | null;
   kind?: ('tour' | 'excursion' | 'masterclass') | null;
+  partner?: (number | null) | Partner;
   date?: string | null;
   pax?: number | null;
   message?: string | null;
   locale?: string | null;
   status?: ('new' | 'contacted' | 'closed') | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Mijoz olib keladigan hamkorlar. Har biriga QR kod beriladi va olib kelgan mijozlari hisoblanadi.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "partners".
+ */
+export interface Partner {
+  id: number;
+  name: string;
+  /**
+   * QR havolasidagi qism: tripsfactory.com/r/<kod>. Faqat kichik lotin harflar va defis.
+   */
+  code: string;
+  type: 'hotel' | 'ota' | 'tour_operator' | 'other';
+  /**
+   * Har bir kelgan va to'lagan mijoz uchun. Kelishuvga qarab hamkorlar bo'yicha farq qilishi mumkin.
+   */
+  commissionUsd: number;
+  contactName?: string | null;
+  contactPhone?: string | null;
+  contactEmail?: string | null;
+  /**
+   * Belgilanmasa QR kod ishlamaydi — mijoz oddiy sahifaga tushadi va hamkorga yozilmaydi.
+   */
+  active?: boolean | null;
+  notes?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "partner-visits".
+ */
+export interface PartnerVisit {
+  id: number;
+  partner: number | Partner;
+  locale?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -627,6 +672,14 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'leads';
         value: number | Lead;
+      } | null)
+    | ({
+        relationTo: 'partners';
+        value: number | Partner;
+      } | null)
+    | ({
+        relationTo: 'partner-visits';
+        value: number | PartnerVisit;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -899,11 +952,39 @@ export interface LeadsSelect<T extends boolean = true> {
   phone?: T;
   tourSlug?: T;
   kind?: T;
+  partner?: T;
   date?: T;
   pax?: T;
   message?: T;
   locale?: T;
   status?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "partners_select".
+ */
+export interface PartnersSelect<T extends boolean = true> {
+  name?: T;
+  code?: T;
+  type?: T;
+  commissionUsd?: T;
+  contactName?: T;
+  contactPhone?: T;
+  contactEmail?: T;
+  active?: T;
+  notes?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "partner-visits_select".
+ */
+export interface PartnerVisitsSelect<T extends boolean = true> {
+  partner?: T;
+  locale?: T;
   updatedAt?: T;
   createdAt?: T;
 }

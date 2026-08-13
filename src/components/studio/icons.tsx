@@ -130,6 +130,15 @@ export const IconChevron = (p: P) => (
   </svg>
 );
 
+/** Two hands meeting — a partner sends guests, we send cashback back. */
+export const IconHandshake = (p: P) => (
+  <svg {...base(p)}>
+    <path d="M11 7.5 8.5 10a2 2 0 0 0 0 2.8l.2.2a2 2 0 0 0 2.8 0l.5-.5 2 2a1.6 1.6 0 0 0 2.3-2.3l-4-4a2 2 0 0 0-1.4-.6H8L4 10" />
+    <path d="M13 7.5h3l4 2.5" />
+    <path d="M4 7h2M18 7h2" />
+  </svg>
+);
+
 /** A chef's toque — the cooking classes. */
 export const IconChef = (p: P) => (
   <svg {...base(p)}>

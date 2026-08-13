@@ -494,6 +494,37 @@ export async function getSiteContent(locale: string = EN): Promise<{
   };
 }
 
+/**
+ * The partner behind a referral code, or null.
+ *
+ * Read here rather than trusted from the request: the code arrives in a cookie
+ * this server set, but the fallback path carries it in the request body where
+ * anyone could put anything. Looking it up means an unknown or paused code
+ * simply credits nobody.
+ */
+export async function findPartnerByCode(
+  code: string | undefined | null,
+): Promise<{ id: number; name: string } | null> {
+  if (!code) return null;
+  const payload = await db();
+  const res = await payload
+    .find({
+      collection: "partners",
+      where: {
+        and: [
+          { code: { equals: code.trim().toLowerCase() } },
+          { active: { equals: true } },
+        ],
+      },
+      limit: 1,
+      depth: 0,
+      overrideAccess: true,
+    })
+    .catch(() => null);
+  const doc = res?.docs[0];
+  return doc ? { id: doc.id, name: doc.name } : null;
+}
+
 export async function createLead(data: {
   name: string;
   email: string;
@@ -501,6 +532,8 @@ export async function createLead(data: {
   tourSlug?: string;
   /** Which catalogue `tourSlug` names. Defaults to a tour, as it always was. */
   kind?: "tour" | "excursion" | "masterclass";
+  /** Partner id, resolved from the referral code before this is called. */
+  partner?: number;
   date?: string;
   pax?: number;
   message?: string;

@@ -965,6 +965,146 @@ const Masterclasses: CollectionConfig = {
   ],
 };
 
+/**
+ * Who sends us guests, and what they are owed for it.
+ *
+ * The first stage is hotels: a QR code at reception opens the master class
+ * catalogue, and the booking that follows has to be traceable back to the
+ * hotel so the cashback can be paid. Stage two is OTAs and stage three is tour
+ * operators — different ways of arriving, same question at the end of the
+ * month, so all three are one collection distinguished by `type`.
+ *
+ * Nothing here is localized. A hotel's name is a proper noun and the cashback
+ * is a number.
+ */
+const Partners: CollectionConfig = {
+  slug: "partners",
+  labels: { singular: "Hamkor", plural: "Hamkorlar" },
+  admin: {
+    useAsTitle: "name",
+    group: "Mijozlar",
+    defaultColumns: ["name", "code", "type", "commissionUsd", "active"],
+    description:
+      "Mijoz olib keladigan hamkorlar. Har biriga QR kod beriladi va olib kelgan mijozlari hisoblanadi.",
+  },
+  access: {
+    // Deliberately not public. A partner list is a commercial relationship
+    // and a cashback rate; /api/partners must not answer an anonymous caller.
+    read: adminOnly,
+    create: adminOnly,
+    update: adminOnly,
+    delete: adminOnly,
+  },
+  fields: [
+    {
+      type: "row",
+      fields: [
+        { name: "name", type: "text", label: "Nomi", required: true },
+        {
+          name: "code",
+          type: "text",
+          label: "Kod",
+          required: true,
+          unique: true,
+          index: true,
+          admin: {
+            description:
+              "QR havolasidagi qism: tripsfactory.com/r/<kod>. Faqat kichik lotin harflar va defis.",
+          },
+        },
+      ],
+    },
+    {
+      type: "row",
+      fields: [
+        {
+          name: "type",
+          type: "select",
+          label: "Turi",
+          required: true,
+          defaultValue: "hotel",
+          options: [
+            { label: "Mehmonxona", value: "hotel" },
+            { label: "OTA (onlayn platforma)", value: "ota" },
+            { label: "Turoperator", value: "tour_operator" },
+            { label: "Boshqa", value: "other" },
+          ],
+        },
+        {
+          name: "commissionUsd",
+          type: "number",
+          label: "Cashback (USD, kishiga)",
+          required: true,
+          defaultValue: 15,
+          min: 0,
+          admin: {
+            description:
+              "Har bir kelgan va to'lagan mijoz uchun. Kelishuvga qarab hamkorlar bo'yicha farq qilishi mumkin.",
+          },
+        },
+      ],
+    },
+    {
+      type: "row",
+      fields: [
+        { name: "contactName", type: "text", label: "Aloqa uchun shaxs" },
+        { name: "contactPhone", type: "text", label: "Telefon" },
+        { name: "contactEmail", type: "email", label: "Email" },
+      ],
+    },
+    {
+      name: "active",
+      type: "checkbox",
+      label: "Faol",
+      defaultValue: true,
+      admin: {
+        description:
+          "Belgilanmasa QR kod ishlamaydi — mijoz oddiy sahifaga tushadi va hamkorga yozilmaydi.",
+      },
+    },
+    { name: "notes", type: "textarea", label: "Izoh" },
+  ],
+};
+
+/**
+ * One QR scan.
+ *
+ * A row rather than a counter on the partner, because the question is never
+ * "how many ever" — it is "how many last month, and how many of those booked".
+ * A counter cannot answer that.
+ *
+ * Written by /r/[code] on the public site, so `create` has to be reachable
+ * without a session; it is called with overrideAccess from the route and
+ * nothing else may touch it.
+ */
+const PartnerVisits: CollectionConfig = {
+  slug: "partner-visits",
+  labels: { singular: "QR skani", plural: "QR skanlari" },
+  admin: {
+    useAsTitle: "id",
+    group: "Mijozlar",
+    defaultColumns: ["partner", "locale", "createdAt"],
+    hidden: true,
+  },
+  access: {
+    read: adminOnly,
+    create: adminOnly,
+    update: adminOnly,
+    delete: adminOnly,
+  },
+  fields: [
+    {
+      name: "partner",
+      type: "relationship",
+      relationTo: "partners",
+      label: "Hamkor",
+      required: true,
+      index: true,
+    },
+    { name: "locale", type: "text", label: "Til" },
+  ],
+};
+
 const previewGuide: GeneratePreviewURL = (doc, { locale }) => {
   const loc = locale || "uz";
   const slug = doc.slug as string | undefined;
@@ -1050,6 +1190,16 @@ const Leads: CollectionConfig = {
         { label: "Ekskursiya", value: "excursion" },
         { label: "Masterklass", value: "masterclass" },
       ],
+    },
+    {
+      // Who sent this guest. Set from the QR cookie when the enquiry arrives,
+      // and the only reason the cashback figure at the end of the month can be
+      // checked against anything.
+      name: "partner",
+      type: "relationship",
+      relationTo: "partners",
+      label: "Kim olib kelgan",
+      index: true,
     },
     { name: "date", type: "text", label: "Sana" },
     { name: "pax", type: "number", label: "Kishilar soni" },
@@ -1140,6 +1290,8 @@ export default buildConfig({
     Masterclasses,
     Guides,
     Leads,
+    Partners,
+    PartnerVisits,
   ],
   globals: [
     {
