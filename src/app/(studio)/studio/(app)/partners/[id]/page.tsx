@@ -16,6 +16,7 @@ export const dynamic = "force-dynamic";
 const STATUS_LABEL: Record<string, string> = {
   new: "Yangi",
   contacted: "Bog'lanildi",
+  paid: "To'landi",
   closed: "Yopildi",
 };
 
@@ -45,7 +46,9 @@ export default async function StudioPartnerEditPage({
     }),
   ]);
 
-  const closed = leads.docs.filter((l) => l.status === "closed").length;
+  const closed = leads.docs.filter(
+    (l) => l.status === "paid" || l.status === "closed",
+  ).length;
   const owed = closed * (raw.commissionUsd ?? 0);
 
   const initial: PartnerInitial = {
@@ -108,9 +111,9 @@ export default async function StudioPartnerEditPage({
           </div>
         </div>
         <div className="s-stat">
-          <div className="s-stat__top">Yakunlangan</div>
+          <div className="s-stat__top">To&apos;langan</div>
           <div className="s-stat__value">{closed}</div>
-          <div className="s-stat__sub">to&apos;langan</div>
+          <div className="s-stat__sub">to&apos;lovi tasdiqlangan</div>
         </div>
         <div className="s-stat">
           <div className="s-stat__top">Cashback</div>
@@ -154,7 +157,7 @@ export default async function StudioPartnerEditPage({
                   <td>{l.tourSlug ?? "—"}</td>
                   <td>
                     <span
-                      className={`s-badge ${l.status === "closed" ? "s-badge--green" : "s-badge--gray"}`}
+                      className={`s-badge ${l.status === "paid" || l.status === "closed" ? "s-badge--green" : "s-badge--gray"}`}
                     >
                       {STATUS_LABEL[l.status ?? "new"] ?? l.status}
                     </span>

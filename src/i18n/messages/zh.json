@@ -195,5 +195,33 @@
     "privacyTitle": "隐私政策",
     "termsTitle": "服务条款",
     "updated": "最后更新"
+  },
+  "email": {
+    "hi": "{name} 您好，",
+    "questions": "如有任何疑问，请直接回复本邮件，或通过 Telegram 联系我们。",
+    "footer": "TripsFactory · 乌兹别克斯坦，塔什干",
+    "labels": {
+      "class": "烹饪课",
+      "date": "日期",
+      "guests": "人数",
+      "price": "价格",
+      "perPerson": "每人"
+    },
+    "request": {
+      "subject": "我们已收到您的预订申请 — {title}",
+      "intro": "感谢您——我们已收到您的预订申请。",
+      "detailsTitle": "您的申请",
+      "payTitle": "确认名额",
+      "payText": "请通过下方链接完成付款。在此之前，名额为您保留，但尚未确认。",
+      "payButton": "前往付款",
+      "noPayText": "我们将尽快把付款方式发送给您。"
+    },
+    "confirmed": {
+      "subject": "已收到付款 — 期待与您在「{title}」相见",
+      "intro": "我们已收到您的付款，名额已确认。期待与您一起下厨。",
+      "whenTitle": "时间",
+      "whereTitle": "地点",
+      "changeText": "如果您的行程有变，请尽早告知我们。"
+    }
   }
 }

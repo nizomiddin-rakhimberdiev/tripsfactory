@@ -37,6 +37,7 @@ const KIND_BADGE: Record<string, string> = {
 const STATUS = [
   { value: "new", label: "Yangi" },
   { value: "contacted", label: "Bog'lanildi" },
+  { value: "paid", label: "To'landi" },
   { value: "closed", label: "Yopildi" },
 ];
 
@@ -45,6 +46,7 @@ export function LeadsManager({ initial }: { initial: Lead[] }) {
   const toast = useToast();
   const [leads, setLeads] = useState<Lead[]>(initial);
   const [open, setOpen] = useState<Lead | null>(null);
+  const [busy, setBusy] = useState<number | null>(null);
 
   async function setStatus(id: number, status: string) {
     setLeads((ls) => ls.map((l) => (l.id === id ? { ...l, status } : l)));
@@ -54,6 +56,41 @@ export function LeadsManager({ initial }: { initial: Lead[] }) {
       credentials: "include",
       body: JSON.stringify({ status }),
     });
+  }
+
+  /**
+   * The two emails, and the one status change that matters.
+   *
+   * "To'lov qabul qilindi" is manual on purpose: nothing here can see a bank
+   * transfer arrive, and a confirmation sent on a guess is worse than one sent
+   * an hour late. The status only moves after the guest has actually been
+   * told — the server does both in that order.
+   */
+  async function email(id: number, type: "request" | "confirmed") {
+    setBusy(id);
+    const res = await fetch("/api/studio/booking-email", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+      body: JSON.stringify({ leadId: id, type }),
+    }).catch(() => null);
+    setBusy(null);
+
+    if (!res?.ok) {
+      const body = (await res?.json().catch(() => null)) as {
+        error?: string;
+      } | null;
+      toast(body?.error ?? "Xat yuborilmadi", "error");
+      return;
+    }
+    if (type === "confirmed") {
+      setLeads((ls) =>
+        ls.map((l) => (l.id === id ? { ...l, status: "paid" } : l)),
+      );
+      toast("Tasdiq xati yuborildi, holat «To'landi» ga o'tdi");
+    } else {
+      toast("Xat qayta yuborildi");
+    }
   }
 
   async function remove(id: number) {
@@ -179,6 +216,35 @@ export function LeadsManager({ initial }: { initial: Lead[] }) {
                   <div>
                     <strong>Xabar:</strong>
                     <p style={{ marginTop: 6, color: "var(--s-fg-secondary)" }}>{open.message}</p>
+                  </div>
+                )}
+                {open.kind === "masterclass" && (
+                  <div
+                    style={{
+                      display: "flex",
+                      gap: 8,
+                      flexWrap: "wrap",
+                      borderTop: "1px solid var(--s-border)",
+                      paddingTop: 14,
+                      marginTop: 4,
+                    }}
+                  >
+                    <button
+                      type="button"
+                      className="s-btn s-btn--primary"
+                      disabled={busy === open.id}
+                      onClick={() => email(open.id, "confirmed")}
+                    >
+                      To&apos;lov qabul qilindi
+                    </button>
+                    <button
+                      type="button"
+                      className="s-btn"
+                      disabled={busy === open.id}
+                      onClick={() => email(open.id, "request")}
+                    >
+                      So&apos;rov xatini qayta yuborish
+                    </button>
                   </div>
                 )}
                 <a className="s-btn s-btn--primary" href={`mailto:${open.email}`}>

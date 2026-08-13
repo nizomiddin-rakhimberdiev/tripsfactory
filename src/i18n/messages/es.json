@@ -195,5 +195,33 @@
     "privacyTitle": "Política de privacidad",
     "termsTitle": "Términos del servicio",
     "updated": "Última actualización"
+  },
+  "email": {
+    "hi": "Hola {name}:",
+    "questions": "¿Alguna pregunta? Responda a este correo o escríbanos por Telegram.",
+    "footer": "TripsFactory · Taskent, Uzbekistán",
+    "labels": {
+      "class": "Clase de cocina",
+      "date": "Fecha",
+      "guests": "Personas",
+      "price": "Precio",
+      "perPerson": "por persona"
+    },
+    "request": {
+      "subject": "Hemos recibido su solicitud — {title}",
+      "intro": "Gracias: hemos recibido su solicitud de reserva.",
+      "detailsTitle": "Su solicitud",
+      "payTitle": "Para confirmar su plaza",
+      "payText": "Complete el pago con el enlace de abajo. Hasta entonces su plaza queda reservada, pero no confirmada.",
+      "payButton": "Pagar ahora",
+      "noPayText": "Le enviaremos los datos de pago en breve."
+    },
+    "confirmed": {
+      "subject": "Pago recibido — le esperamos en {title}",
+      "intro": "Hemos recibido su pago y su plaza está confirmada. Nos hará ilusión cocinar con usted.",
+      "whenTitle": "Cuándo",
+      "whereTitle": "Dónde",
+      "changeText": "Si sus planes cambian, avísenos con la mayor antelación posible."
+    }
   }
 }

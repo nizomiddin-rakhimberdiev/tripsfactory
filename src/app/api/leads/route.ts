@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
-import { createLead, findPartnerByCode } from "@/lib/content";
+import { createLead, findPartnerByCode, getMasterclass, getSiteBooking } from "@/lib/content";
+import { sendEmail } from "@/lib/email/send";
+import { requestEmail } from "@/lib/email/booking";
 import { REF_COOKIE } from "@/app/r/[code]/route";
 
 const leadSchema = z.object({
@@ -104,6 +106,44 @@ async function notifyTelegram(text: string): Promise<boolean> {
   }
 }
 
+/**
+ * Sent after the enquiry is safely stored, not before: a guest told how to pay
+ * for a booking we did not record is the one failure that costs money on both
+ * sides.
+ */
+async function sendBookingEmail(lead: {
+  name: string;
+  email: string;
+  tourSlug?: string;
+  locale?: string;
+  date?: string;
+  pax?: number;
+}): Promise<void> {
+  const locale = lead.locale ?? "en";
+  const [masterclass, booking] = await Promise.all([
+    lead.tourSlug ? getMasterclass(lead.tourSlug, locale) : undefined,
+    getSiteBooking(),
+  ]);
+
+  const message = requestEmail({
+    name: lead.name,
+    locale,
+    title: masterclass?.title ?? lead.tourSlug ?? "",
+    date: lead.date ?? null,
+    guests: lead.pax ?? null,
+    priceUsd: masterclass?.priceUsd ?? null,
+    paymentUrl: booking.paymentUrl,
+    venue: booking.venue,
+  });
+
+  await sendEmail({
+    to: lead.email,
+    subject: message.subject,
+    html: message.html,
+    text: message.text,
+  });
+}
+
 export async function POST(request: Request) {
   if (rateLimited(clientKey(request))) {
     return NextResponse.json({ error: "rate_limited" }, { status: 429 });
@@ -180,6 +220,25 @@ export async function POST(request: Request) {
     stored = true;
   } catch (err) {
     console.error("LEAD-ALERT: could not store lead in CMS.", err);
+  }
+
+  /**
+   * The guest's own copy.
+   *
+   * Master classes only, for now: they are the product with a fixed price and
+   * a seat that has to be paid for, so "here is how to pay" is a true and
+   * useful thing to say the moment the form is submitted. A tour enquiry is
+   * the start of a conversation about an itinerary, and an automatic payment
+   * instruction would be wrong.
+   *
+   * Never allowed to fail the request. The enquiry is already stored and the
+   * operator already alerted; a failed email is logged with everything needed
+   * to send it by hand.
+   */
+  if (lead.kind === "masterclass" && stored) {
+    void sendBookingEmail(lead).catch((err) =>
+      console.error("EMAIL-LOST: booking email threw.", err),
+    );
   }
 
   const notified = await notifyTelegram(lines.join("\n"));

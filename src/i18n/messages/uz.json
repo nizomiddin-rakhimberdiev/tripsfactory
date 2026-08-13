@@ -195,5 +195,33 @@
     "privacyTitle": "Maxfiylik siyosati",
     "termsTitle": "Foydalanish shartlari",
     "updated": "Oxirgi yangilanish"
+  },
+  "email": {
+    "hi": "Assalomu alaykum, {name}!",
+    "questions": "Savolingiz bo'lsa — shu xatga javob yozing yoki Telegram orqali murojaat qiling.",
+    "footer": "TripsFactory · Toshkent, O'zbekiston",
+    "labels": {
+      "class": "Masterklass",
+      "date": "Sana",
+      "guests": "Kishilar",
+      "price": "Narxi",
+      "perPerson": "kishiga"
+    },
+    "request": {
+      "subject": "So'rovingiz qabul qilindi — {title}",
+      "intro": "Rahmat — so'rovingizni qabul qildik.",
+      "detailsTitle": "So'rovingiz",
+      "payTitle": "Joyni tasdiqlash uchun",
+      "payText": "Quyidagi havola orqali to'lovni amalga oshiring. Unga qadar joy siz uchun turadi, lekin band qilinmagan hisoblanadi.",
+      "payButton": "To'lov qilish",
+      "noPayText": "To'lov ma'lumotlarini tez orada yuboramiz."
+    },
+    "confirmed": {
+      "subject": "To'lovingiz qabul qilindi — {title}",
+      "intro": "To'lovingiz qabul qilindi, joyingiz tasdiqlandi. Sizni kutib qolamiz.",
+      "whenTitle": "Qachon",
+      "whereTitle": "Qayerda",
+      "changeText": "Rejangiz o'zgarsa, iloji boricha oldinroq xabar bering."
+    }
   }
 }

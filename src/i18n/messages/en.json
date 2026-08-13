@@ -195,5 +195,33 @@
     "privacyTitle": "Privacy Policy",
     "termsTitle": "Terms of Service",
     "updated": "Last updated"
+  },
+  "email": {
+    "hi": "Hello {name},",
+    "questions": "Any questions? Just reply to this email, or write to us on Telegram.",
+    "footer": "TripsFactory · Tashkent, Uzbekistan",
+    "labels": {
+      "class": "Master class",
+      "date": "Date",
+      "guests": "Guests",
+      "price": "Price",
+      "perPerson": "per person"
+    },
+    "request": {
+      "subject": "We have your request — {title}",
+      "intro": "Thank you — we have received your booking request.",
+      "detailsTitle": "Your request",
+      "payTitle": "To confirm your place",
+      "payText": "Please complete the payment using the link below. Until then your place is held, not booked.",
+      "payButton": "Pay now",
+      "noPayText": "We will write to you shortly with the payment details."
+    },
+    "confirmed": {
+      "subject": "Payment received — see you at {title}",
+      "intro": "Your payment has been received and your place is confirmed. We look forward to cooking with you.",
+      "whenTitle": "When",
+      "whereTitle": "Where",
+      "changeText": "If your plans change, please let us know as early as you can."
+    }
   }
 }

@@ -42,7 +42,12 @@ export default async function StudioPartnersPage() {
         payload.count({
           collection: "leads",
           where: {
-            and: [{ partner: { equals: p.id } }, { status: { equals: "closed" } }],
+            and: [
+              { partner: { equals: p.id } },
+              // Money in, by either route: the button that confirms a payment
+              // sets "paid", and an operator who settles offline closes it.
+              { status: { in: ["paid", "closed"] } },
+            ],
           },
         }),
       ]);
@@ -101,9 +106,9 @@ export default async function StudioPartnersPage() {
             </div>
           </div>
           <div className="s-stat">
-            <div className="s-stat__top">Yakunlangan</div>
+            <div className="s-stat__top">To&apos;langan</div>
             <div className="s-stat__value">{totals.closed}</div>
-            <div className="s-stat__sub">to&apos;langan deb belgilangan</div>
+            <div className="s-stat__sub">to&apos;lovi tasdiqlangan</div>
           </div>
           <div className="s-stat">
             <div className="s-stat__top">Cashback</div>
@@ -132,7 +137,7 @@ export default async function StudioPartnersPage() {
                 <th>Kod</th>
                 <th>Skanlar</th>
                 <th>So&apos;rovlar</th>
-                <th>Yakunlangan</th>
+                <th>To&apos;langan</th>
                 <th>Cashback</th>
                 <th>Holat</th>
               </tr>
@@ -176,9 +181,10 @@ export default async function StudioPartnersPage() {
           lineHeight: 1.7,
         }}
       >
-        Cashback <strong>yakunlangan</strong> so&apos;rovlar bo&apos;yicha
-        hisoblanadi — skan uchun emas. So&apos;rovni to&apos;lov tushgach
-        «Yopildi» holatiga o&apos;tkazing.
+        Cashback <strong>to&apos;langan</strong> so&apos;rovlar bo&apos;yicha
+        hisoblanadi — skan uchun emas. So&apos;rov ochilganda «To&apos;lov
+        qabul qilindi» tugmasini bosing: mijozga tasdiq xati ketadi va holat
+        o&apos;zi o&apos;zgaradi.
       </p>
     </>
   );

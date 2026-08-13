@@ -195,5 +195,33 @@
     "privacyTitle": "プライバシーポリシー",
     "termsTitle": "利用規約",
     "updated": "最終更新"
+  },
+  "email": {
+    "hi": "{name} 様",
+    "questions": "ご不明な点がございましたら、このメールにご返信いただくか、Telegram までご連絡ください。",
+    "footer": "TripsFactory · ウズベキスタン、タシュケント",
+    "labels": {
+      "class": "料理教室",
+      "date": "日付",
+      "guests": "人数",
+      "price": "料金",
+      "perPerson": "お一人様"
+    },
+    "request": {
+      "subject": "お申し込みを承りました — {title}",
+      "intro": "ありがとうございます。ご予約のお申し込みを承りました。",
+      "detailsTitle": "お申し込み内容",
+      "payTitle": "お席の確定について",
+      "payText": "下のリンクからお支払いをお願いいたします。お支払いまではお席をお取り置きしている状態で、確定ではございません。",
+      "payButton": "お支払いへ進む",
+      "noPayText": "お支払い方法については追ってご連絡いたします。"
+    },
+    "confirmed": {
+      "subject": "お支払いを確認しました — {title} でお待ちしています",
+      "intro": "お支払いを確認し、お席が確定いたしました。ご一緒に料理できるのを楽しみにしております。",
+      "whenTitle": "日時",
+      "whereTitle": "場所",
+      "changeText": "ご予定が変わりましたら、できるだけ早くお知らせください。"
+    }
   }
 }

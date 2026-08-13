@@ -525,6 +525,26 @@ export async function findPartnerByCode(
   return doc ? { id: doc.id, name: doc.name } : null;
 }
 
+/**
+ * The two settings the booking emails need: where to pay, and where to come.
+ *
+ * Read straight from the global rather than through getSiteContent, which maps
+ * heroes and would drag them into an API route that has no use for them.
+ */
+export async function getSiteBooking(): Promise<{
+  paymentUrl: string | null;
+  venue: string | null;
+}> {
+  const payload = await db();
+  const doc = await payload
+    .findGlobal({ slug: "site-content", depth: 0 })
+    .catch(() => null);
+  return {
+    paymentUrl: doc?.booking?.paymentUrl ?? null,
+    venue: doc?.booking?.venue ?? null,
+  };
+}
+
 export async function createLead(data: {
   name: string;
   email: string;

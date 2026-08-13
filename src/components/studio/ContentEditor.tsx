@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useToast } from "./ui";
+import { Field, useToast } from "./ui";
 import { ImagePicker, LocalizedText, type LocaleMap, type MediaRef } from "./fields";
 import { saveMessage, sendPerLocale } from "@/lib/studio/save";
 import { LOCALE_CODES } from "@/lib/studio/locales";
@@ -9,16 +9,21 @@ import { IconCheck } from "./icons";
 
 type Hero = { image: MediaRef; title: LocaleMap; subtitle: LocaleMap };
 
+export type Booking = { paymentUrl: string; venue: string };
+
 export function ContentEditor({
   initialHero,
   initialPremium,
+  initialBooking,
 }: {
   initialHero: Hero;
   initialPremium: Hero;
+  initialBooking: Booking;
 }) {
   const toast = useToast();
   const [hero, setHero] = useState<Hero>(initialHero);
   const [premium, setPremium] = useState<Hero>(initialPremium);
+  const [booking, setBooking] = useState<Booking>(initialBooking);
   const [saving, setSaving] = useState(false);
 
   async function save() {
@@ -36,6 +41,12 @@ export function ContentEditor({
             image: premium.image?.id ?? null,
             title: premium.title[loc] ?? "",
             subtitle: premium.subtitle[loc] ?? "",
+          },
+          // Not localized — a link and an address are the same in every
+          // language — so they ride along with each write unchanged.
+          booking: {
+            paymentUrl: booking.paymentUrl.trim(),
+            venue: booking.venue.trim(),
           },
         },
       ]),
@@ -84,6 +95,42 @@ export function ContentEditor({
       <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
         {block("Bosh sahifa hero", hero, setHero)}
         {block("Premium hero", premium, setPremium)}
+
+        <div className="s-card">
+          <div className="s-card__body">
+            <div className="s-section-title" style={{ margin: "0 0 16px" }}>
+              Bron va to&apos;lov
+            </div>
+            <div className="s-form">
+              <Field
+                label="To'lov havolasi"
+                help="Masterklassga so'rov kelganda mijozga shu havola bilan xat ketadi. Bo'sh qolsa xatda «to'lov ma'lumotlarini tez orada yuboramiz» deb yoziladi."
+              >
+                <input
+                  className="s-input"
+                  value={booking.paymentUrl}
+                  placeholder="https://..."
+                  onChange={(e) =>
+                    setBooking({ ...booking, paymentUrl: e.target.value })
+                  }
+                />
+              </Field>
+              <Field
+                label="Masterklass manzili"
+                help="To'lov tasdiqlangach yuboriladigan xatda ko'rsatiladi."
+              >
+                <input
+                  className="s-input"
+                  value={booking.venue}
+                  placeholder="Toshkent, ..."
+                  onChange={(e) =>
+                    setBooking({ ...booking, venue: e.target.value })
+                  }
+                />
+              </Field>
+            </div>
+          </div>
+        </div>
       </div>
       <div className="s-savebar">
         <span className="s-savebar__status">

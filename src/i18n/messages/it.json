@@ -195,5 +195,33 @@
     "privacyTitle": "Informativa sulla privacy",
     "termsTitle": "Termini di servizio",
     "updated": "Ultimo aggiornamento"
+  },
+  "email": {
+    "hi": "Gentile {name},",
+    "questions": "Domande? Risponda a questa email oppure ci scriva su Telegram.",
+    "footer": "TripsFactory · Tashkent, Uzbekistan",
+    "labels": {
+      "class": "Corso di cucina",
+      "date": "Data",
+      "guests": "Persone",
+      "price": "Prezzo",
+      "perPerson": "a persona"
+    },
+    "request": {
+      "subject": "Abbiamo ricevuto la sua richiesta — {title}",
+      "intro": "Grazie: abbiamo ricevuto la sua richiesta di prenotazione.",
+      "detailsTitle": "La sua richiesta",
+      "payTitle": "Per confermare il posto",
+      "payText": "Completi il pagamento con il link qui sotto. Fino ad allora il posto è tenuto da parte, ma non confermato.",
+      "payButton": "Paga ora",
+      "noPayText": "Le invieremo a breve i dati per il pagamento."
+    },
+    "confirmed": {
+      "subject": "Pagamento ricevuto — la aspettiamo a {title}",
+      "intro": "Abbiamo ricevuto il suo pagamento e il posto è confermato. Saremo felici di cucinare con lei.",
+      "whenTitle": "Quando",
+      "whereTitle": "Dove",
+      "changeText": "Se i suoi programmi cambiano, ce lo faccia sapere il prima possibile."
+    }
   }
 }

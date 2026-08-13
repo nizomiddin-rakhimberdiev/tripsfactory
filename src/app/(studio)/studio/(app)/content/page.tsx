@@ -30,19 +30,30 @@ export default async function StudioContentPage() {
     slug: "site-content",
     locale: "all",
     depth: 1,
-  })) as unknown as { hero?: RawHero; premiumHero?: RawHero };
+  })) as unknown as {
+    hero?: RawHero;
+    premiumHero?: RawHero;
+    booking?: { paymentUrl?: string | null; venue?: string | null };
+  };
 
   return (
     <ToastProvider>
       <div className="s-pagehead">
         <div className="s-pagehead__text">
           <h1>Bosh sahifa</h1>
-          <p>Bosh sahifa va Premium bo&apos;lim uchun hero rasm va matnlar.</p>
+          <p>
+            Bosh sahifa va Premium bo&apos;lim uchun hero rasm va matnlar,
+            hamda bron xatlarida ishlatiladigan to&apos;lov ma&apos;lumotlari.
+          </p>
         </div>
       </div>
       <ContentEditor
         initialHero={toHero(doc.hero)}
         initialPremium={toHero(doc.premiumHero)}
+        initialBooking={{
+          paymentUrl: doc.booking?.paymentUrl ?? "",
+          venue: doc.booking?.venue ?? "",
+        }}
       />
     </ToastProvider>
   );

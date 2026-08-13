@@ -565,7 +565,8 @@ export interface Lead {
   pax?: number | null;
   message?: string | null;
   locale?: string | null;
-  status?: ('new' | 'contacted' | 'closed') | null;
+  paidAt?: string | null;
+  status?: ('new' | 'contacted' | 'paid' | 'closed') | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -957,6 +958,7 @@ export interface LeadsSelect<T extends boolean = true> {
   pax?: T;
   message?: T;
   locale?: T;
+  paidAt?: T;
   status?: T;
   updatedAt?: T;
   createdAt?: T;
@@ -1052,6 +1054,16 @@ export interface SiteContent {
     title: string;
     subtitle: string;
   };
+  booking?: {
+    /**
+     * Mijozga yuboriladigan to'lov sahifasi. Bo'sh qolsa xatda «to'lov ma'lumotlarini tez orada yuboramiz» deb yoziladi.
+     */
+    paymentUrl?: string | null;
+    /**
+     * To'lov tasdiqlangach yuboriladigan xatda ko'rsatiladi. Masalan: Toshkent, Amir Temur ko'chasi 15.
+     */
+    venue?: string | null;
+  };
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -1073,6 +1085,12 @@ export interface SiteContentSelect<T extends boolean = true> {
         image?: T;
         title?: T;
         subtitle?: T;
+      };
+  booking?:
+    | T
+    | {
+        paymentUrl?: T;
+        venue?: T;
       };
   updatedAt?: T;
   createdAt?: T;

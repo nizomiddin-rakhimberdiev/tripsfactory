@@ -1206,6 +1206,12 @@ const Leads: CollectionConfig = {
     { name: "message", type: "textarea", label: "Xabar" },
     { name: "locale", type: "text", label: "Til" },
     {
+      name: "paidAt",
+      type: "date",
+      label: "To'lov tasdiqlangan vaqt",
+      admin: { readOnly: true },
+    },
+    {
       name: "status",
       type: "select",
       label: "Holat",
@@ -1213,6 +1219,7 @@ const Leads: CollectionConfig = {
       options: [
         { label: "Yangi", value: "new" },
         { label: "Bog'lanildi", value: "contacted" },
+        { label: "To'landi", value: "paid" },
         { label: "Yopildi", value: "closed" },
       ],
     },
@@ -1308,6 +1315,39 @@ export default buildConfig({
       fields: [
         heroGroup("hero", "Bosh sahifa hero"),
         heroGroup("premiumHero", "Premium hero"),
+        {
+          /**
+           * What the booking emails need and the site cannot know.
+           *
+           * The payment link is whatever the operator can actually take money
+           * with today — a bank invoice, a Payme link, later an acquirer's
+           * checkout. Left empty, the request email says the details are
+           * coming instead of showing an empty button.
+           */
+          name: "booking",
+          type: "group",
+          label: "Bron va to'lov",
+          fields: [
+            {
+              name: "paymentUrl",
+              type: "text",
+              label: "To'lov havolasi",
+              admin: {
+                description:
+                  "Mijozga yuboriladigan to'lov sahifasi. Bo'sh qolsa xatda «to'lov ma'lumotlarini tez orada yuboramiz» deb yoziladi.",
+              },
+            },
+            {
+              name: "venue",
+              type: "text",
+              label: "Masterklass manzili",
+              admin: {
+                description:
+                  "To'lov tasdiqlangach yuboriladigan xatda ko'rsatiladi. Masalan: Toshkent, Amir Temur ko'chasi 15.",
+              },
+            },
+          ],
+        },
       ],
     },
   ],
