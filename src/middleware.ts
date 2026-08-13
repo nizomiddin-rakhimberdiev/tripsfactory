@@ -22,9 +22,32 @@ const CANONICAL_HOST = "tripsfactory.com";
  *
  * www on the canonical domain folds in too, for the same reason.
  */
+/**
+ * Hosts that are not the public site and must be left alone: `next dev`,
+ * `opennextjs-cloudflare preview`, and a phone on the office network testing
+ * against a laptop.
+ *
+ * Without this the redirect below sends every local request to the live site —
+ * silently, and with a 301 the browser then caches. A test that looks like it
+ * passed locally has in fact been answered by production, which is the worst
+ * version of this bug: it does not fail, it lies.
+ */
+function isLocalHost(host: string): boolean {
+  return (
+    host === "localhost" ||
+    host === "127.0.0.1" ||
+    host === "[::1]" ||
+    host.endsWith(".localhost") ||
+    host.endsWith(".local") ||
+    /^(10|127)\./.test(host) ||
+    /^192\.168\./.test(host) ||
+    /^172\.(1[6-9]|2\d|3[01])\./.test(host)
+  );
+}
+
 function canonicalRedirect(request: NextRequest): NextResponse | null {
   const host = request.headers.get("host")?.split(":")[0].toLowerCase();
-  if (!host || host === CANONICAL_HOST) return null;
+  if (!host || host === CANONICAL_HOST || isLocalHost(host)) return null;
 
   const url = new URL(request.url);
   url.host = CANONICAL_HOST;
@@ -34,16 +57,17 @@ function canonicalRedirect(request: NextRequest): NextResponse | null {
 }
 
 /**
- * Paths next-intl must not touch: the API, the Payload admin and the Studio
- * are not localized, and letting the locale middleware near them rewrites
- * their URLs into /en/admin and breaks both panels.
+ * Paths next-intl must not touch: the API, the Payload admin, the Studio and
+ * the /r/<code> QR targets are not localized, and letting the locale
+ * middleware near them rewrites their URLs into /en/admin and breaks both
+ * panels. /r decides its own locale from the guest's browser and redirects.
  *
  * They used to be excluded by the matcher instead. That stopped working once
  * the redirect above needed to see every request — a matcher that skips
  * /admin also skips it on the wrong domain, which left tripsfactory.uz/admin
  * serving the panel under the non-canonical host.
  */
-const UNLOCALIZED = /^\/(api|admin|studio)(\/|$)/;
+const UNLOCALIZED = /^\/(api|admin|studio|r)(\/|$)/;
 
 export default function middleware(request: NextRequest) {
   const redirect = canonicalRedirect(request);
