@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { makeQr, type Qr } from "@/lib/studio/qr";
 
 export type SheetCode = { code: string; name: string; assigned: boolean };
 
@@ -22,31 +23,23 @@ export function QrSheet({
   codes: SheetCode[];
   origin: string;
 }) {
-  const [svgs, setSvgs] = useState<Record<string, string>>({});
+  const [qrs, setQrs] = useState<Record<string, Qr>>({});
 
   useEffect(() => {
     let alive = true;
-    void import("qrcode").then(async (QR) => {
-      const out: Record<string, string> = {};
+    void (async () => {
+      const out: Record<string, Qr> = {};
       for (const c of codes) {
-        out[c.code] = await QR.toString(`${origin}/r/${c.code}`, {
-          type: "svg",
-          margin: 0,
-          width: 300,
-          // Printed large, photographed under lobby lighting, sometimes with a
-          // scuffed corner. The highest correction level is worth the density.
-          errorCorrectionLevel: "H",
-          color: { dark: "#6e1218", light: "#ffffff" },
-        });
+        out[c.code] = await makeQr(`${origin}/r/${c.code}`);
       }
-      if (alive) setSvgs(out);
-    });
+      if (alive) setQrs(out);
+    })();
     return () => {
       alive = false;
     };
   }, [codes, origin]);
 
-  const ready = Object.keys(svgs).length === codes.length && codes.length > 0;
+  const ready = Object.keys(qrs).length === codes.length && codes.length > 0;
 
   /**
    * One SVG containing them all, laid out on a grid with each code labelled.
@@ -65,13 +58,13 @@ export function QrSheet({
       .map((c, i) => {
         const x = (i % COLS) * CELL;
         const y = Math.floor(i / COLS) * (CELL + LABEL);
-        // The encoder's own <svg> is dropped in as a group so the sheet stays
-        // one document rather than nested images.
-        const inner = svgs[c.code]
-          .replace(/^[\s\S]*?<svg[^>]*>/, "")
-          .replace(/<\/svg>\s*$/, "");
+        const qr = qrs[c.code];
+        // The module count comes from the code itself. Assuming it is how the
+        // first version of this shipped a sheet whose codes would have been
+        // drawn at the wrong scale — and clipped outright for any code longer
+        // than the one it was guessed from.
         return `<g transform="translate(${x + 20} ${y + 20})">
-  <svg width="${CELL - 40}" height="${CELL - 40}" viewBox="0 0 41 41" shape-rendering="crispEdges">${inner}</svg>
+  <svg width="${CELL - 40}" height="${CELL - 40}" viewBox="0 0 ${qr.size} ${qr.size}" shape-rendering="crispEdges">${qr.inner}</svg>
   <text x="${(CELL - 40) / 2}" y="${CELL - 40 + 30}" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="20" font-weight="600" fill="#6e1218">${c.code.toUpperCase()}</text>
 </g>`;
       })
@@ -122,7 +115,7 @@ ${cells}
           <figure key={c.code} className="s-qrsheet__cell">
             <div
               className="s-qrsheet__code"
-              dangerouslySetInnerHTML={{ __html: svgs[c.code] ?? "" }}
+              dangerouslySetInnerHTML={{ __html: qrs[c.code]?.svg ?? "" }}
             />
             <figcaption>
               <strong>{c.code.toUpperCase()}</strong>

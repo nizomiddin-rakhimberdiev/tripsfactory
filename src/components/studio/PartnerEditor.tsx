@@ -1,10 +1,11 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Field, useToast } from "./ui";
 import { IconCheck, IconDownload } from "./icons";
 import { fieldErrors, slugTaken, slugify } from "@/lib/studio/slug";
+import { makeQr } from "@/lib/studio/qr";
 
 export type PartnerInitial = {
   /** null while the record has not been created yet. */
@@ -270,23 +271,12 @@ function QrPanel({
 }) {
   const [svg, setSvg] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
-  const printRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     let alive = true;
-    void import("qrcode").then((QR) =>
-      QR.toString(link, {
-        type: "svg",
-        margin: 1,
-        width: 320,
-        // High correction: this gets printed, taped to a desk and photographed
-        // under lobby lighting. It should still scan with a corner scuffed.
-        errorCorrectionLevel: "H",
-        color: { dark: "#6e1218", light: "#ffffff" },
-      }).then((out) => {
-        if (alive) setSvg(out);
-      }),
-    );
+    void makeQr(link).then((qr) => {
+      if (alive) setSvg(qr.svg);
+    });
     return () => {
       alive = false;
     };
@@ -315,15 +305,7 @@ function QrPanel({
           }}
         >
           <div
-            ref={printRef}
-            style={{
-              width: 200,
-              height: 200,
-              background: "#fff",
-              borderRadius: 12,
-              padding: 8,
-              flexShrink: 0,
-            }}
+            className="s-qr"
             // The SVG comes from the QR encoder in this browser, from a string
             // this component built — no user input reaches it.
             dangerouslySetInnerHTML={{ __html: svg ?? "" }}

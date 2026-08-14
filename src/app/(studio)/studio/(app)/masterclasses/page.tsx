@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { connection } from "next/server";
 import { getPayloadClient } from "@/lib/studio/auth";
 
 export const dynamic = "force-dynamic";
@@ -11,6 +12,9 @@ function shortDate(iso?: string | null): string {
 }
 
 export default async function StudioMasterclassesPage() {
+  // Reads the clock to decide which session is still ahead — see the note on
+  // the dashboard.
+  await connection();
   const payload = await getPayloadClient();
   const res = await payload.find({
     collection: "masterclasses",

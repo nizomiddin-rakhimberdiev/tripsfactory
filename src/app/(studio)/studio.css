@@ -1541,6 +1541,26 @@
    The one Studio screen whose real output is paper. Everything the operator
    needs on screen is hidden when printing, so what reaches the print shop is
    the codes and nothing else. */
+/* The QR panel in the partner editor. The encoder's markup no longer carries
+   a pixel size, so the box decides — which is the whole point: it used to be
+   320px of SVG inside a 200px div, spilling over the page behind it. */
+.s-qr {
+  width: 200px;
+  max-width: 100%;
+  background: #fff;
+  border: 1px solid var(--s-border);
+  border-radius: 12px;
+  padding: 10px;
+  flex-shrink: 0;
+}
+
+.s-qr svg,
+.s-qrsheet__code svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
 .s-print-actions {
   display: flex;
   gap: 10px;
@@ -1596,7 +1616,27 @@
   .s-topbar,
   .s-savebar,
   .s-print-hide,
-  .s-print-actions {
+  /* The QR panel in the partner editor. The encoder's markup no longer carries
+   a pixel size, so the box decides — which is the whole point: it used to be
+   320px of SVG inside a 200px div, spilling over the page behind it. */
+.s-qr {
+  width: 200px;
+  max-width: 100%;
+  background: #fff;
+  border: 1px solid var(--s-border);
+  border-radius: 12px;
+  padding: 10px;
+  flex-shrink: 0;
+}
+
+.s-qr svg,
+.s-qrsheet__code svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.s-print-actions {
     display: none !important;
   }
   .s-shell,

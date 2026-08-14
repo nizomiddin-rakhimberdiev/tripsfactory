@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { connection } from "next/server";
 import { formatDateTime } from "@/lib/studio/datetime";
 import { getPayloadClient } from "@/lib/studio/auth";
 import {
@@ -43,6 +44,11 @@ const leadLabel: Record<string, string> = {
 };
 
 export default async function StudioDashboard() {
+  // "Today" is a wall-clock reading, which Next refuses to let a component
+  // take while it might be prerendering — `new Date()` comes back invalid and
+  // the whole dashboard falls to its error boundary. `connection()` is the
+  // documented way to say this page is answered per request, which it is.
+  await connection();
   const payload = await getPayloadClient();
 
   const startOfToday = new Date();

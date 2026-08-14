@@ -44,3 +44,6 @@ next-env.d.ts
 payload.db*
 /media
 
+
+# Screenshots from scripts/visual-check.mjs
+/visual-check
