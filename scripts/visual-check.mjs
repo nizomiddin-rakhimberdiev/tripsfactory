@@ -6,9 +6,12 @@
  * being run, all of which asked the server for a status code and grepped the
  * HTML for words. A person opened the page and saw it immediately.
  *
- * Per page: does the document scroll sideways, and is anything drawn larger
- * than the box it sits in that cannot be scrolled to. Screenshots are written
- * too, because some things only a pair of eyes will catch.
+ * Per page: does the document scroll sideways, is anything drawn larger than
+ * the box it sits in that cannot be scrolled to, and did the browser log an
+ * error. That last one was added after a hydration mismatch sat red in the
+ * console of the partner page while this script reported it clean — layout is
+ * only half of what "it renders" means. Screenshots are written too, because
+ * some things only a pair of eyes will catch.
  *
  *   npm run check:visual                    # against localhost:3000
  *   BASE=https://tripsfactory.com npm run check:visual
@@ -66,9 +69,37 @@ for (const width of [1440, 390]) {
   });
   const page = await ctx.newPage();
 
+  /** Console noise is per page; collected here, read after each navigation. */
+  let logged = [];
+  const note = (text) => {
+    const first = String(text).split("\n")[0].trim();
+    // Chrome's own advice lines and the dev overlay are not the app's fault.
+    if (/DevTools|Download the React DevTools|\[Fast Refresh\]/i.test(first)) return;
+    logged.push(first.slice(0, 200));
+  };
+  page.on("pageerror", (e) => note(e));
+  page.on("console", (m) => {
+    if (m.type() === "error") note(m.text());
+  });
+
+  /**
+   * Media lives in R2 in production and is not copied into the local
+   * miniflare bucket, so image previews 404 against localhost and nowhere
+   * else. Reported as a note rather than a failure — a check that cries wolf
+   * on every local run is a check people stop reading — but never hidden.
+   */
+  const localMedia = new Set();
+  page.on("response", (r) => {
+    if (r.status() === 404 && /\/api\/media\/file\//.test(r.url())) {
+      localMedia.add(r.url().split("/").pop());
+    }
+  });
+  const isLocal = /localhost|127\.0\.0\.1/.test(BASE);
+
   await signIn(page, BASE);
 
   for (const path of PAGES) {
+    logged = [];
     await page.goto(`${BASE}${path}`, { waitUntil: "networkidle" });
     await page.waitForTimeout(900); // QR codes are drawn after mount
 
@@ -127,7 +158,22 @@ for (const width of [1440, 390]) {
       return out;
     });
 
-    const bad = report.overflow.length || report.oversized.length;
+    const consoleErrors = [...new Set(logged)].filter(
+      (e) =>
+        !(
+          isLocal &&
+          localMedia.size > 0 &&
+          /Failed to load resource.*404/i.test(e)
+        ),
+    );
+    if (isLocal && localMedia.size) {
+      console.log(
+        `        note: ${localMedia.size} media file(s) not in the local R2 bucket (${[...localMedia].slice(0, 2).join(", ")}) — expected off production`,
+      );
+      localMedia.clear();
+    }
+    const bad =
+      report.overflow.length || report.oversized.length || consoleErrors.length;
     console.log(
       `${bad ? "✗" : "✓"} ${String(width).padStart(4)}px  ${path}` +
         (report.overflow.length
@@ -139,6 +185,7 @@ for (const width of [1440, 390]) {
         `        ${o.tag}.${o.cls} ${o.box.join("×")} inside ${o.parent.join("×")}${o.spillsRight ? " — past the right edge" : ""}`,
       );
     }
+    for (const e of consoleErrors) console.log(`        console: ${e}`);
     if (bad) problems.push(`${width}px ${path}`);
   }
   await ctx.close();

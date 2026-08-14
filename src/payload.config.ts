@@ -8,6 +8,7 @@ import { vercelBlobStorage } from "@payloadcms/storage-vercel-blob";
 import { r2Storage } from "@payloadcms/storage-r2";
 import type { CloudflareContext } from "@opennextjs/cloudflare";
 import type { GetPlatformProxyOptions } from "wrangler";
+import { APIError } from "payload";
 import type {
   Access,
   CollectionConfig,
@@ -980,6 +981,42 @@ const Masterclasses: CollectionConfig = {
 const Partners: CollectionConfig = {
   slug: "partners",
   labels: { singular: "Hamkor", plural: "Hamkorlar" },
+  hooks: {
+    /**
+     * Deleting a partner used to answer 500.
+     *
+     * Two foreign keys point at it. `partner_visits.partner_id` is NOT NULL
+     * and declared ON DELETE SET NULL, which is a contradiction SQLite
+     * resolves by refusing — so a single scan made a partner undeletable with
+     * no explanation. Scans mean nothing without the partner they counted, so
+     * they go with it.
+     *
+     * Enquiries are different: they are what the cashback was calculated from.
+     * A partner with any is refused, and told why — the answer there is to
+     * switch it off, not to erase the month it earned.
+     */
+    beforeDelete: [
+      async ({ req, id }) => {
+        const leads = await req.payload.count({
+          collection: "leads",
+          where: { partner: { equals: id } },
+        });
+        if (leads.totalDocs > 0) {
+          throw new APIError(
+            `Bu hamkordan ${leads.totalDocs} ta so'rov kelgan — o'chirib bo'lmaydi, ` +
+              "chunki cashback hisobi shularga tayanadi. O'rniga «Faol» katagini olib tashlang: " +
+              "QR kod ishlamay qoladi, tarix esa saqlanadi.",
+            400,
+          );
+        }
+        await req.payload.delete({
+          collection: "partner-visits",
+          where: { partner: { equals: id } },
+          overrideAccess: true,
+        });
+      },
+    ],
+  },
   admin: {
     useAsTitle: "name",
     group: "Mijozlar",

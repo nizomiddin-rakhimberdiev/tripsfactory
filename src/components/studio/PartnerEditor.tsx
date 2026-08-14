@@ -37,17 +37,33 @@ const TYPES = [
  * so keeping a generated image in the media library would only create a second
  * thing that can fall out of date with the code it encodes.
  */
-export function PartnerEditor({ initial }: { initial: PartnerInitial }) {
+export function PartnerEditor({
+  initial,
+  origin,
+}: {
+  initial: PartnerInitial;
+  /**
+   * Where the QR points, passed in rather than read from `window`.
+   *
+   * It used to be `typeof window !== "undefined" ? window.location.origin : ""`,
+   * which is two different strings: the server rendered "/r/lumar" and the
+   * browser rendered "https://tripsfactory.com/r/lumar". React saw the text
+   * change under it and threw a hydration error — the red #418 in the console
+   * on every partner page.
+   *
+   * It also has to be the public site, not whatever host the Studio happens to
+   * be open on: a QR generated from localhost and sent to a print shop is a
+   * banner nobody can scan.
+   */
+  origin: string;
+}) {
   const router = useRouter();
   const toast = useToast();
   const [p, setP] = useState<PartnerInitial>(initial);
   const [saving, setSaving] = useState(false);
   const patch = (v: Partial<PartnerInitial>) => setP((old) => ({ ...old, ...v }));
 
-  const link =
-    typeof window !== "undefined"
-      ? `${window.location.origin}/r/${p.code || "…"}`
-      : `/r/${p.code}`;
+  const link = `${origin}/r/${p.code}`;
 
   async function save() {
     const code = slugify(p.code.trim() || p.name);

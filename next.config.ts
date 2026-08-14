@@ -29,7 +29,16 @@ const withNextIntl = createNextIntlPlugin("./src/i18n/request.ts");
  * find out at the worst moment, so those paths report instead of block until
  * someone signs in and confirms the console is clean.
  */
-const csp = [
+/**
+ * `upgrade-insecure-requests` is only meaningful when the policy is enforced.
+ * Delivered report-only — which is how /admin and /studio get it — every
+ * browser logs "the directive is ignored" on every page load, so the two
+ * screens the client works in all day open with a red console. The directive
+ * is kept where it does something and dropped where it does not.
+ */
+const REPORT_ONLY_IGNORES = ["upgrade-insecure-requests"];
+
+const cspParts = [
   "default-src 'self'",
   // Cloudflare injects its Web Analytics beacon into every response on the
   // zone. This policy was written by crawling the Vercel deployment, where
@@ -54,7 +63,12 @@ const csp = [
   "form-action 'self'",
   "object-src 'none'",
   "upgrade-insecure-requests",
-].join("; ");
+];
+
+const csp = cspParts.join("; ");
+const cspReportOnly = cspParts
+  .filter((d) => !REPORT_ONLY_IGNORES.includes(d))
+  .join("; ");
 
 const nextConfig: NextConfig = {
   outputFileTracingRoot: __dirname,
@@ -136,11 +150,15 @@ const nextConfig: NextConfig = {
       // adjacent parameters, and the literal prefix is what makes each valid.
       {
         source: "/admin/:path*",
-        headers: [{ key: "Content-Security-Policy-Report-Only", value: csp }],
+        headers: [
+          { key: "Content-Security-Policy-Report-Only", value: cspReportOnly },
+        ],
       },
       {
         source: "/studio/:path*",
-        headers: [{ key: "Content-Security-Policy-Report-Only", value: csp }],
+        headers: [
+          { key: "Content-Security-Policy-Report-Only", value: cspReportOnly },
+        ],
       },
     ];
   },

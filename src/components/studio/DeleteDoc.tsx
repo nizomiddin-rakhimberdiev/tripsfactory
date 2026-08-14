@@ -38,9 +38,17 @@ export function DeleteDoc({
     if (!res?.ok) {
       setBusy(false);
       setArmed(false);
-      // The usual cause is a tour still pointing at this city or country.
+      // Where the server explains itself, say what it said. A partner that
+      // cannot be removed because enquiries depend on it is a rule with a
+      // reason, and "something is probably linked" wastes the reader's time.
+      const body = (await res?.json().catch(() => null)) as {
+        errors?: { message?: string }[];
+      } | null;
+      const explained = body?.errors?.[0]?.message;
       toast(
-        "O'chirilmadi — bu yozuvga boshqa joydan havola bo'lishi mumkin",
+        explained && !/something went wrong/i.test(explained)
+          ? explained
+          : "O'chirilmadi — bu yozuvga boshqa joydan havola bo'lishi mumkin",
         "error",
       );
       return;

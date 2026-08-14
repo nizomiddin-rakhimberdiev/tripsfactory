@@ -5,6 +5,7 @@ import {
   type PartnerInitial,
 } from "@/components/studio/PartnerEditor";
 import { IconChevron } from "@/components/studio/icons";
+import { SITE_URL } from "@/lib/seo";
 
 export const dynamic = "force-dynamic";
 
@@ -51,7 +52,7 @@ export default function NewPartnerPage() {
           <h1>Yangi hamkor</h1>
         </div>
       </div>
-      <PartnerEditor initial={EMPTY} />
+      <PartnerEditor initial={EMPTY} origin={SITE_URL} />
       <p
         style={{
           marginTop: 14,

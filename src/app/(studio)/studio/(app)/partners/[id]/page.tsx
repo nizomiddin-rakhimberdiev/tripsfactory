@@ -8,6 +8,7 @@ import {
   type PartnerInitial,
 } from "@/components/studio/PartnerEditor";
 import { IconChevron } from "@/components/studio/icons";
+import { SITE_URL } from "@/lib/seo";
 import { formatDateTime } from "@/lib/studio/datetime";
 import { formatUsd } from "@/lib/currency";
 
@@ -127,7 +128,7 @@ export default async function StudioPartnerEditPage({
         </div>
       </div>
 
-      <PartnerEditor initial={initial} />
+      <PartnerEditor initial={initial} origin={SITE_URL} />
 
       <div className="s-section-title" style={{ marginTop: 28 }}>
         Shu hamkordan kelgan so&apos;rovlar
