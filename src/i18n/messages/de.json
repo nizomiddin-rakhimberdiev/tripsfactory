@@ -154,7 +154,15 @@
     "submit": "Anfrage senden",
     "sending": "Wird gesendet…",
     "success": "Vielen Dank! Wir melden uns innerhalb von 24 Stunden.",
-    "error": "Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut oder schreiben Sie uns direkt."
+    "error": "Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut oder schreiben Sie uns direkt.",
+    "people": "Anzahl der Personen",
+    "peopleMore": "Mehr als 10",
+    "peopleExact": "Wie viele Personen?",
+    "errName": "Bitte geben Sie Ihren Namen an.",
+    "errEmail": "Bitte geben Sie eine gültige E-Mail-Adresse an.",
+    "errPhoneRequired": "Bitte geben Sie Ihre Telefonnummer an — wir bestätigen Buchungen telefonisch.",
+    "errPhone": "Bitte im internationalen Format angeben, zum Beispiel +998 90 123 45 67.",
+    "errPeople": "Bitte geben Sie eine Zahl zwischen 1 und 100 an."
   },
   "footer": {
     "tagline": "Ihr Tor zur Seidenstraße.",

@@ -154,7 +154,15 @@
     "submit": "Enviar solicitud",
     "sending": "Enviando…",
     "success": "¡Gracias! Le contactaremos en un plazo de 24 horas.",
-    "error": "Algo salió mal. Inténtelo de nuevo o escríbanos directamente."
+    "error": "Algo salió mal. Inténtelo de nuevo o escríbanos directamente.",
+    "people": "Número de personas",
+    "peopleMore": "Más de 10",
+    "peopleExact": "¿Cuántas personas?",
+    "errName": "Indique su nombre.",
+    "errEmail": "Indique un correo electrónico válido.",
+    "errPhoneRequired": "Indique su teléfono: confirmamos las reservas por teléfono.",
+    "errPhone": "Escriba el número en formato internacional, por ejemplo +998 90 123 45 67.",
+    "errPeople": "Indique un número entre 1 y 100."
   },
   "footer": {
     "tagline": "Su puerta a la Ruta de la Seda.",

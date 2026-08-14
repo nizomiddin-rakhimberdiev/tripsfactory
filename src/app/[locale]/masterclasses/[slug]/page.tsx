@@ -304,6 +304,8 @@ export default async function MasterclassPage({
               tourSlug={m.slug}
               kind="masterclass"
               compact
+              requirePhone
+              askGuests
               heading={t("bookTitle")}
               sessionDate={next?.date}
             />

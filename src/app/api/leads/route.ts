@@ -3,14 +3,25 @@ import { z } from "zod";
 import { createLead, findPartnerByCode, getMasterclass, getSiteBooking } from "@/lib/content";
 import { sendEmail } from "@/lib/email/send";
 import { requestEmail } from "@/lib/email/booking";
+import { MAX_GUESTS, isValidEmail, isValidPhone } from "@/lib/validate";
 import { REF_COOKIE } from "@/app/r/[code]/route";
 
 const leadSchema = z.object({
   name: z.string().min(1).max(100),
-  email: z.string().email().max(200),
-  phone: z.string().max(50).optional().or(z.literal("")),
+  // The same rules the form applies, applied again here. A browser is a
+  // suggestion; this is the boundary.
+  email: z
+    .string()
+    .max(200)
+    .refine(isValidEmail, "email"),
+  phone: z
+    .string()
+    .max(50)
+    .refine((v) => v === "" || isValidPhone(v), "phone")
+    .optional()
+    .or(z.literal("")),
   date: z.string().max(20).optional().or(z.literal("")),
-  pax: z.coerce.number().int().min(1).max(50).optional(),
+  pax: z.coerce.number().int().min(1).max(MAX_GUESTS).optional(),
   message: z.string().max(2000).optional().or(z.literal("")),
   tourSlug: z.string().max(120).optional(),
   kind: z.enum(["tour", "excursion", "masterclass"]).optional(),
@@ -77,33 +88,52 @@ function rateLimited(key: string): boolean {
  */
 async function notifyTelegram(text: string): Promise<boolean> {
   const token = process.env.TELEGRAM_BOT_TOKEN;
-  const chatId = process.env.TELEGRAM_CHAT_ID;
-  if (!token || !chatId) {
+  // Comma-separated, so a second person can be added by changing one secret
+  // rather than by a deploy. Every id is tried; the enquiry counts as
+  // delivered if any of them took it, because one blocked bot must not make
+  // the whole thing look lost.
+  const chatIds = (process.env.TELEGRAM_CHAT_ID ?? "")
+    .split(",")
+    .map((id) => id.trim())
+    .filter(Boolean);
+
+  if (!token || !chatIds.length) {
     console.error("LEAD-ALERT: Telegram env vars missing. Lead:", text);
     return false;
   }
-  try {
-    const res = await fetch(
-      `https://api.telegram.org/bot${token}/sendMessage`,
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ chat_id: chatId, text }),
-        signal: AbortSignal.timeout(8000),
-      },
-    );
-    if (!res.ok) {
-      console.error(
-        `LEAD-ALERT: Telegram rejected the message (${res.status}). Lead:`,
-        text,
-      );
-      return false;
-    }
-    return true;
-  } catch (err) {
-    console.error("LEAD-ALERT: Telegram unreachable. Lead:", text, err);
-    return false;
-  }
+
+  const results = await Promise.all(
+    chatIds.map(async (chatId) => {
+      try {
+        const res = await fetch(
+          `https://api.telegram.org/bot${token}/sendMessage`,
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ chat_id: chatId, text }),
+            signal: AbortSignal.timeout(8000),
+          },
+        );
+        if (!res.ok) {
+          console.error(
+            `LEAD-ALERT: Telegram rejected the message for ${chatId} (${res.status}).`,
+            text,
+          );
+          return false;
+        }
+        return true;
+      } catch (err) {
+        console.error(
+          `LEAD-ALERT: Telegram unreachable for ${chatId}.`,
+          text,
+          err,
+        );
+        return false;
+      }
+    }),
+  );
+
+  return results.some(Boolean);
 }
 
 /**
@@ -158,9 +188,30 @@ export async function POST(request: Request) {
 
   const parsed = leadSchema.safeParse(body);
   if (!parsed.success) {
-    return NextResponse.json({ error: "invalid_input" }, { status: 400 });
+    // Which field, not just "invalid": a form that has to guess cannot tell
+    // the visitor anything useful, and this route is also called by the
+    // Studio's own tests.
+    return NextResponse.json(
+      {
+        error: "invalid_input",
+        fields: parsed.error.issues.map((i) => i.path.join(".")),
+      },
+      { status: 400 },
+    );
   }
   const lead = parsed.data;
+
+  /**
+   * A booking is confirmed by telephone, so a master class needs one.
+   * Enforced here rather than only in the form, for the same reason as
+   * everything else on this boundary.
+   */
+  if (lead.kind === "masterclass" && !lead.phone?.trim()) {
+    return NextResponse.json(
+      { error: "invalid_input", fields: ["phone"] },
+      { status: 400 },
+    );
+  }
 
   // Honeypot filled → pretend success, drop silently
   if (lead.website) return NextResponse.json({ ok: true });
