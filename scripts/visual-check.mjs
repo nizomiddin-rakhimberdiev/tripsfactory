@@ -39,6 +39,11 @@ async function signIn(page, BASE) {
   await page.goto(`${BASE}/studio/login`, { waitUntil: "domcontentloaded" });
   await page.fill('input[type="email"]', "admin@tripsfactory.uz");
   await page.fill('input[type="password"]', "trips-admin");
+  // The submit button is disabled until the form hydrates; waiting for it is
+  // what stops this from racing the page and submitting plain HTML.
+  await page.waitForSelector('button[type="submit"]:not([disabled])', {
+    timeout: 20000,
+  });
   await Promise.all([
     // Away from the login page — not merely "a /studio URL", which the login
     // page itself satisfies. That mistake made the whole check pass against

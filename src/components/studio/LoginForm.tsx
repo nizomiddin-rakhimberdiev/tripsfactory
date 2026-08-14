@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useSyncExternalStore } from "react";
 import { useRouter } from "next/navigation";
 import { IconLock } from "./icons";
 
@@ -8,6 +8,26 @@ export function LoginForm() {
   const router = useRouter();
   const [status, setStatus] = useState<"idle" | "loading" | "error">("idle");
   const [error, setError] = useState("");
+  /**
+   * Whether the handler below is actually attached yet.
+   *
+   * Until React hydrates, this is plain HTML: a form with no action and no
+   * method, so pressing the button makes the browser submit it as a GET to
+   * the current URL — and the password goes into the address bar, the
+   * browser's history and every access log on the way. Caught on the live
+   * site, where hydration is slow enough to beat a fast typist; locally it
+   * never happened.
+   *
+   * Disabling the button until then removes the pre-hydration path entirely.
+   * `useSyncExternalStore` is how React itself answers "am I on the client
+   * yet" — the server snapshot is false, the client snapshot is true, and it
+   * costs no extra render.
+   */
+  const ready = useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false,
+  );
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -46,7 +66,9 @@ export function LoginForm() {
         </div>
         <p className="s-login__sub">Boshqaruv paneliga kirish</p>
         {status === "error" && <div className="s-login__error">{error}</div>}
-        <form className="s-form" onSubmit={onSubmit}>
+        {/* Belt as well as braces: if the button is ever reachable before
+            hydration, POST at least keeps the credentials out of the URL. */}
+        <form className="s-form" method="post" onSubmit={onSubmit}>
           <div className="s-field">
             <label className="s-field__label" htmlFor="email">
               Email
@@ -78,10 +100,10 @@ export function LoginForm() {
           <button
             type="submit"
             className="s-btn s-btn--primary"
-            disabled={status === "loading"}
+            disabled={status === "loading" || !ready}
             style={{ height: 42, width: "100%", marginTop: 4 }}
           >
-            {status === "loading" ? (
+            {status === "loading" || !ready ? (
               <span className="s-spin" />
             ) : (
               <>
