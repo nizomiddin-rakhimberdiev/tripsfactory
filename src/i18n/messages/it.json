@@ -222,14 +222,16 @@
       "payTitle": "Per confermare il posto",
       "payText": "Completi il pagamento con il link qui sotto. Fino ad allora il posto è tenuto da parte, ma non confermato.",
       "payButton": "Paga ora",
-      "noPayText": "Le invieremo a breve i dati per il pagamento."
+      "noPayText": "Le invieremo a breve i dati per il pagamento.",
+      "subjectShort": "Richiesta ricevuta"
     },
     "confirmed": {
       "subject": "Pagamento ricevuto — la aspettiamo a {title}",
       "intro": "Abbiamo ricevuto il suo pagamento e il posto è confermato. Saremo felici di cucinare con lei.",
       "whenTitle": "Quando",
       "whereTitle": "Dove",
-      "changeText": "Se i suoi programmi cambiano, ce lo faccia sapere il prima possibile."
+      "changeText": "Se i suoi programmi cambiano, ce lo faccia sapere il prima possibile.",
+      "subjectShort": "Pagamento ricevuto"
     }
   }
 }

@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { STUDIO_LOCALES } from "@/lib/studio/locales";
 import { Field } from "./ui";
 import { IconImage, IconPlus, IconTrash, IconUpload, IconX } from "./icons";
+import { proseWarnings } from "@/lib/studio/prose";
 
 export type LocaleMap = Record<string, string>;
 export type MediaRef = {
@@ -11,6 +12,47 @@ export type MediaRef = {
   url?: string | null;
   filename?: string | null;
 } | null;
+
+/**
+ * What the browser needs to spell-check a field, and what it needs to know
+ * *not* to.
+ *
+ * A text box with no `lang` is checked against whatever dictionary the
+ * browser's own interface uses. On an English-language Chrome that means the
+ * Uzbek and Russian tabs are underlined end to end, which trains an editor to
+ * ignore the red line entirely — and then the English typo goes out too.
+ * Naming the language per tab makes the marks mean something.
+ */
+const spellProps = (locale: string) => ({
+  lang: locale,
+  spellCheck: true,
+  // A slug or a code is not prose; the caller turns this off for those.
+  autoCorrect: "off" as const,
+  autoCapitalize: "off" as const,
+});
+
+/**
+ * The mechanical slips, shown under the English field only.
+ *
+ * English is where this matters: it is the language everything is written in
+ * first and machine-translated from, so a doubled word there is repeated into
+ * seven others. Never blocks a save.
+ */
+function ProseHints({ text, locale }: { text: string; locale: string }) {
+  if (locale !== "en") return null;
+  const warnings = proseWarnings(text);
+  if (!warnings.length) return null;
+  return (
+    <div className="s-prose-hints">
+      {warnings.map((w) => (
+        <span key={w.message + (w.sample ?? "")} className="s-prose-hint">
+          {w.message}
+          {w.sample ? <code>{w.sample}</code> : null}
+        </span>
+      ))}
+    </div>
+  );
+}
 
 /* --------------------------------------------------------------- locale tabs */
 function LocaleTabs({
@@ -74,16 +116,19 @@ export function LocalizedText({
       {textarea ? (
         <textarea
           className="s-textarea"
+          {...spellProps(active)}
           value={value[active] ?? ""}
           onChange={(e) => set(e.target.value)}
         />
       ) : (
         <input
           className="s-input"
+          {...spellProps(active)}
           value={value[active] ?? ""}
           onChange={(e) => set(e.target.value)}
         />
       )}
+      <ProseHints text={value[active] ?? ""} locale={active} />
     </Field>
   );
 }
@@ -118,6 +163,7 @@ export function LocalizedList({
           <div key={i} style={{ display: "flex", gap: 8 }}>
             <input
               className="s-input"
+              {...spellProps(active)}
               value={item.text}
               onChange={(e) => {
                 const next = [...list];
@@ -186,6 +232,7 @@ export function LocalizedItinerary({
             <div className="s-repeat__fields">
               <input
                 className="s-input"
+                {...spellProps(active)}
                 placeholder="Kun sarlavhasi"
                 value={item.title}
                 onChange={(e) => {
@@ -196,6 +243,7 @@ export function LocalizedItinerary({
               />
               <textarea
                 className="s-textarea"
+                {...spellProps(active)}
                 placeholder="Tavsif"
                 value={item.description}
                 onChange={(e) => {
@@ -259,6 +307,7 @@ export function LocalizedSections({
             <div className="s-repeat__fields">
               <input
                 className="s-input"
+                {...spellProps(active)}
                 placeholder="Sarlavha"
                 value={item.heading}
                 onChange={(e) => {
@@ -269,6 +318,7 @@ export function LocalizedSections({
               />
               <textarea
                 className="s-textarea"
+                {...spellProps(active)}
                 placeholder="Matn"
                 value={item.body}
                 onChange={(e) => {
@@ -333,6 +383,7 @@ export function LocalizedReviews({
             <div className="s-repeat__fields">
               <input
                 className="s-input"
+                {...spellProps(active)}
                 placeholder="Ism (masalan: Anna, Germaniya)"
                 value={item.author}
                 onChange={(e) => {
@@ -343,6 +394,7 @@ export function LocalizedReviews({
               />
               <textarea
                 className="s-textarea"
+                {...spellProps(active)}
                 placeholder="Fikr matni"
                 value={item.text}
                 onChange={(e) => {

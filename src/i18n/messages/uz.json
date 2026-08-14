@@ -222,14 +222,16 @@
       "payTitle": "Joyni tasdiqlash uchun",
       "payText": "Quyidagi havola orqali to'lovni amalga oshiring. Unga qadar joy siz uchun turadi, lekin band qilinmagan hisoblanadi.",
       "payButton": "To'lov qilish",
-      "noPayText": "To'lov ma'lumotlarini tez orada yuboramiz."
+      "noPayText": "To'lov ma'lumotlarini tez orada yuboramiz.",
+      "subjectShort": "So'rov qabul qilindi"
     },
     "confirmed": {
       "subject": "To'lovingiz qabul qilindi — {title}",
       "intro": "To'lovingiz qabul qilindi, joyingiz tasdiqlandi. Sizni kutib qolamiz.",
       "whenTitle": "Qachon",
       "whereTitle": "Qayerda",
-      "changeText": "Rejangiz o'zgarsa, iloji boricha oldinroq xabar bering."
+      "changeText": "Rejangiz o'zgarsa, iloji boricha oldinroq xabar bering.",
+      "subjectShort": "To'lov qabul qilindi"
     }
   }
 }

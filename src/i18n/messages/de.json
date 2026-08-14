@@ -222,14 +222,16 @@
       "payTitle": "So sichern Sie Ihren Platz",
       "payText": "Bitte schließen Sie die Zahlung über den Link unten ab. Bis dahin ist Ihr Platz vorgemerkt, aber nicht gebucht.",
       "payButton": "Jetzt bezahlen",
-      "noPayText": "Die Zahlungsdaten senden wir Ihnen in Kürze."
+      "noPayText": "Die Zahlungsdaten senden wir Ihnen in Kürze.",
+      "subjectShort": "Anfrage erhalten"
     },
     "confirmed": {
       "subject": "Zahlung erhalten — wir sehen uns bei {title}",
       "intro": "Ihre Zahlung ist eingegangen und Ihr Platz ist bestätigt. Wir freuen uns aufs gemeinsame Kochen.",
       "whenTitle": "Wann",
       "whereTitle": "Wo",
-      "changeText": "Sollten sich Ihre Pläne ändern, sagen Sie uns bitte so früh wie möglich Bescheid."
+      "changeText": "Sollten sich Ihre Pläne ändern, sagen Sie uns bitte so früh wie möglich Bescheid.",
+      "subjectShort": "Zahlung erhalten"
     }
   }
 }

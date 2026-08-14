@@ -222,14 +222,16 @@
       "payTitle": "Para confirmar su plaza",
       "payText": "Complete el pago con el enlace de abajo. Hasta entonces su plaza queda reservada, pero no confirmada.",
       "payButton": "Pagar ahora",
-      "noPayText": "Le enviaremos los datos de pago en breve."
+      "noPayText": "Le enviaremos los datos de pago en breve.",
+      "subjectShort": "Solicitud recibida"
     },
     "confirmed": {
       "subject": "Pago recibido — le esperamos en {title}",
       "intro": "Hemos recibido su pago y su plaza está confirmada. Nos hará ilusión cocinar con usted.",
       "whenTitle": "Cuándo",
       "whereTitle": "Dónde",
-      "changeText": "Si sus planes cambian, avísenos con la mayor antelación posible."
+      "changeText": "Si sus planes cambian, avísenos con la mayor antelación posible.",
+      "subjectShort": "Pago recibido"
     }
   }
 }

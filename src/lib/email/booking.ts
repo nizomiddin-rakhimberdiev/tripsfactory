@@ -19,8 +19,7 @@ import de from "@/i18n/messages/de.json";
  *
  * Imported rather than fetched through `getTranslations`: these are sent from
  * an API route and from a Studio action, neither of which has the request
- * locale context next-intl's server helpers read from. The guest's language is
- * whatever they were reading the site in when they wrote to us.
+ * locale context next-intl's server helpers read from.
  */
 type Messages = typeof en;
 
@@ -104,11 +103,31 @@ function button(href: string, label: string): string {
     </td></tr></table>`;
 }
 
+/**
+ * Booking mail goes out in Russian and English, together, whatever language
+ * the guest was reading the site in.
+ *
+ * It used to follow their locale, which is the better idea in theory and the
+ * wrong one here: a hotel receptionist scans the code to show a guest, an
+ * Uzbek phone picks Uzbek, and the guest gets an email in a language nobody
+ * in the conversation reads. Two languages in one message costs a little
+ * length and removes the guess.
+ *
+ * The other six locales stay translated in the message files — this is one
+ * constant away from following the guest again if that day comes.
+ */
+export const EMAIL_LOCALES = ["ru", "en"] as const;
+type EmailLocale = (typeof EMAIL_LOCALES)[number];
+
+/** A divider between the two halves, so neither reads as a continuation. */
+const DIVIDER = `<tr><td style="padding:26px 0 0;"><div style="border-top:1px solid ${LINE};"></div></td></tr>`;
+
 export type BookingEmailInput = {
   name: string;
-  locale: string;
-  /** The master class as the guest saw it named, in their language. */
-  title: string;
+  /** Kept for the record; no longer decides the language. */
+  locale?: string;
+  /** The class as each language names it. */
+  titles: Record<EmailLocale, string>;
   /** ISO yyyy-mm-dd of the session they asked about, if there was one. */
   date?: string | null;
   guests?: number | null;
@@ -119,23 +138,26 @@ export type BookingEmailInput = {
   venue?: string | null;
 };
 
-const contactFooter = (questions: string, footer: string) =>
-  `${escape(questions)}<br><br>
+/**
+ * The contact block, written once at the foot of the message rather than in
+ * each language: an address, a phone number and a link read the same in both.
+ */
+const contactFooter = (questions: string[], footer: string) =>
+  `${questions.map(escape).join("<br>")}<br><br>
    <a href="mailto:${EMAIL}" style="color:${BRAND};text-decoration:none;">${EMAIL}</a> ·
    <a href="tel:${PHONE.href}" style="color:${BRAND};text-decoration:none;">${PHONE.display}</a> ·
    <a href="${TELEGRAM}" style="color:${BRAND};text-decoration:none;">Telegram</a><br>
    ${escape(footer)}`;
 
-/** Sent the moment an enquiry arrives: we have it, and here is how to pay. */
-export function requestEmail(input: BookingEmailInput) {
-  const t = translator(input.locale);
-  const loc = ((locales as readonly string[]).includes(input.locale)
-    ? input.locale
-    : "en") as Locale;
+export type BookingEmail = { subject: string; html: string; text: string };
 
+/** One language's half of the message. */
+function requestBlock(locale: EmailLocale, input: BookingEmailInput) {
+  const t = translator(locale);
+  const title = input.titles[locale];
   const details = [
-    row(t("labels.class"), input.title),
-    input.date ? row(t("labels.date"), formatDate(input.date, loc)) : "",
+    row(t("labels.class"), title),
+    input.date ? row(t("labels.date"), formatDate(input.date, locale)) : "",
     input.guests ? row(t("labels.guests"), String(input.guests)) : "",
     input.priceUsd
       ? row(
@@ -151,23 +173,19 @@ export function requestEmail(input: BookingEmailInput) {
        ${button(input.paymentUrl, t("request.payButton"))}`
     : `<p style="margin:26px 0 0;color:${MUTED};">${escape(t("request.noPayText"))}</p>`;
 
-  const html = shell({
-    preheader: t("request.intro"),
-    body: `<p style="margin:0 0 14px;">${escape(t("hi", { name: input.name }))}</p>
-      <p style="margin:0 0 22px;">${escape(t("request.intro"))}</p>
-      <h2 style="margin:0 0 6px;font:600 16px/1.4 inherit;">${escape(t("request.detailsTitle"))}</h2>
-      <table role="presentation" cellpadding="0" cellspacing="0" style="width:100%;border-top:1px solid ${LINE};margin-top:6px;">${details}</table>
-      ${pay}`,
-    footer: contactFooter(t("questions"), t("footer")),
-  });
+  const html = `<p style="margin:0 0 14px;">${escape(t("hi", { name: input.name }))}</p>
+    <p style="margin:0 0 22px;">${escape(t("request.intro"))}</p>
+    <h2 style="margin:0 0 6px;font:600 16px/1.4 inherit;">${escape(t("request.detailsTitle"))}</h2>
+    <table role="presentation" cellpadding="0" cellspacing="0" style="width:100%;border-top:1px solid ${LINE};margin-top:6px;">${details}</table>
+    ${pay}`;
 
   const text = [
     t("hi", { name: input.name }),
     "",
     t("request.intro"),
     "",
-    `${t("labels.class")}: ${input.title}`,
-    input.date ? `${t("labels.date")}: ${formatDate(input.date, loc)}` : "",
+    `${t("labels.class")}: ${title}`,
+    input.date ? `${t("labels.date")}: ${formatDate(input.date, locale)}` : "",
     input.guests ? `${t("labels.guests")}: ${input.guests}` : "",
     input.priceUsd
       ? `${t("labels.price")}: ${formatUsd(input.priceUsd)} / ${t("labels.perPerson")}`
@@ -176,71 +194,102 @@ export function requestEmail(input: BookingEmailInput) {
     input.paymentUrl
       ? `${t("request.payTitle")}: ${t("request.payText")}\n${input.paymentUrl}`
       : t("request.noPayText"),
-    "",
-    t("questions"),
-    `${EMAIL} · ${PHONE.display} · ${TELEGRAM}`,
-    t("footer"),
   ]
     .filter((line) => line !== "")
     .join("\n");
 
-  return {
-    subject: t("request.subject", { title: input.title }),
-    html,
-    text,
-  };
+  return { html, text, questions: t("questions"), footer: t("footer") };
 }
 
-/** Sent when the operator confirms the money arrived. */
-export function confirmedEmail(input: BookingEmailInput) {
-  const t = translator(input.locale);
-  const loc = ((locales as readonly string[]).includes(input.locale)
-    ? input.locale
-    : "en") as Locale;
-
+function confirmedBlock(locale: EmailLocale, input: BookingEmailInput) {
+  const t = translator(locale);
+  const title = input.titles[locale];
   const details = [
-    row(t("labels.class"), input.title),
+    row(t("labels.class"), title),
     input.date
-      ? row(t("confirmed.whenTitle"), formatDate(input.date, loc, "full"))
+      ? row(t("confirmed.whenTitle"), formatDate(input.date, locale, "full"))
       : "",
     input.venue ? row(t("confirmed.whereTitle"), input.venue) : "",
     input.guests ? row(t("labels.guests"), String(input.guests)) : "",
   ].join("");
 
-  const html = shell({
-    preheader: t("confirmed.intro"),
-    body: `<p style="margin:0 0 14px;">${escape(t("hi", { name: input.name }))}</p>
-      <p style="margin:0 0 22px;">${escape(t("confirmed.intro"))}</p>
-      <table role="presentation" cellpadding="0" cellspacing="0" style="width:100%;border-top:1px solid ${LINE};">${details}</table>
-      <p style="margin:24px 0 0;color:${MUTED};">${escape(t("confirmed.changeText"))}</p>`,
-    footer: contactFooter(t("questions"), t("footer")),
-  });
+  const html = `<p style="margin:0 0 14px;">${escape(t("hi", { name: input.name }))}</p>
+    <p style="margin:0 0 22px;">${escape(t("confirmed.intro"))}</p>
+    <table role="presentation" cellpadding="0" cellspacing="0" style="width:100%;border-top:1px solid ${LINE};">${details}</table>
+    <p style="margin:24px 0 0;color:${MUTED};">${escape(t("confirmed.changeText"))}</p>`;
 
   const text = [
     t("hi", { name: input.name }),
     "",
     t("confirmed.intro"),
     "",
-    `${t("labels.class")}: ${input.title}`,
+    `${t("labels.class")}: ${title}`,
     input.date
-      ? `${t("confirmed.whenTitle")}: ${formatDate(input.date, loc, "full")}`
+      ? `${t("confirmed.whenTitle")}: ${formatDate(input.date, locale, "full")}`
       : "",
     input.venue ? `${t("confirmed.whereTitle")}: ${input.venue}` : "",
     "",
     t("confirmed.changeText"),
-    "",
-    t("questions"),
-    `${EMAIL} · ${PHONE.display} · ${TELEGRAM}`,
-    t("footer"),
   ]
     .filter((line) => line !== "")
     .join("\n");
 
-  return {
-    subject: t("confirmed.subject", { title: input.title }),
-    html,
-    text,
-  };
+  return { html, text, questions: t("questions"), footer: t("footer") };
+}
+
+/** Stacks the language halves into one message. */
+function compose(
+  blocks: { html: string; text: string; questions: string; footer: string }[],
+  subject: string,
+  preheader: string,
+): BookingEmail {
+  const html = shell({
+    preheader,
+    body: `<table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+      ${blocks
+        .map(
+          (b, i) =>
+            `${i ? DIVIDER : ""}<tr><td style="padding:${i ? "24px" : "0"} 0 0;">${b.html}</td></tr>`,
+        )
+        .join("")}
+    </table>`,
+    // One contact block for the message, not one per language.
+    footer: contactFooter(
+      blocks.map((b) => b.questions),
+      blocks[blocks.length - 1].footer,
+    ),
+  });
+
+  // The language halves are separated once; the contact block is appended
+  // after them rather than treated as another half, which is what left the
+  // first version with an empty section and a rule between every line.
+  const text =
+    blocks.map((b) => b.text).join("\n\n———\n\n") +
+    "\n\n———\n\n" +
+    [
+      ...blocks.map((b) => b.questions),
+      "",
+      `${EMAIL} · ${PHONE.display} · ${TELEGRAM}`,
+      blocks[blocks.length - 1].footer,
+    ].join("\n");
+
+  return { subject, html, text };
+}
+
+/** Sent the moment an enquiry arrives: we have it, and here is how to pay. */
+export function requestEmail(input: BookingEmailInput): BookingEmail {
+  const blocks = EMAIL_LOCALES.map((l) => requestBlock(l, input));
+  // A subject line is cut short by every mail client, so the two languages
+  // share one title rather than repeating it.
+  const subject = `${translator("ru")("request.subjectShort")} / ${translator("en")("request.subjectShort")} — ${input.titles.en}`;
+  return compose(blocks, subject, translator("en")("request.intro"));
+}
+
+/** Sent when the operator confirms the money arrived. */
+export function confirmedEmail(input: BookingEmailInput): BookingEmail {
+  const blocks = EMAIL_LOCALES.map((l) => confirmedBlock(l, input));
+  const subject = `${translator("ru")("confirmed.subjectShort")} / ${translator("en")("confirmed.subjectShort")} — ${input.titles.en}`;
+  return compose(blocks, subject, translator("en")("confirmed.intro"));
 }
 
 export const BRAND_LABEL = BRAND_NAME;

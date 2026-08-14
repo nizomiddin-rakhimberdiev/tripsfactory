@@ -150,15 +150,21 @@ async function sendBookingEmail(lead: {
   pax?: number;
 }): Promise<void> {
   const locale = lead.locale ?? "en";
-  const [masterclass, booking] = await Promise.all([
-    lead.tourSlug ? getMasterclass(lead.tourSlug, locale) : undefined,
+  // The class named in each language the email is written in.
+  const [ru, en, booking] = await Promise.all([
+    lead.tourSlug ? getMasterclass(lead.tourSlug, "ru") : undefined,
+    lead.tourSlug ? getMasterclass(lead.tourSlug, "en") : undefined,
     getSiteBooking(),
   ]);
+  const masterclass = en ?? ru;
 
   const message = requestEmail({
     name: lead.name,
     locale,
-    title: masterclass?.title ?? lead.tourSlug ?? "",
+    titles: {
+      ru: ru?.title ?? en?.title ?? lead.tourSlug ?? "",
+      en: en?.title ?? ru?.title ?? lead.tourSlug ?? "",
+    },
     date: lead.date ?? null,
     guests: lead.pax ?? null,
     priceUsd: masterclass?.priceUsd ?? null,

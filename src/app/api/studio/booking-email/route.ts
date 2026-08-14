@@ -51,25 +51,27 @@ export async function POST(request: Request) {
 
   const locale = lead.locale ?? "en";
 
-  // The class as the guest reads it, not as we filed it. Falls back to the
-  // slug only if the record has since been deleted.
-  let title = lead.tourSlug ?? "";
+  // The class named in each language the email is written in. Falls back to
+  // the slug only if the record has since been deleted.
+  const titles = { ru: lead.tourSlug ?? "", en: lead.tourSlug ?? "" };
   let priceUsd: number | null = null;
   if (lead.tourSlug && lead.kind === "masterclass") {
-    const found = await payload
-      .find({
-        collection: "masterclasses",
-        where: { slug: { equals: lead.tourSlug } },
-        locale: locale as "en",
-        fallbackLocale: "en",
-        limit: 1,
-        depth: 0,
-      })
-      .catch(() => null);
-    const doc = found?.docs[0];
-    if (doc) {
-      title = doc.title;
-      priceUsd = doc.priceUsd;
+    for (const l of ["ru", "en"] as const) {
+      const found = await payload
+        .find({
+          collection: "masterclasses",
+          where: { slug: { equals: lead.tourSlug } },
+          locale: l,
+          fallbackLocale: "en",
+          limit: 1,
+          depth: 0,
+        })
+        .catch(() => null);
+      const doc = found?.docs[0];
+      if (doc) {
+        titles[l] = doc.title;
+        priceUsd = doc.priceUsd;
+      }
     }
   }
 
@@ -80,7 +82,7 @@ export async function POST(request: Request) {
   const input = {
     name: lead.name,
     locale,
-    title,
+    titles,
     date: lead.date,
     guests: lead.pax,
     priceUsd,
