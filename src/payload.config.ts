@@ -561,6 +561,28 @@ const Tours: CollectionConfig = {
       hasMany: true,
     },
     {
+      /**
+       * Ties the group and private versions of one itinerary together.
+       *
+       * They stay two records, because that is what they are on the site: two
+       * pages, two prices, two sets of departure dates, listed under
+       * /tours/group and /tours/private. What they share is the writing, and
+       * this is how the editor finds the other one to copy it across.
+       *
+       * Set when a pair is created together, or when a variant is added to a
+       * tour that already exists. Empty on a tour that has no sibling.
+       */
+      name: "variantKey",
+      type: "text",
+      label: "Variant kaliti",
+      index: true,
+      admin: {
+        readOnly: true,
+        description:
+          "Bir xil dasturning guruh va individual ko'rinishlarini bog'laydi. Avtomatik to'ldiriladi.",
+      },
+    },
+    {
       name: "route",
       type: "json",
       label: "Xarita marshruti",

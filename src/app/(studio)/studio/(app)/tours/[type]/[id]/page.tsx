@@ -8,6 +8,7 @@ import { TourEditor, type TourInitial } from "@/components/studio/TourEditor";
 import type { MediaRef } from "@/components/studio/fields";
 import { IconChevron } from "@/components/studio/icons";
 import { tourEditPath } from "@/lib/studio/tour-path";
+import { TourVariants, type Sibling } from "@/components/studio/TourVariants";
 
 export const dynamic = "force-dynamic";
 
@@ -20,6 +21,7 @@ type RawTour = {
   slug: string;
   type: string;
   tier: string;
+  variantKey?: string | null;
   durationDays: number;
   priceFromUsd?: number | null;
   singleSupplementUsd?: number | null;
@@ -71,10 +73,32 @@ export default async function StudioTourEditPage({
    */
   if (type !== raw.type) redirect(tourEditPath(raw.type, raw.id));
 
-  const [countriesRes, citiesRes] = await Promise.all([
+  /**
+   * The other versions of this itinerary, if it has any. Matched on the
+   * variant key rather than the slug, so renaming one does not orphan it.
+   */
+  const key =
+    raw.variantKey ?? raw.slug.replace(/-(group|private|custom)$/, "");
+  const [countriesRes, citiesRes, familyRes] = await Promise.all([
     payload.find({ collection: "countries", limit: 100, depth: 0, locale: "en" }),
     payload.find({ collection: "cities", limit: 200, depth: 0, locale: "en" }),
+    payload.find({
+      collection: "tours",
+      where: {
+        and: [{ variantKey: { equals: key } }, { id: { not_equals: raw.id } }],
+      },
+      limit: 10,
+      depth: 0,
+      locale: "en",
+    }),
   ]);
+
+  const siblings: Sibling[] = familyRes.docs.map((d) => ({
+    id: d.id,
+    type: d.type,
+    title: String(d.title ?? d.slug),
+    slug: d.slug,
+  }));
 
   const initial: TourInitial = {
     id: raw.id,
@@ -144,6 +168,9 @@ export default async function StudioTourEditPage({
         cities={citiesRes.docs.map((c) => ({ id: c.id, name: c.name }))}
         previewUrl={previewUrl}
       />
+      <div style={{ marginTop: 18 }}>
+        <TourVariants tourId={raw.id} type={raw.type} siblings={siblings} />
+      </div>
     </ToastProvider>
   );
 }

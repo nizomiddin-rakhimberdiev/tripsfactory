@@ -330,6 +330,10 @@ export interface Tour {
   singleSupplementUsd?: number | null;
   cities?: (number | City)[] | null;
   /**
+   * Bir xil dasturning guruh va individual ko'rinishlarini bog'laydi. Avtomatik to'ldiriladi.
+   */
+  variantKey?: string | null;
+  /**
    * Xaritada ko'rinadigan bekatlar (nom + koordinata). Studio'da xaritani bosib qo'shasiz.
    */
   route?:
@@ -830,6 +834,7 @@ export interface ToursSelect<T extends boolean = true> {
   priceFromUsd?: T;
   singleSupplementUsd?: T;
   cities?: T;
+  variantKey?: T;
   route?: T;
   heroImage?: T;
   gallery?: T;

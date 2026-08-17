@@ -1745,3 +1745,11 @@
     grid-column: span 1;
   }
 }
+
+/* A row of checkboxes where a select would only allow one answer. */
+.s-choices {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 20px;
+  padding: 9px 0 2px;
+}

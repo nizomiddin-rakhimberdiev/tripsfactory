@@ -19,6 +19,7 @@ import { LOCALE_CODES } from "@/lib/studio/locales";
 import { IconCheck, IconExternal, IconPlus, IconTrash } from "./icons";
 import { RoutePicker } from "./RoutePicker";
 import { GalleryPicker, type GalleryItem } from "./GalleryPicker";
+import { TYPE_LABEL, variantSlugs } from "@/lib/studio/variants";
 import type { RoutePoint } from "@/lib/content/types";
 
 type Departure = { date: string; priceUsd: number; status: string };
@@ -82,6 +83,23 @@ export function TourEditor({
   const [saving, setSaving] = useState(false);
   const patch = (p: Partial<TourInitial>) => setT((v) => ({ ...v, ...p }));
 
+  /**
+   * Which versions to create.
+   *
+   * Only asked on a new tour. A group tour and a private one are two records
+   * — two pages, two prices, two sets of dates — so ticking both here makes
+   * both, from this one form, sharing the writing and nothing else.
+   */
+  const [createTypes, setCreateTypes] = useState<string[]>([initial.type]);
+  const toggleCreateType = (value: string) =>
+    setCreateTypes((list) =>
+      list.includes(value)
+        ? list.filter((v) => v !== value)
+        : [...list, value].sort(
+            (a, b) => TYPES.findIndex((x) => x.value === a) - TYPES.findIndex((x) => x.value === b),
+          ),
+    );
+
   async function save() {
     setSaving(true);
     const shared = {
@@ -125,28 +143,55 @@ export function TourEditor({
     // Same form, same fields, one button — the alternative was a second,
     // shorter form that looked nothing like this one.
     if (t.id === null) {
-      const created = await create(bodies.en as Record<string, unknown>);
-      setSaving(false);
-      if (created === null) return;
+      const base = slugify(t.title.en ?? "");
+      if (!base) {
+        setSaving(false);
+        toast("Inglizcha nom lotin harflarida bo'lishi kerak", "error");
+        return;
+      }
+      const types = createTypes.length ? createTypes : [t.type];
+      const slugs = variantSlugs(base, types);
+      // A pair shares a key so the editor can find the other one later. A
+      // single tour has no sibling and no key.
+      const variantKey = types.length > 1 ? base : null;
+
+      for (const slug of Object.values(slugs)) {
+        if (await slugTaken("tours", slug)) {
+          setSaving(false);
+          toast(`«${slug}» manzili allaqachon band`, "error");
+          return;
+        }
+      }
+
       const rest = Object.fromEntries(
         Object.entries(bodies).filter(([loc]) => loc !== "en"),
       );
-      const { failed } = await sendPerLocale(
-        "PATCH",
-        `/api/tours/${created}`,
-        rest,
-        LOCALIZED,
-      );
+      const made: { type: string; id: number }[] = [];
+
+      for (const type of types) {
+        const id = await create(
+          { ...(bodies.en as Record<string, unknown>), type, variantKey },
+          slugs[type],
+        );
+        if (id === null) break;
+        await sendPerLocale("PATCH", `/api/tours/${id}`, rest, LOCALIZED);
+        made.push({ type, id });
+      }
+      setSaving(false);
+      if (!made.length) return;
+
       toast(
-        failed.length
-          ? saveMessage(failed)
+        made.length > 1
+          ? `${made.length} ta tur yaratildi: ${made.map((m) => TYPE_LABEL[m.type]).join(", ")}`
           : "Yaratildi — saytda ~5 daqiqada ko'rinadi",
-        failed.length ? "error" : "ok",
       );
-      router.replace(tourEditPath(t.type, created));
-      void fillTranslations("tours", created, toast, {
-        silentWhenNothingToDo: true,
-      });
+      // Land on the first one; the variants panel there links to the rest.
+      router.replace(tourEditPath(made[0].type, made[0].id));
+      for (const m of made) {
+        void fillTranslations("tours", m.id, toast, {
+          silentWhenNothingToDo: true,
+        });
+      }
       return;
     }
 
@@ -163,16 +208,10 @@ export function TourEditor({
   }
 
   /** Returns the new id, or null after reporting why it could not be made. */
-  async function create(body: Record<string, unknown>): Promise<number | null> {
-    const slug = slugify(t.title.en ?? "");
-    if (!slug) {
-      toast("Inglizcha nom lotin harflarida bo'lishi kerak", "error");
-      return null;
-    }
-    if (await slugTaken("tours", slug)) {
-      toast(`«${t.title.en}» nomli tur allaqachon bor`, "error");
-      return null;
-    }
+  async function create(
+    body: Record<string, unknown>,
+    slug: string,
+  ): Promise<number | null> {
     const res = await fetch("/api/tours?locale=en", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -214,11 +253,32 @@ export function TourEditor({
             <div className="s-section-title" style={{ margin: "0 0 16px" }}>Asosiy ma&apos;lumotlar</div>
             <div className="s-form">
               <div className="s-row2">
-                <Field label="Turi" required>
-                  <select className="s-select" value={t.type} onChange={(e) => patch({ type: e.target.value })}>
-                    {TYPES.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
-                  </select>
-                </Field>
+                {t.id === null ? (
+                  <Field
+                    label="Turi"
+                    required
+                    help="Bir nechtasini belgilasangiz, har biri uchun alohida tur yaratiladi — matn bir xil, narx va jo'nash sanalari alohida."
+                  >
+                    <div className="s-choices">
+                      {TYPES.map((o) => (
+                        <label key={o.value} className="s-check">
+                          <input
+                            type="checkbox"
+                            checked={createTypes.includes(o.value)}
+                            onChange={() => toggleCreateType(o.value)}
+                          />
+                          {o.label}
+                        </label>
+                      ))}
+                    </div>
+                  </Field>
+                ) : (
+                  <Field label="Turi" required>
+                    <select className="s-select" value={t.type} onChange={(e) => patch({ type: e.target.value })}>
+                      {TYPES.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
+                    </select>
+                  </Field>
+                )}
                 <Field label="Daraja" required help="Premium turlar alohida Premium bo'limida chiqadi.">
                   <select className="s-select" value={t.tier} onChange={(e) => patch({ tier: e.target.value })}>
                     {TIERS.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}

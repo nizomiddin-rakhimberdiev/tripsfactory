@@ -4,6 +4,7 @@ import * as migration_20260811_154856_add_masterclasses from './20260811_154856_
 import * as migration_20260813_155149_add_partners from './20260813_155149_add_partners';
 import * as migration_20260813_164136_add_booking_emails from './20260813_164136_add_booking_emails';
 import * as migration_20260813_170932_add_partner_assigned from './20260813_170932_add_partner_assigned';
+import * as migration_20260817_170757_add_tour_variant_key from './20260817_170757_add_tour_variant_key';
 
 export const migrations = [
   {
@@ -34,6 +35,11 @@ export const migrations = [
   {
     up: migration_20260813_170932_add_partner_assigned.up,
     down: migration_20260813_170932_add_partner_assigned.down,
-    name: '20260813_170932_add_partner_assigned'
+    name: '20260813_170932_add_partner_assigned',
+  },
+  {
+    up: migration_20260817_170757_add_tour_variant_key.up,
+    down: migration_20260817_170757_add_tour_variant_key.down,
+    name: '20260817_170757_add_tour_variant_key'
   },
 ];
