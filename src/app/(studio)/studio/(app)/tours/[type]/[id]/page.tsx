@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { getPayloadClient } from "@/lib/studio/auth";
 import { ToastProvider } from "@/components/studio/ui";
 import { DeleteDoc } from "@/components/studio/DeleteDoc";
@@ -7,6 +7,7 @@ import { RetranslateButton } from "@/components/studio/RetranslateButton";
 import { TourEditor, type TourInitial } from "@/components/studio/TourEditor";
 import type { MediaRef } from "@/components/studio/fields";
 import { IconChevron } from "@/components/studio/icons";
+import { tourEditPath } from "@/lib/studio/tour-path";
 
 export const dynamic = "force-dynamic";
 
@@ -50,15 +51,25 @@ function mediaRef(r: Ref | number | null | undefined): MediaRef {
 export default async function StudioTourEditPage({
   params,
 }: {
-  params: Promise<{ id: string }>;
+  params: Promise<{ type: string; id: string }>;
 }) {
-  const { id } = await params;
+  const { type, id } = await params;
   const payload = await getPayloadClient();
 
   const raw = (await payload
     .findByID({ collection: "tours", id, locale: "all", depth: 1 })
     .catch(() => null)) as RawTour | null;
   if (!raw) notFound();
+
+  /**
+   * The type in the path is a label, not the record. Two of them drift: an
+   * old bookmark to a tour that has since been switched from group to
+   * private, and a link built before the type was known. Correcting the URL
+   * rather than showing the page under the wrong one keeps the address bar
+   * honest — and keeps one canonical URL per tour, which is what makes the
+   * whole scheme worth having.
+   */
+  if (type !== raw.type) redirect(tourEditPath(raw.type, raw.id));
 
   const [countriesRes, citiesRes] = await Promise.all([
     payload.find({ collection: "countries", limit: 100, depth: 0, locale: "en" }),

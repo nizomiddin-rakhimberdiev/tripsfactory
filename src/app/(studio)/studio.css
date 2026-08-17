@@ -1687,3 +1687,61 @@
   border-radius: 4px;
   padding: 0 4px;
 }
+
+/* ------------------------------------------------------------- filter bar
+   Above the tour list. The controls are laid out on a wrapping grid rather
+   than a row: there are seven of them, and on a laptop half-width they have
+   to fold without any one of them shrinking to unusable. */
+.s-filters {
+  background: var(--s-panel);
+  border: 1px solid var(--s-border);
+  border-radius: var(--s-radius-lg);
+  padding: 14px 16px;
+  margin-bottom: 16px;
+  box-shadow: var(--s-shadow-xs);
+}
+
+.s-filters__row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(170px, 100%), 1fr));
+  gap: 10px 12px;
+}
+
+.s-filter {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  min-width: 0;
+}
+
+/* The search box earns twice the width; it is the control people reach for. */
+.s-filter--search {
+  grid-column: span 2;
+}
+
+.s-filter__label {
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--s-fg-muted);
+}
+
+.s-filters__foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--s-border);
+  font-size: 13px;
+  color: var(--s-fg-secondary);
+}
+
+@media (max-width: 640px) {
+  .s-filter--search {
+    grid-column: span 1;
+  }
+}

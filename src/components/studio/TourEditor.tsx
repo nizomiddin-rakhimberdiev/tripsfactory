@@ -13,6 +13,7 @@ import {
 import { saveMessage, sendPerLocale } from "@/lib/studio/save";
 import { fieldErrors, slugTaken, slugify } from "@/lib/studio/slug";
 import { fillTranslations } from "@/lib/studio/translate-client";
+import { tourEditPath } from "@/lib/studio/tour-path";
 import { useRouter } from "next/navigation";
 import { LOCALE_CODES } from "@/lib/studio/locales";
 import { IconCheck, IconExternal, IconPlus, IconTrash } from "./icons";
@@ -142,7 +143,7 @@ export function TourEditor({
           : "Yaratildi — saytda ~5 daqiqada ko'rinadi",
         failed.length ? "error" : "ok",
       );
-      router.replace(`/studio/tours/${created}`);
+      router.replace(tourEditPath(t.type, created));
       void fillTranslations("tours", created, toast, {
         silentWhenNothingToDo: true,
       });

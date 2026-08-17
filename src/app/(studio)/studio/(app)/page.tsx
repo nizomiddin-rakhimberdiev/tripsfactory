@@ -2,6 +2,7 @@ import Link from "next/link";
 import { connection } from "next/server";
 import { formatDateTime } from "@/lib/studio/datetime";
 import { getPayloadClient } from "@/lib/studio/auth";
+import { tourEditPath } from "@/lib/studio/tour-path";
 import {
   IconCompass,
   IconImage,
@@ -168,7 +169,7 @@ export default async function StudioDashboard() {
   const activity = [
     ...recentTours.docs.map((d) => ({
       id: `tour-${d.id}`,
-      href: `/studio/tours/${d.id}`,
+      href: tourEditPath(d.type, d.id),
       title: String(d.title ?? "Tur"),
       kind: "Tur",
       at: d.updatedAt as string,
