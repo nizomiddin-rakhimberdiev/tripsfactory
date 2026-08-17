@@ -54,6 +54,24 @@ export default async function StudioToursPage({
   if (status === "published") conditions.push({ published: { equals: true } });
   if (status === "draft") conditions.push({ published: { not_equals: true } });
 
+  /**
+   * The option lists narrow with the choice above them.
+   *
+   * They did not, and the result read as a bug because it was one: picking
+   * China left six Uzbek cities in the city list, because the list was every
+   * city in the database regardless of anything else selected. A filter that
+   * offers a combination returning nothing is worse than no filter — the
+   * operator concludes the data is wrong rather than the question.
+   */
+  const countryWhere: Where | undefined = region
+    ? { region: { equals: Number(region) } }
+    : undefined;
+  const cityWhere: Where | undefined = country
+    ? { country: { equals: Number(country) } }
+    : region
+      ? { "country.region": { equals: Number(region) } }
+      : undefined;
+
   const [res, total, regionDocs, countryDocs, cityDocs] = await Promise.all([
     payload.find({
       collection: "tours",
@@ -65,8 +83,22 @@ export default async function StudioToursPage({
     }),
     payload.count({ collection: "tours" }),
     payload.find({ collection: "regions", limit: 100, depth: 0, locale: "en", sort: "name" }),
-    payload.find({ collection: "countries", limit: 100, depth: 0, locale: "en", sort: "name" }),
-    payload.find({ collection: "cities", limit: 200, depth: 0, locale: "en", sort: "name" }),
+    payload.find({
+      collection: "countries",
+      where: countryWhere,
+      limit: 100,
+      depth: 0,
+      locale: "en",
+      sort: "name",
+    }),
+    payload.find({
+      collection: "cities",
+      where: cityWhere,
+      limit: 200,
+      depth: 0,
+      locale: "en",
+      sort: "name",
+    }),
   ]);
 
   const options = (docs: { id: number; name: string; slug: string }[]) =>

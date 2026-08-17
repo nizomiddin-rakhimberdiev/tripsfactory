@@ -39,11 +39,25 @@ export function TourFilters({
   // both restore the view exactly.
   const value = (key: string) => params.get(key) ?? "";
 
+  /**
+   * Changing a filter clears the narrower ones under it.
+   *
+   * Otherwise the selects disagree with each other: pick Uzbekistan, pick
+   * Samarkand, then switch to China — the city list is now Chinese, but
+   * `city=samarkand` is still in the URL and the page returns nothing, with
+   * the select showing a city that is not in its own options.
+   */
+  const CLEARS: Record<string, string[]> = {
+    region: ["country", "city"],
+    country: ["city"],
+  };
+
   function apply(next: Record<string, string>) {
     const merged = new URLSearchParams(params.toString());
     for (const [k, v] of Object.entries(next)) {
       if (v) merged.set(k, v);
       else merged.delete(k);
+      for (const narrower of CLEARS[k] ?? []) merged.delete(narrower);
     }
     router.replace(`${pathname}?${merged.toString()}`, { scroll: false });
   }
