@@ -120,6 +120,11 @@ function mapTour(doc: TourDoc): Tour {
     })),
     included: texts(doc.included),
     excluded: texts(doc.excluded),
+    goodToKnow: texts(doc.goodToKnow),
+    priceTiers: (doc.priceTiers ?? [])
+      .map((r) => ({ pax: r.pax, priceUsd: r.priceUsd }))
+      // Cheapest-per-person last is how every operator's rate card reads.
+      .sort((a, b) => a.pax - b.pax),
     heroImage: mediaUrl(doc.heroImage),
     gallery: galleryUrls(doc.gallery),
     route: Array.isArray(doc.route) ? (doc.route as Tour["route"]) : [],

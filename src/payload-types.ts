@@ -385,6 +385,25 @@ export interface Tour {
         id?: string | null;
       }[]
     | null;
+  /**
+   * Viza, ob-havo, kiyim, naqd pul, sug'urta — mijoz oldindan bilishi kerak bo'lgan narsalar. Saytda «Narxga kiradi / kirmaydi» ostida alohida blok bo'lib chiqadi. Bo'sh qoldirilsa blok chiqmaydi.
+   */
+  goodToKnow?:
+    | {
+        text: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Individual turlar uchun: guruh kattalashgani sari bir kishiga to'g'ri keladigan narx arzonlashadi. Har bir qator — «necha kishi» va «bir kishi uchun narx». Bo'sh qoldirilsa saytda jadval chiqmaydi.
+   */
+  priceTiers?:
+    | {
+        pax: number;
+        priceUsd: number;
+        id?: string | null;
+      }[]
+    | null;
   departures?:
     | {
         date: string;
@@ -857,6 +876,19 @@ export interface ToursSelect<T extends boolean = true> {
     | T
     | {
         text?: T;
+        id?: T;
+      };
+  goodToKnow?:
+    | T
+    | {
+        text?: T;
+        id?: T;
+      };
+  priceTiers?:
+    | T
+    | {
+        pax?: T;
+        priceUsd?: T;
         id?: T;
       };
   departures?:

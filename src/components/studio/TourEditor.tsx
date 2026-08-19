@@ -23,6 +23,7 @@ import { TYPE_LABEL, variantSlugs } from "@/lib/studio/variants";
 import type { RoutePoint } from "@/lib/content/types";
 
 type Departure = { date: string; priceUsd: number; status: string };
+type PriceTier = { pax: number; priceUsd: number };
 export type TourInitial = {
   /** null while the tour has not been created yet. */
   id: number | null;
@@ -42,6 +43,8 @@ export type TourInitial = {
   itinerary: Record<string, { title: string; description: string }[]>;
   included: Record<string, { text: string }[]>;
   excluded: Record<string, { text: string }[]>;
+  goodToKnow: Record<string, { text: string }[]>;
+  priceTiers: PriceTier[];
   departures: Departure[];
   route: RoutePoint[];
   gallery: GalleryItem[];
@@ -64,7 +67,7 @@ const DEP_STATUS = [
 ];
 
 /** Fields stored per locale; a locale with none of them filled in is not written. */
-const LOCALIZED = ["title", "summary", "itinerary", "included", "excluded"];
+const LOCALIZED = ["title", "summary", "itinerary", "included", "excluded", "goodToKnow"];
 
 export function TourEditor({
   initial,
@@ -113,6 +116,7 @@ export function TourEditor({
       country: t.country,
       cities: t.cities,
       heroImage: t.heroImage?.id ?? null,
+      priceTiers: t.priceTiers,
       departures: t.departures,
       route: t.route,
       gallery: t.gallery,
@@ -131,6 +135,7 @@ export function TourEditor({
           itinerary: t.itinerary[loc] ?? [],
           included: t.included[loc] ?? [],
           excluded: t.excluded[loc] ?? [],
+          goodToKnow: t.goodToKnow[loc] ?? [],
     });
     const bodies = Object.fromEntries(
       LOCALE_CODES.map((loc) => [
@@ -350,7 +355,75 @@ export function TourEditor({
             <div className="s-row2">
               <LocalizedList label="Narxga kiradi" value={t.included} onChange={(included) => patch({ included })} />
               <LocalizedList label="Narxga kirmaydi" value={t.excluded} onChange={(excluded) => patch({ excluded })} />
+              <LocalizedList
+                label="Muhim ma'lumot (Good to know)"
+                help="Viza, ob-havo, kiyim, naqd pul — mijoz oldindan bilishi kerak bo'lgan narsalar. Saytda alohida blok bo'lib chiqadi."
+                value={t.goodToKnow}
+                onChange={(goodToKnow) => patch({ goodToKnow })}
+              />
             </div>
+          </div>
+        </div>
+
+        <div className="s-card">
+          <div className="s-card__body">
+            <Field
+              label="Kishilar soniga qarab narx"
+              help="Individual turlar uchun: guruh kattalashgani sari bir kishiga to'g'ri keladigan narx arzonlashadi. Bo'sh qoldirilsa saytda jadval chiqmaydi."
+            >
+              <div className="s-repeat">
+                {t.priceTiers.map((r, i) => (
+                  <div key={i} className="s-departure-row">
+                    <input
+                      className="s-input"
+                      type="number"
+                      min={1}
+                      placeholder="Kishilar soni"
+                      value={r.pax || ""}
+                      onChange={(e) => {
+                        const next = [...t.priceTiers];
+                        next[i] = { ...r, pax: Number(e.target.value) };
+                        patch({ priceTiers: next });
+                      }}
+                    />
+                    <input
+                      className="s-input"
+                      type="number"
+                      min={0}
+                      placeholder="Bir kishi uchun narx ($)"
+                      value={r.priceUsd || ""}
+                      onChange={(e) => {
+                        const next = [...t.priceTiers];
+                        next[i] = { ...r, priceUsd: Number(e.target.value) };
+                        patch({ priceTiers: next });
+                      }}
+                    />
+                    <button
+                      type="button"
+                      className="s-btn s-btn--icon s-btn--danger"
+                      onClick={() => patch({ priceTiers: t.priceTiers.filter((_, j) => j !== i) })}
+                    >
+                      <IconTrash />
+                    </button>
+                  </div>
+                ))}
+                <button
+                  type="button"
+                  className="s-btn s-btn--sm"
+                  onClick={() =>
+                    patch({
+                      priceTiers: [
+                        ...t.priceTiers,
+                        // Next size up, so a rate card fills itself in order.
+                        { pax: (t.priceTiers.at(-1)?.pax ?? 0) + 1, priceUsd: 0 },
+                      ],
+                    })
+                  }
+                >
+                  <IconPlus /> Qator qo&apos;shish
+                </button>
+              </div>
+            </Field>
           </div>
         </div>
 

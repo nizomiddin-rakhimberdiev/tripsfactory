@@ -136,10 +136,12 @@ export function LocalizedText({
 /* ------------------------------------------------- localized list of {text} */
 export function LocalizedList({
   label,
+  help,
   value,
   onChange,
 }: {
   label: string;
+  help?: string;
   value: Record<string, { text: string }[]>;
   onChange: (v: Record<string, { text: string }[]>) => void;
 }) {
@@ -150,6 +152,7 @@ export function LocalizedList({
   return (
     <Field
       label={label}
+      help={help}
       right={
         <LocaleTabs
           active={active}

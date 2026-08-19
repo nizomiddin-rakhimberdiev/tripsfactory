@@ -40,6 +40,8 @@ const EMPTY: TourInitial = {
   itinerary: {},
   included: {},
   excluded: {},
+  goodToKnow: {},
+  priceTiers: [],
   departures: [],
   route: [],
   gallery: [],

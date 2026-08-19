@@ -5,6 +5,7 @@ import * as migration_20260813_155149_add_partners from './20260813_155149_add_p
 import * as migration_20260813_164136_add_booking_emails from './20260813_164136_add_booking_emails';
 import * as migration_20260813_170932_add_partner_assigned from './20260813_170932_add_partner_assigned';
 import * as migration_20260817_170757_add_tour_variant_key from './20260817_170757_add_tour_variant_key';
+import * as migration_20260819_072358_add_good_to_know_and_price_tiers from './20260819_072358_add_good_to_know_and_price_tiers';
 
 export const migrations = [
   {
@@ -40,6 +41,11 @@ export const migrations = [
   {
     up: migration_20260817_170757_add_tour_variant_key.up,
     down: migration_20260817_170757_add_tour_variant_key.down,
-    name: '20260817_170757_add_tour_variant_key'
+    name: '20260817_170757_add_tour_variant_key',
+  },
+  {
+    up: migration_20260819_072358_add_good_to_know_and_price_tiers.up,
+    down: migration_20260819_072358_add_good_to_know_and_price_tiers.down,
+    name: '20260819_072358_add_good_to_know_and_price_tiers'
   },
 ];

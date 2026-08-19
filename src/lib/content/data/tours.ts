@@ -87,6 +87,8 @@ export const tours: Tour[] = [
       "Lunches and dinners (except two cultural meals)",
       "Personal expenses and tips",
     ],
+    goodToKnow: [],
+    priceTiers: [],
     heroImage:
       "https://images.unsplash.com/photo-1596306499317-8490232098fa?w=1600",
     gallery: [],
@@ -149,6 +151,8 @@ export const tours: Tour[] = [
       "Entrance fees",
     ],
     excluded: ["International flights", "Insurance", "Meals not listed"],
+    goodToKnow: [],
+    priceTiers: [],
     heroImage:
       "https://images.unsplash.com/photo-1564507592333-c60657eea523?w=1600",
     gallery: [],
@@ -217,6 +221,8 @@ export const tours: Tour[] = [
       "Plov masterclass",
     ],
     excluded: ["International flights", "Insurance", "Most meals"],
+    goodToKnow: [],
+    priceTiers: [],
     heroImage:
       "https://images.unsplash.com/photo-1590069261209-f8e9b8642343?w=1600",
     gallery: [],
@@ -305,6 +311,8 @@ export const tours: Tour[] = [
       "All meals with wine pairings",
     ],
     excluded: ["International flights", "Charter flight supplement"],
+    goodToKnow: [],
+    priceTiers: [],
     heroImage:
       "https://images.unsplash.com/photo-1528164344705-47542687000d?w=1600",
     gallery: [],

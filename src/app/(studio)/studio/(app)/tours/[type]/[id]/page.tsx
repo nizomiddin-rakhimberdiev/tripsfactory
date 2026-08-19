@@ -35,6 +35,8 @@ type RawTour = {
   itinerary?: Record<string, { title: string; description: string }[]>;
   included?: Record<string, { text: string }[]>;
   excluded?: Record<string, { text: string }[]>;
+  goodToKnow?: Record<string, { text: string }[]>;
+  priceTiers?: { pax: number; priceUsd: number }[] | null;
   departures?: { date: string; priceUsd: number; status: string }[] | null;
   route?: { name: string; lat: number; lng: number; note?: string }[] | null;
   gallery?: { id: number; url: string }[] | null;
@@ -118,6 +120,8 @@ export default async function StudioTourEditPage({
     itinerary: raw.itinerary ?? {},
     included: raw.included ?? {},
     excluded: raw.excluded ?? {},
+    goodToKnow: raw.goodToKnow ?? {},
+    priceTiers: (raw.priceTiers ?? []).map((r) => ({ pax: r.pax, priceUsd: r.priceUsd })),
     departures: (raw.departures ?? []).map((d) => ({
       date: d.date,
       priceUsd: d.priceUsd,

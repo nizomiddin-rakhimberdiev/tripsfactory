@@ -45,6 +45,12 @@ export interface ItineraryDay {
   description: string;
 }
 
+/** One row of the per-person price table: this many travellers, this price each. */
+export interface PriceTier {
+  pax: number;
+  priceUsd: number;
+}
+
 export interface Departure {
   date: string; // ISO yyyy-mm-dd
   priceUsd: number;
@@ -73,6 +79,10 @@ export interface Tour {
   itinerary: ItineraryDay[];
   included: string[];
   excluded: string[];
+  /** "Good to know" — visas, weather, cash, what to pack. */
+  goodToKnow: string[];
+  /** Per-person prices by group size. Empty for tours sold at one price. */
+  priceTiers: PriceTier[];
   heroImage: string;
   gallery: string[];
   route?: RoutePoint[];

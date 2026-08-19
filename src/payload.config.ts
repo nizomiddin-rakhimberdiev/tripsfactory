@@ -657,6 +657,58 @@ const Tours: CollectionConfig = {
           labels: { singular: "Band", plural: "Bandlar" },
           fields: [{ name: "text", type: "text", label: "Matn", required: true }],
         },
+        {
+          name: "goodToKnow",
+          type: "array",
+          label: "Muhim ma'lumot (Good to know)",
+          localized: true,
+          labels: { singular: "Band", plural: "Bandlar" },
+          admin: {
+            description:
+              "Viza, ob-havo, kiyim, naqd pul, sug'urta — mijoz oldindan bilishi kerak bo'lgan narsalar. " +
+              "Saytda «Narxga kiradi / kirmaydi» ostida alohida blok bo'lib chiqadi. Bo'sh qoldirilsa blok chiqmaydi.",
+          },
+          fields: [{ name: "text", type: "text", label: "Matn", required: true }],
+        },
+      ],
+    },
+    {
+      type: "collapsible",
+      label: "Kishilar soniga qarab narx",
+      admin: { initCollapsed: true },
+      fields: [
+        {
+          name: "priceTiers",
+          type: "array",
+          label: "Narx jadvali",
+          labels: { singular: "Qator", plural: "Qatorlar" },
+          admin: {
+            description:
+              "Individual turlar uchun: guruh kattalashgani sari bir kishiga to'g'ri keladigan narx arzonlashadi. " +
+              "Har bir qator — «necha kishi» va «bir kishi uchun narx». Bo'sh qoldirilsa saytda jadval chiqmaydi.",
+          },
+          fields: [
+            {
+              type: "row",
+              fields: [
+                {
+                  name: "pax",
+                  type: "number",
+                  label: "Kishilar soni",
+                  required: true,
+                  min: 1,
+                },
+                {
+                  name: "priceUsd",
+                  type: "number",
+                  label: "Bir kishi uchun narx (USD)",
+                  required: true,
+                  min: 0,
+                },
+              ],
+            },
+          ],
+        },
       ],
     },
     {

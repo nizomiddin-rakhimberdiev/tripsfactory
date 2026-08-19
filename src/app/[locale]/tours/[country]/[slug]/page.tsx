@@ -18,6 +18,7 @@ import {
   IconMapPin,
   IconCheckCircle,
   IconXCircle,
+  IconInfoCircle,
   IconShieldCheck,
 } from "@/components/icons";
 import { tourJsonLd, breadcrumbJsonLd, pageMeta } from "@/lib/seo";
@@ -82,6 +83,18 @@ export default async function TourPage({
     await Promise.all(tour.citySlugs.map((s) => getCity(s, locale)))
   ).flatMap((c) => (c ? [c] : []));
   const cityNames = cityDocs.map((c) => c.name);
+  const goodToKnow = tour.goodToKnow ?? [];
+  const priceTiers = tour.priceTiers ?? [];
+  /**
+   * "From" is the cheapest a traveller can actually pay. When a tour is quoted
+   * as a rate card rather than one headline price, that number lives in the
+   * table — so the sidebar reads it there instead of saying "on request" above
+   * a list of prices.
+   */
+  const fromUsd =
+    tour.priceFromUsd ??
+    (priceTiers.length ? Math.min(...priceTiers.map((r) => r.priceUsd)) : null);
+
   const routePoints = (tour.route ?? []).length
     ? (tour.route ?? [])
     : cityDocs
@@ -105,8 +118,8 @@ export default async function TourPage({
     ...new Set([tour.heroImage, ...(tour.gallery ?? [])]),
   ].filter(Boolean);
   const approx =
-    tour.priceFromUsd !== null
-      ? approxLocalPrice(tour.priceFromUsd, currentLocale)
+    fromUsd !== null
+      ? approxLocalPrice(fromUsd, currentLocale)
       : null;
 
 
@@ -237,8 +250,10 @@ export default async function TourPage({
             </div>
           )}
 
-          {/* Included / Not included */}
-          {(tour.included.length > 0 || tour.excluded.length > 0) && (
+          {/* Included / Not included / Good to know */}
+          {(tour.included.length > 0 ||
+            tour.excluded.length > 0 ||
+            goodToKnow.length > 0) && (
             <div className="mb-12 grid gap-6 md:grid-cols-2">
               {tour.included.length > 0 && (
                 <div className="tf-card p-7">
@@ -272,6 +287,66 @@ export default async function TourPage({
                   </ul>
                 </div>
               )}
+              {goodToKnow.length > 0 && (
+                <div className="tf-card p-7 md:col-span-2">
+                  <h3 className="mb-5 flex items-center gap-2 text-lg font-semibold">
+                    <IconInfoCircle className="text-xl text-accent" />
+                    {t("goodToKnow")}
+                  </h3>
+                  <ul className="grid gap-3 text-sm text-muted sm:grid-cols-2">
+                    {goodToKnow.map((item) => (
+                      <li key={item} className="flex gap-3">
+                        <span className="text-accent">—</span>
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* Per-person price table — how a private tour is actually quoted */}
+          {priceTiers.length > 0 && (
+            <div className="mb-12">
+              <h2 className="tf-headline mb-6 text-2xl">{t("priceTable")}</h2>
+              <div className="tf-card overflow-x-auto">
+                <table className="w-full text-left text-sm">
+                  <thead className="tf-eyebrow tf-eyebrow-sm bg-surface-muted text-muted">
+                    <tr>
+                      <th scope="col" className="p-3 font-semibold sm:p-4">
+                        {t("travellers")}
+                      </th>
+                      <th scope="col" className="p-3 text-right font-semibold sm:p-4">
+                        {t("perPerson")}
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-border">
+                    {priceTiers.map((tier) => (
+                      <tr key={tier.pax} className="transition-colors hover:bg-surface-muted">
+                        <td className="whitespace-nowrap p-3 sm:p-4">
+                          {t("nPeople", { count: tier.pax })}
+                        </td>
+                        <td className="whitespace-nowrap p-3 text-right text-lg font-semibold text-primary sm:p-4">
+                          {formatUsd(tier.priceUsd)}
+                        </td>
+                      </tr>
+                    ))}
+                    {tour.singleSupplementUsd !== null && (
+                      <tr className="bg-surface-muted/50">
+                        <td className="whitespace-nowrap p-3 text-muted sm:p-4">
+                          {t("singleRoom")}
+                        </td>
+                        <td className="whitespace-nowrap p-3 text-right font-semibold text-muted sm:p-4">
+                          {formatUsd(tour.singleSupplementUsd)}
+                        </td>
+                      </tr>
+                    )}
+                  </tbody>
+                </table>
+              </div>
+              <p className="mt-3 text-xs text-muted">{t("priceTableNote")}</p>
             </div>
           )}
 
@@ -329,14 +404,14 @@ export default async function TourPage({
         <aside className="lg:col-span-4">
           <div className="sticky top-24 space-y-5">
             <div className="tf-card border border-border p-7">
-              {tour.priceFromUsd !== null ? (
+              {fromUsd !== null ? (
                 <div className="mb-6">
                   <p className="tf-eyebrow tf-eyebrow-sm mb-1 text-muted">
                     {t("startingFrom")}
                   </p>
                   <div className="flex items-baseline gap-2">
                     <span className="tf-display text-4xl text-primary">
-                      {formatUsd(tour.priceFromUsd)}
+                      {formatUsd(fromUsd)}
                     </span>
                     <span className="text-sm text-muted">
                       / {t("perPerson")}
@@ -412,13 +487,13 @@ export default async function TourPage({
       <div className="sticky bottom-0 z-40 border-t border-border tf-glass lg:hidden">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3">
           <div className="min-w-0">
-            {tour.priceFromUsd !== null ? (
+            {fromUsd !== null ? (
               <>
                 <span className="tf-eyebrow tf-eyebrow-sm block leading-none text-muted">
                   {t("startingFrom")}
                 </span>
                 <span className="text-lg font-semibold text-primary">
-                  {formatUsd(tour.priceFromUsd)}
+                  {formatUsd(fromUsd)}
                 </span>
                 <span className="ml-1 text-xs text-muted">
                   / {t("perPerson")}
