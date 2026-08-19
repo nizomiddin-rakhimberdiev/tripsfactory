@@ -82,7 +82,11 @@ async function callGemini(text: string, signal?: AbortSignal): Promise<string> {
   });
 
   if (!res.ok) {
-    throw new Error(`Gemini ${res.status}`);
+    // The status alone is not diagnosable: Gemini answers 400 for a bad key,
+    // a bad model name and a malformed body alike, and finding out which cost
+    // an afternoon once. The body says exactly what it objected to.
+    const detail = await res.text().catch(() => "");
+    throw new Error(`Gemini ${res.status}: ${detail.slice(0, 300)}`);
   }
   const data = (await res.json()) as {
     candidates?: { content?: { parts?: { text?: string }[] } }[];
