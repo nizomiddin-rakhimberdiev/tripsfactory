@@ -206,24 +206,29 @@ textarea:focus-visible {
   /* A 16:9 photo poured into a 9:19 phone viewport has to scale ~4x to cover,
    * which throws away the sides — the Registan arrived as one arch. A shorter
    * box on small screens keeps the composition; full height returns at md. */
+  /*
+   * Hero heights, for a plate rather than a backdrop.
+   *
+   * Held to the content column the photograph is at most 1104px wide, and the
+   * old viewport heights stood it on end: 88vh on a laptop made a portrait box
+   * out of a landscape photograph. These are floors, not fixed heights — a
+   * title that wraps to a third line still pushes the plate taller rather than
+   * being clipped by the overflow the rounding needs.
+   */
   .tf-hero-full {
-    min-height: 62vh;
-    min-height: 62svh;
+    min-height: 30rem;
   }
   @media (min-width: 768px) {
     .tf-hero-full {
-      min-height: 88vh;
-      min-height: 88svh;
+      min-height: 38rem;
     }
   }
   .tf-hero-tall {
-    min-height: 72vh;
-    min-height: 72svh;
+    min-height: 27rem;
   }
   @media (min-width: 768px) {
     .tf-hero-tall {
-      min-height: 82vh;
-      min-height: 82svh;
+      min-height: 33rem;
     }
   }
   .tf-panel-max {

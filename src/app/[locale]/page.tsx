@@ -87,35 +87,37 @@ export default async function HomePage({
       />
 
       {/* Hero */}
-      <section className="tf-hero-full relative flex items-center justify-center overflow-hidden">
-        <Image
-          src={site.hero.image}
-          alt=""
-          fill
-          priority
-          sizes="100vw"
-          /* Favour the architecture over the empty sky when the crop bites. */
-          className="object-cover object-[50%_58%] md:object-center"
-        />
-        <div className="absolute inset-0 tf-hero-scrim" />
-        <div className="relative z-10 mx-auto w-full max-w-4xl px-4 text-center text-white">
-          <p className="tf-eyebrow mb-6 text-white/85">
-            {t("heroEyebrow")}
-          </p>
-          <h1 className="tf-display tf-display-1">{site.hero.title}</h1>
-          <p className="mx-auto mt-7 max-w-xl text-lg leading-relaxed text-white/90">
-            {site.hero.subtitle}
-          </p>
+      <section className="mx-auto max-w-6xl px-4 pt-6 md:px-6">
+        <div className="tf-hero-full items-center justify-center relative flex overflow-hidden rounded-2xl shadow-[0_18px_50px_-28px_rgba(28,25,23,0.45)] ring-1 ring-inset ring-black/[0.06] sm:rounded-3xl">
+          <Image
+            src={site.hero.image}
+            alt=""
+            fill
+            priority
+            sizes="(min-width: 1152px) 1104px, 100vw"
+            /* Favour the architecture over the empty sky when the crop bites. */
+            className="object-cover object-[50%_58%] md:object-center"
+          />
+          <div className="absolute inset-0 tf-hero-scrim" />
+          <div className="relative z-10 mx-auto w-full max-w-4xl px-4 text-center text-white">
+            <p className="tf-eyebrow mb-6 text-white/85">
+              {t("heroEyebrow")}
+            </p>
+            <h1 className="tf-display tf-display-1">{site.hero.title}</h1>
+            <p className="mx-auto mt-7 max-w-xl text-lg leading-relaxed text-white/90">
+              {site.hero.subtitle}
+            </p>
           {/*
             One photograph, one line, one quiet action. A search field here
             would say "we are an inventory you query" — the promise of an OTA,
             not of an operator. Searching belongs on the index page, and that
             is where it now lives.
           */}
-          <div className="mt-10">
-            <Link href="/tours" className="tf-btn tf-btn-onimage">
-              {t("heroCta")}
-            </Link>
+            <div className="mt-10">
+              <Link href="/tours" className="tf-btn tf-btn-onimage">
+                {t("heroCta")}
+              </Link>
+            </div>
           </div>
         </div>
       </section>

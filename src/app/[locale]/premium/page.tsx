@@ -44,17 +44,18 @@ export default async function PremiumPage({
   return (
     <div className="bg-background text-foreground">
       {/* Cinematic hero */}
-      <section className="tf-hero-full relative flex items-center justify-center overflow-hidden">
-        <Image
-          src={site.premiumHero.image}
-          alt=""
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover opacity-45"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-transparent to-background" />
-        <div className="relative z-10 mx-auto max-w-3xl px-4 text-center">
+      <section className="mx-auto max-w-6xl px-4 pt-6 md:px-6">
+        <div className="tf-hero-full items-center justify-center relative flex overflow-hidden rounded-2xl shadow-[0_18px_50px_-28px_rgba(28,25,23,0.45)] ring-1 ring-inset ring-black/[0.06] sm:rounded-3xl">
+          <Image
+            src={site.premiumHero.image}
+            alt=""
+            fill
+            priority
+            sizes="(min-width: 1152px) 1104px, 100vw"
+            className="object-cover opacity-45"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-transparent to-background" />
+          <div className="relative z-10 mx-auto max-w-3xl px-4 text-center">
           <p className="tf-eyebrow mb-6 tracking-[0.3em] text-primary">
             {t("invitation")}
           </p>
@@ -62,12 +63,13 @@ export default async function PremiumPage({
           <p className="mx-auto mt-6 max-w-xl text-lg text-muted">
             {site.premiumHero.subtitle}
           </p>
-          <a
-            href="#journeys"
-            className="tf-eyebrow mt-10 inline-block border border-primary px-10 py-4 tracking-[0.2em] text-primary transition-all duration-300 hover:bg-primary hover:text-primary-foreground"
-          >
-            {t("cta")}
-          </a>
+            <a
+              href="#journeys"
+              className="tf-eyebrow mt-10 inline-block border border-primary px-10 py-4 tracking-[0.2em] text-primary transition-all duration-300 hover:bg-primary hover:text-primary-foreground"
+            >
+              {t("cta")}
+            </a>
+          </div>
         </div>
       </section>
 

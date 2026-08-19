@@ -79,25 +79,27 @@ export default async function CountryPage({
   return (
     <div>
       {/* Cinematic hero */}
-      <section className="tf-hero-tall relative flex items-end justify-center overflow-hidden">
-        <Image
-          src={c.heroImage}
-          alt={c.name}
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover"
-        />
-        <div className="absolute inset-0 tf-hero-scrim" />
-        <div className="relative z-10 mb-20 px-4 text-center text-white">
-          {regionName && (
-            <p className="tf-eyebrow mb-5 text-white/85">
-              {regionName}
-            </p>
-          )}
-          <h1 className="tf-display tf-display-1">
-            {c.name}
-          </h1>
+      <section className="mx-auto max-w-6xl px-4 pt-6 md:px-6">
+        <div className="tf-hero-tall items-end justify-center relative flex overflow-hidden rounded-2xl shadow-[0_18px_50px_-28px_rgba(28,25,23,0.45)] ring-1 ring-inset ring-black/[0.06] sm:rounded-3xl">
+          <Image
+            src={c.heroImage}
+            alt={c.name}
+            fill
+            priority
+            sizes="(min-width: 1152px) 1104px, 100vw"
+            className="object-cover"
+          />
+          <div className="absolute inset-0 tf-hero-scrim" />
+          <div className="relative z-10 mb-20 px-4 text-center text-white">
+            {regionName && (
+              <p className="tf-eyebrow mb-5 text-white/85">
+                {regionName}
+              </p>
+            )}
+            <h1 className="tf-display tf-display-1">
+              {c.name}
+            </h1>
+          </div>
         </div>
       </section>
 
