@@ -54,7 +54,18 @@ export function Carousel({
     <div
       onTouchStart={onTouchStart}
       onTouchEnd={onTouchEnd}
-      className={`relative ${aspect} overflow-hidden bg-surface ${rounded ? "rounded-2xl" : ""}`}
+      className={`relative ${aspect} overflow-hidden bg-surface ${
+        rounded
+          ? // Sat edge to edge, the photograph fought the page: nothing framed
+            // it, and on a wide desktop it filled the screen before a word of
+            // the tour had been read. Held to the same column as the header
+            // and the sections below, it reads as a plate on the page rather
+            // than a backdrop behind it. The hairline defines the edge against
+            // the cream ground — without it a pale sky simply dissolves — and
+            // the shadow is wide and faint, to lift rather than to announce.
+            "rounded-2xl shadow-[0_18px_50px_-28px_rgba(28,25,23,0.45)] ring-1 ring-inset ring-black/[0.06] sm:rounded-3xl"
+          : ""
+      }`}
     >
       {images.map((src, idx) =>
         seen.has(idx) ? (
@@ -64,7 +75,10 @@ export function Carousel({
             alt={alt}
             fill
             priority={idx === 0}
-            sizes={rounded ? "(max-width: 896px) 100vw, 896px" : "100vw"}
+            // The contained hero is at most max-w-6xl less its gutters. Asking
+            // for a narrower file than the box renders at is how a hero ends
+            // up soft on a retina laptop.
+            sizes={rounded ? "(min-width: 1152px) 1104px, 100vw" : "100vw"}
             className={`object-cover transition-opacity duration-700 ${
               idx === i ? "opacity-100" : "opacity-0"
             }`}

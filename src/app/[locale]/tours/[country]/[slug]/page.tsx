@@ -185,13 +185,12 @@ export default async function TourPage({
         </ol>
       </nav>
 
-      {/* Full-bleed hero — the photograph carries the page, uninterrupted */}
-      <section className="mt-4">
+      {/* Hero, held to the content column so the page has one edge */}
+      <section className="mx-auto mt-6 max-w-6xl px-4 md:px-6">
         <Carousel
           images={heroImages}
           alt={tour.title}
           aspect="aspect-[4/3] sm:aspect-[16/9] lg:aspect-[21/9]"
-          rounded={false}
         />
       </section>
 

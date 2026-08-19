@@ -127,14 +127,15 @@ export default async function CountryPage({
         </div>
       </article>
 
-      {/* Full-bleed gallery — photography gets the whole width */}
+      {/* Gallery, held to the content column so the page has one edge */}
       {c.gallery && c.gallery.length > 0 && (
-        <Carousel
-          images={c.gallery}
-          alt={c.name}
-          aspect="aspect-[4/3] sm:aspect-[16/9] lg:aspect-[21/9]"
-          rounded={false}
-        />
+        <div className="mx-auto mt-6 max-w-6xl px-4 md:px-6">
+          <Carousel
+            images={c.gallery}
+            alt={c.name}
+            aspect="aspect-[4/3] sm:aspect-[16/9] lg:aspect-[21/9]"
+          />
+        </div>
       )}
 
       {/* Tours */}

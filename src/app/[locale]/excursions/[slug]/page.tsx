@@ -121,12 +121,11 @@ export default async function ExcursionPage({
         </ol>
       </nav>
 
-      <section className="mt-4">
+      <section className="mx-auto mt-6 max-w-6xl px-4 md:px-6">
         <Carousel
           images={images}
           alt={excursion.title}
           aspect="aspect-[4/3] sm:aspect-[16/9] lg:aspect-[21/9]"
-          rounded={false}
         />
       </section>
 
