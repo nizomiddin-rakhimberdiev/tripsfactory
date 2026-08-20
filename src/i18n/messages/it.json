@@ -168,7 +168,8 @@
     "errEmail": "Inserisca un indirizzo email valido.",
     "errPhoneRequired": "Inserisca il suo telefono: confermiamo le prenotazioni per telefono.",
     "errPhone": "Scriva il numero in formato internazionale, ad esempio +998 90 123 45 67.",
-    "errPeople": "Inserisca un numero tra 1 e 100."
+    "errPeople": "Inserisca un numero tra 1 e 100.",
+    "orChat": "Ha una domanda? Scriveteci direttamente."
   },
   "footer": {
     "tagline": "La vostra porta sulla Via della Seta.",

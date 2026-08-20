@@ -80,6 +80,31 @@ export const EMAIL = "sales@tripsfactory.com";
 export const TELEGRAM = "https://t.me/tripsfactory_uzb";
 
 /**
+ * The two places a guest can start a conversation instead of filling a form.
+ *
+ * Deliberately separate from TELEGRAM above: that account is the one already
+ * cited in the footer, the booking emails and the schema.org identity, and the
+ * business supplied a different handle for chat. Overwriting one with the
+ * other would silently change what the structured data claims the operator is,
+ * so both stand until the business says they are the same account.
+ *
+ * WhatsApp is first because it is what a European or Japanese traveller
+ * reaches for; Telegram is what reaches the operator fastest at home.
+ */
+export const CHAT = [
+  {
+    label: "WhatsApp",
+    url: "https://wa.me/message/CH7D4TX2VOR7C1",
+    brand: "#25D366",
+  },
+  {
+    label: "Telegram",
+    url: "https://t.me/tripsfactory_tours",
+    brand: "#229ED9",
+  },
+] as const;
+
+/**
  * Opening hours as stated by the business. Days were not specified, so no
  * openingHoursSpecification is emitted in structured data — claiming a
  * seven-day week we were never told about would be a fabrication, and Google

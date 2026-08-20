@@ -168,7 +168,8 @@
     "errEmail": "Email manzilini to'g'ri kiriting.",
     "errPhoneRequired": "Telefon raqamingizni yozing — bronni telefon orqali tasdiqlaymiz.",
     "errPhone": "Raqamni xalqaro ko'rinishda yozing, masalan +998 90 123 45 67.",
-    "errPeople": "1 dan 100 gacha son kiriting."
+    "errPeople": "1 dan 100 gacha son kiriting.",
+    "orChat": "Savolingiz bormi? To'g'ridan-to'g'ri yozing."
   },
   "footer": {
     "tagline": "Ipak yo'liga ochilgan darvozangiz.",

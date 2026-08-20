@@ -16,6 +16,7 @@ import {
 } from "@/components/icons";
 import { excursionJsonLd, breadcrumbJsonLd, pageMeta } from "@/lib/seo";
 import { skipPrerender } from "@/lib/prerender";
+import { ChatLinks } from "@/components/ChatLinks";
 
 type Params = { locale: string; slug: string };
 
@@ -56,11 +57,12 @@ export default async function ExcursionPage({
   const excursion = await getExcursion(slug, locale);
   if (!excursion) notFound();
 
-  const [t, tours, nav, common, currentLocale] = await Promise.all([
+  const [t, tours, nav, common, tForm, currentLocale] = await Promise.all([
     getTranslations("excursions"),
     getTranslations("tours"),
     getTranslations("nav"),
     getTranslations("common"),
+    getTranslations("form"),
     getLocale() as Promise<Locale>,
   ]);
 
@@ -231,6 +233,12 @@ export default async function ExcursionPage({
         <div className="mx-auto max-w-3xl px-4 md:px-6">
           <div className="tf-card p-6 sm:p-9">
             <LeadForm tourSlug={excursion.slug} />
+            {/* The form is a one-way door; this is the other one. */}
+            <ChatLinks
+              variant="full"
+              label={tForm("orChat")}
+              className="mt-8 border-t border-border pt-6"
+            />
           </div>
         </div>
       </section>

@@ -168,7 +168,8 @@
     "errEmail": "Please enter a valid email address.",
     "errPhoneRequired": "Please enter your phone number — we confirm bookings by phone.",
     "errPhone": "Please enter the number in international format, for example +998 90 123 45 67.",
-    "errPeople": "Please enter a number between 1 and 100."
+    "errPeople": "Please enter a number between 1 and 100.",
+    "orChat": "Prefer to ask first? Message us directly."
   },
   "footer": {
     "tagline": "Your gateway to the Silk Road.",

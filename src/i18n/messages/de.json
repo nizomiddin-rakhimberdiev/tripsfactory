@@ -168,7 +168,8 @@
     "errEmail": "Bitte geben Sie eine gültige E-Mail-Adresse an.",
     "errPhoneRequired": "Bitte geben Sie Ihre Telefonnummer an — wir bestätigen Buchungen telefonisch.",
     "errPhone": "Bitte im internationalen Format angeben, zum Beispiel +998 90 123 45 67.",
-    "errPeople": "Bitte geben Sie eine Zahl zwischen 1 und 100 an."
+    "errPeople": "Bitte geben Sie eine Zahl zwischen 1 und 100 an.",
+    "orChat": "Lieber erst fragen? Schreiben Sie uns direkt."
   },
   "footer": {
     "tagline": "Ihr Tor zur Seidenstraße.",

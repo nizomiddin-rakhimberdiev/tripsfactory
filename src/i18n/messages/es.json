@@ -168,7 +168,8 @@
     "errEmail": "Indique un correo electrónico válido.",
     "errPhoneRequired": "Indique su teléfono: confirmamos las reservas por teléfono.",
     "errPhone": "Escriba el número en formato internacional, por ejemplo +998 90 123 45 67.",
-    "errPeople": "Indique un número entre 1 y 100."
+    "errPeople": "Indique un número entre 1 y 100.",
+    "orChat": "¿Prefiere preguntar antes? Escríbanos directamente."
   },
   "footer": {
     "tagline": "Su puerta a la Ruta de la Seda.",

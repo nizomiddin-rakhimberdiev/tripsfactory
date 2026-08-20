@@ -17,6 +17,7 @@ import {
 } from "@/components/icons";
 import { masterclassJsonLd, breadcrumbJsonLd, pageMeta } from "@/lib/seo";
 import { skipPrerender } from "@/lib/prerender";
+import { ChatLinks } from "@/components/ChatLinks";
 
 type Params = { locale: string; slug: string };
 
@@ -55,11 +56,12 @@ export default async function MasterclassPage({
   const m = await getMasterclass(slug, locale);
   if (!m) notFound();
 
-  const [t, tours, nav, common, currentLocale] = await Promise.all([
+  const [t, tours, nav, common, tForm, currentLocale] = await Promise.all([
     getTranslations("masterclasses"),
     getTranslations("tours"),
     getTranslations("nav"),
     getTranslations("common"),
+    getTranslations("form"),
     getLocale() as Promise<Locale>,
   ]);
 
@@ -307,6 +309,13 @@ export default async function MasterclassPage({
               askGuests
               heading={t("bookTitle")}
               sessionDate={next?.date}
+            />
+
+            {/* The form is a one-way door; this is the other one. */}
+            <ChatLinks
+              variant="full"
+              label={tForm("orChat")}
+              className="mt-8 border-t border-border pt-6"
             />
           </div>
         </div>

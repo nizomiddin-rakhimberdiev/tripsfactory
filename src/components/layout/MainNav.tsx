@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { Link, usePathname } from "@/i18n/navigation";
+import { ChatLinks } from "@/components/ChatLinks";
 
 export type NavCountry = { slug: string; regionSlug: string; name: string };
 export type NavRegion = { slug: string; name: string; countries: NavCountry[] };
@@ -267,8 +268,12 @@ export function MainNav({
         )}
       </nav>
 
-      {/* right cluster — language, then the hamburger below lg */}
-      <div className="ml-auto flex items-center gap-2 lg:ml-0 lg:justify-self-end">
+      {/* right cluster — chat, language, then the hamburger below lg */}
+      <div className="ml-auto flex items-center gap-1 sm:gap-2 lg:ml-0 lg:justify-self-end">
+        {/* Kept at every width, including the phone. The business asked for
+            these to be reachable at all times, and a traveller mid-trip with a
+            question is exactly the phone-sized case. */}
+        <ChatLinks />
         {localeSwitcher}
         <button
           type="button"
