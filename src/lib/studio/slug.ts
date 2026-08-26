@@ -38,6 +38,37 @@ export async function slugTaken(
 }
 
 /**
+ * The first set of slugs nobody has taken yet.
+ *
+ * `slugTaken` on its own can only refuse, which is right for a city — two
+ * places called Samarkand is a mistake worth stopping. It is wrong for a tour.
+ * Tour titles repeat legitimately: the same itinerary runs again next season,
+ * or sells as a group and a private version, and an operator with a hundred
+ * Uzbek itineraries names them the way the itineraries are named. The slug is
+ * invisible in the Studio, so refusing to create a tour because an unseen
+ * field collides tells the operator only that the button no longer works —
+ * which is exactly how it was reported: "after a hundred tours I cannot add
+ * any more."
+ *
+ * `build` is asked for a whole set so a variant pair keeps one suffix between
+ * them: `…-2-group` and `…-2-private`, never `…-group` and `…-2-private`.
+ */
+export async function freeSlugs(
+  collection: string,
+  build: (attempt: number) => Record<string, string>,
+  max = 50,
+): Promise<Record<string, string> | null> {
+  for (let attempt = 1; attempt <= max; attempt += 1) {
+    const candidates = build(attempt);
+    const taken = await Promise.all(
+      Object.values(candidates).map((slug) => slugTaken(collection, slug)),
+    );
+    if (!taken.some(Boolean)) return candidates;
+  }
+  return null;
+}
+
+/**
  * Field names as the editor sees them on screen.
  *
  * Payload reports the offending field by its schema name — "heroImage",

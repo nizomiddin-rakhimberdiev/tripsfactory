@@ -11,7 +11,7 @@ import {
   type MediaRef,
 } from "./fields";
 import { saveMessage, sendPerLocale } from "@/lib/studio/save";
-import { fieldErrors, slugTaken, slugify } from "@/lib/studio/slug";
+import { fieldErrors, freeSlugs, slugify } from "@/lib/studio/slug";
 import { fillTranslations } from "@/lib/studio/translate-client";
 import { tourEditPath } from "@/lib/studio/tour-path";
 import { useRouter } from "next/navigation";
@@ -155,18 +155,23 @@ export function TourEditor({
         return;
       }
       const types = createTypes.length ? createTypes : [t.type];
-      const slugs = variantSlugs(base, types);
+      // Repeated titles are normal in this catalogue — the same itinerary runs
+      // again, or sells in two formats — so a taken address takes the next free
+      // number rather than stopping the operator on a field the Studio never
+      // shows them.
+      let usedBase = base;
+      const slugs = await freeSlugs("tours", (attempt) => {
+        usedBase = attempt === 1 ? base : `${base}-${attempt}`;
+        return variantSlugs(usedBase, types);
+      });
+      if (!slugs) {
+        setSaving(false);
+        toast("Bu nom bilan juda ko'p tur bor — nomni biroz o'zgartiring", "error");
+        return;
+      }
       // A pair shares a key so the editor can find the other one later. A
       // single tour has no sibling and no key.
-      const variantKey = types.length > 1 ? base : null;
-
-      for (const slug of Object.values(slugs)) {
-        if (await slugTaken("tours", slug)) {
-          setSaving(false);
-          toast(`«${slug}» manzili allaqachon band`, "error");
-          return;
-        }
-      }
+      const variantKey = types.length > 1 ? usedBase : null;
 
       const rest = Object.fromEntries(
         Object.entries(bodies).filter(([loc]) => loc !== "en"),
