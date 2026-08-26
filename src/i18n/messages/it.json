@@ -84,7 +84,10 @@
     "assuranceText": "Pianificato da esperti locali, con partenze garantite e assistenza personale.",
     "viewAll": "Vedi tutti i tour",
     "listEyebrow": "Tutte le partenze",
-    "listIntro": "Percorsi privati e di gruppo lungo la Via della Seta e l'Asia centrale."
+    "listIntro": "Percorsi privati e di gruppo lungo la Via della Seta e l'Asia centrale.",
+    "types_private": "Tour privati",
+    "types_group": "Tour di gruppo",
+    "types_custom": "Tour su misura"
   },
   "excursions": {
     "title": "Eventi",

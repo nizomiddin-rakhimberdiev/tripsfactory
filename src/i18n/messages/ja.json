@@ -84,7 +84,10 @@
     "assuranceText": "地元の専門家が企画。催行保証と専任サポート付き。",
     "viewAll": "すべてのツアーを見る",
     "listEyebrow": "すべての出発日",
-    "listIntro": "シルクロードと中央アジアを巡る、グループとプライベートのルート。"
+    "listIntro": "シルクロードと中央アジアを巡る、グループとプライベートのルート。",
+    "types_private": "プライベートツアー",
+    "types_group": "グループツアー",
+    "types_custom": "カスタムツアー"
   },
   "excursions": {
     "title": "イベント",

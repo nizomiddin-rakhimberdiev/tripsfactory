@@ -39,7 +39,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     getTours(),
     getTours({ tier: "premium" }),
     getPublishedCountries(),
-    getGuides(),
+    flags.guide ? getGuides() : Promise.resolve([]),
     flags.excursions ? getExcursions() : Promise.resolve([]),
     flags.masterclasses ? getMasterclasses() : Promise.resolve([]),
   ]);
@@ -55,13 +55,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "/tours/group",
     "/tours/private",
     "/destinations",
-    "/guide",
     "/about",
     "/contact",
     "/privacy",
     "/terms",
     ...(flags.premium ? ["/premium"] : []),
     ...(flags.excursions ? ["/excursions"] : []),
+    ...(flags.guide ? ["/guide"] : []),
     ...(flags.masterclasses ? ["/masterclasses"] : []),
   ];
 

@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { setRequestLocale, getTranslations, getLocale } from "next-intl/server";
-import { Link } from "@/i18n/navigation";
+import { Link, redirect } from "@/i18n/navigation";
 import { flags } from "@/lib/flags";
 import { getExcursion, getExcursions } from "@/lib/content";
 import { locales, type Locale } from "@/i18n/routing";
@@ -51,9 +51,13 @@ export default async function ExcursionPage({
 }: {
   params: Promise<Params>;
 }) {
-  if (!flags.excursions) notFound();
   const { locale, slug } = await params;
   setRequestLocale(locale);
+  // Hidden, not deleted. These URLs have been live — they sit in inboxes and
+  // in search results — so a visitor following one is sent to the home page
+  // rather than shown a 404 they did nothing to deserve. Localized, so a /ja/
+  // link does not land on the English home page.
+  if (!flags.excursions) redirect({ href: "/", locale });
   const excursion = await getExcursion(slug, locale);
   if (!excursion) notFound();
 

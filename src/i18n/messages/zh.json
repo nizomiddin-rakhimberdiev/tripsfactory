@@ -84,7 +84,10 @@
     "assuranceText": "由当地专家规划，保证成团并提供专属支持。",
     "viewAll": "查看所有行程",
     "listEyebrow": "所有出发日期",
-    "listIntro": "穿行丝绸之路与中亚的团队与私人路线。"
+    "listIntro": "穿行丝绸之路与中亚的团队与私人路线。",
+    "types_private": "私人游",
+    "types_group": "团队游",
+    "types_custom": "定制游"
   },
   "excursions": {
     "title": "活动",

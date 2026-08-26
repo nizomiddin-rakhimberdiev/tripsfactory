@@ -84,7 +84,10 @@
     "assuranceText": "Planned by local experts, with guaranteed departures and personal support.",
     "viewAll": "View all tours",
     "listEyebrow": "Every departure",
-    "listIntro": "Group and private routes across the Silk Road and Central Asia."
+    "listIntro": "Group and private routes across the Silk Road and Central Asia.",
+    "types_private": "Private Tours",
+    "types_group": "Group Tours",
+    "types_custom": "Custom Tours"
   },
   "excursions": {
     "title": "Events",

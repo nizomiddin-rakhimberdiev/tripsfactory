@@ -84,7 +84,10 @@
     "assuranceText": "Mahalliy mutaxassislar rejalashtiradi: kafolatlangan jo'nashlar va shaxsiy qo'llab-quvvatlash.",
     "viewAll": "Barcha turlarni ko'rish",
     "listEyebrow": "Barcha jo'nashlar",
-    "listIntro": "Ipak yo'li va Markaziy Osiyo bo'ylab guruh va individual marshrutlar."
+    "listIntro": "Ipak yo'li va Markaziy Osiyo bo'ylab guruh va individual marshrutlar.",
+    "types_private": "Individual turlar",
+    "types_group": "Guruh turlari",
+    "types_custom": "Buyurtma turlar"
   },
   "excursions": {
     "title": "Tadbirlar",

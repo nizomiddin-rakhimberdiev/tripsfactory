@@ -57,6 +57,7 @@ export async function Header() {
           regions={navRegions}
           premium={flags.premium}
           events={flags.excursions}
+          guide={flags.guide}
           masterclasses={flags.masterclasses}
           localeSwitcher={<LocaleSwitcher />}
         />

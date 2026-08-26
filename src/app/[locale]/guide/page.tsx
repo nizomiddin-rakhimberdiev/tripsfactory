@@ -1,10 +1,11 @@
 import { setRequestLocale, getTranslations } from "next-intl/server";
-import { Link } from "@/i18n/navigation";
+import { Link, redirect } from "@/i18n/navigation";
 import { pageMeta } from "@/lib/seo";
 import { getGuides } from "@/lib/content";
 import { PageHeader } from "@/components/PageHeader";
 import { EmptyState } from "@/components/EmptyState";
 import { IconArrowRight } from "@/components/icons";
+import { flags } from "@/lib/flags";
 
 // ISR safety net only: every Studio save triggers on-demand revalidation
 // (revalidateSite in payload.config.ts), so content is never this stale. The
@@ -32,6 +33,9 @@ export default async function GuideIndexPage({
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
+  // Hidden, not deleted — see the note in flags.ts. An old link lands on the
+  // home page rather than a 404, and works again the moment the flag flips.
+  if (!flags.guide) redirect({ href: "/", locale });
   const [t, tours] = await Promise.all([
     getTranslations("guide"),
     getTranslations("tours"),

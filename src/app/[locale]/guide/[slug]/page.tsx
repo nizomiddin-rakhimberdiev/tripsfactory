@@ -4,6 +4,8 @@ import { getGuide, getGuides } from "@/lib/content";
 import { pageMeta } from "@/lib/seo";
 import { locales } from "@/i18n/routing";
 import { skipPrerender } from "@/lib/prerender";
+import { flags } from "@/lib/flags";
+import { redirect } from "@/i18n/navigation";
 
 type Params = { locale: string; slug: string };
 
@@ -43,6 +45,9 @@ export default async function GuidePage({
 }) {
   const { locale, slug } = await params;
   setRequestLocale(locale);
+  // Hidden, not deleted — see the note in flags.ts. An old link lands on the
+  // home page rather than a 404, and works again the moment the flag flips.
+  if (!flags.guide) redirect({ href: "/", locale });
   const guide = await getGuide(slug, locale);
   if (!guide) notFound();
 

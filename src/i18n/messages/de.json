@@ -84,7 +84,10 @@
     "assuranceText": "Von lokalen Experten geplant, mit garantierten Abreisen und persönlicher Betreuung.",
     "viewAll": "Alle Touren ansehen",
     "listEyebrow": "Alle Termine",
-    "listIntro": "Gruppen- und Privatrouten entlang der Seidenstraße und durch Zentralasien."
+    "listIntro": "Gruppen- und Privatrouten entlang der Seidenstraße und durch Zentralasien.",
+    "types_private": "Privatreisen",
+    "types_group": "Gruppenreisen",
+    "types_custom": "Individuelle Reisen"
   },
   "excursions": {
     "title": "Events",

@@ -122,6 +122,7 @@ export function MainNav({
   regions,
   premium,
   events,
+  guide,
   masterclasses,
   localeSwitcher,
 }: {
@@ -129,6 +130,7 @@ export function MainNav({
   regions: NavRegion[];
   premium: boolean;
   events: boolean;
+  guide: boolean;
   masterclasses: boolean;
   localeSwitcher: React.ReactNode;
 }) {
@@ -233,13 +235,15 @@ export function MainNav({
             {labels.masterclasses}
           </Link>
         )}
-        <Link
-          href="/guide"
-          aria-current={current("/guide")}
-          className={navClass("/guide")}
-        >
-          {labels.guide}
-        </Link>
+        {guide && (
+          <Link
+            href="/guide"
+            aria-current={current("/guide")}
+            className={navClass("/guide")}
+          >
+            {labels.guide}
+          </Link>
+        )}
         <Link
           href="/about"
           aria-current={current("/about")}
@@ -356,12 +360,14 @@ export function MainNav({
                 {labels.masterclasses}
               </Link>
             )}
-            <Link
-              href="/guide"
-              className="rounded-md px-2 py-1.5 hover:bg-surface-muted"
-            >
-              {labels.guide}
-            </Link>
+            {guide && (
+              <Link
+                href="/guide"
+                className="rounded-md px-2 py-1.5 hover:bg-surface-muted"
+              >
+                {labels.guide}
+              </Link>
+            )}
             <Link
               href="/about"
               className="rounded-md px-2 py-1.5 hover:bg-surface-muted"

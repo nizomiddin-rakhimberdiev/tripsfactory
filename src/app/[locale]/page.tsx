@@ -3,7 +3,8 @@ import { setRequestLocale, getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { pageMeta, travelAgencyJsonLd } from "@/lib/seo";
 import { getPublishedCountries, getSiteContent, getTours } from "@/lib/content";
-import { TourCard } from "@/components/tours/TourCard";
+import { groupTours } from "@/lib/content/group-tours";
+import { GroupedTours } from "@/components/tours/GroupedTours";
 
 // ISR safety net only: every Studio save triggers on-demand revalidation
 // (revalidateSite in payload.config.ts), so content is never this stale. The
@@ -58,7 +59,10 @@ export default async function HomePage({
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
-  const t = await getTranslations("home");
+  const [t, tours] = await Promise.all([
+    getTranslations("home"),
+    getTranslations("tours"),
+  ]);
   const [featured, countryList, site] = await Promise.all([
     getTours({ featuredOnly: true }, locale),
     getPublishedCountries(locale),
@@ -122,6 +126,42 @@ export default async function HomePage({
         </div>
       </section>
 
+      {/* Featured Tours */}
+      {featured.length > 0 && (
+        <section className="tf-section tf-reveal mx-auto max-w-6xl px-4 md:px-6">
+          <div className="mb-12 flex items-end justify-between gap-6">
+            <div>
+              <p className="tf-eyebrow mb-3 text-primary">
+                {t("featuredEyebrow")}
+              </p>
+              <h2 className="tf-display tf-display-2">{t("featuredTours")}</h2>
+            </div>
+            <Link
+              href="/tours"
+              className="tf-link hidden shrink-0 text-sm sm:block"
+            >
+              {t("viewAllTours")}
+            </Link>
+          </div>
+          {/* Same destination-then-type order as the Journeys page, from the
+              same helper — capped at a row apiece so the home page stays an
+              opening rather than the whole catalogue. */}
+          <GroupedTours
+            groups={groupTours(
+              featured,
+              new Map(countryList.map((c) => [c.slug, c.name])),
+              3,
+            )}
+            typeLabels={{
+              private: tours("types_private"),
+              group: tours("types_group"),
+              custom: tours("types_custom"),
+            }}
+            moreLabel={t("viewAllTours")}
+          />
+        </section>
+      )}
+
       {/*
         Previously a row of icons in circles — the feature grid every SaaS
         landing page ships. The three ideas are worth keeping; the furniture
@@ -140,31 +180,6 @@ export default async function HomePage({
           </div>
         </div>
       </section>
-
-      {/* Featured Tours */}
-      {featured.length > 0 && (
-        <section className="tf-section tf-reveal mx-auto max-w-6xl px-4 md:px-6">
-          <div className="mb-12 flex items-end justify-between gap-6">
-            <div>
-              <p className="tf-eyebrow mb-3 text-primary">
-                {t("featuredEyebrow")}
-              </p>
-              <h2 className="tf-display tf-display-2">{t("featuredTours")}</h2>
-            </div>
-            <Link
-              href="/tours"
-              className="tf-link hidden shrink-0 text-sm sm:block"
-            >
-              {t("viewAllTours")}
-            </Link>
-          </div>
-          <div className="grid grid-cols-2 gap-4 sm:gap-8 lg:grid-cols-3">
-            {featured.map((tour) => (
-              <TourCard key={tour.slug} tour={tour} />
-            ))}
-          </div>
-        </section>
-      )}
 
       {/* Explore Destinations — asymmetric editorial composition */}
       {countryList.length > 0 && (

@@ -1,7 +1,8 @@
 import { setRequestLocale, getTranslations } from "next-intl/server";
 import { getPublishedCountries, getTours } from "@/lib/content";
+import { groupTours } from "@/lib/content/group-tours";
 import { pageMeta } from "@/lib/seo";
-import { TourCard } from "@/components/tours/TourCard";
+import { GroupedTours } from "@/components/tours/GroupedTours";
 import { PageHeader } from "@/components/PageHeader";
 import { EmptyState } from "@/components/EmptyState";
 import { TourSearch } from "@/components/tours/TourSearch";
@@ -64,8 +65,8 @@ export default async function ToursPage({
               allDestinations: home("searchDestinationAll"),
               tourType: home("searchTourType"),
               allTours: home("searchTypeAll"),
-              group: t("type_group"),
-              private: t("type_private"),
+              group: t("types_group"),
+              private: t("types_private"),
               search: home("searchButton"),
             }}
           />
@@ -79,10 +80,22 @@ export default async function ToursPage({
           actionLabel={nav("contact")}
         />
       ) : (
-        <div className="mt-14 grid grid-cols-2 gap-4 sm:gap-8 lg:grid-cols-3">
-          {allTours.map((tour) => (
-            <TourCard key={tour.slug} tour={tour} headingLevel={2} />
-          ))}
+        /* Destination, then type — the order the operator sells in, and the
+           order a visitor already has in their head when they arrive. Every
+           tour places itself from its own country and type fields, so a tour
+           added in the Studio needs no change here. */
+        <div className="mt-14">
+          <GroupedTours
+            groups={groupTours(
+              allTours,
+              new Map(countryList.map((c) => [c.slug, c.name])),
+            )}
+            typeLabels={{
+              private: t("types_private"),
+              group: t("types_group"),
+              custom: t("types_custom"),
+            }}
+          />
         </div>
       )}
     </div>

@@ -84,7 +84,10 @@
     "assuranceText": "Planificado por expertos locales, con salidas garantizadas y atención personal.",
     "viewAll": "Ver todos los tours",
     "listEyebrow": "Todas las salidas",
-    "listIntro": "Rutas privadas y en grupo por la Ruta de la Seda y Asia Central."
+    "listIntro": "Rutas privadas y en grupo por la Ruta de la Seda y Asia Central.",
+    "types_private": "Tours privados",
+    "types_group": "Tours en grupo",
+    "types_custom": "Tours a medida"
   },
   "excursions": {
     "title": "Eventos",

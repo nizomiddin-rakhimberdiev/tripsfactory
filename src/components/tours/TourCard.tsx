@@ -28,9 +28,11 @@ export async function TourCard({
    *
    * Purely semantic — the look comes from .tf-card-title either way.
    */
-  headingLevel?: 2 | 3;
+  /** 4 is for the grouped catalogue, where a country heading and a type
+      heading already sit above the card. */
+  headingLevel?: 2 | 3 | 4;
 }) {
-  const Heading = `h${headingLevel}` as "h2" | "h3";
+  const Heading = `h${headingLevel}` as "h2" | "h3" | "h4";
   const [t, tp, locale] = await Promise.all([
     getTranslations("tours"),
     getTranslations("premium"),
