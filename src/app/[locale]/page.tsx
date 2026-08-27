@@ -103,7 +103,7 @@ export default async function HomePage({
             className="object-cover object-[50%_58%] md:object-center"
           />
           <div className="absolute inset-0 tf-hero-scrim" />
-          <div className="relative z-10 mx-auto w-full max-w-4xl px-4 text-center text-white">
+          <div className="tf-hero-copy relative z-10 mx-auto w-full max-w-4xl px-4 text-center text-white">
             <p className="tf-eyebrow mb-6 text-white/85">
               {t("heroEyebrow")}
             </p>

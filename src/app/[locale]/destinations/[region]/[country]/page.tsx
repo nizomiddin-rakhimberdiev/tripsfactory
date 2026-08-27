@@ -90,7 +90,7 @@ export default async function CountryPage({
             className="object-cover"
           />
           <div className="absolute inset-0 tf-hero-scrim" />
-          <div className="relative z-10 mb-20 px-4 text-center text-white">
+          <div className="tf-hero-copy relative z-10 mb-20 px-4 text-center text-white">
             {regionName && (
               <p className="tf-eyebrow mb-5 text-white/85">
                 {regionName}

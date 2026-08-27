@@ -389,24 +389,43 @@ textarea:focus-visible {
   /* Cinematic scrim over hero photography.
    *
    * Tinted with the logo's deep maroon rather than a neutral brown, and — the
-   * point of the rewrite — no longer thinnest where the words sit. It used to
-   * fall to 10% at 38% height, which is exactly where the headline lands, so
-   * white type had to fight a bright sky. A radial pool now sinks the middle,
-   * and the linear pass holds the edges. */
+   * point of the original rewrite — no longer thinnest where the words sit. It
+   * used to fall to 10% at 38% height, which is exactly where the headline
+   * lands, so white type had to fight a bright sky. A radial pool sinks the
+   * middle, and the linear pass holds the edges.
+   *
+   * Lightened afterwards, roughly a third off the middle and more off the
+   * foot, because the earlier pass bought its contrast by hiding the
+   * photograph — and the photograph is what the page is selling. The shape is
+   * unchanged: the pool still sits under the headline, the foot still carries
+   * the button. Legibility no longer rests on the scrim alone; see
+   * `.tf-hero-copy`. */
   .tf-hero-scrim {
     background:
       radial-gradient(
         75% 60% at 50% 48%,
-        rgb(45 8 12 / 0.58) 0%,
+        rgb(45 8 12 / 0.37) 0%,
         rgb(45 8 12 / 0.28) 55%,
         transparent 100%
       ),
       linear-gradient(
         180deg,
-        rgb(45 8 12 / 0.5) 0%,
+        rgb(45 8 12 / 0.25) 0%,
         rgb(45 8 12 / 0.28) 40%,
-        rgb(45 8 12 / 0.78) 100%
+        rgb(45 8 12 / 0.42) 100%
       );
+  }
+
+  /* White type over an editor-chosen photograph.
+   *
+   * The hero image comes from the CMS, so the scrim cannot be tuned to it —
+   * today's is a hazy mosque at dawn, tomorrow's could be a white salt flat at
+   * noon. A shadow this soft is invisible against the dark pool and is the only
+   * thing holding the headline together when the picture underneath is bright. */
+  .tf-hero-copy {
+    text-shadow:
+      0 1px 2px rgb(45 8 12 / 0.38),
+      0 2px 14px rgb(45 8 12 / 0.28);
   }
 
   /* Hairline gold rule — an editorial full stop under section eyebrows. */
