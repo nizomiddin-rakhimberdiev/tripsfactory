@@ -27,6 +27,20 @@ function localized(path: string) {
   }));
 }
 
+/**
+ * Regenerated rather than cached for the life of the deployment.
+ *
+ * Without this the file is built once and never again: a tour unpublished in
+ * the Studio stays listed, Google crawls it, and gets a 404. That is how a
+ * third of this sitemap came to point at pages that no longer exist — Search
+ * Console reported them as "not found", which is exactly what they were.
+ *
+ * The hour is the safety net. The real mechanism is `revalidateSite` in
+ * payload.config.ts, which invalidates this route on every content change, so
+ * publishing a tour puts it in the sitemap within seconds rather than an hour.
+ */
+export const revalidate = 3600;
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const [
     standard,

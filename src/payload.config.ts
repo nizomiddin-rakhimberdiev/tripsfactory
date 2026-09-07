@@ -143,6 +143,9 @@ async function revalidateSite(): Promise<void> {
       "/[locale]/contact",
     ];
     for (const p of pages) revalidatePath(p, "page");
+    // The sitemap is a route, not a page, and it reads the same content these
+    // pages do. Left out, it kept advertising tours that had been unpublished.
+    revalidatePath("/sitemap.xml");
   } catch {
     /* not in a Next request context (e.g. seed scripts) — ignore */
   }
@@ -1348,6 +1351,66 @@ const Leads: CollectionConfig = {
       admin: { readOnly: true },
     },
     {
+      /**
+       * What the acquirer knows about this booking.
+       *
+       * Written by the payment routes, never by hand — every field here is
+       * either issued by MultiCard or the rate we applied when the invoice was
+       * created. The rate is stored rather than recomputed because a guest
+       * disputing a charge is disputing the number that was true that day, and
+       * a rate looked up later cannot answer them.
+       */
+      name: "payment",
+      type: "group",
+      label: "To'lov",
+      admin: { description: "Avtomatik to'ldiriladi — qo'lda tahrirlanmaydi." },
+      fields: [
+        {
+          name: "uuid",
+          type: "text",
+          label: "MultiCard tranzaksiya ID",
+          index: true,
+          admin: { readOnly: true },
+        },
+        {
+          name: "url",
+          type: "text",
+          label: "To'lov havolasi",
+          admin: { readOnly: true },
+        },
+        {
+          name: "amountTiyin",
+          type: "number",
+          label: "Summa (tiyin)",
+          admin: { readOnly: true },
+        },
+        {
+          name: "rate",
+          type: "number",
+          label: "Qo'llanilgan kurs (1 USD)",
+          admin: { readOnly: true },
+        },
+        {
+          name: "cardPan",
+          type: "text",
+          label: "Karta",
+          admin: { readOnly: true },
+        },
+        {
+          name: "service",
+          type: "text",
+          label: "To'lov usuli",
+          admin: { readOnly: true },
+        },
+        {
+          name: "receiptUrl",
+          type: "text",
+          label: "Chek",
+          admin: { readOnly: true },
+        },
+      ],
+    },
+    {
       name: "status",
       type: "select",
       label: "Holat",
@@ -1472,6 +1535,55 @@ export default buildConfig({
                 description:
                   "Mijozga yuboriladigan to'lov sahifasi. Bo'sh qolsa xatda «to'lov ma'lumotlarini tez orada yuboramiz» deb yoziladi.",
               },
+            },
+            {
+              /**
+               * The commercial and fiscal settings the acquirer needs.
+               *
+               * Kept in Studio rather than in code because each one is a
+               * business decision that changes without a deploy: the spread the
+               * operator loses on conversion, the rate to fall back on when the
+               * Central Bank is unreachable, and the tax codes their accountant
+               * issues.
+               */
+              name: "markupPercent",
+              type: "number",
+              label: "Kurs ustamasi (%)",
+              defaultValue: 0,
+              admin: {
+                description:
+                  "Markaziy bank kursiga qo'shiladi — konvertatsiya va ekvayring xarajatlarini qoplaydi. 0 bo'lsa rasmiy kurs bo'yicha olinadi.",
+              },
+            },
+            {
+              name: "manualRate",
+              type: "number",
+              label: "Zaxira kurs (1 USD = ... so'm)",
+              admin: {
+                description:
+                  "Faqat Markaziy bank kursi olinmagan holatda ishlatiladi. Bo'sh qolsa va kurs olinmasa, to'lov havolasi yaratilmaydi.",
+              },
+            },
+            {
+              name: "mxik",
+              type: "text",
+              label: "MXIK (IKPU) kodi",
+              admin: {
+                description:
+                  "Soliq cheki uchun. tasnif.soliq.uz dan olinadi. Bo'sh qolsa to'lov ishlaydi, lekin fiskal chek shakllanmaydi.",
+              },
+            },
+            {
+              name: "packageCode",
+              type: "text",
+              label: "Package code",
+              admin: { description: "MXIK bilan birga tasnif.soliq.uz dan olinadi." },
+            },
+            {
+              name: "vat",
+              type: "number",
+              label: "QQS (%)",
+              admin: { description: "Soliq chekida ko'rsatiladi. Masalan 12." },
             },
             {
               name: "venue",
